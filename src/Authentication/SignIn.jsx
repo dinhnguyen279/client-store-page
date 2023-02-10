@@ -143,7 +143,7 @@ function SignIn(props) {
                 <div className="container-login100">
                     <div className="wrap-login100 signInForm p-l-55 p-r-55 p-t-65 p-b-50">
                         <span className="login100-form-title p-b-33">
-                            Sign In
+                            Đăng nhập
                         </span>
                         <div className="wrap-input100 validate-input" >
                             <input className="input100" type="text" placeholder="Email" value={email} onChange={onChangeEmail} />
@@ -164,7 +164,7 @@ function SignIn(props) {
                         </div>
 
                         <div className="text-center p-t-45 p-b-4">
-                            <span className="txt1">Create an account?</span>
+                            <span className="txt1">Tạo một tài khoản?</span>
                             &nbsp;
                             <Link to="/signup" className="txt2 hov1">
                                 Đăng ký

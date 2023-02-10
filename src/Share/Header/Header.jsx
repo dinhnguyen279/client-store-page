@@ -55,20 +55,20 @@ function Header(props) {
                     <span className="font-weight-bold text-uppercase text-dark">ACCESSORY STORE</span>
                 </Link>
 
-                {/* <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
-                </button> */}
+                </button>
 
                 <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                     {/* menu */}
                     <ul className="navbar-nav mr-auto">
                         <li className="nav-item" onClick={() => handlerActive('Home')}>
                             <Link className="nav-link" to={`/`}
-                                style={active === 'Home' ? { color: '#dcb14a' } : { color: 'black' }} >Home</Link>
+                                style={active === 'Home' ? { color: '#dcb14a' } : { color: 'black' }} >Trang chủ</Link>
                         </li>
                         <li className="nav-item" onClick={() => handlerActive('Shop')}>
                             <Link className="nav-link" to={`/shop`}
-                                style={active === 'Shop' ? { color: '#dcb14a' } : { color: 'black' }} >Shop</Link>
+                                style={active === 'Shop' ? { color: '#dcb14a' } : { color: 'black' }} >Cửa hàng</Link>
                         </li>
                     </ul>
 
@@ -76,7 +76,7 @@ function Header(props) {
                     <ul className="navbar-nav ml-auto">
                         {nameUser && <li className="nav-item">
                             <Link className="nav-link" to={`/cart`}>
-                                <i className="fas fa-dolly-flatbed mr-1 text-gray"></i>Cart
+                                <i className="fas fa-dolly-flatbed mr-1 text-gray"></i>Giỏ hàng
                             </Link>
                         </li>}
                         {nameUser ? (<Name />) : ''}

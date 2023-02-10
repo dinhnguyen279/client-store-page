@@ -5,7 +5,7 @@ function LogoutLink(props) {
     return (
         <li className="nav-item">
             <Link className="nav-link" to={`/signin`}>
-                <i className="fas fa-user-alt mr-1 text-gray"></i>Login
+                <i className="fas fa-user-alt mr-1 text-gray"></i>Đăng nhập
             </Link>
         </li>
     );

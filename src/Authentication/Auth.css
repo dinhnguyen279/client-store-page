@@ -185,7 +185,7 @@ iframe {
   row-gap: 30px;
 }
 
-.signInForm{
+.signInForm {
   display: flex;
   flex-direction: column;
   row-gap: 30px;

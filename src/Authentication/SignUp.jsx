@@ -47,6 +47,11 @@ function SignUp(props) {
         return validPhone.test(phone)
     }
 
+    const validatePassword = (password) => {
+        const validPassword = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{7,19}$/;
+        return validPassword.test(password)
+    }
+
     const validateForm = () => {
         let isValid = true;
         const error = {};
@@ -67,9 +72,9 @@ function SignUp(props) {
         if (!password) {
             isValid = false;
             error.password = "Mật khẩu không được để trống!"
-        } else if (password.length < 6) {
+        } else if (!validatePassword(password)) {
             isValid = false;
-            error.password = "Mật phải hơn 6 ký tự!"
+            error.password = "Mật khẩu phải từ 7-19 ký tự, ít nhất một chữ cái, một chữ số và một ký tự đặc biệt!"
         }
 
         if (!phone) {
@@ -155,12 +160,12 @@ function SignUp(props) {
                         <div className="container-login100-form-btn m-t-20">
                             {success && <Navigate replace to="/signin" />}
                             <button className="login100-form-btn" type='submit'>
-                                Sign Up
+                                Đăng ký
                             </button>
                         </div>
 
                         <div className="text-center p-t-45 p-b-4">
-                            <span className="txt1">Login?</span>
+                            <span className="txt1">Đăng nhập?</span>
                             &nbsp;
                             <Link to="/signin" className="txt2 hov1">
                                 Click

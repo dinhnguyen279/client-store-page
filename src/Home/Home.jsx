@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Image from '../Share/img/Image'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Carousel from '../components/Carousel';
 
 function Home(props) {
 
@@ -26,7 +27,7 @@ function Home(props) {
         <div className="page-holder">
             <header className="header bg-white">
 
-                {
+                {/* {
                     products && products.map(value => (
                         <div className="modal fade show" id={`product_${value._id}`} key={value._id}>
                             <div className="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -38,49 +39,44 @@ function Home(props) {
                                                 <img className="d-none" href={value.img2} />
                                                 <img className="d-none" href={value.img3} />
                                             </div>
-                                            <div className="col-lg-6">
-                                                {/* Để tắt modal phải có class="close" và data-dissmiss="modal" và aria-label="Close" */}
-                                                <a className="close p-4" type="button" href="#section_product" data-dismiss="modal" aria-label="Close">×</a>
-                                                <div className="p-5 my-md-4">
-                                                    <ul className="list-inline mb-2">
-                                                        <li className="list-inline-item m-0"><i className="fas fa-star small text-warning"></i></li>
-                                                        <li className="list-inline-item m-0"><i className="fas fa-star small text-warning"></i></li>
-                                                        <li className="list-inline-item m-0"><i className="fas fa-star small text-warning"></i></li>
-                                                        <li className="list-inline-item m-0"><i className="fas fa-star small text-warning"></i></li>
-                                                        <li className="list-inline-item m-0"><i className="fas fa-star small text-warning"></i></li>
-                                                    </ul>
-                                                    <h2 className="h4">{value.name}</h2>
-                                                    <p className="text-muted">${value.price}</p>
-                                                    <p className="text-small mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Vestibulum ultricies aliquam convallis.</p>
-                                                    <div className="row align-items-stretch mb-4">
-                                                        <div className="col-sm-5 pl-sm-0 fix_addwish">
-                                                            <a className="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0">
-                                                            <i className="far fa-heart mr-2"></i>Add Too Wish List</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                            <div className="col-lg-6"> */}
+                {/* Để tắt modal phải có class="close" và data-dissmiss="modal" và aria-label="Close" */}
+                {/* <a className="close p-4" type="button" href="#section_product" data-dismiss="modal" aria-label="Close">×</a>
+                <div className="p-5 my-md-4">
+                    <ul className="list-inline mb-2">
+                        <li className="list-inline-item m-0"><i className="fas fa-star small text-warning"></i></li>
+                        <li className="list-inline-item m-0"><i className="fas fa-star small text-warning"></i></li>
+                        <li className="list-inline-item m-0"><i className="fas fa-star small text-warning"></i></li>
+                        <li className="list-inline-item m-0"><i className="fas fa-star small text-warning"></i></li>
+                        <li className="list-inline-item m-0"><i className="fas fa-star small text-warning"></i></li>
+                    </ul>
+                    <h2 className="h4">{value.name}</h2>
+                    <p className="text-muted">${value.price}</p>
+                    <p className="text-small mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Vestibulum ultricies aliquam convallis.</p>
+                    <div className="row align-items-stretch mb-4">
+                        <div className="col-sm-5 pl-sm-0 fix_addwish">
+                            <a className="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0">
+                                <i className="far fa-heart mr-2"></i>Add Too Wish List</a>
                         </div>
+                    </div>
+                </div>
+        </div>
+                                        </div >
+                                    </div >
+                                </div >
+                            </div >
+                        </div >
                     ))
-                }
-                
+} */}
 
-                <div className="container">
+
+                <div className="container-fluid">
                     {/* Banner */}
-                    <section className="hero pb-3 bg-cover bg-center d-flex align-items-center" style={{ backgroundImage: `url(${Image.banner})` }}>
-                        <div className="container py-5">
-                            <div className="row px-4 px-lg-5">
-                                <div className="col-lg-6">
-                                    <p className="text-muted small text-uppercase mb-2">Hỗ trợ trả góp 0đ</p>
-                                    <h1 className="h2 text-uppercase mb-3">iPhone 14 Pro Max</h1><a className="btn btn-dark" href="shop.html">Mua ngay</a>
-                                </div>
-                            </div>
-                        </div>
+                    <section>
+                        <Carousel />
                     </section>
+
+
 
                     {/* dịch vụ */}
                     <section className="py-5 bg-light mt-5">
@@ -200,7 +196,6 @@ function Home(props) {
                         </div>
                     </section>
 
-
                     {/* <section className="py-5">
                         <div className="container p-0">
                             <div className="row">
@@ -222,8 +217,8 @@ function Home(props) {
                         </div>
                     </section> */}
                 </div>
-            </header>
-        </div>
+            </header >
+        </div >
     );
 }
 

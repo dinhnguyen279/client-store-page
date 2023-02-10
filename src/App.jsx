@@ -17,6 +17,7 @@ import SignUp from "./Authentication/SignUp";
 import Checkout from "./Checkout/Checkout";
 import History from "./History/History";
 import Shop from "./Shop/Shop";
+import Carousel from "./components/Carousel";
 
 function App() {
   return (
@@ -34,9 +35,7 @@ function App() {
           <Route path="/shop" element={<Shop />} />
         </Routes>
       </BrowserRouter>
-
       {/* <Chat /> */}
-
       <Footer />
     </div>
   );
