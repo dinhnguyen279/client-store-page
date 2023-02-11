@@ -22,19 +22,19 @@ function SignUp(props) {
     const [errors, setErrors] = useState({})
 
     const onChangeName = (e) => {
-        setFullName(e.target.value)
+        setFullName(e.target.value.replace(/\s/g, ""))
     }
 
     const onChangeEmail = (e) => {
-        setEmail(e.target.value)
+        setEmail(e.target.value.replace(/\s/g, ""))
     }
 
     const onChangePassword = (e) => {
-        setPassword(e.target.value)
+        setPassword(e.target.value.replace(/\s/g, ""))
     }
 
     const onChangePhone = (e) => {
-        setPhone(e.target.value)
+        setPhone(e.target.value.replace(/\s/g, ""))
     }
 
     const validateEmail = (email) => {
