@@ -25,7 +25,7 @@ function Footer(props) {
                         </ul>
                     </div>
                     <div className="col-md-4">
-                        <h6 className="text-uppercase mb-3">TDT Store</h6>
+                        <h6 className="text-uppercase mb-3">Accessory Store</h6>
                         <ul className="list-unstyled mb-0">
                             <li><a className="footer-link" href="/">Địa chỉ: 55 Trần Văn Quang, Phường 10, Quận Tân Bình.</a></li>
                             <li><a className="footer-link" href="/">Số điện thoại: 085 432 2789 - 093 596 8794</a></li>

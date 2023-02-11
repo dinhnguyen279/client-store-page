@@ -17,7 +17,7 @@ import SignUp from "./Authentication/SignUp";
 import Checkout from "./Checkout/Checkout";
 import History from "./History/History";
 import Shop from "./Shop/Shop";
-import Carousel from "./components/Carousel";
+import Contact from "./Contact/Contact";
 
 function App() {
   return (
@@ -33,6 +33,7 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/history" element={<History />} />
           <Route path="/shop" element={<Shop />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
       </BrowserRouter>
       {/* <Chat /> */}

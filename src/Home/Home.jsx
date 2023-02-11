@@ -196,7 +196,7 @@ function Home(props) {
                         </div>
                     </section>
 
-                    {/* <section className="py-5">
+                    <section className="py-5">
                         <div className="container p-0">
                             <div className="row">
                                 <div className="col-lg-6 mb-3 mb-lg-0">
@@ -215,7 +215,7 @@ function Home(props) {
                                 </div>
                             </div>
                         </div>
-                    </section> */}
+                    </section>
                 </div>
             </header >
         </div >

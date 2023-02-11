@@ -60,7 +60,7 @@ function Header(props) {
                 </button>
 
                 <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    {/* menu */}
+                    {/*  menu */}
                     <ul className="navbar-nav mr-auto">
                         <li className="nav-item" onClick={() => handlerActive('Home')}>
                             <Link className="nav-link" to={`/`}
@@ -69,6 +69,18 @@ function Header(props) {
                         <li className="nav-item" onClick={() => handlerActive('Shop')}>
                             <Link className="nav-link" to={`/shop`}
                                 style={active === 'Shop' ? { color: '#dcb14a' } : { color: 'black' }} >Cửa hàng</Link>
+                        </li>
+                        <li className="nav-item" onClick={() => handlerActive('Checkout')}>
+                            <Link className="nav-link" to={`/checkout`}
+                                style={active === 'Checkout' ? { color: '#dcb14a' } : { color: 'black' }} >Thanh toán</Link>
+                        </li>
+                        <li className="nav-item" onClick={() => handlerActive('Signup')}>
+                            <Link className="nav-link" to={`/signup`}
+                                style={active === 'Signup' ? { color: '#dcb14a' } : { color: 'black' }} >Đăng ký</Link>
+                        </li>
+                        <li className="nav-item" onClick={() => handlerActive('Contact')}>
+                            <Link className="nav-link" to={`/contact`}
+                                style={active === 'Contact' ? { color: '#dcb14a' } : { color: 'black' }} >Liên hệ</Link>
                         </li>
                     </ul>
 
@@ -84,6 +96,8 @@ function Header(props) {
                     </ul>
                 </div>
             </nav>
+
+
         </div>
     );
 }

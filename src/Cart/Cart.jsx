@@ -237,12 +237,12 @@ function Cart(props) {
                 <div className="container">
                     <div className="row px-4 px-lg-5 py-lg-4 align-items-center">
                         <div className="col-lg-6">
-                            <h1 className="h2 text-uppercase mb-0">Cart</h1>
+                            <h1 className="h2 text-uppercase mb-0">Giỏ hàng</h1>
                         </div>
                         <div className="col-lg-6 text-lg-right">
                             <nav aria-label="breadcrumb">
                                 <ol className="breadcrumb justify-content-lg-end mb-0 px-0">
-                                    <li className="breadcrumb-item active" aria-current="page">Cart</li>
+                                    <li className="breadcrumb-item active" aria-current="page">Giỏ hàng</li>
                                 </ol>
                             </nav>
                         </div>
@@ -263,7 +263,7 @@ function Cart(props) {
                             <div className="row align-items-center text-center">
                                 <div className="col-md-6 mb-3 mb-md-0 text-md-left">
                                     <Link className="btn btn-link p-0 text-dark btn-sm" to={`/shop`}>
-                                        <i className="fas fa-long-arrow-alt-left mr-2"> </i>Continue shopping
+                                        <i className="fas fa-long-arrow-alt-left mr-2"> </i>Tiếp mua mua sắm
                                     </Link>
                                 </div>
                                 <div className="col-md-6 text-md-right">

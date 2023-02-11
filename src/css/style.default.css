@@ -1,12 +1,4 @@
 /*
-=========================================
-=========================================
-
-   Boutique | Ecommerce bootstrap template
-
-=========================================
-========================================= */
-/*
 *
 * ==========================================
 * GENERAL
@@ -276,7 +268,7 @@ button:active {
 }
 
 .footer-link::before {
-  content: "\f0da";
+  content: " ";
   display: inline-block;
   font-weight: 900;
   position: absolute;
@@ -287,6 +279,7 @@ button:active {
   color: #fff;
   transition: all 0.3s;
   opacity: 0;
+  text-decoration: underline;
 }
 
 /*
