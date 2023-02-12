@@ -24,7 +24,7 @@ function Home(props) {
 
 
     return (
-        <div className="page-holder">
+        <div className="page-holder m-t-10">
             <header className="header bg-white">
 
                 {/* {

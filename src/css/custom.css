@@ -141,6 +141,7 @@ html {
   outline: none;
   padding: 5px 20px;
   margin-right: 20px;
+  margin-bottom: 20px;
   background: gray;
 }
 
@@ -160,4 +161,5 @@ html {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
