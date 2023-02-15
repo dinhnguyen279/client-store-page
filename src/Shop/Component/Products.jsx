@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
@@ -46,7 +46,7 @@ function Products(props) {
                                         <li className="list-inline-item m-0 p-0">
                                             <Link className="btn btn-sm btn-dark" to={`/detail/${value._id}`}>
                                                 Add to cart
-                                                            </Link>
+                                            </Link>
                                         </li>
                                         <li className="list-inline-item mr-0">
                                             {/* Dùng Modal phải có href để nó hiện ra thằng đó và thuộc tính data-toggle="modal" để mở modal*/}

@@ -8,17 +8,17 @@ const ProductAPI = {
     },
 
     getCategory: (query) => {
-        const url = `/product/category${query}`
+        const url = `/products/category${query}`
         return axiosClient.get(url)
     },
 
     getDetail: (id) => {
-        const url = `/product/${id}`
+        const url = `/products/${id}`
         return axiosClient.get(url)
     },
 
     getPagination: (query) => {
-        const url = `/product/pagination${query}`
+        const url = `/products/pagination${query}`
         return axiosClient.get(url)
     }
 

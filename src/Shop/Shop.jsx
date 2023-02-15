@@ -79,9 +79,9 @@ function Shop(props) {
         const fetchAllData = async () => {
 
             let response
-                response = await axios.get(URL_PRODUCT)
+            response = await axios.get(URL_PRODUCT)
             setProducts(response.data)
-            console.log('products',products);
+            console.log('products', products);
 
             // Nếu mà category === 'all' thì nó sẽ gọi hàm get tất cả sản phẩm
             // Ngược lại thì nó sẽ gọi hàm pagination và phân loại sản phẩm
@@ -96,11 +96,11 @@ function Shop(props) {
             //         search: pagination.search,
             //         category: pagination.category
             //     }
-    
+
             //     const query = queryString.stringify(params)
-    
+
             //     const newQuery = '?' + query
-    
+
             //     // response = await ProductAPI.getPagination(newQuery)
             //     response = await axios.get(`${URL_PRODUCT}/pagination${newQuery}`)
             //     console.log(response)
