@@ -7,6 +7,7 @@ import './Auth.css'
 import queryString from 'query-string'
 import CartAPI from '../API/CartAPI';
 import axios from 'axios';
+import UserAPI from '../API/UserAPI';
 
 function SignIn(props) {
     //test new validate
@@ -32,23 +33,14 @@ function SignIn(props) {
 
     const dispatch = useDispatch()
 
-    // useEffect(() => {
-
-    //     const fetchData = async () => {
-    //         const response = await UserAPI.getAllData()
-    //         setUser(response)
-
-    //     }
-
-    //     fetchData()
-
-    // }, [])
     useEffect(() => {
         const fetchData = async () => {
-            await axios.get('http://localhost:3003/users')
-                .then((res) => {
-                    setUser(res.data)
-                })
+            // await axios.get('http://localhost:3003/users')
+            //     .then((res) => {
+            //         setUser(res.data)
+            //     })
+            await UserAPI.getAllData().then((res) => setUser(res.data))
+
         }
         fetchData()
 
@@ -68,13 +60,14 @@ function SignIn(props) {
         const validEmail = /\S+@\S+\.\S+/;
         return validEmail.test(String(email).toLowerCase())
     }
+
     const validateFormSignin = () => {
         let isValid = true;
         const error = {};
 
         if (!email) {
             isValid = false;
-            error.email = "Email không tồn tại!"
+            error.email = "Email không được để trống!"
         } else if (!validateEmail(email)) {
             isValid = false;
             error.email = "Email không hợp lệ!"
@@ -82,8 +75,9 @@ function SignIn(props) {
 
         if (!password) {
             isValid = false;
-            error.password = "Mật khẩu không đúng!"
+            error.password = "Mật khẩu không được để trống!"
         }
+
         setErrors(error)
         return isValid
 
@@ -94,7 +88,7 @@ function SignIn(props) {
         validateFormSignin();
 
         const findUser = user.find(value => {
-            return value.email === email
+            return value.email === email && value.password === password
         })
 
         sessionStorage.setItem('id_user', findUser._id)
