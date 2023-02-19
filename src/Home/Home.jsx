@@ -4,12 +4,11 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Carousel from '../components/Carousel';
 import ProductAPI from '../API/ProductAPI';
-import axiosClient from '../API/axiosClient';
 
 function Home(props) {
 
     const [products, setProducts] = useState([])
-    const URL_PRODUCT = 'http://localhost:3003/products'
+    // const URL_PRODUCT = 'http://localhost:3003/products'
 
     //Fetch Product
     useEffect(() => {
@@ -45,9 +44,9 @@ function Home(props) {
                                     <div className="modal-body p-0">
                                         <div className="row align-items-stretch">
                                             <div className="col-lg-6 p-lg-0">
-                                                <img style={{ width: '100%' }} className="product-view d-block h-100 bg-cover bg-center" src={value.img1} data-lightbox={`product_${value._id}`} />
-                                                <img className="d-none" href={value.img2} />
-                                                <img className="d-none" href={value.img3} />
+                                                <img style={{ width: '100%' }} className="product-view d-block h-100 bg-cover bg-center" src={value.avt} data-lightbox={`product_${value._id}`} />
+                                                {/* <img className="d-none" href={value.album} />
+                                                <img className="d-none" href={value.avt} /> */}
                                             </div>
                                             <div className="col-lg-6">
                                                 {/* Để tắt modal phải có class="close" và data-dissmiss="modal" và aria-label="Close" */}
@@ -62,11 +61,11 @@ function Home(props) {
                                                     </ul>
                                                     <h2 className="h4">{value.name}</h2>
                                                     <p className="text-muted">${value.price}</p>
-                                                    <p className="text-small mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Vestibulum ultricies aliquam convallis.</p>
+                                                    <p className="text-small mb-4">{value.description}</p>
                                                     <div className="row align-items-stretch mb-4">
                                                         <div className="col-sm-5 pl-sm-0 fix_addwish">
                                                             <a className="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0">
-                                                                <i className="far fa-heart mr-2"></i>Thêm vào danh sách yêu thích</a>
+                                                                <i className="far fa-heart mr-2"></i>Thêm yêu thích</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -122,7 +121,7 @@ function Home(props) {
                                     <div className="d-inline-block">
                                         <div className="media align-items-end">
                                             <svg className="svg-icon svg-icon-big svg-icon-light">
-                                                <use xlinkHref="#label-tag-1"> </use>
+                                                <use xlinkHref="#label-tag-1"></use>
                                             </svg>
                                             <div className="media-body text-left ml-3">
                                                 <h6 className="text-uppercase mb-1">Chính sách bảo hành</h6>
@@ -178,14 +177,14 @@ function Home(props) {
                                             <div className="position-relative mb-3">
                                                 <div className="badge text-white badge-"></div>
                                                 <Link className="d-block" to={`/detail/${value._id}`}>
-                                                    <img className="img-fluid w-100" src={value.img1} alt="..." />
+                                                    <img className="img-fluid w-50" src={value.avt} alt="..." />
                                                 </Link>
                                                 <div className="product-overlay">
                                                     <ul className="mb-0 list-inline">
                                                         <li className="list-inline-item m-0 p-0"><a className="btn btn-sm btn-outline-dark"><i className="far fa-heart"></i></a></li>
                                                         <li className="list-inline-item m-0 p-0">
                                                             <Link className="btn btn-sm btn-dark" to={`/detail/${value._id}`}>
-                                                                Add to cart
+                                                                Thông tin sản phẩm
                                                             </Link>
                                                         </li>
                                                         <li className="list-inline-item mr-0">
@@ -197,7 +196,7 @@ function Home(props) {
                                                     </ul>
                                                 </div>
                                             </div>
-                                            <h6> <a className="reset-anchor" href="detail.html">{value.name}</a></h6>
+                                            <h6 className="reset-anchor">{value.name}</h6>
                                             <i className="small text-muted">${value.price}</i>
                                         </div>
                                     </div>

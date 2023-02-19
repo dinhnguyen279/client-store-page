@@ -15,9 +15,11 @@ import Cart from "./Cart/Cart";
 import SignIn from "./Authentication/SignIn";
 import SignUp from "./Authentication/SignUp";
 import Checkout from "./Checkout/Checkout";
-import History from "./History/History";
 import Shop from "./Shop/Shop";
 import Contact from "./Contact/Contact";
+import DetailUser from "./Authentication/DetailUser";
+import MainHistory from "./History/MainHistory";
+import DetailHistory from "./History/DetailHistory";
 
 function App() {
   return (
@@ -31,9 +33,11 @@ function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/checkout" element={<Checkout />} />
-          <Route path="/history" element={<History />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/detail-user" element={<DetailUser />} />
+          <Route path="/history" element={<MainHistory />} />
+          <Route path='/history/:id' element={<DetailHistory />} />
         </Routes>
       </BrowserRouter>
       {/* <Chat /> */}

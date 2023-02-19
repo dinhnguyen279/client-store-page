@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import HistoryAPI from '../../API/HistoryAPI';
+import HistoryAPI from '../API/HistoryAPI';
 import queryString from 'query-string'
 
 MainHistory.propTypes = {
-    
+
 };
 
 function MainHistory(props) {
@@ -18,12 +18,12 @@ function MainHistory(props) {
                 idUser: sessionStorage.getItem('id_user')
             }
 
-            const query = '?' + queryString.stringify(params)
+            const query = '?' + queryString.stringify(params.idUser)
 
             const response = await HistoryAPI.getHistoryAPI(query)
-            console.log(response)
+            console.log("history", response.data)
 
-            setListCart(response)
+            setListCart(response.data)
 
         }
 

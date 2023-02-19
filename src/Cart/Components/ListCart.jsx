@@ -71,12 +71,12 @@ function ListCart(props) {
             <table className="table">
                 <thead className="bg-light">
                     <tr className="text-center">
-                        <th className="border-0" scope="col"> <strong className="text-small text-uppercase">Image</strong></th>
-                        <th className="border-0" scope="col"> <strong className="text-small text-uppercase">Product</strong></th>
-                        <th className="border-0" scope="col"> <strong className="text-small text-uppercase">Price</strong></th>
-                        <th className="border-0" scope="col"> <strong className="text-small text-uppercase">Quantity</strong></th>
-                        <th className="border-0" scope="col"> <strong className="text-small text-uppercase">Total</strong></th>
-                        <th className="border-0" scope="col"> <strong className="text-small text-uppercase">Remove</strong></th>
+                        <th className="border-0" scope="col"> <strong className="text-small text-uppercase">Sản phẩm</strong></th>
+                        <th className="border-0" scope="col"> <strong className="text-small text-uppercase">Tên</strong></th>
+                        <th className="border-0" scope="col"> <strong className="text-small text-uppercase">Giá</strong></th>
+                        <th className="border-0" scope="col"> <strong className="text-small text-uppercase">Số lượng</strong></th>
+                        <th className="border-0" scope="col"> <strong className="text-small text-uppercase">Tổng cộng</strong></th>
+                        <th className="border-0" scope="col"> <strong className="text-small text-uppercase">Xóa</strong></th>
                     </tr>
                 </thead>
                 <tbody>

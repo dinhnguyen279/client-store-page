@@ -8,6 +8,7 @@ import CartAPI from "../API/CartAPI";
 import queryString from "query-string";
 import CommentAPI from "../API/CommentAPI";
 import axios from "axios";
+import axiosClient from "../API/axiosClient";
 
 function Detail(props) {
   const [detail, setDetail] = useState({});
@@ -15,7 +16,8 @@ function Detail(props) {
   const dispatch = useDispatch();
 
   //id params cho từng sản phẩm
-  const { id } = useParams();
+  let { id } = useParams();
+  console.log("id product:", id);
 
   //id_user được lấy từ redux
   const id_user = useSelector((state) => state.Cart.id_user);
@@ -50,7 +52,7 @@ function Detail(props) {
         idProduct: id,
       };
       const query = "?" + queryString.stringify(params);
-      const response = await CommentAPI.getCommentProduct(query);
+      // const response = await CommentAPI.getCommentProduct(query);
       set_list_comment(response);
     };
     fetchData();
@@ -84,7 +86,7 @@ function Detail(props) {
 
       const query = "?" + queryString.stringify(params);
 
-      const response = await CommentAPI.postCommentProduct(query);
+      // const response = await CommentAPI.postCommentProduct(query);
       console.log(response);
 
       set_load_comment(true);
@@ -113,8 +115,8 @@ function Detail(props) {
   //Hàm này gọi API và cắt chỉ lấy 4 sản phẩm
   useEffect(() => {
     const fetchData = async () => {
-      // const response = await ProductAPI.getAPI()
-      const response = await axios.get(URL_PRODUCT);
+      const response = await ProductAPI.getAPI()
+      // const response = await axios.get(URL_PRODUCT);
       const data = response.data.splice(0, 4);
       setProduct(data);
     };
@@ -143,14 +145,16 @@ function Detail(props) {
   //Hàm này để lấy dữ liệu chi tiết sản phẩm
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get(`${URL_PRODUCT}/${id}`);
-      // const response = await ProductAPI.getDetail(id)
-      console.log("get detail", response);
-      setDetail(response.data);
+      // const response = await axios.get(`${URL_PRODUCT}/${id}`);
+      const response = await ProductAPI.getAPI(id)
+
+      console.log("get detail data", response.data);
+
+      setDetail(response.data[0])
+
     };
     fetchData();
   }, [id]);
-
   //Phần này dùng để xem review hay description
   const [review, setReview] = useState("description");
   const handlerReview = (value) => {
@@ -161,9 +165,9 @@ function Detail(props) {
   const addToCart = () => {
     let id_user_cart = "";
     if (!sessionStorage.getItem("id_user")) {
-        alertify.error("Bạn phải đăng nhập!");
-        return;
-    } 
+      alertify.error("Bạn phải đăng nhập!");
+      return;
+    }
 
     id_user_cart = sessionStorage.getItem("id_user");
     const data = {
@@ -172,9 +176,9 @@ function Detail(props) {
       nameProduct: detail.name,
       priceProduct: detail.price,
       count: text,
-      img: detail.img1,
+      img: detail.avt,
     };
-
+    console.log("addToCart: ", data);
     if (sessionStorage.getItem("id_user")) {
       const fetchPost = async () => {
         const params = {
@@ -207,16 +211,16 @@ function Detail(props) {
                   data-slider-id="1"
                 >
                   <div className="owl-thumb-item flex-fill mb-2 mr-2 mr-sm-0">
-                    <img className="w-100" src={detail.img1} alt="..." />
+                    <img className="w-100" src={detail.avt} alt="..." />
                   </div>
                   <div className="owl-thumb-item flex-fill mb-2 mr-2 mr-sm-0">
-                    <img className="w-100" src={detail.img2} alt="..." />
+                    <img className="w-100" src={detail.avt} alt="..." />
                   </div>
                   <div className="owl-thumb-item flex-fill mb-2 mr-2 mr-sm-0">
-                    <img className="w-100" src={detail.img3} alt="..." />
+                    <img className="w-100" src={detail.avt} alt="..." />
                   </div>
                   <div className="owl-thumb-item flex-fill mb-2 mr-2 mr-sm-0">
-                    <img className="w-100" src={detail.img4} alt="..." />
+                    <img className="w-100" src={detail.avt} alt="..." />
                   </div>
                 </div>
               </div>
@@ -230,31 +234,31 @@ function Detail(props) {
                   <div className="carousel-item active">
                     <img
                       className="d-block w-100"
-                      src={detail.img1}
+                      src={detail.avt}
                       alt="First slide"
                     />
                   </div>
-                  <div className="carousel-item">
+                  {/* <div className="carousel-item">
                     <img
                       className="d-block w-100"
-                      src={detail.img2}
+                      src={detail.avt}
                       alt="Second slide"
                     />
                   </div>
                   <div className="carousel-item">
                     <img
                       className="d-block w-100"
-                      src={detail.img3}
+                      src={detail.avt}
                       alt="Third slide"
                     />
                   </div>
                   <div className="carousel-item">
                     <img
                       className="d-block w-100"
-                      src={detail.img4}
+                      src={detail.avt}
                       alt="Third slide"
                     />
-                  </div>
+                  </div> */}
                 </div>
                 <a
                   className="carousel-control-prev"
@@ -286,19 +290,29 @@ function Detail(props) {
           <div className="col-lg-6">
             <ul className="list-inline mb-2">
               <li className="list-inline-item m-0">
-                <i className="fas fa-star small text-warning"></i>
+                <i className="fas fa-star small text-warning" style={{
+                  cursor: "pointer"
+                }}></i>
               </li>
               <li className="list-inline-item m-0">
-                <i className="fas fa-star small text-warning"></i>
+                <i className="fas fa-star small text-warning" style={{
+                  cursor: "pointer"
+                }}></i>
               </li>
               <li className="list-inline-item m-0">
-                <i className="fas fa-star small text-warning"></i>
+                <i className="fas fa-star small text-warning" style={{
+                  cursor: "pointer"
+                }}></i>
               </li>
               <li className="list-inline-item m-0">
-                <i className="fas fa-star small text-warning"></i>
+                <i className="fas fa-star small text-warning" style={{
+                  cursor: "pointer"
+                }}></i>
               </li>
               <li className="list-inline-item m-0">
-                <i className="fas fa-star small text-warning"></i>
+                <i className="fas fa-star small text-warning" style={{
+                  cursor: "pointer"
+                }}></i>
               </li>
             </ul>
             <h1>{detail.name}</h1>
@@ -313,7 +327,7 @@ function Detail(props) {
               <div className="col-sm-5 pr-sm-0">
                 <div className="border d-flex align-items-center justify-content-between py-1 px-3 bg-white border-white">
                   <span className="small text-uppercase text-gray mr-4 no-select">
-                    Quantity
+                    Số lượng
                   </span>
                   <div className="quantity">
                     <button
@@ -342,27 +356,27 @@ function Detail(props) {
                   className="btn btn-dark btn-sm btn-block d-flex align-items-center justify-content-center px-0 text-white"
                   onClick={addToCart}
                 >
-                  Add to cart
+                  Thêm vào giỏ hàng
                 </a>
               </div>
               <a className="btn btn-link text-dark p-1 mb-4" href="#">
-                <i className="far fa-heart mr-2"></i>Add to wish list
+                <i className="far fa-heart mr-2"></i>Thêm yêu thích
               </a>
               <br></br>
               <ul className="list-unstyled small d-inline-block">
                 <li className="px-3 py-2 mb-1 bg-white">
                   <strong className="text-uppercase">SKU:</strong>
-                  <span className="ml-2 text-muted">039</span>
+                  <span className="ml-2 text-muted">{detail.SKU}</span>
                 </li>
                 <li className="px-3 py-2 mb-1 bg-white text-muted">
                   <strong className="text-uppercase text-dark">
                     Category:
                   </strong>
-                  <a className="reset-anchor ml-2">{detail.category}s</a>
+                  <a className="reset-anchor ml-2">{detail.category}</a>
                 </li>
                 <li className="px-3 py-2 mb-1 bg-white text-muted">
-                  <strong className="text-uppercase text-dark">Tags:</strong>
-                  <a className="reset-anchor ml-2">Innovation</a>
+                  <strong className="text-uppercase text-dark">Size:</strong>
+                  <a className="reset-anchor ml-2">{detail.size}</a>
                 </li>
               </ul>
             </div>
@@ -437,14 +451,7 @@ function Detail(props) {
               <div className="p-4 p-lg-5 bg-white">
                 <h6 className="text-uppercase">Product description </h6>
                 <p className="text-muted text-small mb-0">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                  cupidatat non proident, sunt in culpa qui officia deserunt
-                  mollit anim id est laborum.
+                  {detail.description}
                 </p>
               </div>
             </div>
@@ -508,7 +515,7 @@ function Detail(props) {
                     <Link className="d-block" to={`/detail/${value._id}`}>
                       <img
                         className="img-fluid w-100"
-                        src={value.img1}
+                        src={value.avt}
                         alt="..."
                       />
                     </Link>
@@ -528,12 +535,11 @@ function Detail(props) {
                     </div>
                   </div>
                   <h6>
-                    {" "}
                     <a className="reset-anchor" href="detail.html">
-                      Kui Ye Chen’s AirPods
+                      {value.name}
                     </a>
                   </h6>
-                  <p className="small text-muted">$250</p>
+                  <i className="small text-muted">${value.price}</i>
                 </div>
               </div>
             ))}

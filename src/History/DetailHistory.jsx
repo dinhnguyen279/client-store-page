@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import HistoryAPI from '../../API/HistoryAPI';
+import HistoryAPI from '../API/HistoryAPI';
 
 function DetailHistory(props) {
 
