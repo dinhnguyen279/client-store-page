@@ -10,6 +10,98 @@ html {
   font-family: Roboto, sans-serif;
 }
 
+/* User Profile */
+.main-profile {
+  background: rgb(220, 220, 220);
+}
+
+.name-profile {
+  text-align: left;
+}
+
+.btn-detail {
+  border-radius: 8px;
+  outline: none;
+  transition: 0.5s ease-in-out;
+  padding: 10px 20px;
+}
+
+.link-profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.link-profile:focus {
+  color: white;
+}
+
+.card-profile {
+  border-radius: 8px;
+  background: white;
+  padding: 20px 30px;
+  box-shadow: 0px 2px 3px rgb(165, 164, 164);
+}
+
+.list-profile {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.list-profile div {
+  width: 130px;
+  /* margin-bottom: 30px; */
+  text-align: center;
+}
+
+.icon-detail {
+  margin: 10px auto;
+}
+
+.icon-detail i::before {
+  background: rgba(220, 220, 220, 0.887);
+  border-radius: 10px;
+  font-size: 25px;
+  padding: 10px 15px;
+  margin-right: 10px;
+  color: grey;
+}
+
+.line-page {
+  border: 1px solid rgb(163, 162, 162);
+}
+
+@media only screen and (max-width: 770px) {
+  .name-profile {
+    text-align: center;
+  }
+
+  .title-text {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .list-profile {
+    justify-content: center;
+  }
+  .btn-detail {
+    margin-bottom: 20px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .list-profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
 /*---------------------------------------------*/
 a {
   font-size: 14px;

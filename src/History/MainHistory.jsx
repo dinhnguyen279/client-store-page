@@ -10,26 +10,26 @@ MainHistory.propTypes = {
 function MainHistory(props) {
     const [listCart, setListCart] = useState([])
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        const fetchData = async () => {
+    //     const fetchData = async () => {
 
-            const params = {
-                idUser: sessionStorage.getItem('id_user')
-            }
+    //         const params = {
+    //             idUser: sessionStorage.getItem('id_user')
+    //         }
 
-            const query = '?' + queryString.stringify(params.idUser)
+    //         const query = '?' + queryString.stringify(params.idUser)
 
-            const response = await HistoryAPI.getHistoryAPI(query)
-            console.log("history", response.data)
+    //         const response = await HistoryAPI.getHistoryAPI(query)
+    //         console.log("history", response.data)
 
-            setListCart(response.data)
+    //         setListCart(response.data)
 
-        }
+    //     }
 
-        fetchData()
+    //     fetchData()
 
-    }, [])
+    // }, [])
 
     return (
         <div className="container">

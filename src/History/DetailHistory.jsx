@@ -10,25 +10,25 @@ function DetailHistory(props) {
 
     const [information, setInformation] = useState({})
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        const fetchData = async () => {
+    //     const fetchData = async () => {
 
-            const response = await HistoryAPI.getDetail(id)
-            console.log(response.cart)
+    //         const response = await HistoryAPI.getDetail(id)
+    //         console.log(response.data.cart)
 
-            setCart(response.cart)
+    //         setCart(response.data.cart)
 
-            console.log(response)
+    //         console.log(response.data)
 
-            setInformation(response)
+    //         setInformation(response.data)
 
-        }
+    //     }
 
-        fetchData()
+    //     fetchData()
 
 
-    }, [])
+    // }, [])
 
     return (
         <div className="container">

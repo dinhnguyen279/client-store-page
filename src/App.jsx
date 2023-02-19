@@ -17,7 +17,7 @@ import SignUp from "./Authentication/SignUp";
 import Checkout from "./Checkout/Checkout";
 import Shop from "./Shop/Shop";
 import Contact from "./Contact/Contact";
-import DetailUser from "./Authentication/DetailUser";
+import UserProfile from "./Authentication/UserProfile";
 import MainHistory from "./History/MainHistory";
 import DetailHistory from "./History/DetailHistory";
 
@@ -35,7 +35,7 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/detail-user" element={<DetailUser />} />
+          <Route path="/detail-user" element={<UserProfile />} />
           <Route path="/history" element={<MainHistory />} />
           <Route path='/history/:id' element={<DetailHistory />} />
         </Routes>
