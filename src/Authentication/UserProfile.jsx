@@ -15,6 +15,7 @@ const UserProfile = () => {
                 <div className="row" style={{ margin: "auto" }}>
                     <div className="col-md-2" style={{ width: "150px", margin: "auto" }}>
                         <img src={Image.userprofile} style={{ width: "100%" }} className="img-fluid rounded-circle img-profile" alt="Profile Picture" />
+                        <i class="fa fa-edit" aria-hidden="true"></i>
                     </div>
                     <div className='col-md-10 name-profile' style={{ margin: "auto" }}>
                         <h1>User Name</h1>

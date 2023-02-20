@@ -33,58 +33,18 @@ const Carousel = () => {
                 className="mySwiper"
             >
                 <SwiperSlide>
-                    <div className="container py-5 content-carousel">
-                        <div className="row px-4 px-lg-5">
-                            <div className="col-lg-6">
-                                <p className="text-muted small text-uppercase mb-2">Hỗ trợ trả góp 0đ</p>
-                                <h1 className="h2 text-uppercase mb-3">iPhone 14 Pro Max</h1><a className="btn btn-dark" href="shop">Mua ngay</a>
-                            </div>
-                        </div>
-                    </div>
-                    <img src={Image.banner} alt="banner" />
+                    <img src={Image.banner1} alt="banner2" />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <div className="container py-5 content-carousel">
-                        <div className="row px-4 px-lg-5">
-                            <div className="col-lg-6">
-                                <p className="text-muted small text-uppercase mb-2">Hỗ trợ trả góp 0đ</p>
-                                <h1 className="h2 text-uppercase mb-3">iPhone 14 Pro Max</h1><a className="btn btn-dark" href="shop">Mua ngay</a>
-                            </div>
-                        </div>
-                    </div>
-                    <img src={Image.banner2} alt="banner2" />
+                    <img src={Image.banner2} alt="banner3" />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <div className="container py-5 content-carousel">
-                        <div className="row px-4 px-lg-5">
-                            <div className="col-lg-6">
-                                <p className="text-muted small text-uppercase mb-2">Hỗ trợ trả góp 0đ</p>
-                                <h1 className="h2 text-uppercase mb-3">iPhone 14 Pro Max</h1><a className="btn btn-dark" href="shop">Mua ngay</a>
-                            </div>
-                        </div>
-                    </div>
                     <img src={Image.banner3} alt="banner3" />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <div className="container py-5 content-carousel">
-                        <div className="row px-4 px-lg-5">
-                            <div className="col-lg-6">
-                                <p className="text-muted small text-uppercase mb-2">Hỗ trợ trả góp 0đ</p>
-                                <h1 className="h2 text-uppercase mb-3">iPhone 14 Pro Max</h1><a className="btn btn-dark" href="shop">Mua ngay</a>
-                            </div>
-                        </div>
-                    </div>
                     <img src={Image.banner4} alt="banner4" />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <div className="container py-5 content-carousel">
-                        <div className="row px-4 px-lg-5">
-                            <div className="col-lg-6">
-                                <p className="text-muted small text-uppercase mb-2">Hỗ trợ trả góp 0đ</p>
-                                <h1 className="h2 text-uppercase mb-3">iPhone 14 Pro Max</h1><a className="btn btn-dark" href="shop">Mua ngay</a>
-                            </div>
-                        </div>
-                    </div>
                     <img src={Image.banner5} alt="banner5" />
                 </SwiperSlide>
                 <div className="autoplay-progress" slot="container-end">

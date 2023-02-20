@@ -46,17 +46,17 @@ function Detail(props) {
 
   // Hàm này dùng để lấy dữ liệu comment
   // Hàm này sẽ chạy lại phụ thuộc vào id Param
-  useEffect(() => {
-    const fetchData = async () => {
-      const params = {
-        idProduct: id,
-      };
-      const query = "?" + queryString.stringify(params);
-      // const response = await CommentAPI.getCommentProduct(query);
-      set_list_comment(response);
-    };
-    fetchData();
-  }, [id]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const params = {
+  //       idProduct: id,
+  //     };
+  //     const query = "?" + queryString.stringify(params);
+  //     const response = await CommentAPI.getCommentProduct(query);
+  //     set_list_comment(response);
+  //   };
+  //   fetchData();
+  // }, [id]);
 
   // Hàm thay đổi sao đánh giá
   const onChangeStar = (e) => {
@@ -69,31 +69,31 @@ function Detail(props) {
   };
 
   // Hàm này dùng để bình luận
-  const handlerComment = () => {
-    if (idUser === "") {
-      alertify.set("notifier", "position", "bottom-left");
-      alertify.error("Vui Lòng Kiểm Tra Đăng Nhập!");
-      return;
-    }
-    const fetchSendComment = async () => {
-      const params = {
-        idProduct: id,
-        idUser: sessionStorage.getItem("id_user"),
-        fullname: sessionStorage.getItem("name_user"),
-        content: comment,
-        star: star,
-      };
+  // const handlerComment = () => {
+  //   if (idUser === "") {
+  //     alertify.set("notifier", "position", "bottom-left");
+  //     alertify.error("Vui Lòng Kiểm Tra Đăng Nhập!");
+  //     return;
+  //   }
+  //   const fetchSendComment = async () => {
+  //     const params = {
+  //       idProduct: id,
+  //       idUser: sessionStorage.getItem("id_user"),
+  //       fullname: sessionStorage.getItem("name_user"),
+  //       content: comment,
+  //       star: star,
+  //     };
 
-      const query = "?" + queryString.stringify(params);
+  //     const query = "?" + queryString.stringify(params);
 
-      // const response = await CommentAPI.postCommentProduct(query);
-      console.log(response);
+  //     // const response = await CommentAPI.postCommentProduct(query);
+  //     console.log(response);
 
-      set_load_comment(true);
-    };
-    fetchSendComment();
-    setComment("");
-  };
+  //     set_load_comment(true);
+  //   };
+  //   fetchSendComment();
+  //   setComment("");
+  // };
 
   // Hàm này dùng để load lại dữ liệu comment
   // Phụ thuộc vào state load_comment
@@ -410,7 +410,7 @@ function Detail(props) {
             <a
               className="btn btn-dark btn-sm btn-block px-0 text-white"
               style={{ width: "12rem" }}
-              onClick={handlerComment}
+            // onClick={handlerComment}
             >
               Send
             </a>

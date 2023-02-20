@@ -20,15 +20,15 @@ const Contact = () => {
                         <h5>Điền giúp chúng tôi vài dòng</h5>
                         <form className='text-small p-t-30'>
                             <div className='form-input-contact'>
-                                <lable className="text-uppercase">Tên (bắt buộc)*</lable>
+                                <lable>Tên (bắt buộc)*</lable>
                                 <input className='input-contact' type="text" name="name" />
                             </div>
                             <div className='form-input-contact'>
-                                <lable className="text-uppercase">Email (bắt buộc)*</lable>
+                                <lable>Email (bắt buộc)*</lable>
                                 <input className='input-contact' type="text" name="email" />
                             </div>
                             <div className='form-input-contact'>
-                                <lable className="text-uppercase">Số Điện Thoại</lable>
+                                <lable>Số Điện Thoại</lable>
                                 <input className='input-contact' type="text" name="phone" />
                             </div>
                             <div>

@@ -1,4 +1,5 @@
-import banner from './banner1.jpg'
+import banner from './banner.jpg'
+import banner1 from './banner1.png'
 import banner2 from './banner2.png'
 import banner3 from './banner3.png'
 import banner4 from './banner4.png'
@@ -11,6 +12,7 @@ import userprofile from './userprofile.png'
 
 const Image = {
     banner: banner,
+    banner1: banner1,
     banner2: banner2,
     banner3: banner3,
     banner4: banner4,

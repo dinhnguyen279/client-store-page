@@ -2,6 +2,7 @@ import "./App.css";
 import "./css/custom.css";
 import "./css/style.default.css";
 // import'./css/main.css'
+import "bootstrap/dist/css/bootstrap.min.css"
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
