@@ -4,12 +4,14 @@ import { addUser } from '../../Redux/Action/ActionCart';
 import { addSession } from '../../Redux/Action/ActionSession';
 
 import { Link } from 'react-router-dom';
-import LoginLink from '../../Authentication/LoginLink';
 import LogoutLink from '../../Authentication/LogoutLink';
 import Name from '../../Authentication/Name';
 
+// React-Bootstrap
+import { Button, Col, Container, Form, Nav, Navbar, NavDropdown, Offcanvas } from 'react-bootstrap';
+
 function Header(props) {
-    const [active, setActive] = useState('Home')
+    // const [active, setActive] = useState('Home')
     const dispatch = useDispatch()
 
     //Sau khi F5 nó sẽ kiểm tra nếu phiên làm việc của Session vẫn còn thì nó sẽ tiếp tục
@@ -42,58 +44,137 @@ function Header(props) {
         }
     }, [idUser])
 
-    const handlerActive = (value) => {
-        setActive(value)
-        window.location.reload(false)
-    }
-
     return (
-        <div className="px-0 px-lg-3 bg-light card-header-transparent">
-            <nav className="container-fluid navbar navbar-expand-lg navbar-light py-3 px-lg-0 text-black">
-                <Link className="navbar-brand" to={`/`}>
-                    <span className="font-weight-bold text-uppercase text-dark">ACCESSORY STORE</span>
-                </Link>
-                <button className="navbar-toggler btn-navbar" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
 
-                {/* log in and cart */}
-                <div className="collapse navbar-collapse " id="navbarNavAltMarkup" >
-                    {/*  menu */}
-                    <ul className="navbar-nav mr-auto">
-                        <li className="nav-item" onClick={() => handlerActive('Home')}>
-                            <Link className="nav-link" to={`/`}
-                                style={active === 'Home' ? { color: '#dcb14a' } : { color: 'black' }} >Trang chủ</Link>
-                        </li>
-                        <li className="nav-item" onClick={() => handlerActive('Shop')}>
-                            <Link className="nav-link" to={`/shop`}
-                                style={active === 'Shop' ? { color: '#dcb14a' } : { color: 'black' }} >Cửa hàng</Link>
-                        </li>
-                        <li className="nav-item" onClick={() => handlerActive('Checkout')}>
-                            <Link className="nav-link" to={`/checkout`}
-                                style={active === 'Checkout' ? { color: '#dcb14a' } : { color: 'black' }} >Thanh toán</Link>
-                        </li>
-                        <li className="nav-item" onClick={() => handlerActive('Signup')}>
-                            <Link className="nav-link" to={`/signup`}
-                                style={active === 'Signup' ? { color: '#dcb14a' } : { color: 'black' }} >Đăng ký</Link>
-                        </li>
-                        <li className="nav-item" onClick={() => handlerActive('Contact')}>
-                            <Link className="nav-link" to={`/contact`}
-                                style={active === 'Contact' ? { color: '#dcb14a' } : { color: 'black' }} >Liên hệ</Link>
-                        </li>
-                    </ul>
-                    <ul className="navbar-nav nav-respon">
-                        {nameUser && <li className="nav-item">
-                            <Link className="nav-link" to={`/cart`}>
-                                <i className="fas fa-dolly-flatbed mr-1 text-gray"></i>Giỏ hàng
-                            </Link>
-                        </li>}
-                        {nameUser ? (<Name />) : ''}
-                        {loginUser ? (<LoginLink />) : (<LogoutLink />)}
-                    </ul>
-                </div>
-            </nav>
-        </div>
+        <>
+            <Navbar bg="light" expand={"md"} className="pt-3 bg-body" style={{ zIndex: 10 }} fixed='top'>
+                <Container>
+                    <Link to={"/"} className='logo-navbar'>
+                        <h4>Sports Zone</h4>
+                    </Link>
+                    <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-md`} />
+                    <Navbar.Offcanvas
+                        id={`offcanvasNavbar-expand-md`}
+                        placement="start"
+                    >
+                        <Offcanvas.Header closeButton>
+                            <Offcanvas.Title >
+                                Sports Zone
+                            </Offcanvas.Title>
+                        </Offcanvas.Header>
+                        <Offcanvas.Body className=''>
+                            <Form className="d-flex justify-content-center" as={Col}>
+                                <Form.Control
+                                    style={{ width: "80%" }}
+                                    type="search"
+                                    placeholder="Search"
+                                    className="me-2"
+                                    aria-label="Search"
+                                />
+                                <i className="fa fa-search search-icon" aria-hidden="true"></i>
+                            </Form>
+
+                            <Nav className="justify-content-end">
+                                <ul className='nav-list-respon'>
+                                    {nameUser && <li className="nav-item">
+                                        <Link className="nav-link" to={`/cart`} >
+                                            <i className="fas fa-dolly-flatbed mr-1 text-gray"></i>Giỏ hàng
+                                        </Link>
+                                    </li>}
+                                    {nameUser ? (<Name />) : ' '}
+                                    {loginUser ? ' ' : (<LogoutLink />)}
+                                </ul>
+                            </Nav>
+                        </Offcanvas.Body>
+                    </Navbar.Offcanvas>
+                </Container>
+
+            </Navbar>
+            <Navbar bg="light" className='mb-3 m-t-70 shadow-lg' expand={"md"} fixed='top' style={{ zIndex: 1 }}>
+                <Container >
+                    <Navbar.Toggle aria-controls={`list-categories`} >
+                        <i className="fa fa-list-alt" aria-hidden="true"></i> Danh sách các loại sản phẩm
+                    </Navbar.Toggle>
+                    <Navbar.Offcanvas
+                        id={`list-categories`}
+                        placement="end"
+                    >
+                        <Offcanvas.Header closeButton>
+                            <Offcanvas.Title >
+                                Sports Zone
+                            </Offcanvas.Title>
+                        </Offcanvas.Header>
+                        <Offcanvas.Body>
+                            <ul className="navbar-nav nav-link-page">
+                                <li className="nav-item" >
+                                    <Link className="nav-link" to={`/`}
+                                    >Trang Chủ</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Nav>
+                                        <NavDropdown
+                                            id="nav-dropdown-dark-example"
+                                            title="Sản Phẩm SALE"
+                                        >
+                                            <NavDropdown.Item href="#action/3.1">
+                                                Quần áo sale
+                                            </NavDropdown.Item>
+                                            <NavDropdown.Item href="#action/3.2">
+                                                Giày bóng đá sale
+                                            </NavDropdown.Item>
+                                        </NavDropdown>
+                                    </Nav>
+
+                                </li>
+                                <li className="nav-item" >
+                                    <Nav>
+                                        <NavDropdown
+                                            id="nav-dropdown-dark-example"
+                                            title="Bóng Đá"
+                                        >
+                                            <NavDropdown.Item href="#action/3.1">Giày đá bóng</NavDropdown.Item>
+                                            <NavDropdown.Item href="#action/3.2">
+                                                Quần áo bóng đá
+                                            </NavDropdown.Item>
+                                            <NavDropdown.Item href="#action/3.3">Phụ kiện bóng đá</NavDropdown.Item>
+                                        </NavDropdown>
+                                    </Nav>
+                                </li>
+                                <li className="nav-item" >
+                                    <Link className="nav-link" to={`/shop`}>
+                                        Giày Sneaker
+                                    </Link>
+                                </li>
+                                <li className="nav-item" >
+                                    <Link className="nav-link" to={`/shop`}>
+                                        Adidas Chính hãng
+                                    </Link>
+                                </li>
+                                <li className="nav-item" >
+                                    <Nav>
+                                        <NavDropdown
+                                            id="nav-dropdown-dark-example"
+                                            title="Quần Áo Bóng Đá"
+                                        >
+                                            <NavDropdown.Item href="#action/3.1">Áo Bóng Đá BulBal</NavDropdown.Item>
+                                            <NavDropdown.Item href="#action/3.2">
+                                                Áo Bóng Đá Trẻ Em
+                                            </NavDropdown.Item>
+                                            <NavDropdown.Item href="#action/3.3">Quần Áo Đá Bóng Chính Hãng</NavDropdown.Item>
+                                        </NavDropdown>
+                                    </Nav>
+                                </li>
+                                <li className="nav-item" >
+                                    <Link className="nav-link" to={`/contact`}
+                                    >Liên Hệ</Link>
+                                </li>
+                            </ul>
+                        </Offcanvas.Body>
+                    </Navbar.Offcanvas>
+                </Container>
+            </Navbar>
+        </>
+
     );
 }
 

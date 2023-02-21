@@ -165,3 +165,141 @@ html {
 }
 
 /* HEADER */
+.search-icon {
+  position: absolute;
+  right: 12%;
+  top: 1%;
+  z-index: 9999;
+  cursor: pointer;
+  padding: 13px;
+  border-radius: 0px 8px 8px 0px;
+}
+
+.search-icon:hover {
+  background: gray;
+  color: white;
+}
+
+.logo-navbar {
+  text-decoration: none;
+  list-style-type: none;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.logo-navbar:hover {
+  color: black;
+  background-color: rgb(203, 203, 203);
+}
+
+.nav-list-respon {
+  display: flex;
+}
+
+.nav-main-respon {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-link-page {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+@media only screen and (max-width: 970px) {
+  .search-icon {
+    right: 15%;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .search-icon {
+    padding: 11px 13px;
+    right: 14%;
+  }
+  .nav-list-respon {
+    display: block;
+    margin-top: 10px;
+  }
+}
+
+/* Under-Banner */
+.main-banner {
+  margin-bottom: 25px;
+}
+
+.img-banner {
+  display: block;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.content-banner {
+  position: absolute;
+  bottom: 20px;
+  right: 25px;
+  left: 25px;
+  text-align: center;
+  background-color: #ffffff;
+  color: #0d0c0c;
+  line-height: 12px;
+  padding: 10px 10px 0;
+  transition: all 1.5s;
+  height: 150px;
+}
+
+.content-banner p {
+  font-size: 18px;
+  font-weight: 300;
+}
+
+.content-banner h3 {
+  font-size: 20px;
+  font-weight: 700;
+  padding-bottom: 15px;
+}
+
+.content-banner::after {
+  content: " ";
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  left: 0;
+  width: 50px;
+  height: 1px;
+  text-align: center;
+  background: #0d0c0c;
+  transition: all 0.5s;
+  margin: 0 auto;
+}
+
+.content-banner:hover {
+  height: 150px;
+}
+
+.button {
+  background: #000;
+  color: white;
+  padding: 5px 15px;
+}
+
+.action-banner {
+  margin-top: 20px;
+}
+
+@media only screen and (max-width: 770px) {
+  .content-banner p {
+    font-size: 15px;
+  }
+
+  .content-banner h3 {
+    font-size: 17px;
+  }
+
+  .action-banner {
+    margin-top: 30px;
+  }
+}
