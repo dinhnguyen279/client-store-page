@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Carousel from '../components/Carousel';
 import ProductAPI from '../API/ProductAPI';
+import { Button } from 'react-bootstrap';
 
 function Home(props) {
 
@@ -89,7 +90,7 @@ function Home(props) {
 
                     {/* dịch vụ */}
                     <section className="py-5 bg-light mt-5">
-                        <div className="container p-0">
+                        {/* <div className="container p-0">
                             <div className="row text-center">
                                 <div className="col-lg-4 mb-3 mb-lg-0">
                                     <div className="d-inline-block">
@@ -129,6 +130,60 @@ function Home(props) {
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div> */}
+                        <div className='container'>
+                            <div className='row'>
+                                <div className='col-md-12 col-sm-12 col-xl-6 col-xs-12 main-banner'>
+                                    <Link to={"/"}>
+                                        <div>
+                                            <img className='img-banner' src={Image.categorybanner1} alt="" />
+                                        </div>
+                                        <div className='content-banner'>
+                                            <p>Cập nhật mẫu mới nhất</p>
+                                            <h3 className='banner-item'>Giày Đá Banh Cỏ Nhân Tạo</h3>
+                                            <p className='action-banner'>
+                                                <span className='button'>
+                                                    Xem Ngay
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </Link>
+                                </div>
+
+                                <div className='col-md-6 col-sm-12 col-xl-3 col-xs-12 main-banner'>
+                                    <Link to={"/"}>
+                                        <div>
+                                            <img className='img-banner' src={Image.categorybanner2} alt="" />
+                                        </div>
+                                        <div className='content-banner'>
+                                            <p>Cập Nhật Mẫu 2023</p>
+                                            <h3 className='banner-item'>Quần Áo Bóng Đá</h3>
+                                            <p className='action-banner'>
+                                                <span className='button'>
+                                                    Xem Ngay
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </Link>
+                                </div>
+
+                                <div className='col-md-6 col-sm-12 col-xl-3 col-xs-12 main-banner'>
+                                    <Link to={"/"}>
+                                        <div>
+                                            <img className='img-banner' src={Image.categorybanner3} alt="" />
+                                        </div>
+                                        <div className='content-banner'>
+                                            <p>New Arrival 2023</p>
+                                            <h3 className='banner-item'>Phụ Kiện Bóng Đá</h3>
+                                            <p className='action-banner'>
+                                                <span className='button'>
+                                                    Xem Ngay
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
