@@ -200,7 +200,7 @@ function Detail(props) {
   };
 
   return (
-    <section className="py-5">
+    <section className="py-5 m-t-130">
       <div className="container">
         <div className="row mb-5">
           <div className="col-lg-6">

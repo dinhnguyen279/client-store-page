@@ -2,9 +2,25 @@ import React from 'react'
 import "./Contact.css"
 const Contact = () => {
     return (
-        <section className='bg-light contact-main p-l-55 p-r-55 p-t-65 p-b-50'>
+        <section className='contact-main p-l-55 p-r-55 p-t-160 p-b-50'>
             <div className="container">
-                <div className='row'>
+                <section className="py-5 bg-light">
+                    <div className="container">
+                        <div className="row px-4 px-lg-5 py-lg-4 align-items-center">
+                            <div className="col-lg-6">
+                                <h1 className="h2 text-uppercase mb-0">Liên Hệ</h1>
+                            </div>
+                            <div className="col-lg-6 text-lg-right">
+                                <nav aria-label="breadcrumb">
+                                    <ol className="breadcrumb justify-content-lg-end mb-0 px-0">
+                                        <li className="breadcrumb-item active" aria-current="page">Liên Hệ</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div className='row p-t-50'>
                     <div className='col-12 col-md-5 contact-first'>
                         <h5>ACCESSORY STORE</h5>
                         <ul className='text-small p-t-30 list-contact'>

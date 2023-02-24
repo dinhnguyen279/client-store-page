@@ -146,7 +146,7 @@ function Shop(props) {
     // }, [pagination])
 
     return (
-        <div className="container">
+        <div className="container m-t-150">
             <section className="py-5 bg-light">
                 <div className="container">
                     <div className="row px-4 px-lg-5 py-lg-4 align-items-center">

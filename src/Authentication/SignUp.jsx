@@ -133,7 +133,7 @@ function SignUp(props) {
 
             <div className="limiter">
                 <div className="container-login100">
-                    <div className="wrap-login100 signUpForm p-l-55 p-r-55 p-t-65 p-b-50">
+                    <div className="wrap-login100 signUpForm p-l-55 p-r-55 p-t-65 p-b-50 m-t-130">
                         <span className="login100-form-title p-b-33">
                             Đăng ký
                         </span>

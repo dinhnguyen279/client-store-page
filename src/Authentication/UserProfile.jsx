@@ -10,7 +10,7 @@ const UserProfile = () => {
     }
 
     return (
-        <div className="container-fluid main-profile p-l-55 p-r-55 p-t-65 p-b-50">
+        <div className="container-fluid main-profile p-l-55 p-r-55 p-t-160 p-b-50">
             <div className="card-profile">
                 <div className="row" style={{ margin: "auto" }}>
                     <div className="col-md-2" style={{ width: "150px", margin: "auto" }}>

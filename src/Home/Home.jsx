@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Carousel from '../components/Carousel';
 import ProductAPI from '../API/ProductAPI';
-import { Button } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 
 function Home(props) {
 
@@ -32,6 +32,7 @@ function Home(props) {
 
     }, [])
 
+    const [navContent, setNavContent] = useState("nav1")
 
     return (
         <div className="page-holder m-t-10">
@@ -45,9 +46,7 @@ function Home(props) {
                                     <div className="modal-body p-0">
                                         <div className="row align-items-stretch">
                                             <div className="col-lg-6 p-lg-0">
-                                                <img style={{ width: '100%' }} className="product-view d-block h-100 bg-cover bg-center" src={value.avt} data-lightbox={`product_${value._id}`} />
-                                                {/* <img className="d-none" href={value.album} />
-                                                <img className="d-none" href={value.avt} /> */}
+                                                <img className="product-view w-100" src={value.avt} data-lightbox={`product_${value._id}`} />
                                             </div>
                                             <div className="col-lg-6">
                                                 {/* Để tắt modal phải có class="close" và data-dissmiss="modal" và aria-label="Close" */}
@@ -86,53 +85,8 @@ function Home(props) {
                         <Carousel />
                     </section>
 
-
-
                     {/* dịch vụ */}
                     <section className="py-5 bg-light mt-5">
-                        {/* <div className="container p-0">
-                            <div className="row text-center">
-                                <div className="col-lg-4 mb-3 mb-lg-0">
-                                    <div className="d-inline-block">
-                                        <div className="media align-items-end">
-                                            <svg className="svg-icon svg-icon-big svg-icon-light">
-                                                <use xlinkHref="#delivery-time-1"></use>
-                                            </svg>
-                                            <div className="media-body text-left ml-3">
-                                                <h6 className="text-uppercase mb-1">Miễn phí vận chuyển</h6>
-                                                <p className="text-small mb-0 text-muted">Miễn phí vận chuyển</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-lg-4 mb-3 mb-lg-0">
-                                    <div className="d-inline-block">
-                                        <div className="media align-items-end">
-                                            <svg className="svg-icon svg-icon-big svg-icon-light">
-                                                <use xlinkHref="#helpline-24h-1"> </use>
-                                            </svg>
-                                            <div className="media-body text-left ml-3">
-                                                <h6 className="text-uppercase mb-1">Mẫu mã đa dạng</h6>
-                                                <p className="text-small mb-0 text-muted">Mẫu mã đa dạng chính hãng</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-lg-4">
-                                    <div className="d-inline-block">
-                                        <div className="media align-items-end">
-                                            <svg className="svg-icon svg-icon-big svg-icon-light">
-                                                <use xlinkHref="#label-tag-1"></use>
-                                            </svg>
-                                            <div className="media-body text-left ml-3">
-                                                <h6 className="text-uppercase mb-1">Chính sách bảo hành</h6>
-                                                <p className="text-small mb-0 text-muted">Bảo hành cam kết 12 tháng</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> */}
                         <div className='container'>
                             <div className='row'>
                                 <div className='col-md-12 col-sm-12 col-xl-6 col-xs-12 main-banner'>
@@ -159,7 +113,7 @@ function Home(props) {
                                         </div>
                                         <div className='content-banner'>
                                             <p>Cập Nhật Mẫu 2023</p>
-                                            <h3 className='banner-item'>Quần Áo Bóng Đá</h3>
+                                            <h3>Quần Áo Bóng Đá</h3>
                                             <p className='action-banner'>
                                                 <span className='button'>
                                                     Xem Ngay
@@ -189,51 +143,26 @@ function Home(props) {
                         </div>
                     </section>
 
-                    {/* Giới thiệu danh mục */}
-                    <section className="pt-5">
-                        <header className="text-center">
-                            <h2 className="h5 text-uppercase mb-4">Các sản phẩm của chúng tôi</h2>
-                        </header>
-                        <div className="row">
-                            <div className="col-md-4 mb-4 mb-md-0">
-                                <Link className="category-item" to={'/shop'}>
-                                    <img className="img-fluid" src={Image.img1} alt="" />
-                                    <strong className="category-item-title">Áo</strong>
-                                </Link>
-                            </div>
-                            <div className="col-md-4 mb-4 mb-md-0">
-                                <Link className="category-item mb-4" to={'/shop'}>
-                                    <img className="img-fluid" src={Image.img2} alt="" />
-                                    <strong className="category-item-title">Giày</strong>
-                                </Link>
-                                <Link className="category-item" to={'/shop'}>
-                                    <img className="img-fluid" src={Image.img3} alt="" />
-                                    <strong className="category-item-title">Bóng</strong>
-                                </Link>
-                            </div>
-                            <div className="col-md-4">
-                                <Link className="category-item" to={'/shop'}>
-                                    <img className="img-fluid" src={Image.img4} alt="" />
-                                    <strong className="category-item-title">iPad</strong>
-                                </Link>
-                            </div>
-                        </div>
-                    </section>
+                    {/* Giới thiệu sản phẩm */}
 
                     <section className="py-5" id="section_product">
-                        <header>
-                            <h2 className="h5 text-uppercase mb-4">Top sản phẩm bán chạy</h2>
+                        <header className="text-center">
+                            <h2 className="h5 text-uppercase mb-4">Top sản phẩm nổi bật</h2>
                         </header>
-                        <div className="row">
+                        <div className='row card-product'>
+                            <div className='col-md-12 col-xl-4 col-sm-12'>
+                                <Card.Img src={Image.collection}></Card.Img>
+                            </div>
                             {
                                 products && products.map(value => (
-                                    <div className="col-xl-3 col-lg-4 col-sm-6" key={value._id}>
-                                        <div className="product text-center">
+                                    <div className="col-md-6 col-xl-2 col-sm-6" key={value._id}>
+                                        <div className="product">
                                             <div className="position-relative mb-3">
                                                 <div className="badge text-white badge-"></div>
                                                 <Link className="d-block" to={`/detail/${value._id}`}>
-                                                    <img className="img-fluid w-50" src={value.avt} alt="..." />
+                                                    <Card.Img src={value.avt} alt='...'></Card.Img>
                                                 </Link>
+
                                                 <div className="product-overlay">
                                                     <ul className="mb-0 list-inline">
                                                         <li className="list-inline-item m-0 p-0"><a className="btn btn-sm btn-outline-dark"><i className="far fa-heart"></i></a></li>
@@ -251,8 +180,12 @@ function Home(props) {
                                                     </ul>
                                                 </div>
                                             </div>
-                                            <h6 className="reset-anchor">{value.name}</h6>
-                                            <i className="small text-muted">${value.price}</i>
+                                            <Card.Title className='title-product'>{value.name}</Card.Title>
+                                            <Card.Text style={{ color: "red" }}>{value.reducedPrice}₫
+                                                <span style={{ color: "grey", paddingLeft: "10px" }}>
+                                                    <del>{value.price}₫</del>
+                                                </span>
+                                            </Card.Text>
                                         </div>
                                     </div>
                                 ))
@@ -260,6 +193,168 @@ function Home(props) {
                         </div>
                     </section>
 
+                    <section>
+                        <div className='container m-b-40 m-t-40 zoom-img'>
+                            <Card.Img className='img-banner' src={Image.home_collection_banner} />
+                        </div>
+                    </section>
+
+                    <section className='bg-light band-select'>
+                        <div className='container p-t-30 p-b-30'>
+                            <Card.Title style={{ marginBottom: "30px" }}>
+                                <h3> Quần Áo Đá Banh Mới Nhất</h3>
+                            </Card.Title>
+                            <div className="images">
+                                <div className="images-item">
+                                    <Card.Img src={Image.lookbooks_1} />
+                                    <div className='p-t-10'>
+                                        <p style={{ fontSize: "18px", paddingBottom: "10px" }}>Buibal Falcon</p>
+                                        <span className='text-uppercase text-lookbook'>In ấn miễn phí</span>
+                                    </div>
+                                </div>
+                                <div className="images-item">
+                                    <Card.Img src={Image.lookbooks_2} />
+                                    <div className='p-t-10'>
+                                        <p style={{ fontSize: "18px", paddingBottom: "10px" }}>Quần Áo Bóng Đá Thái Lan</p>
+                                        <span className='text-uppercase text-lookbook'>In ấn font xịn</span>
+                                    </div>
+                                </div>
+                                <div className="images-item">
+                                    <Card.Img src={Image.lookbooks_3} />
+                                    <div className='p-t-10'>
+                                        <p style={{ fontSize: "18px", paddingBottom: "10px" }}>Quần Áo Đá Banh Trẻ Em Mới Nhất</p>
+                                        <span className='text-uppercase text-lookbook'>In ấn miễn phí</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>
+
+                    {/* Sản phẩm hot  */}
+                    <section className='container'>
+                        <div className='row main-product-hot'>
+                            <div className="col-md-6 col-xs-12 img-product-hot">
+                                <Card.Img className='img-banner' src={Image.pro_featured} />
+                            </div>
+                            <div className="col-md-6 col-xs-12 text-center body-product">
+                                <p>Giày đá bóng</p>
+                                <Card.Title> <h1> KAMITO TA11 </h1></Card.Title>
+                                <div className='body-title-product'>
+                                    <button className={`${navContent === "nav1" ? "text-dark" : "text-gray"}`} onClick={() => setNavContent("nav1")}>
+                                        THÔNG RIN TA11
+                                    </button>
+                                    <button className={`${navContent === "nav2" ? "text-dark" : "text-gray"}`} onClick={() => setNavContent("nav2")}>
+                                        TA11 CÓ GÌ MỚI?
+                                    </button>
+                                    <button className={`${navContent === "nav3" ? "text-dark" : "text-gray"}`} onClick={() => setNavContent("nav3")}>
+                                        SIZE
+                                    </button>
+                                </div>
+                                <div className='content-product m-b-10'>
+                                    {navContent === "nav1" ? (
+                                        <div>
+                                            <p>
+                                                <b> KAMITO TA11 </b> – mẫu giày mang đậm dấu ẩn của tuyển thủ
+                                                <i> <b> Nguyễn Tuấn Anh </b> </i> sẽ mang đến cho bạn một trải nghiệm hoàn
+                                                toàn khác biệt.
+                                            </p>
+                                            <p>
+                                                Được áp dụng các công nghệ mới nhất như <b> KA-Spin, KA-Fit,
+                                                    KA-Fiber </b> và đặc biệt là bộ đế giảm chấn <b> KA-Comfort </b>, KAMITO
+                                                TA11 sẽ giúp bạn thi đấu thăng hoa và làm chủ hoàn toàn cuộc chơi.
+                                            </p>
+                                        </div>
+                                    ) : " "}
+
+                                    {navContent === "nav2" ? (
+                                        <div>
+                                            <p>
+                                                Lớp da KA-FIBER ULTRA siêu mềm, tạo cảm giác như đi chân trần và với lớp da mới này, độ bền cũng đã được nâng cấp lên một tầm cao mới. <br />
+
+                                                ✅ Thiết kế đặc biệt với những vân kim cương nổi trên thân giày, vừa tạo tính thẩm mỹ vừa hỗ trợ kiểm soát bóng tối ưu.<br />
+
+                                                ✅ Bộ đế giày áp dụng công nghệ KA-SPIN với dàn đinh dăm được sắp xếp khoa học, giúp bám sân hiệu quả ngay cả khi trời mưa sân trơn bóng ướt.<br />
+
+                                                ✅ Form giày áp dụng chuẩn KA-FIT, ôm sát và phù hợp với bàn chân người Việt.
+                                            </p>
+
+                                        </div>
+                                    ) : " "}
+                                    {navContent === "nav3" ? (
+                                        <div>
+                                            <p>
+                                                Size: 38, 39, 40, 41, 42, 43
+                                            </p>
+                                        </div>
+                                    ) : " "}
+
+                                </div>
+                                <div>
+                                    <button className='btn-view'>
+                                        XEM NGAY
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className='py-5'>
+                        <header className="text-center">
+                            <h3 className="text-uppercase mb-4">BỘ SƯU TẬP THỂ THAO 2022</h3>
+                        </header>
+                        <div className="row">
+                            <div className="col-md-12 col-xl-4 col-sm-6">
+                                <Card.Img className='img-banner' src={Image.product_under_banner} alt="..." />
+                            </div>
+                            <div className="col-md-6 col-xl-2 col-sm-6">
+                                <div className='mb-3 card-product-endPage'>
+                                    <Card.Img className='img-banner' src={Image.product_1} alt="..." />
+                                    <Card.Img className='img-banner img-hidden' src={Image.product_1_1} alt="..." />
+                                    <div className='product-sale'>
+                                        <div className='content-product-sale'>
+                                            <span>-30%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <Card.Title className='title-product'>ÁO POLO NAM PORADA</Card.Title>
+                                <Card.Text style={{ color: "red" }}>299,000₫
+                                    <span style={{ color: "grey", paddingLeft: "10px" }}>
+                                        <del>399,000₫</del>
+                                    </span>
+                                </Card.Text>
+                            </div>
+                            <div className="col-md-6 col-xl-2 col-sm-6">
+                                <div className='mb-3 card-product-endPage'>
+                                    <Card.Img className='img-banner' src={Image.product_1_1} alt="..." />
+                                    <Card.Img className='img-banner img-hidden' src={Image.product_1} alt="..." />
+                                    <div className='product-sale'>
+                                        <div className='content-product-sale'>
+                                            <span>-20%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <Card.Title className='title-product'>ÁO POLO NAM PORADA</Card.Title>
+                                <Card.Text style={{ color: "red" }}>299,000₫
+                                    <span style={{ color: "grey", paddingLeft: "10px" }}>
+                                        <del>399,000₫</del>
+                                    </span>
+                                </Card.Text>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className="py-5">
+                        <Card.Title className='text-center'>Ảnh đẹp Sports Zone</Card.Title>
+                        <div className='post-grid'>
+                            <div className="post-item"><Card.Img className='post-img' src={Image.Carouselendpage1} /></div>
+                            <div className="post-item"><Card.Img className='post-img' src={Image.Carouselendpage2} /></div>
+                            <div className="post-item"><Card.Img className='post-img' src={Image.Carouselendpage3} /></div>
+                            <div className="post-item"><Card.Img className='post-img' src={Image.Carouselendpage4} /></div>
+                            <div className="post-item"><Card.Img className='post-img' src={Image.Carouselendpage5} /></div>
+                            <div className="post-item"><Card.Img className='post-img' src={Image.Carouselendpage6} /></div>
+                        </div>
+                    </section>
                 </div>
             </header >
         </div >

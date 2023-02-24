@@ -90,7 +90,7 @@ function Header(props) {
                 </Container>
 
             </Navbar>
-            <Navbar bg="light" className='mb-3 m-t-70 shadow-lg' expand={"md"} fixed='top' style={{ zIndex: 1 }}>
+            <Navbar bg="light" className='mb-3 m-t-70 shadow-lg' expand={"md"} fixed='top' style={{ zIndex: 2 }}>
                 <Container >
                     <Navbar.Toggle aria-controls={`list-categories`} >
                         <i className="fa fa-list-alt" aria-hidden="true"></i> Danh sách các loại sản phẩm
@@ -105,7 +105,7 @@ function Header(props) {
                             </Offcanvas.Title>
                         </Offcanvas.Header>
                         <Offcanvas.Body>
-                            <ul className="navbar-nav nav-link-page">
+                            <ul className="navbar-nav nav-link-page" >
                                 <li className="nav-item" >
                                     <Link className="nav-link" to={`/`}
                                     >Trang Chủ</Link>
