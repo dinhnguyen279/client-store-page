@@ -5,7 +5,6 @@
 
 .swiper-slide {
   text-align: center;
-  font-size: 18px;
   background: #fff;
   /* Center slide text vertically */
   display: flex;
@@ -37,8 +36,7 @@
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  /* color: var(--swiper-theme-color); */
-  color: white;
+  color: var(--swiper-theme-color);
 }
 
 .autoplay-progress svg {
@@ -50,8 +48,7 @@
   width: 100%;
   height: 100%;
   stroke-width: 4px;
-  /* stroke: var(--swiper-theme-color); */
-  stroke: white;
+  stroke: var(--swiper-theme-color);
   fill: none;
   stroke-dashoffset: calc(125.6 * (1 - var(--progress)));
   stroke-dasharray: 125.6;

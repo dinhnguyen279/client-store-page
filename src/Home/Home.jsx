@@ -345,7 +345,7 @@ function Home(props) {
                     </section>
 
                     <section className="py-5">
-                        <Card.Title className='text-center'>Ảnh đẹp Sports Zone</Card.Title>
+                        <Card.Title className='text-center'><h3> Ảnh đẹp Sports Zone</h3></Card.Title>
                         <div className='post-grid'>
                             <div className="post-item"><Card.Img className='post-img' src={Image.Carouselendpage1} /></div>
                             <div className="post-item"><Card.Img className='post-img' src={Image.Carouselendpage2} /></div>

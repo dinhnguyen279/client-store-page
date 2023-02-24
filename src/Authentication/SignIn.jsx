@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
-// import UserAPI from '../API/UserAPI';
 import { addSession } from '../Redux/Action/ActionSession';
 import './Auth.css'
 import queryString from 'query-string'
 import CartAPI from '../API/CartAPI';
 import axios from 'axios';
 import UserAPI from '../API/UserAPI';
+import { AiOutlineMail, AiOutlineLock, AiFillEye, AiFillEyeInvisible } from "react-icons/ai"
 
 function SignIn(props) {
     //test new validate
@@ -23,9 +23,8 @@ function SignIn(props) {
 
     const [user, setUser] = useState([])
 
-    // const [errorEmail, setErrorEmail] = useState(false)
-    // const [emailRegex, setEmailRegex] = useState(false)
-    // const [errorPassword, setErrorPassword] = useState(false)
+    // Show/hide password
+    const [typePassWord, setTypePassWord] = useState("password")
 
     const [redirect, setRedirect] = useState(false)
 
@@ -117,7 +116,7 @@ function SignIn(props) {
                     const query = '?' + queryString.stringify(params)
 
                     const response = await CartAPI.postAddToCart(query)
-                    console.log(response)
+                    console.log("fetchData", response)
 
                 }
 
@@ -134,17 +133,30 @@ function SignIn(props) {
     return (
         <form onSubmit={onSubmit} className="">
             <div className="limiter">
-                <div className="container-login100">
-                    <div className="wrap-login100 signInForm p-l-55 p-r-55 p-t-55 p-b-50 m-t-130">
-                        <span className="login100-form-title p-b-33">
+                <div className="container-login100 row m-t-100">
+                    <div className='col-md-12 col-xl-4'>
+                    </div>
+                    <div className="wrap-login100 signInForm p-l-55 p-r-55 p-t-55 p-b-50 col-md-12 col-xl-8">
+                        <span className="login100-form-title">
                             Đăng nhập
                         </span>
                         <div className="wrap-input100 validate-input" >
+                            <AiOutlineMail className='icon-form' />
                             <input className="input100" type="text" placeholder="Email" value={email} onChange={onChangeEmail} />
                         </div>
                         {errors.email && <p className="text-danger">{errors.email}</p>}
-                        <div className="wrap-input100 rs1 validate-input">
-                            <input className="input100" type="password" placeholder="Mật khẩu" value={password} onChange={onChangePassword} />
+                        <div className="wrap-input100 validate-input">
+                            <AiOutlineLock className='icon-form' />
+                            <input className="input100" type={typePassWord} placeholder="Mật khẩu" value={password} onChange={onChangePassword} />
+                            {typePassWord === "password" ? (
+                                <button type='button' className='show-password' onClick={() => setTypePassWord("text")}>
+                                    <AiFillEye />
+                                </button >
+                            ) : (
+                                <button type='button' className='show-password' onClick={() => setTypePassWord("password")}>
+                                    <AiFillEyeInvisible />
+                                </button>
+                            )}
                         </div>
                         {errors.password && <p className="text-danger">{errors.password}</p>}
 
@@ -152,7 +164,7 @@ function SignIn(props) {
                             {
                                 redirect && <Navigate replace to="/" />
                             }
-                            <button className="login100-form-btn" type='submit'>
+                            <button className="login100-form-btn btn-form" type='submit'>
                                 Đăng nhập
                             </button>
                         </div>
@@ -167,7 +179,7 @@ function SignIn(props) {
                     </div>
                 </div>
             </div>
-        </form>
+        </form >
     );
 }
 

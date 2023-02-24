@@ -166,11 +166,15 @@ html {
 /* HEADER */
 .search-icon {
   position: absolute;
-  right: 12%;
-  top: 1%;
+  right: 13%;
+  top: -9%;
   z-index: 100;
   cursor: pointer;
-  padding: 13px;
+  padding: 10px;
+}
+
+.search-icon svg {
+  font-size: 23px;
 }
 
 .logo-navbar {
@@ -209,7 +213,7 @@ html {
 
 @media only screen and (max-width: 767px) {
   .search-icon {
-    padding: 11px 13px;
+    /* padding: 11px 13px; */
     right: 14%;
   }
   .nav-list-respon {

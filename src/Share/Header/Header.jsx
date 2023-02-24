@@ -6,9 +6,10 @@ import { addSession } from '../../Redux/Action/ActionSession';
 import { Link } from 'react-router-dom';
 import LogoutLink from '../../Authentication/LogoutLink';
 import Name from '../../Authentication/Name';
+import { AiOutlineSearch } from "react-icons/ai"
 
 // React-Bootstrap
-import { Button, Col, Container, Form, Nav, Navbar, NavDropdown, Offcanvas } from 'react-bootstrap';
+import { Col, Container, Form, Nav, Navbar, NavDropdown, Offcanvas } from 'react-bootstrap';
 
 function Header(props) {
     // const [active, setActive] = useState('Home')
@@ -63,7 +64,7 @@ function Header(props) {
                             </Offcanvas.Title>
                         </Offcanvas.Header>
                         <Offcanvas.Body className=''>
-                            <Form className="d-flex justify-content-center" as={Col}>
+                            <Form className="d-flex justify-content-center position-relative" as={Col}>
                                 <Form.Control
                                     style={{ width: "80%" }}
                                     type="search"
@@ -71,7 +72,7 @@ function Header(props) {
                                     className="me-2"
                                     aria-label="Search"
                                 />
-                                <i className="fa fa-search search-icon" aria-hidden="true"></i>
+                                <span className='search-icon'><AiOutlineSearch /></span>
                             </Form>
 
                             <Nav className="justify-content-end">

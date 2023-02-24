@@ -9,6 +9,7 @@ import "../css/Carousel.css"
 import Image from '../Share/img/Image';
 
 import { Navigation, Pagination, Autoplay } from "swiper";
+import { Card } from 'react-bootstrap';
 const Carousel = () => {
 
     const progressCircle = useRef(null);
@@ -33,19 +34,19 @@ const Carousel = () => {
                 className="mySwiper"
             >
                 <SwiperSlide>
-                    <img src={Image.banner1} alt="banner2" />
+                    <Card.Img src={Image.banner1} alt="banner2" />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={Image.banner2} alt="banner3" />
+                    <Card.Img src={Image.banner2} alt="banner3" />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={Image.banner3} alt="banner3" />
+                    <Card.Img src={Image.banner3} alt="banner3" />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={Image.banner4} alt="banner4" />
+                    <Card.Img src={Image.banner4} alt="banner4" />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={Image.banner5} alt="banner5" />
+                    <Card.Img src={Image.banner5} alt="banner5" />
                 </SwiperSlide>
                 <div className="autoplay-progress" slot="container-end">
                     <svg viewBox="0 0 48 48" ref={progressCircle}>
