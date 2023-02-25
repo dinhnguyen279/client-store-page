@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { Card } from 'react-bootstrap';
+import Image from "../../Share/img/Image"
+import { AiFillCaretLeft, AiFillCaretRight } from 'react-icons/ai';
 
 ListCart.propTypes = {
     listCart: PropTypes.array,
@@ -67,74 +70,97 @@ function ListCart(props) {
     }
 
     return (
-        <div className="table-responsive mb-4">
-            <table className="table">
-                <thead className="bg-light">
-                    <tr className="text-center">
-                        <th className="border-0" scope="col"> <strong className="text-small text-uppercase">Sản phẩm</strong></th>
-                        <th className="border-0" scope="col"> <strong className="text-small text-uppercase">Tên</strong></th>
-                        <th className="border-0" scope="col"> <strong className="text-small text-uppercase">Giá</strong></th>
-                        <th className="border-0" scope="col"> <strong className="text-small text-uppercase">Số lượng</strong></th>
-                        <th className="border-0" scope="col"> <strong className="text-small text-uppercase">Tổng cộng</strong></th>
-                        <th className="border-0" scope="col"> <strong className="text-small text-uppercase">Xóa</strong></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        listProducts && listProducts.map((value, index) => (
-                            <tr className="text-center" key={index}>
-                                <td className="pl-0 border-0">
-                                    <div className="media align-items-center justify-content-center">
-                                        <Link className="reset-anchor d-block animsition-link" to={`/detail/${value.idProduct}`}>
-                                            <img src={value.img} alt="..." width="70" />
-                                        </Link>
-                                    </div>
-                                </td>
-                                <td className="align-middle border-0">
-                                    <div className="media align-items-center justify-content-center">
-                                        <Link className="reset-anchor h6 animsition-link" to={`/detail/${value.idProduct}`}>
-                                            {value.nameProduct}
-                                        </Link>
-                                    </div>
-                                </td>
-
-                                <td className="align-middle border-0">
-                                    <p className="mb-0 small">${value.priceProduct}</p>
-                                </td>
-                                <td className="align-middle border-0">
-                                    <div className="quantity justify-content-center">
-                                        <button className="dec-btn p-0"
-                                            style={{ cursor: 'pointer' }}
-                                            onClick={() => handlerDown(value.idUser, value.idProduct, value.count)} >
-                                            <i className="fas fa-caret-left"></i>
-                                        </button>
-                                        <input
-                                            className="form-control form-control-sm border-0 shadow-0 p-0"
-                                            type="text"
-                                            value={value.count}
-                                            onChange={handlerChangeText} />
-                                        <button className="inc-btn p-0"
-                                            style={{ cursor: 'pointer' }}
-                                            onClick={() => handlerUp(value.idUser, value.idProduct, value.count)} >
-                                            <i className="fas fa-caret-right"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                                <td className="align-middle border-0">
-                                    <p className="mb-0 small">${parseInt(value.priceProduct) * parseInt(value.count)}</p>
-                                </td>
-                                <td className="align-middle border-0">
-                                    <a href='/'
-                                        className="reset-anchor remove_cart"
+        <div className="mb-4">
+            {
+                listProducts && listProducts.map((value, index) => (
+                    <>
+                        <div className='row listcart-product position-relative' key={index}>
+                            <div className='col-md-3 mb-3'>
+                                <Link className="reset-anchor d-block animsition-link">
+                                    <Card.Img src={Image.product_1} />
+                                </Link>
+                            </div>
+                            <div className='col-md-6'>
+                                <Card.Title className='mb-3'>{value.nameProduct}</Card.Title>
+                                <Card.Subtitle className='mb-3'>Size {"S"}</Card.Subtitle>
+                                <div className="quantity">
+                                    <button className="dec-btn p-0"
                                         style={{ cursor: 'pointer' }}
-                                        onClick={() => handlerDelete(value.idUser, value.idProduct)}>
-                                        <i className="fas fa-trash-alt small text-muted"></i></a>
-                                </td>
-                            </tr>
-                        ))
-                    }
-                </tbody>
-            </table>
+                                        onClick={() => handlerDown(value.idUser, value.idProduct, value.count)} >
+                                        <AiFillCaretLeft />
+                                    </button>
+                                    <input
+                                        className="form-control form-control-sm border-0 shadow-0 p-0"
+                                        type="text"
+                                        value={value.count}
+                                        onChange={handlerChangeText} />
+                                    <button className="inc-btn p-0"
+                                        style={{ cursor: 'pointer' }}
+                                        onClick={() => handlerUp(value.idUser, value.idProduct, value.count)} >
+                                        <AiFillCaretRight />
+                                    </button>
+                                </div>
+                                <div className="align-middle border-0">
+                                    <p className="mb-0 small">{parseInt(value.priceProduct) * parseInt(value.count)},000₫</p>
+                                </div>
+                            </div>
+                            <div className='col-md-3 text-end'>
+                                <a href='/'
+                                    className="reset-anchor remove_cart"
+                                    style={{ cursor: 'pointer' }}
+                                    onClick={() => handlerDelete(value.idUser, value.idProduct)}>
+                                    <i className="fas fa-trash-alt text-muted"></i></a>
+                            </div>
+                            <div className='col-md-12 d-flex justify-content-between total-listcart'>
+                                <p style={{ fontWeight: "700" }}>Thành tiền:</p>
+                                <p className="mb-0 small" style={{ color: "red", fontWeight: "700" }}>{parseInt(value.priceProduct) * parseInt(value.count)},000₫</p>
+                            </div>
+                        </div>
+                    </>
+
+                    // {/*   // <tr className="text-center" key={index}>
+
+                    //         //             <Link className="reset-anchor d-block animsition-link" to={`/detail/${value.idProduct}`}>
+                    //         //                 <img src={value.img} alt="..." width="70" />
+                    //         //             </Link>
+                    //         //         </div>
+                    //         //     
+                    //         //             <Link className="reset-anchor h6 animsition-link" to={`/detail/${value.idProduct}`}>
+                    //         //                 {value.nameProduct}
+                    //         //             </Link>
+
+                    //         //         <p className="mb-0 small">${value.priceProduct}</p>
+                    //         //                 style={{ cursor: 'pointer' }}
+                    //         //                 onClick={() => handlerDown(value.idUser, value.idProduct, value.count)} >
+                    //         //                 <i className="fas fa-caret-left"></i>
+                    //         //             </button>
+                    //         //             <input
+                    //         //                 className="form-control form-control-sm border-0 shadow-0 p-0"
+                    //         //                 type="text"
+                    //         //                 value={value.count}
+                    //         //                 onChange={handlerChangeText} />
+                    //         //             <button className="inc-btn p-0"
+                    //         //                 style={{ cursor: 'pointer' }}
+                    //         //                 onClick={() => handlerUp(value.idUser, value.idProduct, value.count)} >
+                    //         //                 <i className="fas fa-caret-right"></i>
+                    //         //             </button>
+                    //         //         </div>
+                    //         //     </td>
+                    //         //     <td className="align-middle border-0">
+                    //         //         <p className="mb-0 small">${parseInt(value.priceProduct) * parseInt(value.count)}</p>
+                    //         //     </td>
+                    //         //     <td className="align-middle border-0">
+                    //         //         <a href='/'
+                    //         //             className="reset-anchor remove_cart"
+                    //         //             style={{ cursor: 'pointer' }}
+                    //         //             onClick={() => handlerDelete(value.idUser, value.idProduct)}>
+                    //         //             <i className="fas fa-trash-alt small text-muted"></i></a>
+                    //         //     </td>
+                    //         // </tr>*/}
+                ))
+            }
+            {/* </tbody>
+            </table> */}
         </div>
     );
 }

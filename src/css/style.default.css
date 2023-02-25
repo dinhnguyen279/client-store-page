@@ -312,6 +312,10 @@ button:active {
   font-size: 1.25rem;
 }
 
+.text-xl {
+  font-size: 1.5rem;
+}
+
 .text-xs {
   font-size: 0.65rem !important;
 }
@@ -1126,12 +1130,13 @@ a.text-hover-dark:hover {
 .reset-anchor {
   color: inherit;
   transition: all 0.3s;
-}
-
-.reset-anchor:hover,
-.reset-anchor:focus {
   text-decoration: none;
 }
+
+/* .reset-anchor:hover,
+.reset-anchor:focus {
+  text-decoration: none;
+} */
 
 .index-forward {
   z-index: 99;

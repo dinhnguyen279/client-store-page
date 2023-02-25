@@ -9,6 +9,7 @@ import alertify from 'alertifyjs'
 import { Link, Navigate } from 'react-router-dom'
 import queryString from 'query-string'
 import axios from 'axios';
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai"
 
 
 function Cart(props) {
@@ -25,6 +26,8 @@ function Cart(props) {
     const [total, setTotal] = useState()
 
     const dispatch = useDispatch()
+
+    const [showProduct, setShowProduct] = useState('')
 
     //State dùng để Load dữ liệu từ Redux
     const [loadRedux, setLoadRedux] = useState({
@@ -229,76 +232,69 @@ function Cart(props) {
         setRedirect(true)
 
     }
-    console.log('cart', listCart);
+    console.log('list Cart', listCart);
 
     return (
-        <div className="container p-t-160">
-            <section className="py-5 bg-light">
+        <div className="p-t-160">
+            <section className="py-3 bg-light">
                 <div className="container">
-                    <div className="row px-4 px-lg-5 py-lg-4 align-items-center">
-                        <div className="col-lg-6">
-                            <h1 className="h2 text-uppercase mb-0">Giỏ hàng</h1>
-                        </div>
-                        <div className="col-lg-6 text-lg-right">
-                            <nav aria-label="breadcrumb">
-                                <ol className="breadcrumb justify-content-lg-end mb-0 px-0">
-                                    <li className="breadcrumb-item active" aria-current="page">Giỏ hàng</li>
-                                </ol>
-                            </nav>
-                        </div>
-                    </div>
+                    <ol className="breadcrumb justify-content-start">
+                        <li className="breadcrumb-item"><Link to={"/"}>Trang chủ</Link></li>
+                        <li className="breadcrumb-item active" aria-current="page">Giỏ hàng</li>
+                    </ol>
                 </div>
             </section>
-            <section className="py-5">
-                <h2 className="h5 text-uppercase mb-4">Shopping cart</h2>
+
+            {/* {!listProducts === undefined ? (
+                <section className='cart-empty'>
+                    <p className='text-lg mb-3'>Giỏ hàng của bạn rỗng</p>
+                    <Button variant='dark' type='button' href='/'>Tiếp tục mua hàng</Button>
+                </section>
+            ) : ( */}
+            <section className="py-5 container">
+                <h4 className="text-uppercase mb-4 text-center">Giỏ hàng của bạn</h4>
                 <div className="row">
                     <div className="col-lg-8 mb-4 mb-lg-0">
-
                         <ListCart
                             listCart={cart}
                             onDeleteCart={onDeleteCart}
                             onUpdateCount={onUpdateCount} />
 
-                        <div className="bg-light px-4 py-3">
+                        <div className="bg-light px-4 py-3 continue-shopping">
                             <div className="row align-items-center text-center">
                                 <div className="col-md-6 mb-3 mb-md-0 text-md-left">
-                                    <Link className="btn btn-link p-0 text-dark btn-sm" to={`/shop`}>
-                                        <i className="fas fa-long-arrow-alt-left mr-2"> </i>Tiếp mua mua sắm
+                                    <Link className="btn btn-link text-dark btn-sm" to={`/shop`}>
+                                        <AiOutlineArrowLeft className='mr-2 text-lg' />Tiếp mua mua sắm
                                     </Link>
-                                </div>
-                                <div className="col-md-6 text-md-right">
-                                    {
-                                        redirect && <Navigate replace to="/checkout" />
-                                    }
-                                    <span className="btn btn-outline-dark btn-sm" onClick={onCheckout}>
-                                        Procceed to checkout<i className="fas fa-long-arrow-alt-right ml-2"></i>
-                                    </span>
                                 </div>
                             </div>
                         </div>
+
+
                     </div>
                     <div className="col-lg-4">
                         <div className="card border-0 rounded-0 p-lg-4 bg-light">
                             <div className="card-body">
-                                <h5 className="text-uppercase mb-4">Cart total</h5>
+                                <h5 className="text-uppercase mb-4">Thông tin đơn hàng</h5>
                                 <ul className="list-unstyled mb-0">
-                                    <li className="d-flex align-items-center justify-content-between"><strong className="text-uppercase small font-weight-bold">Subtotal</strong><span className="text-muted small">${total}</span></li>
+                                    <li className="d-flex align-items-center justify-content-between"><strong className="small font-weight-bold">Thành tiền</strong><span className="text-muted small">{total},000₫</span></li>
                                     <li className="border-bottom my-2"></li>
-                                    <li className="d-flex align-items-center justify-content-between mb-4"><strong className="text-uppercase small font-weight-bold">Total</strong><span>${total}</span></li>
-                                    {/* <li>
-                                        <form>
-                                            <div className="form-group mb-0">
-                                                <input className="form-control" type="text" placeholder="Enter your coupon" />
-                                                <button className="btn btn-dark btn-sm btn-block" type="submit"> <i className="fas fa-gift mr-2"></i>Apply coupon</button>
-                                            </div>
-                                        </form>
-                                    </li> */}
+                                    <li className="d-flex align-items-center justify-content-between mb-4"><strong className="small font-weight-bold">Tổng tiền</strong><span>{total},000₫</span></li>
                                 </ul>
+                                <div>
+                                    {
+                                        redirect && <Navigate replace to="/checkout" />
+                                    }
+                                    <button type='button' className="btn btn-dark btn-xs text-uppercase w-100" onClick={onCheckout}>
+                                        Tiến hành thanh toán
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
+            {/* )} */}
         </div>
     );
 }
