@@ -6,7 +6,7 @@ import { addSession } from '../../Redux/Action/ActionSession';
 import { Link } from 'react-router-dom';
 import LogoutLink from '../../Authentication/LogoutLink';
 import Name from '../../Authentication/Name';
-import { AiOutlineSearch } from "react-icons/ai"
+import { AiOutlineSearch, AiOutlineOrderedList, AiOutlineShoppingCart } from "react-icons/ai"
 
 // React-Bootstrap
 import { Col, Container, Form, Nav, Navbar, NavDropdown, Offcanvas } from 'react-bootstrap';
@@ -77,9 +77,9 @@ function Header(props) {
 
                             <Nav className="justify-content-end">
                                 <ul className='nav-list-respon'>
-                                    {nameUser && <li className="nav-item">
-                                        <Link className="nav-link" to={`/cart`} >
-                                            <i className="fas fa-dolly-flatbed mr-1 text-gray"></i>Giỏ hàng
+                                    {nameUser && <li className="nav-item position-relative">
+                                        <Link className="nav-link quantity-cart" to={`/cart`} data-order="20">
+                                            <AiOutlineShoppingCart className='text-xl  mr-1 pb-1 text-gray' />
                                         </Link>
                                     </li>}
                                     {nameUser ? (<Name />) : ' '}
@@ -93,8 +93,10 @@ function Header(props) {
             </Navbar>
             <Navbar bg="light" className='mb-3 m-t-70 shadow-lg' expand={"md"} fixed='top' style={{ zIndex: 2 }}>
                 <Container >
-                    <Navbar.Toggle aria-controls={`list-categories`} >
-                        <i className="fa fa-list-alt" aria-hidden="true"></i> Danh sách các loại sản phẩm
+                    <Navbar.Toggle aria-controls={`list-categories`} className="bg-dark text-light" >
+                        <div className="d-flex flex-col">
+                            <AiOutlineOrderedList className='mr-1' />Danh sách các loại sản phẩm
+                        </div>
                     </Navbar.Toggle>
                     <Navbar.Offcanvas
                         id={`list-categories`}

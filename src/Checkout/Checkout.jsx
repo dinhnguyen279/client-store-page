@@ -5,6 +5,7 @@ import CheckoutAPI from '../API/CheckoutAPI';
 import './Checkout.css'
 
 import io from "socket.io-client";
+import { Link } from 'react-router-dom';
 const socket = io("http://localhost:3003");
 
 function Checkout(props) {
@@ -61,7 +62,7 @@ function Checkout(props) {
     //Hàm này dùng để tính tổng tiền carts
     function getTotal(carts) {
         let sub_total = 0
-
+        console.log(carts, "line 56");
         const sum_total = carts.map(value => {
             return sub_total += parseInt(value.priceProduct) * parseInt(value.count)
         })
@@ -188,27 +189,18 @@ function Checkout(props) {
                 )
             }
 
-            <div className="container">
-                <section className="py-5 bg-light">
+            <div className="m-t-160">
+                <section className="py-3 bg-light">
                     <div className="container">
-                        <div className="row px-4 px-lg-5 py-lg-4 align-items-center">
-                            <div className="col-lg-6">
-                                <h1 className="h2 text-uppercase mb-0">Thanh toán</h1>
-                            </div>
-                            <div className="col-lg-6 text-lg-right">
-                                <nav aria-label="breadcrumb">
-                                    <ol className="breadcrumb justify-content-lg-end mb-0 px-0">
-                                        <li className="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
-                                        <li className="breadcrumb-item"><a href="cart.html">Giỏ hàng</a></li>
-                                        <li className="breadcrumb-item active" aria-current="page">Thanh toán</li>
-                                    </ol>
-                                </nav>
-                            </div>
-                        </div>
+                        <ol className="breadcrumb justify-content-start">
+                            <li className="breadcrumb-item"><Link to={"/"} >Trang chủ</Link> </li>
+                            <li className="breadcrumb-item"><Link to={"/cart"} >Giỏ hàng</Link></li>
+                            <li className="breadcrumb-item active" aria-current="page">Thanh toán</li>
+                        </ol>
                     </div>
                 </section>
 
-                {!success && (<section className="py-5">
+                {!success && (<section className="py-5 container">
                     <h2 className="h5 text-uppercase mb-4">Chi tiết thanh toán</h2>
                     <div className="row">
                         <div className="col-lg-8">
@@ -216,36 +208,49 @@ function Checkout(props) {
                                 <div className="row">
                                     <div className="col-lg-12 form-group">
                                         <label className="text-small text-uppercase" htmlFor="Fullname">Họ và Tên:</label>
-                                        <input className="form-control form-control-lg" value={fullName} onChange={onChangeName} type="text" placeholder="Enter Your Full Name Here!" />
+                                        <input className="form-control form-control-lg" value={fullName} onChange={onChangeName} type="text" placeholder="Nhập họ và tên của bạn ở đây!" />
 
                                         {errors.fullName && <span className="text-danger">{errors.fullName}</span>}
                                     </div>
-
-                                    <div className="col-lg-12 form-group">
+                                    <div className="ol-lg-12 form-group">
                                         <label className="text-small text-uppercase" htmlFor="Email">Email: </label>
-                                        <input className="form-control form-control-lg" value={email} onChange={onChangeEmail} type="text" placeholder="Enter Your Email Here!" />
+                                        <input className="form-control form-control-lg" value={email} onChange={onChangeEmail} type="text" placeholder="Nhập Email của bạn ở đây!" />
 
                                         {errors.email && <span className="text-danger">{errors.email}</span>}
                                     </div>
-
                                     <div className="col-lg-12 form-group">
                                         <label className="text-small text-uppercase" htmlFor="Phone">Số Điện Thoại: </label>
-                                        <input className="form-control form-control-lg" value={phone} onChange={onChangePhone} type="text" placeholder="Enter Your Phone Number Here!" />
+                                        <input className="form-control form-control-lg" value={phone} onChange={onChangePhone} type="number" placeholder="Nhập số điện thoại của bạn ở đây!" />
 
                                         {errors.phone && <span className="text-danger">{errors.phone}</span>}
                                     </div>
-
                                     <div className="col-lg-12 form-group">
                                         <label className="text-small text-uppercase" htmlFor="Address">Địa Chỉ: </label>
-                                        <input className="form-control form-control-lg" value={address} onChange={onChangeAddress} type="text" placeholder="Enter Your Address Here!" />
+                                        <input className="form-control form-control-lg" value={address} onChange={onChangeAddress} type="text" placeholder="Nhập địa chỉ của bạn ở đây!" />
 
                                         {errors.address && <span className="text-danger">{errors.address}</span>}
                                     </div>
 
+                                </div>
+                                <div className='row'>
+                                    <div className='col-lg-6 col-md-12'>
+                                        <label className="text-small text-uppercase" htmlFor="Tỉnh thành">Tỉnh thành: </label>
+                                        <select className="select-checkout form-select form-select-sm mb-3 form-control-lg" id="city">
+                                            <option value="">Chọn tỉnh thành</option>
+                                        </select>
+                                    </div>
+                                    <div className='col-lg-6 col-md-12'>
+                                        <label className="text-small text-uppercase" htmlFor="Quận huyện">Quận huyện: </label>
+                                        <select className="select-checkout form-select form-select-sm mb-3 form-control-lg" id="district">
+                                            <option value="">Chọn quận huyện</option>
+                                        </select>
+                                    </div>
                                     <div className="col-lg-12 form-group">
                                         <button className="btn btn-dark" style={{ color: 'white' }} type="submit" onClick={handlerSubmit}>Đặt hàng</button>
                                     </div>
                                 </div>
+
+
                             </form>
                         </div>
                         <div className="col-lg-4">
@@ -258,15 +263,16 @@ function Checkout(props) {
                                                 <div key={value._id}>
                                                     <li className="d-flex align-items-center justify-content-between">
                                                         <strong className="small font-weight-bold">{value.nameProduct}</strong>
-                                                        <span className="text-muted small">${value.priceProduct} x {value.count}</span>
+                                                        <span className="text-muted small">{value.priceProduct} x {value.count},000₫</span>
                                                     </li>
                                                     <li className="border-bottom my-2"></li>
                                                 </div>
                                             ))
                                         }
                                         <li className="d-flex align-items-center justify-content-between">
-                                            <strong className="text-uppercase small font-weight-bold">Tổng cộng</strong>
-                                            <span>${total}</span>
+                                            <strong className="font-weight-bold">Tổng cộng</strong>
+                                            <span className='d-flex'>
+                                                <p className='mr-2'> VND </p> {total},000₫</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -279,6 +285,8 @@ function Checkout(props) {
                     <div className="p-5">
                         <h1>Bạn đã đặt hàng thành công!</h1>
                         <p style={{ fontSize: '1.2rem' }}>Vui lòng check mail.</p>
+
+                        <Link className='btn btn-warning mt-2' to={"/"}>Trở về trang chủ</Link>
                     </div>
                 </section>)}
             </div>

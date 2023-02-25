@@ -290,11 +290,9 @@ function Home(props) {
                                     ) : " "}
 
                                 </div>
-                                <div>
-                                    <button className='btn-view'>
-                                        XEM NGAY
-                                    </button>
-                                </div>
+                                <button className='btn-view'>
+                                    XEM NGAY
+                                </button>
                             </div>
                         </div>
                     </section>
