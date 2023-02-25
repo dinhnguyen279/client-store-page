@@ -25,6 +25,15 @@ html {
 
 .name-profile {
   text-align: left;
+  margin: auto;
+}
+
+.icon-userprofile {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  cursor: pointer;
+  font-size: 20px;
 }
 
 .btn-detail {
@@ -39,6 +48,7 @@ html {
   justify-content: center;
   align-items: center;
   text-align: center;
+  color: black;
 }
 
 .link-profile:focus {

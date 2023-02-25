@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Image from '../Share/img/Image'
+import { AiOutlineEdit, AiOutlineScan } from "react-icons/ai"
 import "./Auth.css"
+import { Button } from 'react-bootstrap'
 const UserProfile = () => {
     const [active, setActive] = useState('Overview')
 
@@ -13,27 +15,30 @@ const UserProfile = () => {
         <div className="container-fluid main-profile p-l-55 p-r-55 p-t-160 p-b-50">
             <div className="card-profile">
                 <div className="row" style={{ margin: "auto" }}>
-                    <div className="col-md-2" style={{ width: "150px", margin: "auto" }}>
-                        <img src={Image.userprofile} style={{ width: "100%" }} className="img-fluid rounded-circle img-profile" alt="Profile Picture" />
-                        <i class="fa fa-edit" aria-hidden="true"></i>
+                    <div className="col-md-12 col-xl-2 position-relative" style={{ width: "150px", margin: "auto" }}>
+                        <img src={Image.product_1} style={{ width: "100%" }} className="img-fluid rounded-circle img-profile" alt="Profile Picture" />
+                        <AiOutlineEdit className='icon-userprofile' />
                     </div>
-                    <div className='col-md-10 name-profile' style={{ margin: "auto" }}>
+                    <div className='col-md-12 col-xl-7 name-profile'>
                         <h1>User Name</h1>
                         <p>Dev : Client</p>
+                    </div>
+                    <div className='col-md-12 name-profile col-xl-3'>
+                        <Button className='text-uppercase'><AiOutlineScan /> In Hồ Sơ</Button>
                     </div>
                 </div>
                 <div className='row p-t-30' style={{ margin: "auto" }}>
                     <div className="list-profile">
-                        <div className='m-r-10 btn-detail' style={active === 'Overview' ? { background: '#6e00ff' } : { background: 'none', color: "black" }} >
-                            <button data-toggle="collapse" data-target="#overview" className="link-profile" onClick={() => handlerActive("Overview")}
+                        <div className='m-r-10 btn-detail' style={active === 'Overview' ? { background: '#6e00ff' } : { background: 'none' }} onClick={() => handlerActive("Overview")}>
+                            <button data-toggle="collapse" data-target="#overview" className="link-profile"
                             ><i className="m-r-10 fa fa-home" style={{ fontSize: "20px" }} aria-hidden="true" /> Overview</button>
                         </div>
-                        <div className='m-r-10 btn-detail' style={active === 'Notes' ? { background: '#6e00ff' } : { background: 'none', color: "black" }}>
-                            <button data-toggle="collapse" data-target="#notes" className="link-profile" onClick={() => handlerActive("Notes")}
+                        <div className='m-r-10 btn-detail' style={active === 'Notes' ? { background: '#6e00ff' } : { background: 'none' }} onClick={() => handlerActive("Notes")}>
+                            <button data-toggle="collapse" data-target="#notes" className="link-profile"
                             ><i className="m-r-10 fa fa-sticky-note" style={{ fontSize: "20px" }} aria-hidden="true" /> Notes</button>
                         </div>
-                        <div className='btn-detail' style={active === 'History' ? { background: '#6e00ff' } : { background: 'none', color: "black" }}>
-                            <button data-toggle="collapse" data-target="#history" className="link-profile" onClick={() => handlerActive("History")}
+                        <div className='btn-detail' style={active === 'History' ? { background: '#6e00ff' } : { background: 'none' }} onClick={() => handlerActive("History")}>
+                            <button data-toggle="collapse" data-target="#history" className="link-profile"
                             ><i className="m-r-10 fa fa-history" style={{ fontSize: "20px" }} aria-hidden="true" /> History</button>
                         </div>
                     </div>
@@ -43,8 +48,8 @@ const UserProfile = () => {
             <div className='card-profile m-t-40 collapse' id='overview'>
                 <div className='card-title d-flex justify-content-between'>
                     <h3 className='title-text'>Tất cả thông tin người dùng</h3>
-                    <button className='btn btn-info rounded' type='button'>
-                        <i className="fa fa-edit" aria-hidden="true"></i> Edit
+                    <button className='btn btn-warning rounded' type='button'>
+                        <AiOutlineEdit /> Chỉnh sửa
                     </button>
                 </div>
                 <div className='row'>
@@ -101,8 +106,21 @@ const UserProfile = () => {
             </div>
 
             <div className='card-profile m-t-40 collapse' id='notes'>
-                <h3 className='card-title'>Notes</h3>
-                <p className="">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ut dolor maxime vero fugiat, excepturi, cumque similique ipsam temporibus, alias at quibusdam quae magnam suscipit quia. Nemo tenetur cupiditate possimus repudiandae?</p>
+                <div className='d-flex justify-content-between'>
+                    <h3 className='card-title'>Notes</h3>
+                    <button className='btn btn-warning rounded' type='button'>
+                        <AiOutlineEdit /> Chỉnh sửa
+                    </button></div>
+                <div className='row mt-3'>
+                    <div className='col-md-4 title-text'>Sở Thích:</div>
+                    <div className='col-md-4 title-text'>Thói Quen:</div>
+                    <div className='col-md-4 title-text'>Music:</div>
+                </div>
+                <div className='row'>
+                    <div className='col-md-4 title-text'>Sở Thích:</div>
+                    <div className='col-md-4 title-text'>Sở Thích:</div>
+                    <div className='col-md-4 title-text'>Sở Thích:</div>
+                </div>
             </div>
 
             <div className='card-profile m-t-40 collapse' id='history'>
