@@ -15,7 +15,7 @@ const ErrorPage = () => {
                 </section>
                 <div className='text-center'>
                     <button type='button' className="more-link">
-                        <Link target="_parent" to={"/home"}>Trở Về Trang Chủ</Link>
+                        <Link target="_parent" to={"/"}>Trở Về Trang Chủ</Link>
                     </button>
                 </div>
             </div>
