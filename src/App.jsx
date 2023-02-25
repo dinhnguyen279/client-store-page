@@ -21,6 +21,7 @@ import Contact from "./Contact/Contact";
 import UserProfile from "./Authentication/UserProfile";
 import MainHistory from "./History/MainHistory";
 import DetailHistory from "./History/DetailHistory";
+import ErrorPage from "./Share/404/404";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
           <Route path="/detail-user" element={<UserProfile />} />
           <Route path="/history" element={<MainHistory />} />
           <Route path='/history/:id' element={<DetailHistory />} />
+          <Route path='/*' element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
       {/* <Chat /> */}
