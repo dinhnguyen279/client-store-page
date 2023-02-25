@@ -193,7 +193,7 @@ function Checkout(props) {
                 <section className="py-3 bg-light">
                     <div className="container">
                         <ol className="breadcrumb justify-content-start">
-                            <li className="breadcrumb-item"><Link to={"/"} >Trang chủ</Link> </li>
+                            <li className="breadcrumb-item"><Link to={"/home"} >Trang chủ</Link> </li>
                             <li className="breadcrumb-item"><Link to={"/cart"} >Giỏ hàng</Link></li>
                             <li className="breadcrumb-item active" aria-current="page">Thanh toán</li>
                         </ol>
@@ -286,7 +286,7 @@ function Checkout(props) {
                         <h1>Bạn đã đặt hàng thành công!</h1>
                         <p style={{ fontSize: '1.2rem' }}>Vui lòng check mail.</p>
 
-                        <Link className='btn btn-warning mt-2' to={"/"}>Trở về trang chủ</Link>
+                        <Link className='btn btn-warning mt-2' to={"/home"}>Trở về trang chủ</Link>
                     </div>
                 </section>)}
             </div>

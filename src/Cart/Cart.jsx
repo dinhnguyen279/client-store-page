@@ -239,7 +239,7 @@ function Cart(props) {
             <section className="py-3 bg-light">
                 <div className="container">
                     <ol className="breadcrumb justify-content-start">
-                        <li className="breadcrumb-item"><Link to={"/"}>Trang chủ</Link></li>
+                        <li className="breadcrumb-item"><Link to={"/home"}>Trang chủ</Link></li>
                         <li className="breadcrumb-item active" aria-current="page">Giỏ hàng</li>
                     </ol>
                 </div>

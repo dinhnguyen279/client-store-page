@@ -105,7 +105,7 @@ function ListCart(props) {
                                 </div>
                             </div>
                             <div className='col-md-3 text-end'>
-                                <a href='/'
+                                <a href='/cart'
                                     className="reset-anchor remove_cart"
                                     style={{ cursor: 'pointer' }}
                                     onClick={() => handlerDelete(value.idUser, value.idProduct)}>

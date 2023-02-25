@@ -29,7 +29,7 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route index path="/home" element={<Home />} />
           <Route path="/detail/:id" element={<Detail />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/signin" element={<SignIn />} />
@@ -40,7 +40,7 @@ function App() {
           <Route path="/detail-user" element={<UserProfile />} />
           <Route path="/history" element={<MainHistory />} />
           <Route path='/history/:id' element={<DetailHistory />} />
-          <Route path='/*' element={<ErrorPage />} />
+          <Route path='*' element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
       {/* <Chat /> */}

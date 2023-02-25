@@ -90,7 +90,7 @@ function Home(props) {
                         <div className='container'>
                             <div className='row'>
                                 <div className='col-md-12 col-sm-12 col-xl-6 col-xs-12 main-banner'>
-                                    <Link to={"/"}>
+                                    <Link to={"/abcs"}>
                                         <div>
                                             <img className='img-banner' src={Image.categorybanner1} alt="" />
                                         </div>
@@ -107,7 +107,7 @@ function Home(props) {
                                 </div>
 
                                 <div className='col-md-6 col-sm-12 col-xl-3 col-xs-12 main-banner'>
-                                    <Link to={"/"}>
+                                    <Link to={"/abcs"}>
                                         <div>
                                             <img className='img-banner' src={Image.categorybanner2} alt="" />
                                         </div>
@@ -124,7 +124,7 @@ function Home(props) {
                                 </div>
 
                                 <div className='col-md-6 col-sm-12 col-xl-3 col-xs-12 main-banner'>
-                                    <Link to={"/"}>
+                                    <Link to={"/abcs"}>
                                         <div>
                                             <img className='img-banner' src={Image.categorybanner3} alt="" />
                                         </div>

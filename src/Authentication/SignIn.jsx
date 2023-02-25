@@ -162,7 +162,7 @@ function SignIn(props) {
 
                         <div className="container-login100-form-btn m-t-20">
                             {
-                                redirect && <Navigate replace to="/" />
+                                redirect && <Navigate replace to="/home" />
                             }
                             <button className="login100-form-btn btn-form" type='submit'>
                                 Đăng nhập

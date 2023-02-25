@@ -50,7 +50,7 @@ function Header(props) {
         <>
             <Navbar bg="light" expand={"md"} className="pt-3 bg-body" style={{ zIndex: 10 }} fixed='top'>
                 <Container>
-                    <Link to={"/"} className='logo-navbar'>
+                    <Link to={"/home"} className='logo-navbar'>
                         <h4>Sports Zone</h4>
                     </Link>
                     <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-md`} />
@@ -110,7 +110,7 @@ function Header(props) {
                         <Offcanvas.Body>
                             <ul className="navbar-nav nav-link-page" >
                                 <li className="nav-item" >
-                                    <Link className="nav-link" to={`/`}
+                                    <Link className="nav-link" to={`/home`}
                                     >Trang Chủ</Link>
                                 </li>
                                 <li className="nav-item">
@@ -119,10 +119,10 @@ function Header(props) {
                                             id="nav-dropdown-dark-example"
                                             title="Sản Phẩm SALE"
                                         >
-                                            <NavDropdown.Item href="#action/3.1">
+                                            <NavDropdown.Item href="trang-nay-chua-co-nha">
                                                 Quần áo sale
                                             </NavDropdown.Item>
-                                            <NavDropdown.Item href="#action/3.2">
+                                            <NavDropdown.Item href="trang-nay-chua-co-nha">
                                                 Giày bóng đá sale
                                             </NavDropdown.Item>
                                         </NavDropdown>
@@ -135,11 +135,11 @@ function Header(props) {
                                             id="nav-dropdown-dark-example"
                                             title="Bóng Đá"
                                         >
-                                            <NavDropdown.Item href="#action/3.1">Giày đá bóng</NavDropdown.Item>
-                                            <NavDropdown.Item href="#action/3.2">
+                                            <NavDropdown.Item href="trang-nay-chua-co-nha">Giày đá bóng</NavDropdown.Item>
+                                            <NavDropdown.Item href="trang-nay-chua-co-nha">
                                                 Quần áo bóng đá
                                             </NavDropdown.Item>
-                                            <NavDropdown.Item href="#action/3.3">Phụ kiện bóng đá</NavDropdown.Item>
+                                            <NavDropdown.Item href="trang-nay-chua-co-nha">Phụ kiện bóng đá</NavDropdown.Item>
                                         </NavDropdown>
                                     </Nav>
                                 </li>
@@ -159,11 +159,11 @@ function Header(props) {
                                             id="nav-dropdown-dark-example"
                                             title="Quần Áo Bóng Đá"
                                         >
-                                            <NavDropdown.Item href="#action/3.1">Áo Bóng Đá BulBal</NavDropdown.Item>
-                                            <NavDropdown.Item href="#action/3.2">
+                                            <NavDropdown.Item href="trang-nay-chua-co-nha">Áo Bóng Đá BulBal</NavDropdown.Item>
+                                            <NavDropdown.Item href="trang-nay-chua-co-nha">
                                                 Áo Bóng Đá Trẻ Em
                                             </NavDropdown.Item>
-                                            <NavDropdown.Item href="#action/3.3">Quần Áo Đá Bóng Chính Hãng</NavDropdown.Item>
+                                            <NavDropdown.Item href="trang-nay-chua-co-nha">Quần Áo Đá Bóng Chính Hãng</NavDropdown.Item>
                                         </NavDropdown>
                                     </Nav>
                                 </li>
