@@ -165,7 +165,11 @@ function Home(props) {
 
                                                 <div className="product-overlay">
                                                     <ul className="mb-0 list-inline">
-                                                        <li className="list-inline-item m-0 p-0"><a className="btn btn-sm btn-outline-dark"><i className="far fa-heart"></i></a></li>
+                                                        <li className="list-inline-item m-0 p-0">
+                                                            <a className="btn btn-sm btn-outline-dark icon-product">
+                                                                <i className="far fa-heart"></i>
+                                                            </a>
+                                                        </li>
                                                         <li className="list-inline-item m-0 p-0">
                                                             <Link className="btn btn-sm btn-dark" to={`/detail/${value._id}`}>
                                                                 Thông tin sản phẩm
@@ -209,21 +213,21 @@ function Home(props) {
                                     <Card.Img src={Image.lookbooks_1} />
                                     <div className='p-t-10'>
                                         <p style={{ fontSize: "18px", paddingBottom: "10px" }}>Buibal Falcon</p>
-                                        <span className='text-uppercase text-lookbook'>In ấn miễn phí</span>
+                                        <span className='text-uppercase text-lookbook' style={{ fontFamily: "monospace" }}>In ấn miễn phí</span>
                                     </div>
                                 </div>
                                 <div className="images-item">
                                     <Card.Img src={Image.lookbooks_2} />
                                     <div className='p-t-10'>
                                         <p style={{ fontSize: "18px", paddingBottom: "10px" }}>Quần Áo Bóng Đá Thái Lan</p>
-                                        <span className='text-uppercase text-lookbook'>In ấn font xịn</span>
+                                        <span className='text-uppercase text-lookbook' style={{ fontFamily: "monospace" }}>In ấn font xịn</span>
                                     </div>
                                 </div>
                                 <div className="images-item">
                                     <Card.Img src={Image.lookbooks_3} />
                                     <div className='p-t-10'>
                                         <p style={{ fontSize: "18px", paddingBottom: "10px" }}>Quần Áo Đá Banh Trẻ Em Mới Nhất</p>
-                                        <span className='text-uppercase text-lookbook'>In ấn miễn phí</span>
+                                        <span className='text-uppercase text-lookbook' style={{ fontFamily: "monospace" }}>In ấn miễn phí</span>
                                     </div>
                                 </div>
                             </div>

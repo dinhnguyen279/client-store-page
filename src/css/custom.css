@@ -171,9 +171,11 @@ html {
   margin-right: 20px;
   margin-bottom: 20px;
   background: gray;
+  color: white;
+  font-weight: 500;
 }
 
-.btn-contact:hover i {
+.btn-contact:hover {
   color: #0d0c0c;
 }
 
@@ -467,6 +469,13 @@ html {
 
 .body-product p {
   margin-bottom: 20px;
+}
+
+.icon-product i {
+  color: black;
+}
+.icon-product:hover i {
+  color: white;
 }
 
 .btn-view {

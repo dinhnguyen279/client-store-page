@@ -18,6 +18,7 @@ html {
   color: gray;
   transform: translateY(-50%);
 }
+
 /* User Profile */
 .main-profile {
   background: rgb(220, 220, 220);
@@ -358,7 +359,7 @@ iframe {
   .login100-form-title::before {
     content: "";
     position: absolute;
-    bottom: 15%;
+    top: 25%;
     left: 50%;
     transform: translateX(-50%);
     right: 0;
@@ -376,7 +377,7 @@ iframe {
   .signup100-form-title::before {
     content: "";
     position: absolute;
-    bottom: 15%;
+    top: 20%;
     left: 50%;
     transform: translateX(-50%);
     right: 0;
@@ -391,7 +392,13 @@ iframe {
     font-size: 30px;
   }
   .login100-form-title::before {
-    bottom: 10%;
+    top: 23%;
+  }
+  .signup100-form-title {
+    font-size: 30px;
+  }
+  .signup100-form-title::before {
+    top: 20%;
   }
 }
 

@@ -6,6 +6,7 @@ import './Checkout.css'
 
 import io from "socket.io-client";
 import { Link } from 'react-router-dom';
+import SelectionForm from './SelectionForm';
 const socket = io("http://localhost:3003");
 
 function Checkout(props) {
@@ -233,18 +234,7 @@ function Checkout(props) {
 
                                 </div>
                                 <div className='row'>
-                                    <div className='col-lg-6 col-md-12'>
-                                        <label className="text-small text-uppercase" htmlFor="Tỉnh thành">Tỉnh thành: </label>
-                                        <select className="select-checkout form-select form-select-sm mb-3 form-control-lg" id="city">
-                                            <option value="">Chọn tỉnh thành</option>
-                                        </select>
-                                    </div>
-                                    <div className='col-lg-6 col-md-12'>
-                                        <label className="text-small text-uppercase" htmlFor="Quận huyện">Quận huyện: </label>
-                                        <select className="select-checkout form-select form-select-sm mb-3 form-control-lg" id="district">
-                                            <option value="">Chọn quận huyện</option>
-                                        </select>
-                                    </div>
+                                    <SelectionForm />
                                     <div className="col-lg-12 form-group">
                                         <button className="btn btn-dark" style={{ color: 'white' }} type="submit" onClick={handlerSubmit}>Đặt hàng</button>
                                     </div>

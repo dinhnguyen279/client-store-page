@@ -11,7 +11,7 @@ import axios from "axios";
 import axiosClient from "../API/axiosClient";
 import Image from "../Share/img/Image"
 import { Card, Carousel } from "react-bootstrap";
-import { AiOutlinePlus, AiOutlineLine, AiOutlineHeart, AiFillHeart, AiOutlineShoppingCart, AiTwotoneStar } from 'react-icons/ai'
+import { AiOutlinePlus, AiOutlineLine, AiFillHeart, AiOutlineShoppingCart, AiTwotoneStar } from 'react-icons/ai'
 
 function Detail(props) {
   const [detail, setDetail] = useState({});
@@ -39,7 +39,7 @@ function Detail(props) {
 
   // Listcomment
   const [list_comment, set_list_comment] = useState([]);
-
+  console.log("list_comment", list_comment);
   // state này dùng để load lại comment khi user gửi comment lên
   const [load_comment, set_load_comment] = useState(false);
 
@@ -49,17 +49,17 @@ function Detail(props) {
 
   // Hàm này dùng để lấy dữ liệu comment
   // Hàm này sẽ chạy lại phụ thuộc vào id Param
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const params = {
-  //       idProduct: id,
-  //     };
-  //     const query = "?" + queryString.stringify(params);
-  //     const response = await CommentAPI.getCommentProduct(query);
-  //     set_list_comment(response);
-  //   };
-  //   fetchData();
-  // }, [id]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const params = {
+        idProduct: id,
+      };
+      const query = "?" + queryString.stringify(params);
+      const response = await CommentAPI.getCommentProduct(query);
+      set_list_comment(response);
+    };
+    fetchData();
+  }, [id]);
 
   // Hàm thay đổi sao đánh giá
   const onChangeStar = (e) => {
@@ -72,31 +72,33 @@ function Detail(props) {
   };
 
   // Hàm này dùng để bình luận
-  // const handlerComment = () => {
-  //   if (idUser === "") {
-  //     alertify.set("notifier", "position", "bottom-left");
-  //     alertify.error("Vui Lòng Kiểm Tra Đăng Nhập!");
-  //     return;
-  //   }
-  //   const fetchSendComment = async () => {
-  //     const params = {
-  //       idProduct: id,
-  //       idUser: sessionStorage.getItem("id_user"),
-  //       fullname: sessionStorage.getItem("name_user"),
-  //       content: comment,
-  //       star: star,
-  //     };
+  const handlerComment = () => {
+    if (idUser === "") {
+      alertify.set("notifier", "position", "bottom-left");
+      alertify.error("Vui Lòng Kiểm Tra Đăng Nhập!");
+      return;
+    }
+    const fetchSendComment = async () => {
+      const params = {
+        idProduct: id,
+        idUser: sessionStorage.getItem("id_user"),
+        fullname: sessionStorage.getItem("name_user"),
+        content: comment,
+        star: star,
+      };
 
-  //     const query = "?" + queryString.stringify(params);
+      const query = "?" + queryString.stringify(params);
 
-  //     // const response = await CommentAPI.postCommentProduct(query);
-  //     console.log(response);
+      // const response = await CommentAPI.postCommentProduct(query);
+      const response = await axios.post(`http://localhost:3003/comment/send/${query}`);
 
-  //     set_load_comment(true);
-  //   };
-  //   fetchSendComment();
-  //   setComment("");
-  // };
+      console.log(response);
+
+      set_load_comment(true);
+    };
+    fetchSendComment();
+    setComment("");
+  };
 
   // Hàm này dùng để load lại dữ liệu comment
   // Phụ thuộc vào state load_comment
@@ -107,7 +109,8 @@ function Detail(props) {
           idProduct: id,
         };
         const query = "?" + queryString.stringify(params);
-        const response = await CommentAPI.getCommentProduct(query);
+        // const response = await CommentAPI.getCommentProduct(query);
+        const response = await axios.get(`http://localhost:3003/comment/${query}`);
         set_list_comment(response);
       };
       fetchData();
@@ -215,11 +218,11 @@ function Detail(props) {
         <div className="row mb-5">
           <div className="col-lg-6">
             <div className="row">
-              <div className=" col-lg-2 d-flex flex-row flex-lg-column order-lg-1 order-2">
-                <div className="mb-3 owl-thumb-item"><Card.Img className="post-img w-100" src={Image.product_1}></Card.Img></div>
-                <div className="mb-3 owl-thumb-item"><Card.Img className="post-img w-100" src={Image.product_1}></Card.Img></div>
-                <div className="mb-3 owl-thumb-item"><Card.Img className="post-img w-100" src={Image.product_1}></Card.Img></div>
-                <div className="mb-3 owl-thumb-item"><Card.Img className="post-img w-100" src={Image.product_1}></Card.Img></div>
+              <div className="col-lg-2 d-flex flex-row flex-lg-column order-lg-1 order-2">
+                <Card.Img className="post-img w-100 mb-3" src={Image.product_1}></Card.Img>
+                <Card.Img className="post-img w-100 mb-3" src={Image.product_1}></Card.Img>
+                <Card.Img className="post-img w-100 mb-3" src={Image.product_1}></Card.Img>
+                <Card.Img className="post-img w-100 mb-3" src={Image.product_1}></Card.Img>
               </div>
               <Carousel variant="dark" className="col-lg-10 order-lg-2 order-1" activeIndex={index} onSelect={handleSelect}>
                 <Carousel.Item>
@@ -247,7 +250,7 @@ function Detail(props) {
             </div>
           </div>
           <div className="col-lg-6">
-            {/* <ul className="list-inline mb-2">
+            <ul className="list-inline mb-2">
               <li className="list-inline-item m-0">
                 <i className="fas fa-star small text-warning" style={{
                   cursor: "pointer"
@@ -273,7 +276,7 @@ function Detail(props) {
                   cursor: "pointer"
                 }}></i>
               </li>
-            </ul> */}
+            </ul>
             <Card.Title className='title-product mb-3'>{detail.name}</Card.Title>
             <div className="text-gray pb-2">
               <strong className="text-uppercase">SKU:</strong>
@@ -281,7 +284,7 @@ function Detail(props) {
             </div>
             <Card.Text className="text-base d-flex">
               <span className="sale-product">{"-30%"}</span>
-              <p className="text-base" style={{ color: "red" }}>399,000₫</p>
+              <span className="text-base" style={{ color: "red" }}>399,000₫</span>
               <span style={{ color: "grey", paddingLeft: "10px" }}>
                 <del>{detail.price}₫</del>
               </span>
@@ -452,13 +455,13 @@ function Detail(props) {
             <a
               className="btn btn-dark btn-sm btn-block px-0 text-white sm-w-100"
               style={{ width: "12rem" }}
-            // onClick={handlerComment}
+              onClick={handlerComment}
             >
               Gửi
             </a>
           </div>
         </div>
-        <h2 className="h5 text-uppercase mb-4">Related products</h2>
+        <h2 className="h5 text-uppercase mb-4">Sản phẩm liên quan</h2>
         <div className="row">
           {product &&
             product.map((value) => (
@@ -475,24 +478,24 @@ function Detail(props) {
                     <div className="product-overlay">
                       <ul className="mb-0 list-inline">
                         <li className="list-inline-item m-0 p-0">
-                          <a className="btn btn-sm btn-outline-dark text-white">
+                          <a className="btn btn-sm btn-outline-dark icon-product">
                             <i className="far fa-heart"></i>
                           </a>
                         </li>
                         <li className="list-inline-item m-0 p-0">
-                          <a className="btn btn-sm btn-dark text-white">
-                            Add to cart
-                          </a>
+                          <Link className="btn btn-sm btn-dark" to={`/detail/${value._id}`}>
+                            Thông tin sản phẩm
+                          </Link>
                         </li>
                       </ul>
                     </div>
                   </div>
                   <h6>
-                    <a className="reset-anchor" href="detail.html">
+                    <a className="reset-anchor" href={`/detail/${value._id}`}>
                       {value.name}
                     </a>
                   </h6>
-                  <i className="small text-muted">${value.price}</i>
+                  <i className="small text-muted">{value.price}₫</i>
                 </div>
               </div>
             ))}

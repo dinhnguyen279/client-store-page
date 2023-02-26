@@ -155,8 +155,8 @@ function SignIn(props) {
                             ) : (
                                 <button type='button' className='show-password' onClick={() => setTypePassWord("password")}>
                                     <AiFillEyeInvisible />
-                                </button>
-                            )}
+                                </button>)
+                            }
                         </div>
                         {errors.password && <p className="text-danger">{errors.password}</p>}
 
