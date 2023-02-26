@@ -9,6 +9,9 @@ import queryString from "query-string";
 import CommentAPI from "../API/CommentAPI";
 import axios from "axios";
 import axiosClient from "../API/axiosClient";
+import Image from "../Share/img/Image"
+import { Card, Carousel } from "react-bootstrap";
+import { AiOutlinePlus, AiOutlineLine, AiOutlineHeart, AiFillHeart, AiOutlineShoppingCart, AiTwotoneStar } from 'react-icons/ai'
 
 function Detail(props) {
   const [detail, setDetail] = useState({});
@@ -199,96 +202,52 @@ function Detail(props) {
     alertify.success("Bạn Đã Thêm Hàng Thành Công!");
   };
 
+  const [index, setIndex] = useState(0);
+
+  const handleSelect = (selectedIndex, e) => {
+    setIndex(selectedIndex);
+  };
+
+
   return (
     <section className="py-5 m-t-130">
       <div className="container">
         <div className="row mb-5">
           <div className="col-lg-6">
-            <div className="row m-sm-0">
-              <div className="col-sm-2 p-sm-0 order-2 order-sm-1 mt-2 mt-sm-0">
-                <div
-                  className="owl-thumbs d-flex flex-row flex-sm-column"
-                  data-slider-id="1"
-                >
-                  <div className="owl-thumb-item flex-fill mb-2 mr-2 mr-sm-0">
-                    <img className="w-100" src={detail.avt} alt="..." />
-                  </div>
-                  <div className="owl-thumb-item flex-fill mb-2 mr-2 mr-sm-0">
-                    <img className="w-100" src={detail.avt} alt="..." />
-                  </div>
-                  <div className="owl-thumb-item flex-fill mb-2 mr-2 mr-sm-0">
-                    <img className="w-100" src={detail.avt} alt="..." />
-                  </div>
-                  <div className="owl-thumb-item flex-fill mb-2 mr-2 mr-sm-0">
-                    <img className="w-100" src={detail.avt} alt="..." />
-                  </div>
-                </div>
+            <div className="row">
+              <div className=" col-lg-2 d-flex flex-row flex-lg-column order-lg-1 order-2">
+                <div className="mb-3 owl-thumb-item"><Card.Img className="post-img w-100" src={Image.product_1}></Card.Img></div>
+                <div className="mb-3 owl-thumb-item"><Card.Img className="post-img w-100" src={Image.product_1}></Card.Img></div>
+                <div className="mb-3 owl-thumb-item"><Card.Img className="post-img w-100" src={Image.product_1}></Card.Img></div>
+                <div className="mb-3 owl-thumb-item"><Card.Img className="post-img w-100" src={Image.product_1}></Card.Img></div>
               </div>
-
-              <div
-                id="carouselExampleControls"
-                className="carousel slide col-sm-10 order-1 order-sm-2"
-                data-ride="carousel"
-              >
-                <div className="carousel-inner owl-carousel product-slider">
-                  <div className="carousel-item active">
-                    <img
-                      className="d-block w-100"
-                      src={detail.avt}
-                      alt="First slide"
-                    />
-                  </div>
-                  {/* <div className="carousel-item">
-                    <img
-                      className="d-block w-100"
-                      src={detail.avt}
-                      alt="Second slide"
-                    />
-                  </div>
-                  <div className="carousel-item">
-                    <img
-                      className="d-block w-100"
-                      src={detail.avt}
-                      alt="Third slide"
-                    />
-                  </div>
-                  <div className="carousel-item">
-                    <img
-                      className="d-block w-100"
-                      src={detail.avt}
-                      alt="Third slide"
-                    />
-                  </div> */}
-                </div>
-                <a
-                  className="carousel-control-prev"
-                  href="#carouselExampleControls"
-                  role="button"
-                  data-slide="prev"
-                >
-                  <span
-                    className="carousel-control-prev-icon"
-                    aria-hidden="true"
-                  ></span>
-                  <span className="sr-only">Previous</span>
-                </a>
-                <a
-                  className="carousel-control-next"
-                  href="#carouselExampleControls"
-                  role="button"
-                  data-slide="next"
-                >
-                  <span
-                    className="carousel-control-next-icon"
-                    aria-hidden="true"
-                  ></span>
-                  <span className="sr-only">Next</span>
-                </a>
-              </div>
+              <Carousel variant="dark" className="col-lg-10 order-lg-2 order-1" activeIndex={index} onSelect={handleSelect}>
+                <Carousel.Item>
+                  <img
+                    className="d-block w-100"
+                    src={Image.product_1}
+                    alt="First Product"
+                  />
+                </Carousel.Item>
+                <Carousel.Item>
+                  <img
+                    className="d-block w-100"
+                    src={Image.product_1_1}
+                    alt="Second Product"
+                  />
+                </Carousel.Item>
+                <Carousel.Item>
+                  <img
+                    className="d-block w-100"
+                    src={Image.product_1}
+                    alt="Third Product"
+                  />
+                </Carousel.Item>
+              </Carousel>
             </div>
           </div>
           <div className="col-lg-6">
-            <ul className="list-inline mb-2">
+            {/* <ul className="list-inline mb-2">
               <li className="list-inline-item m-0">
                 <i className="fas fa-star small text-warning" style={{
                   cursor: "pointer"
@@ -314,27 +273,26 @@ function Detail(props) {
                   cursor: "pointer"
                 }}></i>
               </li>
-            </ul>
-            <h1>{detail.name}</h1>
-            <p className="text-muted lead">${detail.price}</p>
-            <p className="text-small mb-4">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut
-              ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus
-              et magnis dis parturient montes nascetur ridiculus mus. Vestibulum
-              ultricies aliquam convallis.
-            </p>
-            <div className="row align-items-stretch mb-4">
-              <div className="col-sm-5 pr-sm-0">
-                <div className="border d-flex align-items-center justify-content-between py-1 px-3 bg-white border-white">
-                  <span className="small text-uppercase text-gray mr-4 no-select">
-                    Số lượng
-                  </span>
+            </ul> */}
+            <Card.Title className='title-product mb-3'>{detail.name}</Card.Title>
+            <div className="text-gray pb-2">
+              <strong className="text-uppercase">SKU:</strong>
+              <span className="ml-2 text-muted">{detail.SKU}</span>
+            </div>
+            <Card.Text className="text-base d-flex">
+              <span className="sale-product">{"-30%"}</span>
+              <p className="text-base" style={{ color: "red" }}>399,000₫</p>
+              <span style={{ color: "grey", paddingLeft: "10px" }}>
+                <del>{detail.price}₫</del>
+              </span>
+            </Card.Text>
+
+            <div className="row align-items-center mb-4">
+              <div className="col-md-12">
+                <div className="d-flex align-items-center justify-content-between py-3">
                   <div className="quantity">
-                    <button
-                      className="dec-btn p-0"
-                      style={{ cursor: "pointer" }}
-                    >
-                      <i className="fas fa-caret-left" onClick={downText}></i>
+                    <button className="dec-btn" onClick={downText}>
+                      < AiOutlineLine />
                     </button>
                     <input
                       className="form-control border-0 shadow-0 p-0"
@@ -342,48 +300,43 @@ function Detail(props) {
                       value={text}
                       onChange={onChangeText}
                     />
-                    <button
-                      className="inc-btn p-0"
-                      style={{ cursor: "pointer" }}
-                    >
-                      <i className="fas fa-caret-right" onClick={upText}></i>
+                    <button className="inc-btn" onClick={upText}>
+                      <AiOutlinePlus />
                     </button>
                   </div>
                 </div>
               </div>
-              <div className="col-sm-3 pl-sm-0">
+              <div className="col-md-8 d-flex flex-md-row flex-column align-item-center mb-2">
                 <a
-                  className="btn btn-dark btn-sm btn-block d-flex align-items-center justify-content-center px-0 text-white"
+                  className="btn btn-dark btn-base mr-3 text-white my-2"
                   onClick={addToCart}
                 >
-                  Thêm vào giỏ hàng
+                  <AiOutlineShoppingCart /> Thêm vào giỏ hàng
+                </a>
+                <a className="btn btn-warning btn-base text-white hover-icon-heart mr-3 my-2" href="#">
+                  <AiFillHeart className="" /> Thêm vào yêu thích
                 </a>
               </div>
-              <a className="btn btn-link text-dark p-1 mb-4" href="#">
-                <i className="far fa-heart mr-2"></i>Thêm yêu thích
-              </a>
-              <br></br>
-              <ul className="list-unstyled small d-inline-block">
-                <li className="px-3 py-2 mb-1 bg-white">
-                  <strong className="text-uppercase">SKU:</strong>
-                  <span className="ml-2 text-muted">{detail.SKU}</span>
-                </li>
-                <li className="px-3 py-2 mb-1 bg-white text-muted">
-                  <strong className="text-uppercase text-dark">
-                    Category:
-                  </strong>
-                  <a className="reset-anchor ml-2">{detail.category}</a>
-                </li>
-                <li className="px-3 py-2 mb-1 bg-white text-muted">
-                  <strong className="text-uppercase text-dark">Size:</strong>
-                  <a className="reset-anchor ml-2">{detail.size}</a>
-                </li>
-              </ul>
+
+              <div className="" >
+                <ul className="list-unstyled d-inline-block">
+                  <li className="py-2 mb-1 bg-white text-muted">
+                    <strong className="text-uppercase text-dark">
+                      Category:{"Áo Bóng Đá"}
+                    </strong>
+                    <a className="reset-anchor ml-2">{detail.category}</a>
+                  </li>
+                  <li className="py-2 mb-1 bg-white text-muted">
+                    <strong className="text-uppercase text-dark">Size:</strong>
+                    <a className="reset-anchor ml-2">{detail.size}</a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
         <div className="form-group">
-          <label htmlFor="exampleFormControlTextarea1">Comment:</label>
+          <label htmlFor="exampleFormControlTextarea1">Bình Luận:</label>
           <textarea
             className="form-control"
             rows="3"
@@ -391,9 +344,9 @@ function Detail(props) {
             value={comment}
           ></textarea>
         </div>
-        <div className="d-flex justify-content-between">
-          <div className="d-flex w-25">
-            <span className="mt-2">Evaluate: </span>
+        <div className="d-flex flex-column flex-sm-row justify-content-between">
+          <div className="d-flex sm-w-50 w-100 mb-3 sm-mb-0">
+            <span className="mt-2">Đánh giá: </span>
             &nbsp; &nbsp;
             <input
               className="form-control w-25"
@@ -404,15 +357,15 @@ function Detail(props) {
               onChange={onChangeStar}
             />
             &nbsp; &nbsp;
-            <span className="mt-2">Star</span>
+            <span className="mt-2">Sao <AiTwotoneStar /> </span>
           </div>
           <div>
             <a
-              className="btn btn-dark btn-sm btn-block px-0 text-white"
+              className="btn btn-dark btn-sm btn-block px-0 text-white sm-w-100"
               style={{ width: "12rem" }}
             // onClick={handlerComment}
             >
-              Send
+              Gửi
             </a>
           </div>
         </div>
@@ -428,7 +381,7 @@ function Detail(props) {
                   : { color: "#383838" }
               }
             >
-              Description
+              Mô tả
             </a>
           </li>
           <li className="nav-item">
@@ -441,7 +394,7 @@ function Detail(props) {
                   : { color: "#383838" }
               }
             >
-              Reviews
+              Đánh giá
             </a>
           </li>
         </ul>
@@ -449,8 +402,8 @@ function Detail(props) {
           {review === "description" ? (
             <div className="tab-pane fade show active">
               <div className="p-4 p-lg-5 bg-white">
-                <h6 className="text-uppercase">Product description </h6>
-                <p className="text-muted text-small mb-0">
+                <h6 className="text-uppercase mb-3">Product description </h6>
+                <p className="text-muted text-small">
                   {detail.description}
                 </p>
               </div>
@@ -545,7 +498,7 @@ function Detail(props) {
             ))}
         </div>
       </div>
-    </section>
+    </section >
   );
 }
 
