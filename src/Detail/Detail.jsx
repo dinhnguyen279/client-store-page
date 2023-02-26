@@ -335,41 +335,7 @@ function Detail(props) {
             </div>
           </div>
         </div>
-        <div className="form-group">
-          <label htmlFor="exampleFormControlTextarea1">Bình Luận:</label>
-          <textarea
-            className="form-control"
-            rows="3"
-            onChange={onChangeComment}
-            value={comment}
-          ></textarea>
-        </div>
-        <div className="d-flex flex-column flex-sm-row justify-content-between">
-          <div className="d-flex sm-w-50 w-100 mb-3 sm-mb-0">
-            <span className="mt-2">Đánh giá: </span>
-            &nbsp; &nbsp;
-            <input
-              className="form-control w-25"
-              type="number"
-              min="1"
-              max="5"
-              value={star}
-              onChange={onChangeStar}
-            />
-            &nbsp; &nbsp;
-            <span className="mt-2">Sao <AiTwotoneStar /> </span>
-          </div>
-          <div>
-            <a
-              className="btn btn-dark btn-sm btn-block px-0 text-white sm-w-100"
-              style={{ width: "12rem" }}
-            // onClick={handlerComment}
-            >
-              Gửi
-            </a>
-          </div>
-        </div>
-        <br />
+
         <ul className="nav nav-tabs border-0">
           <li className="nav-item">
             <a
@@ -457,6 +423,40 @@ function Detail(props) {
               </div>
             </div>
           )}
+        </div>
+        <div className="form-group">
+          <label htmlFor="exampleFormControlTextarea1">Bình Luận:</label>
+          <textarea
+            className="form-control"
+            rows="3"
+            onChange={onChangeComment}
+            value={comment}
+          ></textarea>
+        </div>
+        <div className="d-flex flex-column flex-sm-row justify-content-between py-4">
+          <div className="d-flex sm-w-50 w-100 mb-3 sm-mb-0">
+            <span className="mt-2">Đánh giá: </span>
+            &nbsp; &nbsp;
+            <input
+              className="form-control w-25"
+              type="number"
+              min="1"
+              max="5"
+              value={star}
+              onChange={onChangeStar}
+            />
+            &nbsp; &nbsp;
+            <span className="mt-2">Sao <AiTwotoneStar /> </span>
+          </div>
+          <div>
+            <a
+              className="btn btn-dark btn-sm btn-block px-0 text-white sm-w-100"
+              style={{ width: "12rem" }}
+            // onClick={handlerComment}
+            >
+              Gửi
+            </a>
+          </div>
         </div>
         <h2 className="h5 text-uppercase mb-4">Related products</h2>
         <div className="row">
