@@ -5,6 +5,7 @@ import queryString from 'query-string'
 import MessengerAPI from '../API/MessengerAPI';
 import axios from 'axios';
 import { AiFillEye, AiFillEyeInvisible, AiOutlineLock, AiOutlineMail, AiOutlineUser, AiOutlinePhone } from "react-icons/ai"
+import axiosClient from '../API/axiosClient';
 SignUp.propTypes = {
 
 };
@@ -22,9 +23,10 @@ function SignUp(props) {
     const [errors, setErrors] = useState({})
     // Show/hide password
     const [typePassWord, setTypePassWord] = useState("password")
+    const REGISTER_URL = "/users/signup"
 
     const onChangeName = (e) => {
-        setFullName(e.target.value.replace(/\s/g, ""))
+        setFullName(e.target.value)
     }
 
     const onChangeEmail = (e) => {
@@ -102,31 +104,32 @@ function SignUp(props) {
                     phone: phone
                 }
 
-                const query = '?' + queryString.stringify(params)
-                console.log('query', query);
-                const response = await axios.post(`http://localhost:3003/users/signup${query}`)
-                console.log('okkk', response)
+                // const query = '?' + queryString.stringify(params)
+                // console.log('query', query);
+                // const response = await axios.post(`http://localhost:3003/users/signup${query}`)
+                const response = await axiosClient.post(REGISTER_URL, JSON.stringify(params))
+                console.log('Đăng ký thành công', response)
                 setSuccess(true)
             }
 
             fetchSignUp()
 
             // Hàm này dùng để tạo các conversation cho user và admin
-            const fetchConversation = async () => {
+            // const fetchConversation = async () => {
 
-                const params = {
-                    email: email,
-                    password: password
-                }
+            //     const params = {
+            //         email: email,
+            //         password: password
+            //     }
 
-                const query = '?' + queryString.stringify(params)
+            //     const query = '?' + queryString.stringify(params)
 
-                const response = await MessengerAPI.postConversation(query)
-                console.log(response)
+            //     const response = await MessengerAPI.postConversation(query)
+            //     console.log(response)
 
-            }
+            // }
 
-            fetchConversation()
+            // fetchConversation()
         }
     }
 
