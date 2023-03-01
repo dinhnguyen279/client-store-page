@@ -6,10 +6,7 @@ import Image from '../Share/img/Image'
 const HotDeals = () => {
     return (
         <>
-            <header className="text-center">
-                <h2 className="text-uppercase mb-4">Hot Deals 2023</h2>
-            </header>
-            <div className="row">
+            {/* <div className="row">
                 <div className="col-md-12 col-xl-4 col-sm-6">
                     <Card.Img className='img-banner' src={Image.product_under_banner} alt="..." />
                 </div>
@@ -73,7 +70,7 @@ const HotDeals = () => {
                         </span>
                     </Card.Text>
                 </div>
-            </div>
+            </div> */}
         </>
     )
 }
