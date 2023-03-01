@@ -109,6 +109,8 @@ function SignUp(props) {
                 // const response = await axios.post(`http://localhost:3003/users/signup${query}`)
                 const response = await axiosClient.post(REGISTER_URL, JSON.stringify(params))
                 console.log('Đăng ký thành công', response)
+                alertify.set("notifier", "position", "bottom-left");
+                alertify.success("Bạn Đã Ký Thành Công!");
                 setSuccess(true)
             }
 
@@ -173,7 +175,7 @@ function SignUp(props) {
 
                         <div className="wrap-input100 rs1 validate-input">
                             <AiOutlinePhone className='icon-form' />
-                            <input className="input100" value={phone} onChange={onChangePhone} type="text" placeholder="Số điện thoại" />
+                            <input className="input100" value={phone} onChange={onChangePhone} type="number" placeholder="Số điện thoại" />
                         </div>
                         {errors.phone && <p className="text-danger">{errors.phone}</p>}
 

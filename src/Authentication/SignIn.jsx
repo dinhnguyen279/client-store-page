@@ -8,6 +8,8 @@ import CartAPI from '../API/CartAPI';
 import axios from 'axios';
 import UserAPI from '../API/UserAPI';
 import { AiOutlineMail, AiOutlineLock, AiFillEye, AiFillEyeInvisible } from "react-icons/ai"
+import axiosClient from '../API/axiosClient';
+import alertify from 'alertifyjs';
 
 function SignIn(props) {
     //test new validate
@@ -17,9 +19,9 @@ function SignIn(props) {
     //listCart được lấy từ redux
     const listCart = useSelector(state => state.Cart.listCart)
 
-    const [email, setEmail] = useState('')
+    const [email, setEmail] = useState('tdinhnguyen279@gmail.com')
 
-    const [password, setPassword] = useState('')
+    const [password, setPassword] = useState('27092001Nguyen')
 
     const [user, setUser] = useState([])
 
@@ -30,16 +32,25 @@ function SignIn(props) {
 
     const [checkPush, setCheckPush] = useState(false)
 
+    const SIGNIN_URL = "/users"
+
     const dispatch = useDispatch()
 
     useEffect(() => {
         const fetchData = async () => {
+            const params = {
+                email: email,
+                password: password
+            }
+            const query = "?" + queryString.stringify(params)
             // await axios.get('http://localhost:3003/users')
             //     .then((res) => {
             //         setUser(res.data)
             //     })
-            await UserAPI.getAllData().then((res) => setUser(res.data))
-
+            const response = await axiosClient.get(`${SIGNIN_URL}`)
+                .then((res) => setUser(res.data))
+                .catch((err) => console.log(err))
+            console.log(response);
         }
         fetchData()
 
@@ -86,16 +97,18 @@ function SignIn(props) {
         e.preventDefault();
         validateFormSignin();
 
+        // alertify.set("notifier", "position", "bottom-left");
+        // alertify.success("Bạn Đã Đăng Nhập Thành Công!");
         const findUser = user.find(value => {
             return value.email === email && value.password === password
         })
 
         sessionStorage.setItem('id_user', findUser._id)
         sessionStorage.setItem('name_user', findUser.fullname)
-
         const action = addSession(sessionStorage.getItem('id_user'))
         dispatch(action)
         setCheckPush(true)
+
     }
 
     //Hàm này dùng để đưa hết tất cả carts vào API của user

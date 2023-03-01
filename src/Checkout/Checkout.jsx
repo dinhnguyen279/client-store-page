@@ -4,10 +4,10 @@ import CartAPI from '../API/CartAPI';
 import CheckoutAPI from '../API/CheckoutAPI';
 import './Checkout.css'
 
-import io from "socket.io-client";
+// import io from "socket.io-client";
 import { Link } from 'react-router-dom';
-import SelectionForm from './SelectionForm';
-const socket = io("http://localhost:3003");
+import CitySelectionForm from './CitySelectionForm';
+// const socket = io("http://localhost:3003");
 
 function Checkout(props) {
 
@@ -150,7 +150,7 @@ function Checkout(props) {
             const data = sessionStorage.getItem('id_user')
 
             // Gửi socket lên server
-            socket.emit('send_order', data)
+            // socket.emit('send_order', data)
 
             //Dùng setTimeout delay 3s
             //Sau 4s nó sẽ thực hiện 
@@ -234,7 +234,7 @@ function Checkout(props) {
 
                                 </div>
                                 <div className='row'>
-                                    <SelectionForm />
+                                    <CitySelectionForm />
                                     <div className="col-lg-12 form-group">
                                         <button className="btn btn-dark" style={{ color: 'white' }} type="submit" onClick={handlerSubmit}>Đặt hàng</button>
                                     </div>

@@ -156,6 +156,7 @@ button:active {
   -webkit-filter: grayscale(40%);
   filter: grayscale(40%);
   transition: all 0.3s;
+  z-index: 10;
 }
 
 .product-overlay {
@@ -191,7 +192,7 @@ button:active {
 }
 
 .product:hover img {
-  opacity: 0.3;
+  opacity: 0.7;
 }
 
 .product:hover .product-overlay {
@@ -209,6 +210,120 @@ button:active {
   top: 1rem;
   right: 1rem;
   z-index: 999;
+}
+
+/* PRODUCT BESTSELLER */
+.product-overlay-bestseller {
+  width: 100%;
+  position: absolute;
+  right: 0;
+  bottom: 60%;
+  transform: translateY(50%);
+  display: -ms-flexbox;
+  display: flex;
+  flex-direction: column;
+  -ms-flex-align: end;
+  align-items: end;
+  -ms-flex-pack: center;
+  justify-content: start;
+  padding: 1rem 0;
+  opacity: 0;
+  transition: all 0.8s ease-in-out;
+}
+
+.product-bestseller {
+  padding: 10px;
+}
+
+.product-bestseller p {
+  font-size: 18px;
+}
+
+.btn-addtocart {
+  width: 80%;
+  position: absolute;
+  bottom: 0%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ffbb38;
+  padding: 10px 0px;
+  color: #000;
+  opacity: 0;
+  transition: all 0.5s ease-in-out;
+}
+
+.product-bestseller:hover .btn-addtocart {
+  bottom: 10%;
+  opacity: 1;
+}
+
+.product-overlay-bestseller ul li {
+  transition: all 0.3s;
+}
+
+.product-overlay-bestseller ul li {
+  -webkit-transform: translateX(40px);
+  transform: translateX(40px);
+  opacity: 0;
+}
+
+/* .product-overlay-bestseller ul li:last-of-type {
+  -webkit-transform: translateX(40px);
+  transform: translateX(40px);
+  opacity: 0;
+} */
+
+.product:hover .product-overlay-bestseller {
+  opacity: 1;
+}
+
+.product:hover .product-overlay-bestseller li {
+  opacity: 1;
+  /* -webkit-transform: none; */
+  transform: translateX(-10px);
+}
+
+.list-item-bestseller {
+  margin-bottom: 10px;
+}
+
+.list-item-bestseller svg {
+  font-size: 25px;
+}
+
+.list-item-bestseller :hover svg {
+  color: white;
+}
+
+/* Hot Deals */
+.product-hot-deals {
+}
+
+.product-hot-deals {
+  /* padding: 10px; */
+}
+
+.product-hot-deals p {
+  font-size: 18px;
+}
+
+.btn-addtocart {
+  width: 80%;
+  position: absolute;
+  bottom: -15%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ffbb38;
+  padding: 10px 0px;
+  color: #000;
+  opacity: 0;
+  transition: all 0.5s ease-in-out;
+  z-index: 1;
+}
+
+.product-hot-deals:hover .btn-addtocart {
+  bottom: 5%;
+  opacity: 1;
 }
 
 /*

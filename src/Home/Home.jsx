@@ -5,6 +5,10 @@ import axios from 'axios';
 import Carousel from '../components/Carousel';
 import ProductAPI from '../API/ProductAPI';
 import { Card } from 'react-bootstrap';
+import CardProduct from '../Components/CardProduct';
+import BestSeller from '../Components/BestSeller';
+import { AiOutlineExpand, AiOutlineHeart } from 'react-icons/ai';
+import HotDeals from '../Components/HotDeals';
 
 function Home(props) {
 
@@ -144,57 +148,8 @@ function Home(props) {
                     </section>
 
                     {/* Giới thiệu sản phẩm */}
-
                     <section className="py-5" id="section_product">
-                        <header className="text-center">
-                            <h2 className="h5 text-uppercase mb-4">Top sản phẩm nổi bật</h2>
-                        </header>
-                        <div className='row card-product'>
-                            <div className='col-md-12 col-xl-4 col-sm-12'>
-                                <Card.Img src={Image.collection}></Card.Img>
-                            </div>
-                            {
-                                products && products.map(value => (
-                                    <div className="col-md-6 col-xl-2 col-sm-6" key={value._id}>
-                                        <div className="product">
-                                            <div className="position-relative mb-3">
-                                                <div className="badge text-white badge-"></div>
-                                                <Link className="d-block" to={`/detail/${value._id}`}>
-                                                    <Card.Img src={value.avt} alt='...'></Card.Img>
-                                                </Link>
-
-                                                <div className="product-overlay">
-                                                    <ul className="mb-0 list-inline">
-                                                        <li className="list-inline-item m-0 p-0">
-                                                            <a className="btn btn-sm btn-outline-dark icon-product">
-                                                                <i className="far fa-heart"></i>
-                                                            </a>
-                                                        </li>
-                                                        <li className="list-inline-item m-0 p-0">
-                                                            <Link className="btn btn-sm btn-dark" to={`/detail/${value._id}`}>
-                                                                Thông tin sản phẩm
-                                                            </Link>
-                                                        </li>
-                                                        <li className="list-inline-item mr-0">
-                                                            {/* Dùng Modal phải có href để nó hiện ra thằng đó và thuộc tính data-toggle="modal" để mở modal*/}
-                                                            <a className="btn btn-sm btn-outline-dark" href={`#product_${value._id}`} data-toggle="modal">
-                                                                <i className="fas fa-expand"></i>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <Card.Title className='title-product'>{value.name}</Card.Title>
-                                            <Card.Text style={{ color: "red" }}>{value.reducedPrice}₫
-                                                <span style={{ color: "grey", paddingLeft: "10px" }}>
-                                                    <del>{value.price}₫</del>
-                                                </span>
-                                            </Card.Text>
-                                        </div>
-                                    </div>
-                                ))
-                            }
-                        </div>
+                        <CardProduct itemProduct={products} />
                     </section>
 
                     <section>
@@ -235,7 +190,10 @@ function Home(props) {
                         </div>
                     </section>
 
-                    {/* Sản phẩm hot  */}
+                    <section className='py-5 container' id="section_product">
+                        <BestSeller productSale={products} />
+                    </section>
+
                     <section className='container'>
                         <div className='row main-product-hot'>
                             <div className="col-md-6 col-xs-12 img-product-hot">
@@ -302,52 +260,11 @@ function Home(props) {
                     </section>
 
                     <section className='py-5'>
-                        <header className="text-center">
-                            <h3 className="text-uppercase mb-4">BỘ SƯU TẬP THỂ THAO 2022</h3>
-                        </header>
-                        <div className="row">
-                            <div className="col-md-12 col-xl-4 col-sm-6">
-                                <Card.Img className='img-banner' src={Image.product_under_banner} alt="..." />
-                            </div>
-                            <div className="col-md-6 col-xl-2 col-sm-6">
-                                <div className='mb-3 card-product-endPage'>
-                                    <Card.Img className='img-banner' src={Image.product_1} alt="..." />
-                                    <Card.Img className='img-banner img-hidden' src={Image.product_1_1} alt="..." />
-                                    <div className='product-sale'>
-                                        <div className='content-product-sale'>
-                                            <span>-30%</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <Card.Title className='title-product'>ÁO POLO NAM PORADA</Card.Title>
-                                <Card.Text style={{ color: "red" }}>299,000₫
-                                    <span style={{ color: "grey", paddingLeft: "10px" }}>
-                                        <del>399,000₫</del>
-                                    </span>
-                                </Card.Text>
-                            </div>
-                            <div className="col-md-6 col-xl-2 col-sm-6">
-                                <div className='mb-3 card-product-endPage'>
-                                    <Card.Img className='img-banner' src={Image.product_1_1} alt="..." />
-                                    <Card.Img className='img-banner img-hidden' src={Image.product_1} alt="..." />
-                                    <div className='product-sale'>
-                                        <div className='content-product-sale'>
-                                            <span>-20%</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <Card.Title className='title-product'>ÁO POLO NAM PORADA</Card.Title>
-                                <Card.Text style={{ color: "red" }}>299,000₫
-                                    <span style={{ color: "grey", paddingLeft: "10px" }}>
-                                        <del>399,000₫</del>
-                                    </span>
-                                </Card.Text>
-                            </div>
-                        </div>
+                        <HotDeals />
                     </section>
 
                     <section className="py-5">
-                        <Card.Title className='text-center'><h3> Ảnh đẹp Sports Zone</h3></Card.Title>
+                        <Card.Title className='text-center'><h2> Ảnh đẹp Sports Zone</h2></Card.Title>
                         <div className='post-grid'>
                             <div className="post-item"><Card.Img className='post-img' src={Image.Carouselendpage1} /></div>
                             <div className="post-item"><Card.Img className='post-img' src={Image.Carouselendpage2} /></div>
