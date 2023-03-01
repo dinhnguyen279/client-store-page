@@ -208,18 +208,12 @@ html {
   z-index: 1;
 }
 
-.search-icon {
-  /* position: absolute;
-  right: 13%;
-  top: -9%;
-  z-index: 100;
-  cursor: pointer;
-  padding: 10px; */
-}
+/* .search-icon {
+ 
+} */
 
-.search-icon svg {
-  /* font-size: 23px; */
-}
+/* .search-icon svg {
+} */
 
 .search-button {
   display: block;
@@ -274,16 +268,15 @@ html {
   flex-wrap: wrap;
 }
 
-@media only screen and (max-width: 970px) {
+/* @media only screen and (max-width: 970px) {
   .search-icon {
-    /* right: 15%; */
   }
-}
+} */
 
 @media only screen and (max-width: 767px) {
-  .search-icon {
-    /* right: 14%; */
-  }
+  /* .search-icon {
+    right: 14%;
+  } */
   .nav-list-respon {
     display: block;
     margin-top: 10px;

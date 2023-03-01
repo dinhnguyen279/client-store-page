@@ -190,7 +190,7 @@ function Home(props) {
                         </div>
                     </section>
 
-                    <section className='py-5 container' id="section_product">
+                    <section className='py-5 container'>
                         <BestSeller productSale={products} />
                     </section>
 

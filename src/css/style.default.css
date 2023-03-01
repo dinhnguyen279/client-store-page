@@ -296,12 +296,10 @@ button:active {
 }
 
 /* Hot Deals */
-.product-hot-deals {
-}
 
-.product-hot-deals {
-  /* padding: 10px; */
-}
+/* .product-hot-deals {
+  padding: 10px;
+} */
 
 .product-hot-deals p {
   font-size: 18px;
