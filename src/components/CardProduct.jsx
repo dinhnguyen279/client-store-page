@@ -7,9 +7,6 @@ const CardProduct = (props) => {
     const itemProduct = props.itemProduct
     return (
         <>
-            <header className="text-center">
-                <h2 className="h2 text-uppercase mb-4">Top sản phẩm nổi bật</h2>
-            </header>
             <div className='row card-product'>
                 <div className='col-md-12 col-xl-4 col-sm-12'>
                     <Card.Img src={Image.collection}></Card.Img>

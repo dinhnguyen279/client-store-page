@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Image from '../Share/img/Image'
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import Carousel from '../components/Carousel';
 import ProductAPI from '../API/ProductAPI';
 import { Card } from 'react-bootstrap';
-import CardProduct from '../Components/CardProduct';
-import BestSeller from '../Components/BestSeller';
-import { AiOutlineExpand, AiOutlineHeart } from 'react-icons/ai';
 import HotDeals from '../Components/HotDeals';
 
 function Home(props) {
@@ -149,7 +145,10 @@ function Home(props) {
 
                     {/* Giới thiệu sản phẩm */}
                     <section className="py-5" id="section_product">
-                        <CardProduct itemProduct={products} />
+                        <header className="text-center">
+                            <h2 className="h2 text-uppercase mb-4">Top sản phẩm nổi bật</h2>
+                        </header>
+                        {/* <CardProduct itemProduct={products} /> */}
                     </section>
 
                     <section>
@@ -191,7 +190,10 @@ function Home(props) {
                     </section>
 
                     <section className='py-5 container'>
-                        <BestSeller productSale={products} />
+                        <header className="text-center">
+                            <h2 className="h2 text-uppercase mb-4">Best Seller</h2>
+                        </header>
+                        {/* <BestSeller productSale={products} /> */}
                     </section>
 
                     <section className='container'>

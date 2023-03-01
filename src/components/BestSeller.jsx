@@ -7,9 +7,6 @@ const BestSeller = (props) => {
     const productSale = props.productSale
     return (
         <>
-            <header className="text-center">
-                <h2 className="h2 text-uppercase mb-4">Best Seller</h2>
-            </header>
             <div className='row card-product'>
                 {
                     productSale && productSale.map(value => (
