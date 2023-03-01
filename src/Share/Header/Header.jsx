@@ -6,8 +6,8 @@ import { addSession } from '../../Redux/Action/ActionSession';
 import { Link } from 'react-router-dom';
 import LogoutLink from '../../Authentication/LogoutLink';
 import Name from '../../Authentication/Name';
-import { AiOutlineSearch, AiOutlineOrderedList, AiOutlineShoppingCart } from "react-icons/ai"
-
+import { AiOutlineSearch, AiOutlineOrderedList, AiOutlineShoppingCart, AiOutlineCaretRight } from "react-icons/ai"
+import { FaAngleRight } from "react-icons/fa"
 // React-Bootstrap
 import { Col, Container, Form, Nav, Navbar, NavDropdown, Offcanvas } from 'react-bootstrap';
 
@@ -64,15 +64,15 @@ function Header(props) {
                             </Offcanvas.Title>
                         </Offcanvas.Header>
                         <Offcanvas.Body className=''>
-                            <Form className="d-flex justify-content-center position-relative" as={Col}>
-                                <Form.Control
-                                    style={{ width: "80%" }}
+                            <Form className="input-search-type d-flex justify-content-center align-item-center position-relative" as={Col}>
+                                <input
                                     type="search"
-                                    placeholder="Search"
-                                    className="me-2"
+                                    placeholder="Search Products"
+                                    className="input-search"
                                     aria-label="Search"
                                 />
-                                <span className='search-icon'><AiOutlineSearch /></span>
+                                <span className='search-button'>Search</span>
+                                {/* <span className='search-button search-icon'><AiOutlineSearch /></span> */}
                             </Form>
 
                             <Nav className="justify-content-end">
@@ -120,10 +120,10 @@ function Header(props) {
                                             title="Sản Phẩm SALE"
                                         >
                                             <NavDropdown.Item href="trang-nay-chua-co-nha">
-                                                Quần áo sale
+                                                Quần áo sale <FaAngleRight />
                                             </NavDropdown.Item>
                                             <NavDropdown.Item href="trang-nay-chua-co-nha">
-                                                Giày bóng đá sale
+                                                Giày bóng đá sale <FaAngleRight />
                                             </NavDropdown.Item>
                                         </NavDropdown>
                                     </Nav>
@@ -135,11 +135,15 @@ function Header(props) {
                                             id="nav-dropdown-dark-example"
                                             title="Bóng Đá"
                                         >
-                                            <NavDropdown.Item href="trang-nay-chua-co-nha">Giày đá bóng</NavDropdown.Item>
                                             <NavDropdown.Item href="trang-nay-chua-co-nha">
-                                                Quần áo bóng đá
+                                                Giày đá bóng <FaAngleRight />
                                             </NavDropdown.Item>
-                                            <NavDropdown.Item href="trang-nay-chua-co-nha">Phụ kiện bóng đá</NavDropdown.Item>
+                                            <NavDropdown.Item href="trang-nay-chua-co-nha">
+                                                Quần áo bóng đá <FaAngleRight />
+                                            </NavDropdown.Item>
+                                            <NavDropdown.Item href="trang-nay-chua-co-nha">
+                                                Phụ kiện bóng đá <FaAngleRight />
+                                            </NavDropdown.Item>
                                         </NavDropdown>
                                     </Nav>
                                 </li>
@@ -159,11 +163,15 @@ function Header(props) {
                                             id="nav-dropdown-dark-example"
                                             title="Quần Áo Bóng Đá"
                                         >
-                                            <NavDropdown.Item href="trang-nay-chua-co-nha">Áo Bóng Đá BulBal</NavDropdown.Item>
                                             <NavDropdown.Item href="trang-nay-chua-co-nha">
-                                                Áo Bóng Đá Trẻ Em
+                                                Áo Bóng Đá BulBal <FaAngleRight />
                                             </NavDropdown.Item>
-                                            <NavDropdown.Item href="trang-nay-chua-co-nha">Quần Áo Đá Bóng Chính Hãng</NavDropdown.Item>
+                                            <NavDropdown.Item href="trang-nay-chua-co-nha">
+                                                Áo Bóng Đá Trẻ Em <FaAngleRight />
+                                            </NavDropdown.Item>
+                                            <NavDropdown.Item href="trang-nay-chua-co-nha">
+                                                Quần Áo Đá Bóng Chính Hãng <FaAngleRight />
+                                            </NavDropdown.Item>
                                         </NavDropdown>
                                     </Nav>
                                 </li>

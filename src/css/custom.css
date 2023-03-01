@@ -209,16 +209,41 @@ html {
 }
 
 .search-icon {
-  position: absolute;
+  /* position: absolute;
   right: 13%;
   top: -9%;
   z-index: 100;
   cursor: pointer;
-  padding: 10px;
+  padding: 10px; */
 }
 
 .search-icon svg {
-  font-size: 23px;
+  /* font-size: 23px; */
+}
+
+.search-button {
+  display: block;
+  background: #efb93b;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  padding: 0 10px;
+  font-weight: 600;
+  line-height: 3;
+}
+
+.input-search {
+  width: 70%;
+  border: 1px solid black;
+  padding: 0 20px;
+  outline-offset: 10cm;
+}
+
+.input-search:focus {
+  border-color: 1px solid red;
 }
 
 .logo-navbar {
@@ -251,13 +276,13 @@ html {
 
 @media only screen and (max-width: 970px) {
   .search-icon {
-    right: 15%;
+    /* right: 15%; */
   }
 }
 
 @media only screen and (max-width: 767px) {
   .search-icon {
-    right: 14%;
+    /* right: 14%; */
   }
   .nav-list-respon {
     display: block;

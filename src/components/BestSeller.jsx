@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom'
 
 const BestSeller = (props) => {
     const productSale = props.productSale
-    console.log("test", productSale);
     return (
         <>
             <header className="text-center">
