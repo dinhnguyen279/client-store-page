@@ -1,12 +1,12 @@
 import React from 'react'
 import { Card } from 'react-bootstrap'
-import { AiOutlineShoppingCart } from 'react-icons/ai'
+import { AiOutlineExpand, AiOutlineHeart, AiOutlineShoppingCart } from 'react-icons/ai'
 import Image from '../Share/img/Image'
 
 const HotDeals = () => {
     return (
         <>
-            {/* <div className="row">
+            <div className="row">
                 <div className="col-md-12 col-xl-4 col-sm-6">
                     <Card.Img className='img-banner' src={Image.product_under_banner} alt="..." />
                 </div>
@@ -19,6 +19,21 @@ const HotDeals = () => {
                                 <span>-30%</span>
                             </div>
                         </div>
+                        <div className="product-overlay">
+                            <ul className="">
+                                <li className="list-item-overlay">
+                                    {/* Dùng Modal phải có href để nó hiện ra thằng đó và thuộc tính data-toggle="modal" để mở modal */}
+                                    <a className="btn btn-sm btn-outline-dark" href={`#product_`} data-toggle="modal">
+                                        <AiOutlineExpand />
+                                    </a>
+                                </li>
+                                <li className="list-item-overlay">
+                                    <a className="btn btn-sm btn-outline-dark">
+                                        <AiOutlineHeart />
+                                    </a>
+                                </li>
+                            </ul>
+                        </div >
                         <button type='button' className='btn-addtocart'>
                             <AiOutlineShoppingCart /> Thêm giỏ hàng
                         </button>
@@ -39,6 +54,21 @@ const HotDeals = () => {
                                 <span>-20%</span>
                             </div>
                         </div>
+                        <div className="product-overlay">
+                            <ul className="">
+                                <li className="list-item-overlay">
+                                    {/* Dùng Modal phải có href để nó hiện ra thằng đó và thuộc tính data-toggle="modal" để mở modal */}
+                                    <a className="btn btn-sm btn-outline-dark" href={`#product_`} data-toggle="modal">
+                                        <AiOutlineExpand />
+                                    </a>
+                                </li>
+                                <li className="list-item-overlay">
+                                    <a className="btn btn-sm btn-outline-dark">
+                                        <AiOutlineHeart />
+                                    </a>
+                                </li>
+                            </ul>
+                        </div >
                         <button type='button' className='btn-addtocart'>
                             <AiOutlineShoppingCart /> Thêm giỏ hàng
                         </button>
@@ -59,6 +89,21 @@ const HotDeals = () => {
                                 <span>-20%</span>
                             </div>
                         </div>
+                        <div className="product-overlay">
+                            <ul className="">
+                                <li className="list-item-overlay">
+                                    {/* Dùng Modal phải có href để nó hiện ra thằng đó và thuộc tính data-toggle="modal" để mở modal */}
+                                    <a className="btn btn-sm btn-outline-dark" href={`#product_`} data-toggle="modal">
+                                        <AiOutlineExpand />
+                                    </a>
+                                </li>
+                                <li className="list-item-overlay">
+                                    <a className="btn btn-sm btn-outline-dark">
+                                        <AiOutlineHeart />
+                                    </a>
+                                </li>
+                            </ul>
+                        </div >
                         <button type='button' className='btn-addtocart'>
                             <AiOutlineShoppingCart /> Thêm giỏ hàng
                         </button>
@@ -70,7 +115,7 @@ const HotDeals = () => {
                         </span>
                     </Card.Text>
                 </div>
-            </div> */}
+            </div>
         </>
     )
 }

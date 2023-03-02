@@ -18,15 +18,15 @@ const BestSeller = (props) => {
                                         <Card.Img src={value.avt} alt='...'></Card.Img>
                                     </Link>
 
-                                    <div className="product-overlay-bestseller">
+                                    <div className="product-overlay">
                                         <ul className="">
-                                            <li className="list-item-bestseller">
+                                            <li className="list-item-overlay">
                                                 {/* Dùng Modal phải có href để nó hiện ra thằng đó và thuộc tính data-toggle="modal" để mở modal */}
                                                 <a className="btn btn-sm btn-outline-dark" href={`#product_${value._id}`} data-toggle="modal">
                                                     <AiOutlineExpand />
                                                 </a>
                                             </li>
-                                            <li className="list-item-bestseller">
+                                            <li className="list-item-overlay">
                                                 <a className="btn btn-sm btn-outline-dark">
                                                     <AiOutlineHeart />
                                                 </a>
