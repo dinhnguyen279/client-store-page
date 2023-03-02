@@ -4,10 +4,7 @@ import { Link } from 'react-router-dom';
 import Carousel from '../components/Carousel';
 import ProductAPI from '../API/ProductAPI';
 import { Card } from 'react-bootstrap';
-import HotDeals from '../Components/HotDeals';
-import BestSeller from '../Components/BestSeller';
-import CardProduct from '../Components/CardProduct';
-
+import { AiOutlineExpand, AiOutlineHeart, AiOutlineShoppingCart } from 'react-icons/ai';
 function Home(props) {
 
     const [products, setProducts] = useState([])
@@ -79,8 +76,6 @@ function Home(props) {
                         </div >
                     ))
                 }
-
-
                 <div className="container-fluid">
                     {/* Banner */}
                     <section>
@@ -145,12 +140,54 @@ function Home(props) {
                         </div>
                     </section>
 
-                    {/* Giới thiệu sản phẩm */}
+                    {/* Sản phẩm nổi bật */}
                     <section className="py-5" id="section_product">
                         <header className="text-center">
                             <h2 className="h2 text-uppercase mb-4">Top sản phẩm nổi bật</h2>
                         </header>
-                        <CardProduct itemProduct={products} />
+                        <div className='row card-product'>
+                            <div className='col-md-12 col-xl-4 col-sm-12'>
+                                <Card.Img src={Image.collection}></Card.Img>
+                            </div>
+                            {
+                                products && products.map(value => (
+                                    <div className="col-md-6 col-xl-2 col-sm-6" key={value._id}>
+                                        <div className="product">
+                                            <div className="position-relative mb-3 product-new">
+                                                {/* <div className="badge text-white"></div> */}
+                                                <Link className="d-block" to={`/detail/${value._id}`}>
+                                                    <Card.Img src={value.avt} alt='...'></Card.Img>
+                                                </Link>
+                                                <div className="product-overlay">
+                                                    <ul className="">
+                                                        <li className="list-item-overlay">
+                                                            {/* Dùng Modal phải có href để nó hiện ra thằng đó và thuộc tính data-toggle="modal" để mở modal */}
+                                                            <a className="btn btn-sm btn-outline-dark" href={`#product_${value._id}`} data-toggle="modal">
+                                                                <AiOutlineExpand />
+                                                            </a>
+                                                        </li>
+                                                        <li className="list-item-overlay">
+                                                            <a className="btn btn-sm btn-outline-dark">
+                                                                <AiOutlineHeart />
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div>
+                                                    <button type='button' className='btn-addtocart'><AiOutlineShoppingCart /> Thêm giỏ hàng</button>
+                                                </div>
+                                            </div>
+                                            <Card.Title className='title-product'>{value.name}</Card.Title>
+                                            <Card.Text style={{ color: "red" }}>{value.reducedPrice}₫
+                                                <span style={{ color: "grey", paddingLeft: "10px" }}>
+                                                    <del>{value.price}₫</del>
+                                                </span>
+                                            </Card.Text>
+                                        </div>
+                                    </div>
+                                ))
+                            }
+                        </div>
                     </section>
 
                     <section>
@@ -191,11 +228,51 @@ function Home(props) {
                         </div>
                     </section>
 
+                    {/* Best Seller */}
                     <section className='py-5 container'>
                         <header className="text-center">
                             <h2 className="h2 text-uppercase mb-4">Best Seller</h2>
                         </header>
-                        <BestSeller productSale={products} />
+                        <div className='row card-product'>
+                            {
+                                products && products.map(value => (
+                                    <div className="col-md-6 col-xl-3 col-sm-6" key={value._id}>
+                                        <div className="product product-bestseller">
+                                            <div className="position-relative mb-3">
+                                                <Link className="d-block h-100" to={`/detail/${value._id}`}>
+                                                    <Card.Img src={value.avt} alt='...'></Card.Img>
+                                                </Link>
+
+                                                <div className="product-overlay">
+                                                    <ul className="">
+                                                        <li className="list-item-overlay">
+                                                            {/* Dùng Modal phải có href để nó hiện ra thằng đó và thuộc tính data-toggle="modal" để mở modal */}
+                                                            <a className="btn btn-sm btn-outline-dark" href={`#product_${value._id}`} data-toggle="modal">
+                                                                <AiOutlineExpand />
+                                                            </a>
+                                                        </li>
+                                                        <li className="list-item-overlay">
+                                                            <a className="btn btn-sm btn-outline-dark">
+                                                                <AiOutlineHeart />
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div >
+                                                <div>
+                                                    <button type='button' className='btn-addtocart'><AiOutlineShoppingCart /> Thêm giỏ hàng</button>
+                                                </div>
+                                            </div >
+                                            <Card.Title className='title-product'>{value.name}</Card.Title>
+                                            <Card.Text style={{ color: "red" }}>{value.reducedPrice}₫
+                                                <span style={{ color: "grey", paddingLeft: "10px" }}>
+                                                    <del>{value.price}₫</del>
+                                                </span>
+                                            </Card.Text>
+                                        </div >
+                                    </div >
+                                ))
+                            }
+                        </div >
                     </section>
 
                     <section className='container'>
@@ -263,11 +340,121 @@ function Home(props) {
                         </div>
                     </section>
 
+                    {/* Hot Deals */}
                     <section className='py-5'>
                         <header className="text-center">
                             <h2 className="text-uppercase mb-4">Hot Deals 2023</h2>
                         </header>
-                        <HotDeals />
+                        <div className="row">
+                            <div className="col-md-12 col-xl-4 col-sm-6">
+                                <Card.Img className='img-banner' src={Image.product_under_banner} alt="..." />
+                            </div>
+                            <div className="col-md-6 col-xl-2 col-sm-6 product-hot-deals">
+                                <div className='mb-3 card-product-endPage'>
+                                    <Card.Img className='img-banner' src={Image.product_1} alt="..." />
+                                    <Card.Img className='img-banner img-hidden' src={Image.product_1_1} alt="..." />
+                                    <div className='product-sale'>
+                                        <div className='content-product-sale'>
+                                            <span>-30%</span>
+                                        </div>
+                                    </div>
+                                    <div className="product-overlay">
+                                        <ul className="">
+                                            <li className="list-item-overlay">
+                                                {/* Dùng Modal phải có href để nó hiện ra thằng đó và thuộc tính data-toggle="modal" để mở modal */}
+                                                <a className="btn btn-sm btn-outline-dark" href={`#product_`} data-toggle="modal">
+                                                    <AiOutlineExpand />
+                                                </a>
+                                            </li>
+                                            <li className="list-item-overlay">
+                                                <a className="btn btn-sm btn-outline-dark">
+                                                    <AiOutlineHeart />
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div >
+                                    <button type='button' className='btn-addtocart'>
+                                        <AiOutlineShoppingCart /> Thêm giỏ hàng
+                                    </button>
+                                </div>
+                                <Card.Title className='title-product'>ÁO POLO NAM PORADA</Card.Title>
+                                <Card.Text style={{ color: "red" }}>299,000₫
+                                    <span style={{ color: "grey", paddingLeft: "10px" }}>
+                                        <del>399,000₫</del>
+                                    </span>
+                                </Card.Text>
+                            </div>
+                            <div className="col-md-6 col-xl-2 col-sm-6 product-hot-deals">
+                                <div className='mb-3 card-product-endPage'>
+                                    <Card.Img className='img-banner' src={Image.product_1_1} alt="..." />
+                                    <Card.Img className='img-banner img-hidden' src={Image.product_1} alt="..." />
+                                    <div className='product-sale'>
+                                        <div className='content-product-sale'>
+                                            <span>-20%</span>
+                                        </div>
+                                    </div>
+                                    <div className="product-overlay">
+                                        <ul className="">
+                                            <li className="list-item-overlay">
+                                                {/* Dùng Modal phải có href để nó hiện ra thằng đó và thuộc tính data-toggle="modal" để mở modal */}
+                                                <a className="btn btn-sm btn-outline-dark" href={`#product_`} data-toggle="modal">
+                                                    <AiOutlineExpand />
+                                                </a>
+                                            </li>
+                                            <li className="list-item-overlay">
+                                                <a className="btn btn-sm btn-outline-dark">
+                                                    <AiOutlineHeart />
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div >
+                                    <button type='button' className='btn-addtocart'>
+                                        <AiOutlineShoppingCart /> Thêm giỏ hàng
+                                    </button>
+                                </div>
+                                <Card.Title className='title-product'>ÁO POLO NAM PORADA</Card.Title>
+                                <Card.Text style={{ color: "red" }}>299,000₫
+                                    <span style={{ color: "grey", paddingLeft: "10px" }}>
+                                        <del>399,000₫</del>
+                                    </span>
+                                </Card.Text>
+                            </div>
+                            <div className="col-md-6 col-xl-2 col-sm-6 product-hot-deals">
+                                <div className='mb-3 card-product-endPage'>
+                                    <Card.Img className='img-banner' src={Image.product_1_1} alt="..." />
+                                    <Card.Img className='img-banner img-hidden' src={Image.product_1} alt="..." />
+                                    <div className='product-sale'>
+                                        <div className='content-product-sale'>
+                                            <span>-20%</span>
+                                        </div>
+                                    </div>
+                                    <div className="product-overlay">
+                                        <ul className="">
+                                            <li className="list-item-overlay">
+                                                {/* Dùng Modal phải có href để nó hiện ra thằng đó và thuộc tính data-toggle="modal" để mở modal */}
+                                                <a className="btn btn-sm btn-outline-dark" href={`#product_`} data-toggle="modal">
+                                                    <AiOutlineExpand />
+                                                </a>
+                                            </li>
+                                            <li className="list-item-overlay">
+                                                <a className="btn btn-sm btn-outline-dark">
+                                                    <AiOutlineHeart />
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div >
+                                    <button type='button' className='btn-addtocart'>
+                                        <AiOutlineShoppingCart /> Thêm giỏ hàng
+                                    </button>
+                                </div>
+                                <Card.Title className='title-product'>ÁO POLO NAM PORADA</Card.Title>
+                                <Card.Text style={{ color: "red" }}>299,000₫
+                                    <span style={{ color: "grey", paddingLeft: "10px" }}>
+                                        <del>399,000₫</del>
+                                    </span>
+                                </Card.Text>
+                            </div>
+                        </div>
                     </section>
 
                     <section className="py-5">
