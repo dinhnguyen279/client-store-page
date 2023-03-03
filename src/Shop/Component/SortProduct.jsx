@@ -27,9 +27,9 @@ function SortProduct(props) {
 
     return (
         <select className="selectpicker ml-auto" onChange={onChangeValue}>
-            <option value="default">Default sorting</option>
-            <option value="DownToUp">Price: Low to High</option>
-            <option value="UpToDown">Price: High to Low</option>
+            <option value="default">Sắp xếp mặc định</option>
+            <option value="DownToUp">Giá: Thấp đến cao</option>
+            <option value="UpToDown">Giá: Cao đến thấp</option>
         </select>
     );
 }

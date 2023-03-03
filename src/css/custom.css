@@ -79,6 +79,18 @@ html {
   animation-timing-function: ease-in-out;
 }
 
+.main-cart {
+  margin-top: 30px;
+}
+
+.main-checkout {
+  margin-top: 30px;
+}
+
+.main-shop {
+  margin-top: 30px;
+}
+
 .cart-empty {
   height: 100%;
   width: 100%;
@@ -112,6 +124,10 @@ html {
 }
 
 /* CONTACT */
+
+.header-contact {
+  margin-top: 30px;
+}
 
 .contact-main {
   padding-left: 1rem;
@@ -238,27 +254,99 @@ html {
   margin: 0 20px;
 }
 
-.input-search-type:focus {
-  border: 5px solid #ffbb38;
+.input-search-type input:focus {
+  outline: 2px solid #efb93b;
+  box-shadow: 0 0 8px 0 #dcb14a;
 }
 
 .input-search {
   width: 100%;
   padding: 0 20px;
   outline-offset: 10cm;
+  color: black;
 }
 
 .logo-navbar {
-  text-decoration: none;
-  list-style-type: none;
+  display: inline-block;
   padding: 10px;
   border-radius: 4px;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  color: #000;
+  text-decoration: none;
+  list-style-type: none;
+  position: relative;
+  transition-delay: 1s;
+}
+
+.logo-navbar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: #efb93b;
+  transition: width 0.25s linear 1s;
+  z-index: -1;
+}
+
+.logo-navbar:hover::before {
+  width: 100%;
 }
 
 .logo-navbar:hover {
-  color: black;
-  background-color: rgb(203, 203, 203);
+  text-decoration: none;
+  list-style-type: none;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 0 6px 3px #efb93b;
 }
+
+.logo-navbar span {
+  position: absolute;
+  background-color: #efb93b;
+  display: block;
+  transition: all 0.25s linear;
+}
+.logo-navbar span:nth-child(1) {
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+}
+.logo-navbar span:nth-child(2) {
+  top: 0;
+  right: 0;
+  width: 2px;
+  height: 0;
+  transition-delay: 0.25s;
+}
+.logo-navbar span:nth-child(3) {
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 2px;
+  transition-delay: 0.5s;
+}
+.logo-navbar span:nth-child(4) {
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  height: 0;
+  transition-delay: 0.75s;
+}
+
+/* span số chẵn */
+.logo-navbar:hover span:nth-child(odd) {
+  width: 100%;
+}
+/* span số lẽ */
+.logo-navbar:hover span:nth-child(even) {
+  height: 100%;
+}
+
 .navbar-categories {
   width: 100%;
   position: relative;
@@ -836,5 +924,17 @@ html {
   .nav-link-page {
     border: 1px solid #09080831;
     border-top: none;
+  }
+  .main-cart {
+    margin-top: 100px;
+  }
+  .main-checkout {
+    margin-top: 100px;
+  }
+  .header-contact {
+    margin-top: 100px;
+  }
+  .main-shop {
+    margin-top: 100px;
   }
 }

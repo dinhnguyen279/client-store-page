@@ -23,13 +23,13 @@ function Pagination(props) {
     let indexPage = []
 
     //Tạo ra số nút bấm cho từng trang
-    for (var i = 1; i <= totalPage; i++){
+    for (var i = 1; i <= totalPage; i++) {
         indexPage.push(i)
     }
 
     const onDownPage = (value) => {
-        
-        if (!handlerChangePage){
+
+        if (!handlerChangePage) {
             return
         }
 
@@ -39,8 +39,8 @@ function Pagination(props) {
     }
 
     const onUpPage = (value) => {
-                
-        if (!handlerChangePage){
+
+        if (!handlerChangePage) {
             return
         }
 
@@ -52,23 +52,23 @@ function Pagination(props) {
         <nav aria-label="Page navigation example" className="pt-5">
             <ul className="pagination justify-content-center justify-content-lg-end">
                 <li className="page-item">
-                    <button className="page-link" 
-                        onClick={() => onDownPage(page)} 
-                        disabled={page <= 1 }>
+                    <button className="page-link"
+                        onClick={() => onDownPage(page)}
+                        disabled={page <= 1}>
                         <span>«</span>
                     </button>
                 </li>
-                <IndexPage indexPage={indexPage} handlerChangePage={handlerChangePage} pagination={pagination}/>
+                <IndexPage indexPage={indexPage} handlerChangePage={handlerChangePage} pagination={pagination} />
                 <li className="page-item">
-                    <button className="page-link" 
-                        onClick={() => onUpPage(page)} 
+                    <button className="page-link"
+                        onClick={() => onUpPage(page)}
                         disabled={page >= totalPage}>
-                            <span>»</span>
+                        <span>»</span>
                     </button>
                 </li>
             </ul>
             <div className="pagination justify-content-center justify-content-lg-end">
-                <p className="text-small text-muted mb-0">Showing 1–9 of {parseInt(totalPage) * 9} results</p>
+                <p className="text-small text-muted mb-0">Trang 1–9 của {parseInt(totalPage) * 9}</p>
             </div>
         </nav>
     );

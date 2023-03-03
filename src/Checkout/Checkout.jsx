@@ -190,7 +190,7 @@ function Checkout(props) {
                 )
             }
 
-            <div className="m-t-160">
+            <div className="main-checkout">
                 <section className="py-3 bg-light">
                     <div className="container">
                         <ol className="breadcrumb justify-content-start">

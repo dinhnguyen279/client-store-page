@@ -4,7 +4,7 @@ import "./Contact.css"
 const Contact = () => {
     return (
         <>
-            <section className="py-3 bg-light mb-3 m-t-160">
+            <section className="py-3 bg-light mb-3 header-contact">
                 <div className="container">
                     <ol className="breadcrumb justify-content-start">
                         <li className="breadcrumb-item"><Link to={"/"}>Trang chủ</Link></li>

@@ -61,7 +61,11 @@ function Header(props) {
             <Navbar bg="light" expand={"lg"} className="pt-3 bg-body" style={{ zIndex: 10 }} fixed='top'>
                 <Container>
                     <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-lg`} />
-                    <Link to={"/"} className='logo-navbar h4'>
+                    <Link className='logo-navbar h4' to={"/"} >
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
                         Sports Zone
                     </Link>
                     <Navbar.Offcanvas
@@ -69,7 +73,7 @@ function Header(props) {
                         placement="start"
                     >
                         <Offcanvas.Header closeButton>
-                            <Offcanvas.Title >
+                            <Offcanvas.Title>
                                 Sports Zone
                             </Offcanvas.Title>
                         </Offcanvas.Header>

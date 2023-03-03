@@ -146,25 +146,15 @@ function Shop(props) {
     // }, [pagination])
 
     return (
-        <div className="container m-t-150">
-            <section className="py-5 bg-light">
+        <div className="container main-shop">
+            <section className="py-3 bg-light mb-3">
                 <div className="container">
-                    <div className="row px-4 px-lg-5 py-lg-4 align-items-center">
-                        <div className="col-lg-6">
-                            <h1 className="h2 text-uppercase mb-0">Shop</h1>
-                        </div>
-                        <div className="col-lg-6 text-lg-right">
-                            <nav aria-label="breadcrumb">
-                                <ol className="breadcrumb justify-content-lg-end mb-0 px-0">
-                                    <li className="breadcrumb-item active" aria-current="page">Shop</li>
-                                </ol>
-                            </nav>
-                        </div>
-                    </div>
+                    <ol className="breadcrumb justify-content-start">
+                        <li className="breadcrumb-item"><Link to={"/"}>Trang chủ</Link></li>
+                        <li className="breadcrumb-item active" aria-current="page">Cửa hàng</li>
+                    </ol>
                 </div>
             </section>
-
-
             {/* -------------Modal Product----------------- */}
             {
                 products && products.map(value => (
@@ -214,26 +204,20 @@ function Shop(props) {
                 <div className="container p-0">
                     <div className="row">
                         <div className="col-lg-3 order-2 order-lg-1">
-                            <h5 className="text-uppercase mb-4">Categories</h5>
-                            <div className="py-2 px-4 bg-dark text-white mb-3"><strong className="small text-uppercase font-weight-bold">Fashion &amp; Acc</strong></div>
+                            <h5 className="text-uppercase mb-4">Thể loại</h5>
+                            <div className="py-2 px-4 bg-dark text-white mb-3"><strong className="small text-uppercase font-weight-bold">Thời trang &amp; Phụ kiện</strong></div>
                             <ul className="list-unstyled small text-muted pl-lg-4 font-weight-normal">
-                                <li className="mb-2"><a className="reset-anchor" href="#" onClick={() => handlerCategory('all')}>All</a></li>
+                                <li className="mb-2"><a className="reset-anchor" href="#" onClick={() => handlerCategory('all')}>Tất cả</a></li>
                             </ul>
-                            <div className="py-2 px-4 bg-light mb-3"><strong className="small text-uppercase font-weight-bold">Clothes</strong></div>
+                            <div className="py-2 px-4 bg-light mb-3"><strong className="small text-uppercase font-weight-bold">Quần áo</strong></div>
                             <ul className="list-unstyled small text-muted pl-lg-4 font-weight-normal">
-                                <li className="mb-2"><a className="reset-anchor" href="#" onClick={() => handlerCategory('tshirt')}>T-Shirts</a></li>
-                                <li className="mb-2"><a className="reset-anchor" href="#" onClick={() => handlerCategory('pants')}>Pants</a></li>
+                                <li className="mb-2"><a className="reset-anchor" href="#" onClick={() => handlerCategory('tshirt')}>Áo bóng đá</a></li>
+                                <li className="mb-2"><a className="reset-anchor" href="#" onClick={() => handlerCategory('pants')}>Quần bóng đá</a></li>
                             </ul>
-                            <div className="py-2 px-4 bg-light mb-3"><strong className="small text-uppercase font-weight-bold">Health &amp; Beauty</strong></div>
+                            <div className="py-2 px-4 bg-light mb-3"><strong className="small text-uppercase font-weight-bold">Giày thể thao</strong></div>
                             <ul className="list-unstyled small text-muted pl-lg-4 font-weight-normal">
                                 <li className="mb-2"><a className="reset-anchor" href="#" onClick={() => handlerCategory('sneaker')}>Sneaker</a></li>
-                                <li className="mb-2"><a className="reset-anchor" href="#" onClick={() => handlerCategory('watch')}>Watch</a></li>
-                            </ul>
-                            <div className="py-2 px-4 bg-light mb-3"><strong className="small text-uppercase font-weight-bold">Electronics</strong></div>
-                            <ul className="list-unstyled small text-muted pl-lg-4 font-weight-normal mb-5">
-                                <li className="mb-2"><a className="reset-anchor" href="#" onClick={() => handlerCategory('headphone')}>Headphones</a></li>
-                                <li className="mb-2"><a className="reset-anchor" href="#" onClick={() => handlerCategory('camera')}>Camera</a></li>
-                                <li className="mb-2"><a className="reset-anchor" href="#" onClick={() => handlerCategory('keyboard')}>Keyboard</a></li>
+                                <li className="mb-2"><a className="reset-anchor" href="#" onClick={() => handlerCategory('watch')}>Bóng đá</a></li>
                             </ul>
                         </div>
                         <div className="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0">

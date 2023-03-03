@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Image from '../Share/img/Image'
 import { Link } from 'react-router-dom';
-import Carousel from '../components/Carousel';
+import Carousel from './Components/Carousel';
 import ProductAPI from '../API/ProductAPI';
 import { Card } from 'react-bootstrap';
 import { AiOutlineExpand, AiOutlineHeart, AiOutlineShoppingCart } from 'react-icons/ai';

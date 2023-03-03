@@ -235,8 +235,8 @@ function Cart(props) {
     console.log('list Cart', listCart);
 
     return (
-        <div className="p-t-160">
-            <section className="py-3 bg-light">
+        <div className="main-cart">
+            <section className="py-2 bg-light">
                 <div className="container">
                     <ol className="breadcrumb justify-content-start">
                         <li className="breadcrumb-item"><Link to={"/"}>Trang chủ</Link></li>
