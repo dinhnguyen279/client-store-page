@@ -1,29 +1,41 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Image from '../Share/img/Image'
 import { AiOutlineEdit, AiOutlineScan } from "react-icons/ai"
 import "./Auth.css"
 import { Button } from 'react-bootstrap'
-const UserProfile = () => {
+import EditProfileUser from './EditProfileUser'
+
+const UserProfile = (props) => {
     const [active, setActive] = useState('Overview')
+    const [editProfileUser, setEditProfileUser] = useState(false)
 
     const handlerActive = (value) => {
         setActive(value)
     }
 
+    const openEditUser = () => {
+        setEditProfileUser(!editProfileUser)
+    }
+
     return (
-        <div className="container-fluid main-profile p-l-55 p-r-55 p-t-160 p-b-50">
+        <div className={`container-fluid main-profile p-l-55 p-r-55 p-b-50 ${editProfileUser ? "popup" : ""}`} >
+            {/* Popup edit profile user */}
+            {
+                editProfileUser && (<EditProfileUser openEditUser={openEditUser} />)
+            }
+
             <div className="card-profile">
                 <div className="row" style={{ margin: "auto" }}>
-                    <div className="col-md-12 col-xl-2 position-relative" style={{ width: "150px", margin: "auto" }}>
+                    <div className="col-md-12 col-xl-4 position-relative" style={{ width: "200px", margin: "auto" }}>
                         <img src={Image.product_1} style={{ width: "100%" }} className="img-fluid rounded-circle img-profile" alt="Profile Picture" />
                         <AiOutlineEdit className='icon-userprofile' />
                     </div>
-                    <div className='col-md-12 col-xl-7 name-profile'>
+                    <div className='col-md-12 col-xl-6 name-profile'>
                         <h1>User Name</h1>
                         <p>Dev : Client</p>
                     </div>
-                    <div className='col-md-12 name-profile col-xl-3'>
+                    <div className='col-md-12 name-profile col-xl-2'>
                         <Button className='text-uppercase'><AiOutlineScan /> In Hồ Sơ</Button>
                     </div>
                 </div>
@@ -48,7 +60,7 @@ const UserProfile = () => {
             <div className='card-profile m-t-40 collapse' id='overview'>
                 <div className='card-title d-flex justify-content-between'>
                     <h3 className='title-text'>Tất cả thông tin người dùng</h3>
-                    <button className='btn btn-warning rounded' type='button'>
+                    <button className='btn btn-warning rounded' type='button' onClick={openEditUser}>
                         <AiOutlineEdit /> Chỉnh sửa
                     </button>
                 </div>
@@ -110,7 +122,9 @@ const UserProfile = () => {
                     <h3 className='card-title'>Notes</h3>
                     <button className='btn btn-warning rounded' type='button'>
                         <AiOutlineEdit /> Chỉnh sửa
-                    </button></div>
+                    </button>
+                </div>
+
                 <div className='row mt-3'>
                     <div className='col-md-4 title-text'>Sở Thích:</div>
                     <div className='col-md-4 title-text'>Thói Quen:</div>

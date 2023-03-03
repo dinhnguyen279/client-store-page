@@ -22,11 +22,18 @@ html {
 /* User Profile */
 .main-profile {
   background: rgb(220, 220, 220);
+  padding-top: 30px;
+  position: relative;
 }
 
 .name-profile {
   text-align: left;
   margin: auto;
+}
+
+.name-profile h1 {
+  text-align: start;
+  margin: 0;
 }
 
 .icon-userprofile {
@@ -95,6 +102,63 @@ html {
 
 .nav-respon {
   margin-left: auto;
+}
+
+/* Form Edit User */
+.form-edit-user {
+  position: fixed;
+  left: 70%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  width: 30%;
+  height: auto;
+  padding: 20px 20px;
+  border-radius: 8px;
+  z-index: 10;
+  box-shadow: 0px 2px 6px rgb(99, 98, 98);
+}
+
+.input-edit-user {
+  margin-top: 30px;
+  width: 100%;
+  color: black;
+  z-index: 10;
+}
+
+.close-popup {
+  position: absolute;
+  top: 1%;
+  right: 1%;
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  line-height: 100%;
+  text-align: center;
+  color: white;
+  padding: 4px;
+  background-color: black;
+  transform: translate(50%, -50%);
+  border-radius: 50%;
+  transition: ease 0.25s all;
+  font-weight: 500;
+}
+
+.close-popup:hover {
+  transform: translate(50%, -50%) rotate(180deg);
+  text-decoration: none;
+  color: #4272d7;
+}
+
+.input-text input {
+  padding: 10px 30px;
+  margin-bottom: 20px;
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid gray;
+}
+.input-text input:focus {
+  outline: 2px solid black;
 }
 
 @media only screen and (max-width: 770px) {
@@ -385,6 +449,14 @@ iframe {
     height: 1px;
     border: 2px solid #555555;
   }
+
+  .form-edit-user {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    width: 60%;
+  }
 }
 
 @media only screen and (max-width: 770px) {
@@ -399,6 +471,9 @@ iframe {
   }
   .signup100-form-title::before {
     top: 20%;
+  }
+  .form-edit-user {
+    width: 90%;
   }
 }
 
@@ -692,6 +767,9 @@ input.input100 {
   .alert-validate::before {
     visibility: visible;
     opacity: 1;
+  }
+  .main-profile {
+    padding-top: 100px;
   }
 }
 
