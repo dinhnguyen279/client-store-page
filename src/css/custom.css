@@ -288,7 +288,7 @@ html {
   width: 0;
   height: 100%;
   background: #efb93b;
-  transition: width 0.25s linear 1s;
+  transition: width 0.25s linear 1.25s;
   z-index: -1;
 }
 
@@ -302,6 +302,10 @@ html {
   color: white;
   cursor: pointer;
   box-shadow: 0 0 6px 3px #efb93b;
+}
+.logo-navbar:focus {
+  text-decoration: none;
+  list-style-type: none;
 }
 
 .logo-navbar span {
@@ -899,10 +903,10 @@ html {
     font-size: 40px;
   }
   .quantity-cart:before {
-    top: -30%;
-    right: -20%;
+    top: -20%;
+    right: 5%;
     padding: 0px 5px;
-    font-size: 1.2rem;
+    font-size: 0.9rem;
   }
   .nav-list-respon {
     display: block;
