@@ -17,52 +17,29 @@ function SignIn(props) {
     const [errors, setErrors] = useState({})
 
     //listCart được lấy từ redux
-    const listCart = useSelector(state => state.Cart.listCart)
+    // const listCart = useSelector(state => state.Cart.listCart)
 
-    const [email, setEmail] = useState('tdinhnguyen279@gmail.com')
-
-    const [password, setPassword] = useState('27092001Nguyen')
-
-    const [user, setUser] = useState([])
+    const [user, setUser] = useState({
+        email: "",
+        password: ""
+    })
 
     // Show/hide password
     const [typePassWord, setTypePassWord] = useState("password")
 
-    const [redirect, setRedirect] = useState(false)
+    // const [redirect, setRedirect] = useState(false)
 
-    const [checkPush, setCheckPush] = useState(false)
+    // push cart lên db
+    // const [checkPush, setCheckPush] = useState(false)
 
-    const SIGNIN_URL = "/users"
-
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const params = {
-                email: email,
-                password: password
-            }
-            const query = "?" + queryString.stringify(params)
-            // await axios.get('http://localhost:3003/users')
-            //     .then((res) => {
-            //         setUser(res.data)
-            //     })
-            const response = await axiosClient.get(`${SIGNIN_URL}`)
-                .then((res) => setUser(res.data))
-                .catch((err) => console.log(err))
-            console.log(response);
-        }
-        fetchData()
-
-    }, [])
-    console.log('response user: ', user);
+    const SIGNIN_URL = "/login"
 
     const onChangeEmail = (e) => {
-        setEmail(e.target.value)
+        setUser({ ...user, email: e.target.value })
     }
 
     const onChangePassword = (e) => {
-        setPassword(e.target.value)
+        setUser({ ...user, password: e.target.value })
     }
 
     //test new validate
@@ -75,15 +52,15 @@ function SignIn(props) {
         let isValid = true;
         const error = {};
 
-        if (!email) {
+        if (!user.email) {
             isValid = false;
             error.email = "Email không được để trống!"
-        } else if (!validateEmail(email)) {
+        } else if (!validateEmail(user.email)) {
             isValid = false;
             error.email = "Email không hợp lệ!"
         }
 
-        if (!password) {
+        if (!user.password) {
             isValid = false;
             error.password = "Mật khẩu không được để trống!"
         }
@@ -93,55 +70,58 @@ function SignIn(props) {
 
     }
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
-        validateFormSignin();
-
-        // alertify.set("notifier", "position", "bottom-left");
-        // alertify.success("Bạn Đã Đăng Nhập Thành Công!");
-        const findUser = user.find(value => {
-            return value.email === email && value.password === password
-        })
-
-        sessionStorage.setItem('id_user', findUser._id)
-        sessionStorage.setItem('name_user', findUser.fullname)
-        const action = addSession(sessionStorage.getItem('id_user'))
-        dispatch(action)
-        setCheckPush(true)
-
+        if (validateFormSignin()) {
+            await axiosClient.post(SIGNIN_URL, user)
+                .then((res) => {
+                    setUser(res.data)
+                    alertify.set("notifier", "position", "bottom-left");
+                    alertify.success("Bạn Đã Đăng Nhập Thành Công!");
+                    window.location.href = "/"
+                })
+                .catch((err) => {
+                    alertify.set("notifier", "position", "bottom-right");
+                    alertify.error("Bạn Đã Đăng Nhập Thất Bại!");
+                    console.log("error: ", err)
+                }
+                )
+        }
     }
+    console.log(user);
+    sessionStorage.setItem('name_user', user.fullname)
 
     //Hàm này dùng để đưa hết tất cả carts vào API của user
-    useEffect(() => {
-        const fetchData = async () => {
-            //Lần đầu sẽ không thực hiện insert được vì addCart = ''
-            if (checkPush === true) {
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         //Lần đầu sẽ không thực hiện insert được vì addCart = ''
+    //         if (checkPush === true) {
 
-                for (let i = 0; i < listCart.length; i++) {
+    //             for (let i = 0; i < listCart.length; i++) {
 
-                    //Nó sẽ lấy idUser và idProduct và count cần thêm để gửi lên server
-                    const params = {
-                        idUser: sessionStorage.getItem('id_user'),
-                        idProduct: listCart[i].idProduct,
-                        count: listCart[i].count
-                    }
+    //                 //Nó sẽ lấy idUser và idProduct và count cần thêm để gửi lên server
+    //                 const params = {
+    //                     idUser: sessionStorage.getItem('id_user'),
+    //                     idProduct: listCart[i].idProduct,
+    //                     count: listCart[i].count
+    //                 }
 
-                    const query = '?' + queryString.stringify(params)
+    //                 const query = '?' + queryString.stringify(params)
 
-                    const response = await CartAPI.postAddToCart(query)
-                    console.log("fetchData", response)
+    //                 const response = await CartAPI.postAddToCart(query)
+    //                 console.log("fetchData cart", response)
 
-                }
+    //             }
 
-                setRedirect(true)
-            }
+    //             setRedirect(true)
+    //         }
 
-        }
+    //     }
 
-        fetchData()
+    //     fetchData()
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [checkPush])
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [checkPush])
 
     return (
         <form onSubmit={onSubmit} className="">
@@ -155,12 +135,12 @@ function SignIn(props) {
                         </span>
                         <div className="wrap-input100 validate-input" >
                             <AiOutlineMail className='icon-form' />
-                            <input className="input100" type="text" placeholder="Email" value={email} onChange={onChangeEmail} />
+                            <input className="input100" type="text" placeholder="Email" value={user.email} onChange={onChangeEmail} />
                         </div>
                         {errors.email && <p className="text-danger">{errors.email}</p>}
                         <div className="wrap-input100 validate-input">
                             <AiOutlineLock className='icon-form' />
-                            <input className="input100" type={typePassWord} placeholder="Mật khẩu" value={password} onChange={onChangePassword} />
+                            <input className="input100" type={typePassWord} placeholder="Mật khẩu" value={user.password} onChange={onChangePassword} />
                             {typePassWord === "password" ? (
                                 <button type='button' className='show-password' onClick={() => setTypePassWord("text")}>
                                     <AiFillEye />
@@ -174,9 +154,9 @@ function SignIn(props) {
                         {errors.password && <p className="text-danger">{errors.password}</p>}
 
                         <div className="container-login100-form-btn m-t-20">
-                            {
+                            {/* {
                                 redirect && <Navigate replace to="/" />
-                            }
+                            } */}
                             <button className="login100-form-btn btn-form" type='submit'>
                                 Đăng nhập
                             </button>
