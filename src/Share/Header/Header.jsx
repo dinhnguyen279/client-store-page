@@ -20,17 +20,16 @@ function Header(props) {
     //Sau khi F5 nó sẽ kiểm tra nếu phiên làm việc của Session vẫn còn thì nó sẽ tiếp tục
     // đưa dữ liệu vào Redux
     if (sessionStorage.getItem('id_user')) {
-        const action = addSession(sessionStorage.getItem('id_user'))
-        dispatch(action)
+        // const action = addSession(sessionStorage.getItem('id_user'))
+        // dispatch(action)
     } else {
         //Đưa idTemp vào Redux temp để tạm lưu trữ
-        sessionStorage.setItem('fake user', '123456')
-        const action = addUser(sessionStorage.getItem('id_temp'))
-        dispatch(action)
+        sessionStorage.setItem('fake_id_user', '012146547543135')
     }
 
     //Get IdUser từ redux khi user đã đăng nhập
-    var idUser = useSelector(state => state.Session.idUser)
+    // var idUser = useSelector(state => state.Session.idUser)
+    var idUser = sessionStorage.getItem('id_user')
     //Get idtemp từ redux khi user chưa đăng nhập
     var idTemp = useSelector(state => state.Cart.id_user)
 

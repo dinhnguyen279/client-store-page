@@ -76,20 +76,28 @@ function SignIn(props) {
             await axiosClient.post(SIGNIN_URL, user)
                 .then((res) => {
                     setUser(res.data)
-                    alertify.set("notifier", "position", "bottom-left");
-                    alertify.success("Bạn Đã Đăng Nhập Thành Công!");
-                    window.location.href = "/"
+                    if (res.data !== null && typeof res.data === "object") {
+                        alertify.set("notifier", "position", "bottom-left");
+                        alertify.success("Bạn Đã Đăng Nhập Thành Công!");
+                        setTimeout(() => {
+                            window.location.href = "/"
+                        }, 1000)
+                    } else {
+                        alertify.set("notifier", "position", "bottom-right");
+                        alertify.error("Bạn Đã Đăng Nhập Thất Bại!");
+                        setTimeout(() => {
+                            window.location.href = "http://localhost:5173/signin"
+                        }, 1000)
+                    }
                 })
                 .catch((err) => {
-                    alertify.set("notifier", "position", "bottom-right");
-                    alertify.error("Bạn Đã Đăng Nhập Thất Bại!");
                     console.log("error: ", err)
                 }
                 )
         }
+
     }
-    console.log(user);
-    sessionStorage.setItem('name_user', user.fullname)
+    sessionStorage.setItem('id_user', user._id)
 
     //Hàm này dùng để đưa hết tất cả carts vào API của user
     // useEffect(() => {
