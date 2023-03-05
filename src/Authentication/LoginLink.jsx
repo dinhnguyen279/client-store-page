@@ -7,7 +7,7 @@ function LoginLink(props) {
     const onRedirect = () => {
         setTimeout(() => {
             sessionStorage.clear()
-            window.location.href = "/signin"
+            window.location.href = "/"
         }, 1000)
     }
 
