@@ -6,6 +6,7 @@ import MessengerAPI from '../API/MessengerAPI';
 import axios from 'axios';
 import { AiFillEye, AiFillEyeInvisible, AiOutlineLock, AiOutlineMail, AiOutlineUser, AiOutlinePhone } from "react-icons/ai"
 import axiosClient from '../API/axiosClient';
+import alertify from 'alertifyjs';
 SignUp.propTypes = {
 
 };
@@ -23,7 +24,7 @@ function SignUp(props) {
     const [errors, setErrors] = useState({})
     // Show/hide password
     const [typePassWord, setTypePassWord] = useState("password")
-    const REGISTER_URL = "/users/signup"
+    const REGISTER_URL = "/signup"
 
     const onChangeName = (e) => {
         setFullName(e.target.value)
@@ -92,29 +93,26 @@ function SignUp(props) {
         return isValid
     }
 
-    const handlerSignUp = (e) => {
+    const params = {
+        fullname: fullName,
+        email: email,
+        password: password,
+        phone: phone
+    }
+    const handlerSignUp = async (e) => {
         e.preventDefault()
         if (validateForm()) {
-
-            const fetchSignUp = async () => {
-                const params = {
-                    fullname: fullName,
-                    email: email,
-                    password: password,
-                    phone: phone
-                }
-
-                // const query = '?' + queryString.stringify(params)
-                // console.log('query', query);
-                // const response = await axios.post(`http://localhost:3003/users/signup${query}`)
-                const response = await axiosClient.post(REGISTER_URL, JSON.stringify(params))
-                console.log('Đăng ký thành công', response)
-                alertify.set("notifier", "position", "bottom-left");
-                alertify.success("Bạn Đã Ký Thành Công!");
-                setSuccess(true)
-            }
-
-            fetchSignUp()
+            await axiosClient.post(REGISTER_URL, params)
+                .then((res) => {
+                    if (res.data !== "") {
+                        alertify.set("notifier", "position", "bottom-left");
+                        alertify.success("Chào mừng người mới");
+                        setSuccess(true)
+                    } else {
+                        alertify.set("notifier", "position", "bottom-right");
+                        alertify.error("Email đã được đăng ký");
+                    }
+                })
 
             // Hàm này dùng để tạo các conversation cho user và admin
             // const fetchConversation = async () => {

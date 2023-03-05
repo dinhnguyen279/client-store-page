@@ -13,7 +13,6 @@ function Name(props) {
             const response = await UserAPI.getDetailData(sessionStorage.getItem('id_user'))
             setName(response.data.fullname)
         }
-        console.log(name);
         fetchData()
 
     }, [])
