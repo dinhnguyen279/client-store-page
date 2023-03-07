@@ -10,12 +10,15 @@ import { AiOutlineSearch, AiOutlineOrderedList, AiOutlineShoppingCart, AiOutline
 import { FaAngleDown, FaAngleRight, FaThList } from "react-icons/fa"
 // React-Bootstrap
 import { Col, Container, Form, Nav, Navbar, NavDropdown, Offcanvas } from 'react-bootstrap';
+import ProductAPI from '../../API/ProductAPI';
 
 function Header(props) {
     // const [active, setActive] = useState('Home')
     const dispatch = useDispatch()
 
     const [isOpen, setIsOpen] = useState(false)
+
+    const [dataProducts, setDataProducts] = useState([])
 
     //Sau khi F5 nó sẽ kiểm tra nếu phiên làm việc của Session vẫn còn thì nó sẽ tiếp tục
     // đưa dữ liệu vào Redux
@@ -26,7 +29,6 @@ function Header(props) {
         //Đưa idTemp vào Redux temp để tạm lưu trữ
         sessionStorage.setItem('fake_id_user', '012146547543135')
     }
-
     //Get IdUser từ redux khi user đã đăng nhập
     // var idUser = useSelector(state => state.Session.idUser)
     var idUser = sessionStorage.getItem('id_user')
@@ -53,6 +55,13 @@ function Header(props) {
     const handleOnBlur = () => {
         setIsOpen(false)
     }
+    useEffect(() => {
+        const fecthData = async () => {
+            await ProductAPI.getAPI()
+                .then((res) => setDataProducts(res.data))
+        }
+        fecthData()
+    }, [])
 
     return (
 
@@ -108,21 +117,17 @@ function Header(props) {
                                         </button>
                                         {isOpen ? (
                                             <ul className={`navbar-nav nav-link-page`}>
-                                                <li className="nav-item-list">
-                                                    Quần áo sale <FaAngleRight style={{ border: "none" }} />
-                                                </li>
-                                                <li className="nav-item-list">
-                                                    Giày bóng đá sale <FaAngleRight style={{ border: "none" }} />
-                                                </li>
-                                                <li className="nav-item-list">
-                                                    Giày bóng đá sale <FaAngleRight style={{ border: "none" }} />
-                                                </li>
-                                                <li className="nav-item-list">
-                                                    Giày bóng đá sale <FaAngleRight style={{ border: "none" }} />
-                                                </li>
-                                                <li className="nav-item-list">
-                                                    Giày bóng đá sale <FaAngleRight style={{ border: "none" }} />
-                                                </li>
+                                                {
+                                                    dataProducts.map((val, idx) => {
+                                                        return (
+                                                            <li className="nav-item-list" key={idx + 1}>
+                                                                {/* <a href={`/shop/${val._id}`}> */}
+                                                                {val.category} <FaAngleRight style={{ border: "none" }} />
+                                                                {/* </a> */}
+                                                            </li>
+                                                        )
+                                                    })
+                                                }
                                             </ul>
                                         ) : ""}
                                     </div>
@@ -201,21 +206,17 @@ function Header(props) {
                         </button>
                         {isOpen ? (
                             <ul className={`navbar-nav nav-link-page`}>
-                                <li className="nav-item-list">
-                                    Quần áo sale <FaAngleRight style={{ border: "none" }} />
-                                </li>
-                                <li className="nav-item-list">
-                                    Giày bóng đá sale <FaAngleRight style={{ border: "none" }} />
-                                </li>
-                                <li className="nav-item-list">
-                                    Giày bóng đá sale <FaAngleRight style={{ border: "none" }} />
-                                </li>
-                                <li className="nav-item-list">
-                                    Giày bóng đá sale <FaAngleRight style={{ border: "none" }} />
-                                </li>
-                                <li className="nav-item-list">
-                                    Giày bóng đá sale <FaAngleRight style={{ border: "none" }} />
-                                </li>
+                                {
+                                    dataProducts.map((val, idx) => {
+                                        return (
+                                            <li className="nav-item-list" key={idx + 1}>
+                                                {/* <a href={`/shop/${val._id}`}> */}
+                                                {val.category} <FaAngleRight style={{ border: "none" }} />
+                                                {/* </a> */}
+                                            </li>
+                                        )
+                                    })
+                                }
                             </ul>
                         ) : ""}
                     </div>
