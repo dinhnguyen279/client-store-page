@@ -436,6 +436,8 @@ html {
 
 .nav-list-respon {
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .nav-main-respon {
