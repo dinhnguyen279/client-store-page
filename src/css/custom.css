@@ -654,6 +654,9 @@ html {
 }
 
 /* Product Hot */
+.main-detail {
+  margin-top: 0px;
+}
 
 .main-product-hot {
   padding: 100px 0;
@@ -939,6 +942,12 @@ html {
     margin-top: 100px;
   }
   .main-shop {
+    margin-top: 100px;
+  }
+  .post-img {
+    padding-top: 10px;
+  }
+  .main-detail {
     margin-top: 100px;
   }
 }

@@ -9,7 +9,6 @@ import queryString from "query-string";
 import CommentAPI from "../API/CommentAPI";
 import axios from "axios";
 import axiosClient from "../API/axiosClient";
-import Image from "../Share/img/Image"
 import { Card, Carousel } from "react-bootstrap";
 import { AiOutlinePlus, AiOutlineLine, AiFillHeart, AiOutlineShoppingCart, AiTwotoneStar } from 'react-icons/ai'
 
@@ -23,7 +22,7 @@ function Detail(props) {
   console.log("id product:", id);
 
   //id_user được lấy từ redux
-  const id_user = useSelector((state) => state.Cart.id_user);
+  // const id_user = useSelector((state) => state.Cart.id_user);
 
   //listCart được lấy từ redux
   const listCart = useSelector((state) => state.Cart.listCart);
@@ -39,11 +38,11 @@ function Detail(props) {
 
   // Listcomment
   const [list_comment, set_list_comment] = useState([]);
-  console.log("list_comment", list_comment);
+  // console.log("list_comment", list_comment);
   // state này dùng để load lại comment khi user gửi comment lên
   const [load_comment, set_load_comment] = useState(false);
 
-  const URL_PRODUCT = "http://localhost:3003/products";
+  const URL_PRODUCT = "http://localhost:3003/product";
 
   const URL_CART = "http://localhost:3003/carts";
 
@@ -122,7 +121,6 @@ function Detail(props) {
   useEffect(() => {
     const fetchData = async () => {
       const response = await ProductAPI.getAPI()
-      // const response = await axios.get(URL_PRODUCT);
       const data = response.data.splice(0, 4);
       setProduct(data);
     };
@@ -151,16 +149,12 @@ function Detail(props) {
   //Hàm này để lấy dữ liệu chi tiết sản phẩm
   useEffect(() => {
     const fetchData = async () => {
-      // const response = await axios.get(`${URL_PRODUCT}/${id}`);
-      const response = await ProductAPI.getAPI(id)
-
-      console.log("get detail data", response.data);
-
-      setDetail(response.data[0])
-
+      const response = await ProductAPI.getDetail(id)
+      setDetail(response.data)
     };
     fetchData();
   }, [id]);
+
   //Phần này dùng để xem review hay description
   const [review, setReview] = useState("description");
   const handlerReview = (value) => {
@@ -183,6 +177,7 @@ function Detail(props) {
       priceProduct: detail.price,
       count: text,
       img: detail.avt,
+      size: sizeProduct
     };
     console.log("addToCart: ", data);
     if (sessionStorage.getItem("id_user")) {
@@ -192,8 +187,8 @@ function Detail(props) {
           idProduct: detail._id, // Lấy idProduct
           count: text, // Lấy số lượng
         };
-        const query = "?" + queryString.stringify(params);
-        const response = await axios.post(`${URL_CART}/add${query}`);
+        // const query = "?" + queryString.stringify(params);
+        const response = await axios.post(`${URL_CART}/add${params}`);
         console.log("add to cart", response);
       };
       fetchPost();
@@ -211,76 +206,85 @@ function Detail(props) {
     setIndex(selectedIndex);
   };
 
+  // convert string to array
+  const album = detail.album;
+  const size = detail.size;
+  // console.log(album);
+  // Kiểm tra nếu album, size là null thì trả về array rỗng
+  const arrAlbum = album ? album.split(" ") : [];
+  const arrSize = size ? size.split(" ") : [];
+
+  //select size products
+  const [sizeProduct, setSizeProduct] = useState(null)
+  const selectSize = (selectedIndex) => {
+    setSizeProduct(selectedIndex)
+  }
 
   return (
-    <section className="py-5 m-t-130">
+    <section className="py-4 main-detail">
+      <div className="py-2 bg-light mb-4">
+        <div className="container">
+          <ol className="breadcrumb justify-content-start">
+            <li className="breadcrumb-item"><Link to={"/"}>Trang chủ</Link></li>
+            <li className="breadcrumb-item active" aria-current="page">Cửa hàng</li>
+            <li className="breadcrumb-item active" aria-current="page">{detail.name}</li>
+          </ol>
+        </div>
+      </div>
       <div className="container">
         <div className="row mb-5">
           <div className="col-lg-6">
             <div className="row">
-              <div className="col-lg-2 d-flex flex-row flex-lg-column order-lg-1 order-2">
-                <Card.Img className="post-img w-100 mb-3" src={Image.product_1}></Card.Img>
-                <Card.Img className="post-img w-100 mb-3" src={Image.product_1}></Card.Img>
-                <Card.Img className="post-img w-100 mb-3" src={Image.product_1}></Card.Img>
-                <Card.Img className="post-img w-100 mb-3" src={Image.product_1}></Card.Img>
+              <div className="col-lg-2 col-3 d-flex flex-row flex-lg-column order-lg-1 order-2">
+                {
+                  arrAlbum.map((val, idx) => {
+                    return (
+                      <>
+                        <Card.Img key={idx + 1} className="post-img mb-3 mr-4" src={val}></Card.Img>
+                      </>
+                    )
+                  })
+                }
               </div>
               <Carousel variant="dark" className="col-lg-10 order-lg-2 order-1" activeIndex={index} onSelect={handleSelect}>
-                <Carousel.Item>
-                  <img
-                    className="d-block w-100"
-                    src={Image.product_1}
-                    alt="First Product"
-                  />
-                </Carousel.Item>
-                <Carousel.Item>
-                  <img
-                    className="d-block w-100"
-                    src={Image.product_1_1}
-                    alt="Second Product"
-                  />
-                </Carousel.Item>
-                <Carousel.Item>
-                  <img
-                    className="d-block w-100"
-                    src={Image.product_1}
-                    alt="Third Product"
-                  />
-                </Carousel.Item>
+                {
+                  arrAlbum.map((val, idx) => {
+                    return (
+                      <Carousel.Item key={idx + 1}>
+                        <img
+                          className="d-block w-100"
+                          src={val}
+                          alt="Second Product"
+                        />
+                      </Carousel.Item>
+                    )
+                  })
+                }
               </Carousel>
             </div>
           </div>
-          <div className="col-lg-6">
+          <div className="col-lg-6 ">
             <ul className="list-inline mb-2">
               <li className="list-inline-item m-0">
-                <i className="fas fa-star small text-warning" style={{
-                  cursor: "pointer"
-                }}></i>
+                <i className="fas fa-star small text-warning"></i>
               </li>
               <li className="list-inline-item m-0">
-                <i className="fas fa-star small text-warning" style={{
-                  cursor: "pointer"
-                }}></i>
+                <i className="fas fa-star small text-warning"></i>
               </li>
               <li className="list-inline-item m-0">
-                <i className="fas fa-star small text-warning" style={{
-                  cursor: "pointer"
-                }}></i>
+                <i className="fas fa-star small text-warning"></i>
               </li>
               <li className="list-inline-item m-0">
-                <i className="fas fa-star small text-warning" style={{
-                  cursor: "pointer"
-                }}></i>
+                <i className="fas fa-star small text-warning"></i>
               </li>
               <li className="list-inline-item m-0">
-                <i className="fas fa-star small text-warning" style={{
-                  cursor: "pointer"
-                }}></i>
+                <i className="fas fa-star small text-warning"></i>
               </li>
             </ul>
             <Card.Title className='title-product mb-3'>{detail.name}</Card.Title>
             <div className="text-gray pb-2">
-              <strong className="text-uppercase">SKU:</strong>
-              <span className="ml-2 text-muted">{detail.SKU}</span>
+              <strong className="text-uppercase">Hãng:</strong>
+              <span className="ml-2 text-muted">{detail.brand}</span>
             </div>
             <Card.Text className="text-base d-flex">
               <span className="sale-product">{"-30%"}</span>
@@ -325,13 +329,21 @@ function Detail(props) {
                 <ul className="list-unstyled d-inline-block">
                   <li className="py-2 mb-1 bg-white text-muted">
                     <strong className="text-uppercase text-dark">
-                      Category:{"Áo Bóng Đá"}
+                      Thể loại:
                     </strong>
                     <a className="reset-anchor ml-2">{detail.category}</a>
                   </li>
-                  <li className="py-2 mb-1 bg-white text-muted">
+                  <li className="py-2 mb-1 bg-white text-muted size-products">
                     <strong className="text-uppercase text-dark">Size:</strong>
-                    <a className="reset-anchor ml-2">{detail.size}</a>
+                    {
+                      arrSize.map((val, idx) => {
+                        return (
+                          <>
+                            <a key={idx + 1} className="reset-anchor ml-2" onClick={() => selectSize(val)}>{val}</a>
+                          </>
+                        )
+                      })
+                    }
                   </li>
                 </ul>
               </div>
@@ -467,7 +479,7 @@ function Detail(props) {
             product.map((value) => (
               <div className="col-lg-3 col-sm-6" key={value._id}>
                 <div className="product text-center skel-loader">
-                  <div className="d-block mb-3 position-relative">
+                  <div className="d-block mb-3 position-relative product-detail">
                     <Link className="d-block" to={`/detail/${value._id}`}>
                       <img
                         className="img-fluid w-100"
@@ -477,11 +489,6 @@ function Detail(props) {
                     </Link>
                     <div className="product-overlay">
                       <ul className="mb-0 list-inline">
-                        <li className="list-inline-item m-0 p-0">
-                          <a className="btn btn-sm btn-outline-dark icon-product">
-                            <i className="far fa-heart"></i>
-                          </a>
-                        </li>
                         <li className="list-inline-item m-0 p-0">
                           <Link className="btn btn-sm btn-dark" to={`/detail/${value._id}`}>
                             Thông tin sản phẩm
@@ -495,7 +502,11 @@ function Detail(props) {
                       {value.name}
                     </a>
                   </h6>
-                  <i className="small text-muted">{value.price}₫</i>
+                  <Card.Text style={{ color: "red" }}>{value.promotionPrice}₫
+                    <span style={{ color: "grey", paddingLeft: "10px" }}>
+                      <del>{value.price}₫</del>
+                    </span>
+                  </Card.Text>
                 </div>
               </div>
             ))}

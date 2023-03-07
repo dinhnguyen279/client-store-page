@@ -176,6 +176,10 @@ button:active {
   opacity: 0;
   transition: all 0.2s ease-in-out;
 }
+.product-detail .product-overlay {
+  right: 5%;
+  bottom: 10%;
+}
 
 .product-overlay ul li {
   transition: all 0.2s ease-in-out;
@@ -1216,10 +1220,16 @@ a.text-hover-dark:hover {
   text-decoration: none;
 }
 
-/* .reset-anchor:hover,
+.size-products .reset-anchor {
+  border: 1px solid black;
+  padding: 10px 15px;
+}
+
+/* .reset-anchor */
+
 .reset-anchor:focus {
   text-decoration: none;
-} */
+}
 
 .index-forward {
   z-index: 99;

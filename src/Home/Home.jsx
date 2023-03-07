@@ -24,12 +24,12 @@ function Home(props) {
 
             const data = response.data.splice(0, 8)
             setProducts(data)
-
         }
 
         fetchData()
 
     }, [])
+    console.log(products);
 
     const [navContent, setNavContent] = useState("nav1")
 
@@ -178,7 +178,7 @@ function Home(props) {
                                                 </div>
                                             </div>
                                             <Card.Title className='title-product'>{value.name}</Card.Title>
-                                            <Card.Text style={{ color: "red" }}>{value.reducedPrice}₫
+                                            <Card.Text style={{ color: "red" }}>{value.promotionPrice}₫
                                                 <span style={{ color: "grey", paddingLeft: "10px" }}>
                                                     <del>{value.price}₫</del>
                                                 </span>
@@ -242,7 +242,6 @@ function Home(props) {
                                                 <Link className="d-block h-100" to={`/detail/${value._id}`}>
                                                     <Card.Img src={value.avt} alt='...'></Card.Img>
                                                 </Link>
-
                                                 <div className="product-overlay">
                                                     <ul className="">
                                                         <li className="list-item-overlay">
@@ -263,7 +262,7 @@ function Home(props) {
                                                 </div>
                                             </div >
                                             <Card.Title className='title-product'>{value.name}</Card.Title>
-                                            <Card.Text style={{ color: "red" }}>{value.reducedPrice}₫
+                                            <Card.Text style={{ color: "red" }}>{value.promotionPrice}₫
                                                 <span style={{ color: "grey", paddingLeft: "10px" }}>
                                                     <del>{value.price}₫</del>
                                                 </span>
