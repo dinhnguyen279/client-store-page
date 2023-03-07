@@ -675,6 +675,7 @@ html {
   justify-content: flex-start;
   align-items: center;
   margin-top: 10px;
+  text-decoration: none;
 }
 
 .content-product {
