@@ -1,40 +1,54 @@
 import React from 'react'
-import { Button } from 'react-bootstrap'
+import { Button, Modal } from 'react-bootstrap'
 
 const EditProfileUser = (props) => {
-    const openEditUser = props.openEditUser
     return (
-        <form className='form-edit-user' action=''>
-            <header className="text-center">
-                <h2 className="h4 text-uppercase text-dark">Cập nhật thông tin</h2>
-            </header>
-            <div className='input-edit-user'>
-                <div className='row'>
-                    <div className='col-md-12 input-text'>
-                        <input type="text" name="fullName" id="" placeholder='Họ và Tên' className='input-focus' />
+        <Modal
+            {...props}
+            size="md"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+        >
+            <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-vcenter" className='m-auto'>
+                    <h2 className="h4 text-uppercase text-dark">Cập nhật thông tin</h2>
+                </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <div className='input-edit-user'>
+                    <div className='row'>
+                        <div className='col-md-12 input-text position-relative'>
+                            <input className='form-input-user' type="text" name="fullName" placeholder=" " />
+                            <label className="text-small text-uppercase form-label" htmlFor="Fullname">Họ và Tên</label>
+                        </div>
+                        <div className='col-md-12 input-text position-relative'>
+                            <input className='form-input-user' type="text" name="Email" placeholder=' ' />
+                            <label className="text-small text-uppercase form-label" htmlFor="Email">Email</label>
+                        </div>
+                        <div className='col-md-12 input-text position-relative'>
+                            <input className='form-input-user' type="text" name="password" placeholder=' ' />
+                            <label className="text-small text-uppercase form-label" htmlFor="password">Mật khẩu</label>
+                        </div>
+                        <div className='col-md-12 input-text position-relative'>
+                            <input className='form-input-user' type="text" name="address" placeholder=' ' />
+                            <label className="text-small text-uppercase form-label" htmlFor="address">Địa chỉ</label>
+                        </div>
+                        <div className='col-md-12 input-text position-relative'>
+                            <input className='form-input-user' type="text" name="phone" placeholder=' ' />
+                            <label className="text-small text-uppercase form-label" htmlFor="phone">Số điện thoại</label>
+                        </div>
+                        <div className='col-md-12'>
+                            <Button className='w-50' type='button' >
+                                Lưu
+                            </Button>
+                        </div>
                     </div>
-                    <div className='col-md-12 input-text'>
-                        <input type="text" name="phone" id="" placeholder='Số điện thoại' />
-                    </div>
-                    <div className='col-md-12 input-text'>
-                        <input type="text" name="address" id="" placeholder='Địa chỉ' />
-                    </div>
-                    <div className='col-md-12 input-text'>
-                        <input type="text" name="Email" id="" placeholder='Email' />
-                    </div>
-                    <div className='col-md-12 input-text'>
-                        <input type="text" name="password" id="" placeholder='Mật khẩu' />
-                    </div>
-                    <Button className='w-50 m-auto' type='button' >
-                        Lưu
-                    </Button>
                 </div>
-                <button className='close-popup' onClick={openEditUser}>
-                    x
-                </button>
-            </div>
-
-        </form>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant='danger' onClick={props.onHide}>Đóng</Button>
+            </Modal.Footer>
+        </Modal>
     )
 }
 

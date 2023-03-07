@@ -8,22 +8,13 @@ import EditProfileUser from './EditProfileUser'
 
 const UserProfile = (props) => {
     const [active, setActive] = useState('Overview')
-    const [editProfileUser, setEditProfileUser] = useState(false)
-
+    const [modalShow, setModalShow] = useState(false);
     const handlerActive = (value) => {
         setActive(value)
     }
 
-    const openEditUser = () => {
-        setEditProfileUser(!editProfileUser)
-    }
-
     return (
-        <div className={`container-fluid main-profile p-l-55 p-r-55 p-b-50 ${editProfileUser ? "popup" : ""}`} >
-            {/* Popup edit profile user */}
-            {
-                editProfileUser && (<EditProfileUser openEditUser={openEditUser} />)
-            }
+        <div className={"container-fluid main-profile p-l-55 p-r-55 p-b-50"} >
 
             <div className="card-profile">
                 <div className="row" style={{ margin: "auto" }}>
@@ -60,9 +51,14 @@ const UserProfile = (props) => {
             <div className='card-profile m-t-40 collapse' id='overview'>
                 <div className='card-title d-flex justify-content-between'>
                     <h3 className='title-text'>Tất cả thông tin người dùng</h3>
-                    <button className='btn btn-warning rounded' type='button' onClick={openEditUser}>
+                    <Button type='button' variant="primary" onClick={() => setModalShow(true)}>
                         <AiOutlineEdit /> Chỉnh sửa
-                    </button>
+                    </Button>
+
+                    <EditProfileUser
+                        show={modalShow}
+                        onHide={() => setModalShow(false)}
+                    />
                 </div>
                 <div className='row'>
                     <div className='col-md-6 icon-detail d-flex align-items-center'>
@@ -120,9 +116,13 @@ const UserProfile = (props) => {
             <div className='card-profile m-t-40 collapse' id='notes'>
                 <div className='d-flex justify-content-between'>
                     <h3 className='card-title'>Notes</h3>
-                    <button className='btn btn-warning rounded' type='button'>
+                    <Button type='button' variant="primary" onClick={() => setModalShow(true)}>
                         <AiOutlineEdit /> Chỉnh sửa
-                    </button>
+                    </Button>
+                    <EditProfileUser
+                        show={modalShow}
+                        onHide={() => setModalShow(false)}
+                    />
                 </div>
 
                 <div className='row mt-3'>
