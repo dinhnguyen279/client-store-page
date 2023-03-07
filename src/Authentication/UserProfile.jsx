@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
 import Image from '../Share/img/Image'
 import { AiOutlineEdit, AiOutlineScan } from "react-icons/ai"
 import "./Auth.css"

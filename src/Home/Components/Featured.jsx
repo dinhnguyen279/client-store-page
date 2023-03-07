@@ -16,9 +16,8 @@ const Featured = (props) => {
                         <div className="col-md-6 col-xl-2 col-sm-6" key={value._id}>
                             <div className="product">
                                 <div className="position-relative mb-3 product-new">
-                                    {/* <div className="badge text-white"></div> */}
                                     <Link className="d-block" to={`/detail/${value._id}`}>
-                                        <Card.Img src={value.avt} alt='...'></Card.Img>
+                                        <Card.Img className='img-banner' src={value.avt} alt='...'></Card.Img>
                                     </Link>
                                     <div className="product-overlay">
                                         <ul className="">

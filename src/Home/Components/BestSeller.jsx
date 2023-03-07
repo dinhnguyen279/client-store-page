@@ -13,7 +13,7 @@ const BestSeller = (props) => {
                         <div className="col-md-6 col-xl-3 col-sm-6" key={value._id}>
                             <div className="product product-bestseller">
                                 <div className="position-relative mb-3">
-                                    <Link className="d-block h-100" to={`/detail/${value._id}`}>
+                                    <Link className="d-block" to={`/detail/${value._id}`}>
                                         <Card.Img src={value.avt} alt='...'></Card.Img>
                                     </Link>
                                     <div className="product-overlay">
@@ -35,7 +35,7 @@ const BestSeller = (props) => {
                                         <button type='button' className='btn-addtocart'><AiOutlineShoppingCart /> Thêm giỏ hàng</button>
                                     </div>
                                 </div >
-                                <Card.Link href={`detail/${value._id}`} className='title-product'>{value.name}</Card.Link>
+                                <Card.Link href={`detail/${value._id}`} className='title-product h5'>{value.name}</Card.Link>
                                 <Card.Text style={{ color: "red" }}>{value.promotionPrice}₫
                                     <span style={{ color: "grey", paddingLeft: "10px" }}>
                                         <del>{value.price}₫</del>

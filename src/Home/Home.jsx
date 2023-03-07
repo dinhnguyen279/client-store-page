@@ -266,7 +266,7 @@ function Home(props) {
                         <header className="text-center">
                             <h2 className="text-uppercase mb-4">Hot Deals 2023</h2>
                         </header>
-                        <HotDeals />
+                        <HotDeals itemHotDeals={products} />
                     </section>
 
                     <section className="py-5">
