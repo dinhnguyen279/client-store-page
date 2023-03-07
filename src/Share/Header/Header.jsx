@@ -11,6 +11,7 @@ import { FaAngleDown, FaAngleRight, FaThList } from "react-icons/fa"
 // React-Bootstrap
 import { Col, Container, Form, Nav, Navbar, NavDropdown, Offcanvas } from 'react-bootstrap';
 import ProductAPI from '../../API/ProductAPI';
+import Categories from '../../API/Categories';
 
 function Header(props) {
     // const [active, setActive] = useState('Home')
@@ -18,7 +19,7 @@ function Header(props) {
 
     const [isOpen, setIsOpen] = useState(false)
 
-    const [dataProducts, setDataProducts] = useState([])
+    const [dataCategories, setDataCategories] = useState([])
 
     //Sau khi F5 nó sẽ kiểm tra nếu phiên làm việc của Session vẫn còn thì nó sẽ tiếp tục
     // đưa dữ liệu vào Redux
@@ -57,8 +58,8 @@ function Header(props) {
     }
     useEffect(() => {
         const fecthData = async () => {
-            await ProductAPI.getAPI()
-                .then((res) => setDataProducts(res.data))
+            await Categories.getAllCategories()
+                .then((res) => setDataCategories(res.data))
         }
         fecthData()
     }, [])
@@ -118,12 +119,12 @@ function Header(props) {
                                         {isOpen ? (
                                             <ul className={`navbar-nav nav-link-page`}>
                                                 {
-                                                    dataProducts.map((val, idx) => {
+                                                    dataCategories.map((val, idx) => {
                                                         return (
                                                             <li className="nav-item-list" key={idx + 1}>
-                                                                {/* <a href={`/shop/${val._id}`}> */}
-                                                                {val.category} <FaAngleRight style={{ border: "none" }} />
-                                                                {/* </a> */}
+                                                                <a href={`/shop/${val._id}`}>
+                                                                    {val.nameCate} <FaAngleRight style={{ border: "none" }} />
+                                                                </a>
                                                             </li>
                                                         )
                                                     })
@@ -207,12 +208,12 @@ function Header(props) {
                         {isOpen ? (
                             <ul className={`navbar-nav nav-link-page`}>
                                 {
-                                    dataProducts.map((val, idx) => {
+                                    dataCategories.map((val, idx) => {
                                         return (
                                             <li className="nav-item-list" key={idx + 1}>
-                                                {/* <a href={`/shop/${val._id}`}> */}
-                                                {val.category} <FaAngleRight style={{ border: "none" }} />
-                                                {/* </a> */}
+                                                <a href={`/shop/${val._id}`}>
+                                                    {val.nameCate} <FaAngleRight style={{ border: "none" }} />
+                                                </a>
                                             </li>
                                         )
                                     })
