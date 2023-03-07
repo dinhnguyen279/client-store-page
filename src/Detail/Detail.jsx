@@ -219,6 +219,7 @@ function Detail(props) {
   const selectSize = (selectedIndex) => {
     setSizeProduct(selectedIndex)
   }
+  console.log(sizeProduct);
 
   return (
     <section className="py-4 main-detail">
@@ -236,17 +237,26 @@ function Detail(props) {
           <div className="col-lg-6">
             <div className="row">
               <div className="col-lg-2 col-3 d-flex flex-row flex-lg-column order-lg-1 order-2">
+                <Card.Img className="post-img mb-3 mr-4" src={detail.avt}></Card.Img>
                 {
                   arrAlbum.map((val, idx) => {
                     return (
                       <>
                         <Card.Img key={idx + 1} className="post-img mb-3 mr-4" src={val}></Card.Img>
+                        {/* <Card.Img key={idx + 1} className="post-img mb-3 mr-4" src={detail.avt}></Card.Img> */}
                       </>
                     )
                   })
                 }
               </div>
               <Carousel variant="dark" className="col-lg-10 order-lg-2 order-1" activeIndex={index} onSelect={handleSelect}>
+                <Carousel.Item>
+                  <img
+                    className="d-block w-100"
+                    src={detail.avt}
+                    alt="Second Product"
+                  />
+                </Carousel.Item>
                 {
                   arrAlbum.map((val, idx) => {
                     return (
