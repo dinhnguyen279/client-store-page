@@ -64,9 +64,12 @@ function Home(props) {
                                                     <p className="text-muted">${value.price}</p>
                                                     <p className="text-small mb-4">{value.description}</p>
                                                     <div className="row align-items-stretch mb-4">
-                                                        <div className="col-sm-5 pl-sm-0 fix_addwish">
-                                                            <a className="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0">
-                                                                <i className="far fa-heart mr-2"></i>Thêm yêu thích</a>
+                                                        <div className="col-sm-12 pl-sm-0 fix_addwish mb-2">
+                                                            <button type='button' className='btn-warning btn btn-sm btn-block'><AiOutlineShoppingCart /> Thêm giỏ hàng</button>
+                                                        </div>
+                                                        <div className="col-sm-12 pl-sm-0 fix_addwish">
+                                                            <a className="btn btn-dark btn-sm btn-block">
+                                                                <i className="far fa-heart mr-2"></i>Thêm danh sách yêu thích</a>
                                                         </div>
                                                     </div>
                                                 </div>

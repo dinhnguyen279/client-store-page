@@ -7,6 +7,9 @@ import Pagination from './Component/Pagination';
 import Products from './Component/Products';
 import SortProduct from './Component/SortProduct';
 import axios from 'axios';
+import axiosClient from '../API/axiosClient';
+import { AiOutlineShoppingCart } from 'react-icons/ai';
+import { Card } from 'react-bootstrap';
 
 function Shop(props) {
 
@@ -77,9 +80,7 @@ function Shop(props) {
     //Và nó phụ thuộc và state pagination
     useEffect(() => {
         const fetchAllData = async () => {
-
-            let response
-            response = await axios.get(URL_PRODUCT)
+            const response = await ProductAPI.getAPI()
             setProducts(response.data)
             console.log('products', products);
 
@@ -164,9 +165,9 @@ function Shop(props) {
                                 <div className="modal-body p-0">
                                     <div className="row align-items-stretch">
                                         <div className="col-lg-6 p-lg-0">
-                                            <img style={{ width: '100%' }} className="product-view d-block h-100 bg-cover bg-center" src={value.img1} data-lightbox={`product_${value._id}`} />
-                                            <img className="d-none" href={value.img2} />
-                                            <img className="d-none" href={value.img3} />
+                                            <img style={{ width: '100%' }} className="product-view d-block h-100 bg-cover bg-center" src={value.avt} data-lightbox={`product_${value._id}`} />
+                                            {/* <img className="d-none" href={value.img2} />
+                                            <img className="d-none" href={value.img3} /> */}
                                         </div>
                                         <div className="col-lg-6">
                                             {/* Để tắt modal phải có class="close" và data-dissmiss="modal" và aria-label="Close" */}
@@ -180,12 +181,19 @@ function Shop(props) {
                                                     <li className="list-inline-item m-0"><i className="fas fa-star small text-warning"></i></li>
                                                 </ul>
                                                 <h2 className="h4">{value.name}</h2>
-                                                <p className="text-muted">${value.price}</p>
-                                                <p className="text-small mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Vestibulum ultricies aliquam convallis.</p>
+                                                <Card.Text style={{ color: "red" }}>{value.promotionPrice}₫
+                                                    <span style={{ color: "grey", paddingLeft: "10px" }}>
+                                                        <del>{value.price}₫</del>
+                                                    </span>
+                                                </Card.Text>
+                                                <p className="text-small mb-4">{value.description}</p>
                                                 <div className="row align-items-stretch mb-4">
-                                                    <div className="col-sm-5 pl-sm-0 fix_addwish">
-                                                        <a className="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0">
-                                                            <i className="far fa-heart mr-2"></i>Add Too Wish List</a>
+                                                    <div className="col-sm-12 pl-sm-0 fix_addwish mb-2">
+                                                        <button type='button' className='btn-warning btn btn-sm btn-block'><AiOutlineShoppingCart /> Thêm giỏ hàng</button>
+                                                    </div>
+                                                    <div className="col-sm-12 pl-sm-0 fix_addwish">
+                                                        <a className="btn btn-dark btn-sm btn-block">
+                                                            <i className="far fa-heart mr-2"></i>Thêm danh sách yêu thích</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -198,7 +206,6 @@ function Shop(props) {
                 ))
             }
             {/* -------------Modal Product----------------- */}
-
 
             <section className="py-5">
                 <div className="container p-0">

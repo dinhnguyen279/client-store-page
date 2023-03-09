@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { AiOutlineExpand, AiOutlineHeart, AiOutlineShoppingCart } from 'react-icons/ai';
+import { Card } from 'react-bootstrap';
 
 Products.propTypes = {
     products: PropTypes.array,
@@ -35,30 +37,36 @@ function Products(props) {
                 products && products.map(value => (
                     <div className="col-lg-4 col-sm-6 Section_Category" key={value._id}>
                         <div className="product text-center">
-                            <div className="position-relative mb-3">
+                            <div className="position-relative mb-3 product-new">
                                 <div className="badge text-white badge-"></div>
                                 <Link className="d-block" to={`/detail/${value._id}`}>
-                                    <img className="img-fluid w-100" src={value.img1} alt="..." />
+                                    <img className="img-fluid w-100" src={value.avt} alt="..." />
                                 </Link>
                                 <div className="product-overlay">
-                                    <ul className="mb-0 list-inline">
-                                        <li className="list-inline-item m-0 p-0"><a className="btn btn-sm btn-outline-dark" href="#"><i className="far fa-heart"></i></a></li>
-                                        <li className="list-inline-item m-0 p-0">
-                                            <Link className="btn btn-sm btn-dark" to={`/detail/${value._id}`}>
-                                                Add to cart
-                                            </Link>
-                                        </li>
-                                        <li className="list-inline-item mr-0">
-                                            {/* Dùng Modal phải có href để nó hiện ra thằng đó và thuộc tính data-toggle="modal" để mở modal*/}
+                                    <ul className="">
+                                        <li className="list-item-overlay">
+                                            {/* Dùng Modal phải có href để nó hiện ra thằng đó và thuộc tính data-toggle="modal" để mở modal */}
                                             <a className="btn btn-sm btn-outline-dark" href={`#product_${value._id}`} data-toggle="modal">
-                                                <i className="fas fa-expand"></i>
+                                                <AiOutlineExpand />
+                                            </a>
+                                        </li>
+                                        <li className="list-item-overlay">
+                                            <a className="btn btn-sm btn-outline-dark">
+                                                <AiOutlineHeart />
                                             </a>
                                         </li>
                                     </ul>
                                 </div>
+                                <div>
+                                    <button type='button' className='btn-addtocart'><AiOutlineShoppingCart /> Thêm giỏ hàng</button>
+                                </div>
                             </div>
-                            <h6> <a className="reset-anchor" href="detail.html">{value.name}</a></h6>
-                            <p className="small text-muted">${value.price}</p>
+                            <Card.Link href={`detail/${value._id}`} className='title-product h5'>{value.name}</Card.Link>
+                            <Card.Text style={{ color: "red" }}>{value.promotionPrice}₫
+                                <span style={{ color: "grey", paddingLeft: "10px" }}>
+                                    <del>{value.price}₫</del>
+                                </span>
+                            </Card.Text>
                         </div>
                     </div>
                 ))
