@@ -6,15 +6,15 @@ function LogoutLink(props) {
         <>
             <li className="nav-item">
                 <Link className="nav-link" to={`/signin`}>
-                    <FaUserAlt className='mr-2 text-gray' /> Đăng nhập
+                    Đăng nhập
                 </Link>
             </li>
             <li>
-                {"/"}
+                {"|"}
             </li>
             <li className="nav-item">
                 <Link className="nav-link" to={`/signup`}>
-                    <FaUserPlus className='mr-2 text-gray' /> Đăng ký
+                    Đăng ký
                 </Link>
             </li>
         </>

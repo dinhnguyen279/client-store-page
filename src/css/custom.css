@@ -579,7 +579,7 @@ html {
   transition: 0.5;
 }
 
-.content-banner:hover:after {
+.main-banner:hover .content-banner:after {
   width: 50px;
   height: 1px;
 }

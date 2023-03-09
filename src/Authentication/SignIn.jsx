@@ -162,9 +162,6 @@ function SignIn(props) {
                         {errors.password && <p className="text-danger">{errors.password}</p>}
 
                         <div className="container-login100-form-btn m-t-20">
-                            {/* {
-                                redirect && <Navigate replace to="/" />
-                            } */}
                             <button className="login100-form-btn btn-form" type='submit'>
                                 Đăng nhập
                             </button>
