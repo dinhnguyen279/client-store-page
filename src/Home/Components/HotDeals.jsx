@@ -15,7 +15,7 @@ const HotDeals = (props) => {
                 {
                     itemHotDeals.map((val, idx) => {
                         return (
-                            <div className="col-md-6 col-xl-2 col-sm-6 product-hot-deals">
+                            <div className="col-md-6 col-xl-2 col-sm-6 product-hot-deals" key={idx + 1}>
                                 <div className='mb-3 card-product-endPage'>
                                     <Link className="d-block" to={`/detail/${val._id}`}>
                                         <Card.Img className='img-banner' src={val.avt} alt='...'></Card.Img>
@@ -45,11 +45,19 @@ const HotDeals = (props) => {
                                     </button>
                                 </div>
                                 <Card.Link href={`detail/${val._id}`} className='title-product h5'>{val.name}</Card.Link>
-                                <Card.Text style={{ color: "red" }}>{val.promotionPrice}₫
-                                    <span style={{ color: "grey", paddingLeft: "10px" }}>
-                                        <del>{val.price}₫</del>
-                                    </span>
-                                </Card.Text>
+                                {
+                                    val.promotionPrice === "" ? (
+                                        <Card.Text>
+                                            {val.price}₫
+                                        </Card.Text>
+                                    ) : (
+                                        <Card.Text style={{ color: "red" }}>{val.promotionPrice}₫
+                                            <span style={{ color: "grey", paddingLeft: "10px" }}>
+                                                <del>{val.price}₫</del>
+                                            </span>
+                                        </Card.Text>
+                                    )
+                                }
                             </div>
                         )
                     })

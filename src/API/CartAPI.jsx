@@ -2,26 +2,32 @@ import axiosClient from './axiosClient'
 
 const CartAPI = {
 
-    getCarts: (query) => {
-        const url = `/cart${query}`
+    getCart: () => {
+        const url = `/carts`
         return axiosClient.get(url)
     },
 
-    postAddToCart: (query) => {
-        const url = `/cart/add${query}`
+    getAllCarts: (id) => {
+        const url = `/cart${id}`
+        return axiosClient.get(url)
+    },
+
+
+    postAddToCart: (data) => {
+        const url = `/cart/add${data}`
         return axiosClient.post(url)
     },
 
-    deleteToCart: (query) => {
-        const url = `/cart/delete${query}`
+    deleteToCart: (id) => {
+        const url = `/deleteCart${id}`
         return axiosClient.delete(url)
     },
 
-    putToCart: (query) => {
-        const url = `/cart/update${query}`
+    putToCart: (data) => {
+        const url = `/updateCart${data}`
         return axiosClient.put(url)
     }
-    
+
 }
 
 export default CartAPI

@@ -16,7 +16,6 @@ function SortProduct(props) {
     const onChangeValue = (e) => {
 
         const keyword = e.target.value
-
         if (!handlerChangeSort) {
             return
         }

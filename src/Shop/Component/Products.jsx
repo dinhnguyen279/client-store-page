@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { AiOutlineExpand, AiOutlineHeart, AiOutlineShoppingCart } from 'react-icons/ai';
 import { Card } from 'react-bootstrap';
+import { func } from 'prop-types';
 
 Products.propTypes = {
     products: PropTypes.array,
-    sort: PropTypes.string
+    sort: PropTypes.string,
 };
 
 Products.defaultProps = {
@@ -29,10 +30,8 @@ function Products(props) {
         });
     }
 
-
     return (
         <div className="row">
-            {/* -------------Product----------------- */}
             {
                 products && products.map(value => (
                     <div className="col-lg-4 col-sm-6 Section_Category" key={value._id}>
@@ -58,21 +57,28 @@ function Products(props) {
                                     </ul>
                                 </div>
                                 <div>
-                                    <button type='button' className='btn-addtocart'><AiOutlineShoppingCart /> Thêm giỏ hàng</button>
+                                    <button type='button' className='btn-addtocart' ><AiOutlineShoppingCart /> Thêm giỏ hàng</button>
                                 </div>
                             </div>
                             <Card.Link href={`detail/${value._id}`} className='title-product h5'>{value.name}</Card.Link>
-                            <Card.Text style={{ color: "red" }}>{value.promotionPrice}₫
-                                <span style={{ color: "grey", paddingLeft: "10px" }}>
-                                    <del>{value.price}₫</del>
-                                </span>
-                            </Card.Text>
+                            {
+                                value.promotionPrice === "" ? (
+                                    <Card.Text>
+                                        {value.price}₫
+                                    </Card.Text>
+                                ) : (
+                                    <Card.Text style={{ color: "red" }}>{value.promotionPrice}₫
+                                        <span style={{ color: "grey", paddingLeft: "10px" }}>
+                                            <del>{value.price}₫</del>
+                                        </span>
+                                    </Card.Text>
+                                )
+                            }
                         </div>
                     </div>
                 ))
             }
-            {/* -------------Product----------------- */}
-        </div>
+        </div >
     );
 }
 

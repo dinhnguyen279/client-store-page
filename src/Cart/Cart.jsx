@@ -15,11 +15,10 @@ import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai"
 function Cart(props) {
 
     //id_user được lấy từ redux
-    const id_user = useSelector(state => state.Cart.id_user)
+    // const id_user = useSelector(state => state.Cart.id_user)
 
     //listCart được lấy từ redux
     const listCart = useSelector(state => state.Cart.listCart)
-    // const listCart = useSelector(state => state)
 
     const [cart, setCart] = useState([])
 
@@ -73,16 +72,13 @@ function Cart(props) {
 
             if (sessionStorage.getItem('id_user')) {
 
-                const params = {
+                const idUser = {
                     idUser: sessionStorage.getItem('id_user')
                 }
-
-                const query = '?' + queryString.stringify(params)
-
-                console.log(query)
+                console.log(idUser)
 
                 // const response = await CartAPI.getCarts(query)
-                const response = await axios.get(`${URL_CART}${query}`)
+                const response = await axios.get(`${URL_CART}${idUser}`)
 
                 setCart(response)
 
@@ -244,7 +240,7 @@ function Cart(props) {
                     </ol>
                 </div>
             </section>
-
+            {/*---------------- Check giỏ hàng rỗng đây nè Thuận^^ -------------*/}
             {/* {!listProducts === undefined ? (
                 <section className='cart-empty'>
                     <p className='text-lg mb-3'>Giỏ hàng của bạn rỗng</p>

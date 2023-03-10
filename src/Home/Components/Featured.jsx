@@ -39,11 +39,19 @@ const Featured = (props) => {
                                     </div>
                                 </div>
                                 <Card.Link href={`detail/${value._id}`} className='title-product h5'>{value.name}</Card.Link>
-                                <Card.Text style={{ color: "red" }}>{value.promotionPrice}₫
-                                    <span style={{ color: "grey", paddingLeft: "10px" }}>
-                                        <del>{value.price}₫</del>
-                                    </span>
-                                </Card.Text>
+                                {
+                                    value.promotionPrice === "" ? (
+                                        <Card.Text>
+                                            {value.price}₫
+                                        </Card.Text>
+                                    ) : (
+                                        <Card.Text style={{ color: "red" }}>{value.promotionPrice}₫
+                                            <span style={{ color: "grey", paddingLeft: "10px" }}>
+                                                <del>{value.price}₫</del>
+                                            </span>
+                                        </Card.Text>
+                                    )
+                                }
                             </div>
                         </div>
                     ))

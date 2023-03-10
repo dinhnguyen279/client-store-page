@@ -10,6 +10,8 @@ import axios from 'axios';
 import axiosClient from '../API/axiosClient';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { Card } from 'react-bootstrap';
+import CartAPI from '../API/CartAPI';
+import alertify from 'alertifyjs';
 
 function Shop(props) {
 
@@ -30,7 +32,12 @@ function Shop(props) {
         category: 'all'
     })
     const URL_PRODUCT = 'http://localhost:3003/products';
+    const URL_CART = 'http://localhost:3003/cart/add';
 
+    const idUser = sessionStorage.getItem("id_user")
+    console.log("id user shop", idUser);
+
+    const [dataAddCart, setDataAddCart] = useState({})
     //Hàm nà dùng để lấy value từ component SortProduct truyền lên
     const handlerChangeSort = (value) => {
         console.log("Value: ", value)
@@ -145,6 +152,7 @@ function Shop(props) {
     //     fetchData()
 
     // }, [pagination])
+
 
     return (
         <div className="container main-shop">
