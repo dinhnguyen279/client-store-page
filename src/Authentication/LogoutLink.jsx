@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaUserPlus, FaUserAlt } from "react-icons/fa"
 function LogoutLink(props) {
     return (
         <>
@@ -9,7 +8,7 @@ function LogoutLink(props) {
                     Đăng nhập
                 </Link>
             </li>
-            <li>
+            <li className='d-md-none d-lg-block'>
                 {"|"}
             </li>
             <li className="nav-item">

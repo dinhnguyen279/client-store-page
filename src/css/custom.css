@@ -672,6 +672,16 @@ html {
   line-height: 50px;
 }
 
+.text-check-size {
+  background: black;
+  color: white;
+}
+
+.text-uncheck-size {
+  background: white;
+  color: #000;
+}
+
 .body-title-product {
   border-bottom: 1px solid #7f7f7f;
   display: flex;

@@ -1211,20 +1211,24 @@ a.text-hover-dark:hover {
   background-position: center center !important;
 }
 
-.reset-anchor {
-  color: inherit;
+.size-product-item {
   transition: all 0.3s;
+  cursor: pointer;
   text-decoration: none;
 }
 
-.size-products .reset-anchor {
+.size-products {
+  color: unset;
+}
+
+.size-products .size-product-item {
   border: 1px solid black;
   padding: 10px 15px;
 }
 
-/* .reset-anchor */
+/* .size-product */
 
-.reset-anchor:focus {
+.size-product-item:focus {
   text-decoration: none;
 }
 

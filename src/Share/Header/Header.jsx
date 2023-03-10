@@ -149,36 +149,6 @@ function Header(props) {
                                     </div>
 
                                     <div className='d-flex'>
-                                        <ul className="navbar-nav nav-menu nav-menu-over">
-                                            <Link className="nav-link">
-                                                Trang Shop <FaAngleDown />
-                                            </Link>
-                                            <div className='nav-menu-item'>
-                                                <li className='nav-item-link'>
-                                                    <Link className="nav-link" to={"/signin"}>
-                                                        Đăng Nhập
-                                                    </Link>
-                                                </li>
-                                                <li className='nav-item-link'>
-                                                    <Link className="nav-link" to={"/signup"}>
-                                                        Đăng Ký
-                                                    </Link>
-                                                </li>
-                                                <li className='nav-item-link'>
-                                                    <Link className="nav-link" to={"/cart"}>
-                                                        Giỏ Hàng
-                                                    </Link>
-                                                </li>
-                                                <li className='nav-item-link'>
-                                                    <Link className="nav-link" to={"/checkout"}>
-                                                        Thanh Toán
-                                                    </Link>
-                                                </li>
-                                            </div>
-                                        </ul>
-                                    </div>
-
-                                    <div className='d-flex'>
                                         <ul className="navbar-nav nav-menu">
                                             <Link className="nav-link" to={`/contact`}>
                                                 Liên Hệ
@@ -234,36 +204,6 @@ function Header(props) {
                             <Link className="nav-link" to={`/shop`}>
                                 Cửa Hàng
                             </Link>
-                        </ul>
-                    </div>
-
-                    <div className='d-flex'>
-                        <ul className="navbar-nav nav-menu nav-menu-over">
-                            <Link className="nav-link">
-                                Trang Shop <FaAngleDown />
-                            </Link>
-                            <div className='nav-menu-item'>
-                                <li className='nav-item-link'>
-                                    <Link className="nav-link" to={"/signin"}>
-                                        Đăng Nhập
-                                    </Link>
-                                </li>
-                                <li className='nav-item-link'>
-                                    <Link className="nav-link" to={"/signup"}>
-                                        Đăng Ký
-                                    </Link>
-                                </li>
-                                <li className='nav-item-link'>
-                                    <Link className="nav-link" to={"/cart"}>
-                                        Giỏ Hàng
-                                    </Link>
-                                </li>
-                                <li className='nav-item-link'>
-                                    <Link className="nav-link" to={"/checkout"}>
-                                        Thanh Toán
-                                    </Link>
-                                </li>
-                            </div>
                         </ul>
                     </div>
 

@@ -323,6 +323,31 @@ function Detail(props) {
                   </div>
                 </div>
               </div>
+              <div className="" >
+                <ul className="list-unstyled d-inline-block">
+                  <li className="py-2 mb-1 bg-white text-muted">
+                    <strong className="text-uppercase text-dark">
+                      Thể loại:
+                    </strong>
+                    <a className="ml-2">{detail.category}</a>
+                  </li>
+                  <li className="py-2 mb-1 size-products">
+                    <strong className="text-uppercase text-dark">Size:</strong>
+                    {
+                      arrSize.map((val, idx) => {
+                        return (
+                          <>
+                            <a key={idx + 1} className={`size-product-item ml-2 ${sizeProduct === val ? "text-check-size text-light" : "text-uncheck-size"}`}
+                              onClick={() => selectSize(val)}
+                            >
+                              {val}</a>
+                          </>
+                        )
+                      })
+                    }
+                  </li>
+                </ul>
+              </div>
               <div className="col-md-8 d-flex flex-md-row flex-column align-item-center mb-2">
                 <a
                   className="btn btn-dark btn-base mr-3 text-white my-2"
@@ -333,29 +358,6 @@ function Detail(props) {
                 <a className="btn btn-warning btn-base text-white hover-icon-heart mr-3 my-2" href="#">
                   <AiFillHeart className="" /> Thêm vào yêu thích
                 </a>
-              </div>
-
-              <div className="" >
-                <ul className="list-unstyled d-inline-block">
-                  <li className="py-2 mb-1 bg-white text-muted">
-                    <strong className="text-uppercase text-dark">
-                      Thể loại:
-                    </strong>
-                    <a className="reset-anchor ml-2">{detail.category}</a>
-                  </li>
-                  <li className="py-2 mb-1 bg-white text-muted size-products">
-                    <strong className="text-uppercase text-dark">Size:</strong>
-                    {
-                      arrSize.map((val, idx) => {
-                        return (
-                          <>
-                            <a key={idx + 1} className="reset-anchor ml-2" onClick={() => selectSize(val)}>{val}</a>
-                          </>
-                        )
-                      })
-                    }
-                  </li>
-                </ul>
               </div>
             </div>
           </div>
