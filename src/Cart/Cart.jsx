@@ -229,6 +229,7 @@ function Cart(props) {
         <h4 className="text-uppercase mb-4 text-center">Giỏ hàng của bạn</h4>
         <div className="row">
           <div className="col-lg-8 mb-4 mb-lg-0">
+            {/* danh sách sản phẩm  */}
             <ListCart
               listCart={cart}
               onDeleteCart={onDeleteCart}
@@ -246,6 +247,7 @@ function Cart(props) {
               </div>
             </div>
           </div>
+          {/* thông tin đơn hàng  */}
           <div className="col-lg-4">
             <div className="card border-0 rounded-0 p-lg-4 bg-light">
               <div className="card-body">

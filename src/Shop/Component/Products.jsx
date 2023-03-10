@@ -16,6 +16,7 @@ Products.defaultProps = {
 }
 
 function Products(props) {
+    
 
     const { products, sort } = props
 

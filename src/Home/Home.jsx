@@ -33,6 +33,8 @@ function Home(props) {
 
     }, [])
 
+    console.log('product ', products );
+
     const [navContent, setNavContent] = useState("nav1")
 
     return (
