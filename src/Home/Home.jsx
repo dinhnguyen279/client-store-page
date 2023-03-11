@@ -9,18 +9,11 @@ import CardProduct from '../components/CardProduct';
 function Home(props) {
 
     const [products, setProducts] = useState([])
-    // const URL_PRODUCT = 'http://localhost:3003/products'
 
     //Fetch Product
     useEffect(() => {
 
         const fetchData = async () => {
-
-            // const response = await axios.get(URL_PRODUCT)
-            // const data = response.data.splice(0, 8)
-            // console.log("data products", data);
-            // setProducts(data)
-
             const response = await ProductAPI.getAPI()
 
             const data = response.data.splice(0, 8)
@@ -30,9 +23,13 @@ function Home(props) {
         fetchData()
 
     }, [])
-
     const [navContent, setNavContent] = useState("nav1")
 
+    // Lọc sản phẩm dựa trên chủ đề
+    const featured = products.filter(item => item.featured && item.featured.trim() !== '');
+    const bestseller = products.filter(item => item.bestseller && item.bestseller.trim() !== '');
+    const hotdeals = products.filter(item => item.hotdeals && item.hotdeals.trim() !== '');
+    console.log(hotdeals);
     return (
         <div className="page-holder m-t-10">
             <header className="header bg-white">
@@ -152,7 +149,19 @@ function Home(props) {
                             <div className='col-md-12 col-xl-4 col-sm-12'>
                                 <Card.Img src={Image.collection}></Card.Img>
                             </div>
-                            <CardProduct itemProduct={products} />
+                            {
+                                featured ? (
+                                    featured.map(value => {
+                                        return (
+                                            <CardProduct itemProduct={value} />
+                                        )
+                                    })
+                                ) : (
+                                    <div>
+                                        Hiện tại chưa có sản phẩm nổi bật nào!
+                                    </div>
+                                )
+                            }
                         </div>
                     </section>
 
@@ -203,7 +212,19 @@ function Home(props) {
                             <div className='col-md-12 col-xl-4 col-sm-12'>
                                 <Card.Img src={Image.product_under_banner}></Card.Img>
                             </div>
-                            <CardProduct itemProduct={products} />
+                            {
+                                bestseller ? (
+                                    bestseller.map(value => {
+                                        return (
+                                            <CardProduct itemProduct={value} />
+                                        )
+                                    })
+                                ) : (
+                                    <div>
+                                        Hiện tại chưa có sản phẩm bestseller nào!
+                                    </div>
+                                )
+                            }
                         </div>
                     </section>
 
@@ -271,14 +292,25 @@ function Home(props) {
                             </div>
                         </div>
                     </section>
-
                     {/* Hot Deals */}
                     <section className='py-5'>
                         <header className="text-center">
                             <h2 className="text-uppercase mb-4">Hot Deals 2023</h2>
                         </header>
                         <div className='row card-product'>
-                            <CardProduct itemProduct={products} />
+                            {
+                                hotdeals ? (
+                                    hotdeals.map(value => {
+                                        return (
+                                            <CardProduct itemProduct={value} />
+                                        )
+                                    })
+                                ) : (
+                                    <div>
+                                        Hiện tại chưa có sản phẩm Hot Deals nào
+                                    </div>
+                                )
+                            }
                         </div>
                     </section>
 
