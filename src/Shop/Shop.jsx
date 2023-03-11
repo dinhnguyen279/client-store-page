@@ -16,14 +16,15 @@ function Shop(props) {
     const [products, setProducts] = useState([]);
     const [temp, setTemp] = useState([]);
 
+    // search product
+    const [search, setSearch] = useState('')
+    const delaySearchTextTimeOut = useRef(null)
+
     //state dùng để sắp xếp sản phẩm
     const [sort, setSort] = useState("default");
 
     //Tổng số trang
     const [totalPage, setTotalPage] = useState();
-    // search product
-    const [search, setSearch] = useState('')
-    const delaySearchTextTimeOut = useRef(null)
 
     //Từng trang hiện tại
     const [pagination, setPagination] = useState({
@@ -33,39 +34,13 @@ function Shop(props) {
         category: "all",
         fildter: "",
     });
-    const idUser = sessionStorage.getItem("id_user");
-    console.log("id user shop", idUser);
 
     const URL_PRODUCT = 'http://localhost:1425/products';
     const URL_CART = 'http://localhost:1425/cart/add';
     const URL_SEARCH = 'http://localhost:1425/searchProducts';
 
-    const [dataAddCart, setDataAddCart] = useState({});
-    //Hàm nà dùng để lấy value từ component SortProduct truyền lên
-    const handlerChangeSort = (value) => {
-        console.log("Value: ", value);
-        setSort(value);
-    };
-
-    //Hàm này dùng để thay đổi state pagination.page
-    //Nó sẽ truyền xuống Component con và nhận dữ liệu từ Component con truyền lên
-    const handlerChangePage = (value) => {
-        console.log("Value: ", value);
-        //Hàm này dùng để lấy value từ component SortProduct truyền lên
-        const handlerChangeSort = (value) => {
-            console.log("Value: ", value)
-            setSort(value)
-        }
-
-        //Sau đó set lại cái pagination để gọi chạy làm useEffect gọi lại API pagination
-        setPagination({
-            page: value,
-            count: pagination.count,
-            search: pagination.search,
-            category: pagination.category,
-            fildter: pagination.fildter,
-        });
-    };
+    const idUser = sessionStorage.getItem("id_user")
+    console.log("id user shop", idUser);
 
     //Hàm này dùng để thay đổi state pagination.search
     //Hàm này sẽ truyền xuống Component con và nhận dữ liệu từ Component con truyền lên
@@ -95,15 +70,29 @@ function Shop(props) {
         });
     };
 
+    //Hàm này dùng để thay đổi state pagination.category
+    // const handlerCategory = (value) => {
+    //     console.log("Value: ", value)
+
+    //     setPagination({
+    //         page: pagination.page,
+    //         count: pagination.count,
+    //         search: pagination.search,
+    //         category: value,
+
+
+    // })
+    // }
+
     const onChangeText = (e) => {
         const value = e.target.value;
         const dataSearch = {
             fildter: "name",
             value: value
         }
+        console.log(value);
         setSearch(value)
         const query = "?" + queryString.stringify(dataSearch)
-        console.log(query);
 
         axios.get(`${URL_SEARCH}${query}`)
             .then((res) => setProducts(res.data))
@@ -286,11 +275,10 @@ function Shop(props) {
                             <Pagination pagination={pagination} handlerChangePage={handlerChangePage} totalPage={totalPage} />
 
                         </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
+                    </div >
+                </div >
+            </section >
+        </div >
     );
 }
 
