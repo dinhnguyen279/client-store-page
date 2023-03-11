@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import ProductAPI from '../API/ProductAPI';
 import { Link } from 'react-router-dom';
 import Search from './Component/Search';
@@ -9,6 +9,7 @@ import axiosClient from '../API/axiosClient';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { Card } from 'react-bootstrap';
 import CartAPI from '../API/CartAPI';
+import queryString from "query-string";
 import alertify from 'alertifyjs';
 import CardProduct from '../components/CardProduct';
 
@@ -16,6 +17,10 @@ function Shop(props) {
 
     const [products, setProducts] = useState([])
     const [temp, setTemp] = useState([])
+
+    // search product
+    const [search, setSearch] = useState('')
+    const delaySearchTextTimeOut = useRef(null)
 
     //state dùng để sắp xếp sản phẩm
     const [sort, setSort] = useState('default')
@@ -29,16 +34,14 @@ function Shop(props) {
         count: '9',
         search: '',
         category: 'all',
-        fildter: ''
     })
-    const URL_PRODUCT = 'http://localhost:3003/products';
-    const URL_CART = 'http://localhost:3003/cart/add';
-    const URL_SEARCH = 'http://localhost:3003/searchProducts';
+    const URL_PRODUCT = 'http://localhost:1425/products';
+    const URL_CART = 'http://localhost:1425/cart/add';
+    const URL_SEARCH = 'http://localhost:1425/searchProducts';
 
     const idUser = sessionStorage.getItem("id_user")
     console.log("id user shop", idUser);
 
-    const [dataAddCart, setDataAddCart] = useState({})
     //Hàm nà dùng để lấy value từ component SortProduct truyền lên
     const handlerChangeSort = (value) => {
         console.log("Value: ", value)
@@ -56,48 +59,71 @@ function Shop(props) {
             count: pagination.count,
             search: pagination.search,
             category: pagination.category,
-            fildter: pagination.fildter
 
         })
     }
 
     //Hàm này dùng để thay đổi state pagination.search
     //Hàm này sẽ truyền xuống Component con và nhận dữ liệu từ Component con truyền lên
-    const handlerSearch = async (value) => {
-        const resSearh = await axios.get(URL_SEARCH, pagination.search)
-        console.log("resSearh", resSearh);
-        console.log("Value: ", value)
-        setPagination({
-            page: pagination.page,
-            count: pagination.count,
-            search: value,
+    // const handlerSearch = (value) => {
+    // console.log("value", value);
+
+    // setPagination({
+    //     page: pagination.page,
+    //     count: pagination.count,
+    //     search: value,
+    //     fildter: "name",
+    //     category: pagination.category
+    // })
+    // }
+
+    const onChangeText = (e) => {
+        const value = e.target.value;
+        const dataSearch = {
             fildter: "name",
-            category: pagination.category
-        })
+            value: value
+        }
+        console.log(value);
+        setSearch(value)
+        console.log("resSearh", dataSearch);
+        const query = "?" + queryString.stringify(dataSearch)
+        console.log(query);
+
+        axios.get(`${URL_SEARCH}${query}`)
+            .then((res) => setProducts(res.data))
+            .catch((err) => console.log("err search", err))
+
+        console.log("search xong", products);
     }
+    // if (onChangeText) {
+    //     //Nếu người dùng đang nhập thì mình clear cái giây đó
+    //     if (delaySearchTextTimeOut.current) {
+    //         clearTimeout(delaySearchTextTimeOut.current)
+    //     }
+    //     delaySearchTextTimeOut.current = setTimeout(() => {
+    //         onChangeText(search)
+    //     }, 500)
+    // }
 
     //Hàm này dùng để thay đổi state pagination.category
-    const handlerCategory = (value) => {
-        console.log("Value: ", value)
+    // const handlerCategory = (value) => {
+    //     console.log("Value: ", value)
 
-        setPagination({
-            page: pagination.page,
-            count: pagination.count,
-            search: pagination.search,
-            category: value,
-            fildter: pagination.fildter
+    //     setPagination({
+    //         page: pagination.page,
+    //         count: pagination.count,
+    //         search: pagination.search,
+    //         category: value,
 
-        })
-    }
+    //     })
+    // }
 
     //Gọi hàm useEffect tìm tổng số sản phẩm để tính tổng số trang
     //Và nó phụ thuộc và state pagination
     useEffect(() => {
         const fetchAllData = async () => {
-            const response = await ProductAPI.getAPI()
-            setProducts(response.data)
+            await ProductAPI.getAPI().then((res) => setProducts(res.data))
             console.log('products', products);
-
             // Nếu mà category === 'all' thì nó sẽ gọi hàm get tất cả sản phẩm
             // Ngược lại thì nó sẽ gọi hàm pagination và phân loại sản phẩm
             // if (pagination.category === 'all'){
@@ -228,7 +254,15 @@ function Shop(props) {
                             <div className="row mb-3 align-items-center">
 
                                 {/* ------------------Search----------------- */}
-                                <Search handlerSearch={handlerSearch} />
+                                {/* <Search handlerSearch={handlerSearch} /> */}
+                                <div className="col-lg-4">
+                                    <input
+                                        className="form-control form-control-lg"
+                                        type="text"
+                                        placeholder="Sản phẩm cần tìm..."
+                                        onChange={onChangeText}
+                                    />
+                                </div>
                                 {/* ------------------Search----------------- */}
 
                                 <div className="col-lg-8">
@@ -241,7 +275,13 @@ function Shop(props) {
                             </div>
 
                             <div className='row'>
-                                <CardProduct itemProduct={products} sort={sort} />
+                                {
+                                    products && products.map(value => {
+                                        return (
+                                            <CardProduct itemProduct={value} sort={sort} />
+                                        )
+                                    }
+                                    )}
                             </div>
 
                             <Pagination pagination={pagination} handlerChangePage={handlerChangePage} totalPage={totalPage} />
