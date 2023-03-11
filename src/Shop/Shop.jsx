@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Card } from "react-bootstrap";
 import Search from "./Component/Search";
@@ -42,20 +42,6 @@ function Shop(props) {
     const idUser = sessionStorage.getItem("id_user")
     console.log("id user shop", idUser);
 
-    //Hàm này dùng để thay đổi state pagination.search
-    //Hàm này sẽ truyền xuống Component con và nhận dữ liệu từ Component con truyền lên
-    const handlerSearch = async (value) => {
-        const resSearh = await axios.get(URL_SEARCH, pagination.search);
-        console.log("resSearh", resSearh);
-        console.log("Value: ", value);
-        setPagination({
-            page: pagination.page,
-            count: pagination.count,
-            search: value,
-            fildter: "name",
-            category: pagination.category,
-        });
-    };
 
     //Hàm này dùng để thay đổi state pagination.category
     const handlerCategory = (value) => {
@@ -70,27 +56,41 @@ function Shop(props) {
         });
     };
 
-    //Hàm này dùng để thay đổi state pagination.category
-    // const handlerCategory = (value) => {
-    //     console.log("Value: ", value)
+    //Hàm này dùng để thay đổi state pagination.page
+    //Nó sẽ truyền xuống Component con và nhận dữ liệu từ Component con truyền lên
+    const handlerChangePage = (value) => {
+        console.log("Value: ", value)
+        //Sau đó set lại cái pagination để gọi chạy làm useEffect gọi lại API pagination
+        setPagination({
+            page: value,
+            count: pagination.count,
+            search: pagination.search,
+            category: pagination.category,
+            fildter: pagination.fildter
 
-    //     setPagination({
-    //         page: pagination.page,
-    //         count: pagination.count,
-    //         search: pagination.search,
-    //         category: value,
+        })
+    }
 
+    const handlerChangeSort = (value) => {
+        console.log("Value: ", value)
+        setSort(value)
+    }
 
-    // })
-    // }
-
-    const onChangeText = (e) => {
+    //Hàm này dùng để thay đổi state pagination.search
+    //Hàm này sẽ truyền xuống Component con và nhận dữ liệu từ Component con truyền lên
+    const handleSearch = (e) => {
         const value = e.target.value;
         const dataSearch = {
             fildter: "name",
             value: value
         }
-        console.log(value);
+        //     setPagination({
+        //         page: pagination.page,
+        //         count: pagination.count,
+        //         search: value,
+        //         fildter: "name",
+        //         category: pagination.category,
+        //     });
         setSearch(value)
         const query = "?" + queryString.stringify(dataSearch)
 
@@ -99,13 +99,13 @@ function Shop(props) {
             .catch((err) => console.log("err search", err))
 
     }
-    if (onChangeText) {
+    if (handleSearch) {
         //Nếu người dùng đang nhập thì mình clear cái giây đó
         if (delaySearchTextTimeOut.current) {
             clearTimeout(delaySearchTextTimeOut.current)
         }
         delaySearchTextTimeOut.current = setTimeout(() => {
-            onChangeText(search)
+            handleSearch(search)
         }, 500)
     }
 
@@ -198,8 +198,6 @@ function Shop(props) {
                                     <div className="row align-items-stretch">
                                         <div className="col-lg-6 p-lg-0">
                                             <img style={{ width: '100%' }} className="product-view d-block h-100 bg-cover bg-center" src={value.avt} data-lightbox={`product_${value._id}`} />
-                                            {/* <img className="d-none" href={value.img2} />
-                                            <img className="d-none" href={value.img3} /> */}
                                         </div>
                                         <div className="col-lg-6">
                                             {/* Để tắt modal phải có class="close" và data-dissmiss="modal" và aria-label="Close" */}
@@ -252,7 +250,7 @@ function Shop(props) {
                                         className="form-control form-control-lg"
                                         type="text"
                                         placeholder="Sản phẩm cần tìm..."
-                                        onChange={onChangeText}
+                                        onChange={handleSearch}
                                     />
                                 </div>
                                 {/* ------------------Search----------------- */}
