@@ -10,20 +10,10 @@ import { Link } from "react-router-dom";
 import { HOST } from "../domain/host/host";
 const CardProduct = (props) => {
   const itemProduct = props.itemProduct;
-  const sort = props.sort;
 
   const URL_AddToCart = `${HOST}/addToCart`;
   const URL_UpdateToCart = `${HOST}/updateCart`;
 
-  if (sort === "DownToUp") {
-    itemProduct.sort((a, b) => {
-      return a.price - b.price;
-    });
-  } else if (sort === "UpToDown") {
-    itemProduct.sort((a, b) => {
-      return b.price - a.price;
-    });
-  }
   const addToCart = (idProduct, name, price, promotionPrice, img) => {
     const data = {
       idUser: sessionStorage.getItem("id_user"),
