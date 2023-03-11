@@ -5,8 +5,8 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-import "../../css/Carousel.css"
-import Image from '../../Share/img/Image';
+import "../css/Carousel.css"
+import Image from '../Share/img/Image';
 
 import { Navigation, Pagination, Autoplay } from "swiper";
 import { Card } from 'react-bootstrap';

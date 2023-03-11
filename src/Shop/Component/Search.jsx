@@ -22,7 +22,7 @@ function Search(props) {
 
         setSearch(value)
 
-        console.log(search)
+        // console.log(search)
 
         if (handlerSearch) {
 

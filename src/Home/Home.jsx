@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Image from '../Share/img/Image'
 import { Link } from 'react-router-dom';
-import Carousel from './Components/Carousel';
 import ProductAPI from '../API/ProductAPI';
 import { Card } from 'react-bootstrap';
-import { AiOutlineExpand, AiOutlineHeart, AiOutlineShoppingCart } from 'react-icons/ai';
-import Featured from './Components/Featured';
-import BestSeller from './Components/BestSeller';
-import HotDeals from './Components/HotDeals';
+import { AiOutlineShoppingCart } from 'react-icons/ai';
+import Carousel from '../components/Carousel';
+import CardProduct from '../components/CardProduct';
 function Home(props) {
 
     const [products, setProducts] = useState([])
@@ -150,7 +148,12 @@ function Home(props) {
                         <header className="text-center">
                             <h2 className="h2 text-uppercase mb-4">Top sản phẩm nổi bật</h2>
                         </header>
-                        <Featured itemProduct={products} />
+                        <div className='row card-product'>
+                            <div className='col-md-12 col-xl-4 col-sm-12'>
+                                <Card.Img src={Image.collection}></Card.Img>
+                            </div>
+                            <CardProduct itemProduct={products} />
+                        </div>
                     </section>
 
                     <section>
@@ -196,7 +199,12 @@ function Home(props) {
                         <header className="text-center">
                             <h2 className="h2 text-uppercase mb-4">Best Seller</h2>
                         </header>
-                        <BestSeller itemBestSeller={products} />
+                        <div className='row card-product'>
+                            <div className='col-md-12 col-xl-4 col-sm-12'>
+                                <Card.Img src={Image.product_under_banner}></Card.Img>
+                            </div>
+                            <CardProduct itemProduct={products} />
+                        </div>
                     </section>
 
                     <section className='container'>
@@ -269,7 +277,9 @@ function Home(props) {
                         <header className="text-center">
                             <h2 className="text-uppercase mb-4">Hot Deals 2023</h2>
                         </header>
-                        <HotDeals itemHotDeals={products} />
+                        <div className='row card-product'>
+                            <CardProduct itemProduct={products} />
+                        </div>
                     </section>
 
                     <section className="py-5">

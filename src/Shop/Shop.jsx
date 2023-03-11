@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import queryString from 'query-string'
 import ProductAPI from '../API/ProductAPI';
 import { Link } from 'react-router-dom';
 import Search from './Component/Search';
 import Pagination from './Component/Pagination';
-import Products from './Component/Products';
 import SortProduct from './Component/SortProduct';
 import axios from 'axios';
 import axiosClient from '../API/axiosClient';
@@ -12,6 +10,7 @@ import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { Card } from 'react-bootstrap';
 import CartAPI from '../API/CartAPI';
 import alertify from 'alertifyjs';
+import CardProduct from '../components/CardProduct';
 
 function Shop(props) {
 
@@ -29,10 +28,12 @@ function Shop(props) {
         page: '1',
         count: '9',
         search: '',
-        category: 'all'
+        category: 'all',
+        fildter: ''
     })
     const URL_PRODUCT = 'http://localhost:3003/products';
     const URL_CART = 'http://localhost:3003/cart/add';
+    const URL_SEARCH = 'http://localhost:3003/searchProducts';
 
     const idUser = sessionStorage.getItem("id_user")
     console.log("id user shop", idUser);
@@ -54,19 +55,23 @@ function Shop(props) {
             page: value,
             count: pagination.count,
             search: pagination.search,
-            category: pagination.category
+            category: pagination.category,
+            fildter: pagination.fildter
+
         })
     }
 
     //Hàm này dùng để thay đổi state pagination.search
     //Hàm này sẽ truyền xuống Component con và nhận dữ liệu từ Component con truyền lên
-    const handlerSearch = (value) => {
+    const handlerSearch = async (value) => {
+        const resSearh = await axios.get(URL_SEARCH, pagination.search)
+        console.log("resSearh", resSearh);
         console.log("Value: ", value)
-
         setPagination({
             page: pagination.page,
             count: pagination.count,
             search: value,
+            fildter: "name",
             category: pagination.category
         })
     }
@@ -79,7 +84,9 @@ function Shop(props) {
             page: pagination.page,
             count: pagination.count,
             search: pagination.search,
-            category: value
+            category: value,
+            fildter: pagination.fildter
+
         })
     }
 
@@ -123,7 +130,6 @@ function Shop(props) {
         fetchAllData()
         // pagination
     }, [])
-
     //Gọi hàm Pagination
     // useEffect(() => {
 
@@ -218,24 +224,7 @@ function Shop(props) {
             <section className="py-5">
                 <div className="container p-0">
                     <div className="row">
-                        <div className="col-lg-3 order-2 order-lg-1">
-                            <h5 className="text-uppercase mb-4">Thể loại</h5>
-                            <div className="py-2 px-4 bg-dark text-white mb-3"><strong className="small text-uppercase font-weight-bold">Thời trang &amp; Phụ kiện</strong></div>
-                            <ul className="list-unstyled small text-muted pl-lg-4 font-weight-normal">
-                                <li className="mb-2"><a className="reset-anchor" href="#" onClick={() => handlerCategory('all')}>Tất cả</a></li>
-                            </ul>
-                            <div className="py-2 px-4 bg-light mb-3"><strong className="small text-uppercase font-weight-bold">Quần áo</strong></div>
-                            <ul className="list-unstyled small text-muted pl-lg-4 font-weight-normal">
-                                <li className="mb-2"><a className="reset-anchor" href="#" onClick={() => handlerCategory('tshirt')}>Áo bóng đá</a></li>
-                                <li className="mb-2"><a className="reset-anchor" href="#" onClick={() => handlerCategory('pants')}>Quần bóng đá</a></li>
-                            </ul>
-                            <div className="py-2 px-4 bg-light mb-3"><strong className="small text-uppercase font-weight-bold">Giày thể thao</strong></div>
-                            <ul className="list-unstyled small text-muted pl-lg-4 font-weight-normal">
-                                <li className="mb-2"><a className="reset-anchor" href="#" onClick={() => handlerCategory('sneaker')}>Sneaker</a></li>
-                                <li className="mb-2"><a className="reset-anchor" href="#" onClick={() => handlerCategory('watch')}>Bóng đá</a></li>
-                            </ul>
-                        </div>
-                        <div className="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0">
+                        <div className="col-lg-12 mb-5 mb-lg-0">
                             <div className="row mb-3 align-items-center">
 
                                 {/* ------------------Search----------------- */}
@@ -251,7 +240,9 @@ function Shop(props) {
                                 </div>
                             </div>
 
-                            <Products products={products} sort={sort} />
+                            <div className='row'>
+                                <CardProduct itemProduct={products} sort={sort} />
+                            </div>
 
                             <Pagination pagination={pagination} handlerChangePage={handlerChangePage} totalPage={totalPage} />
 
