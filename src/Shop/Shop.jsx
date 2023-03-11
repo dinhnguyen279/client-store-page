@@ -7,10 +7,10 @@ import SortProduct from "./Component/SortProduct";
 import axios from "axios";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import ProductAPI from "../API/ProductAPI";
-import CartAPI from "../API/CartAPI";
 import alertify from "alertifyjs";
 import CardProduct from "../components/CardProduct";
 import queryString from "query-string";
+import { HOST } from "../domain/host/host";
 
 function Shop(props) {
     const [products, setProducts] = useState([]);
@@ -21,7 +21,7 @@ function Shop(props) {
     const delaySearchTextTimeOut = useRef(null)
 
     //state dùng để sắp xếp sản phẩm
-    const [sort, setSort] = useState("default");
+    const [sort, setSort] = useState("");
 
     //Tổng số trang
     const [totalPage, setTotalPage] = useState();
@@ -35,13 +35,10 @@ function Shop(props) {
         fildter: "",
     });
 
-    const URL_PRODUCT = 'http://localhost:1425/products';
-    const URL_CART = 'http://localhost:1425/cart/add';
-    const URL_SEARCH = 'http://localhost:1425/searchProducts';
+    const URL_PRODUCT = `${HOST}/products`;
+    const URL_SEARCH = `${HOST}/searchProducts`;
 
     const idUser = sessionStorage.getItem("id_user")
-    console.log("id user shop", idUser);
-
 
     //Hàm này dùng để thay đổi state pagination.category
     const handlerCategory = (value) => {
@@ -59,7 +56,6 @@ function Shop(props) {
     //Hàm này dùng để thay đổi state pagination.page
     //Nó sẽ truyền xuống Component con và nhận dữ liệu từ Component con truyền lên
     const handlerChangePage = (value) => {
-        console.log("Value: ", value)
         //Sau đó set lại cái pagination để gọi chạy làm useEffect gọi lại API pagination
         setPagination({
             page: value,
@@ -72,18 +68,21 @@ function Shop(props) {
     }
 
     const handlerChangeSort = (value) => {
-        console.log("Value: ", value)
         setSort(value)
     }
 
     //Hàm này dùng để thay đổi state pagination.search
     //Hàm này sẽ truyền xuống Component con và nhận dữ liệu từ Component con truyền lên
     const handleSearch = (e) => {
-        const value = e.target.value;
+        console.log(e);
         const dataSearch = {
-            fildter: "name",
-            value: value
+            fildter: e.fildter,
+            value: e.value
         }
+        const query = "?" + queryString.stringify(dataSearch)
+        axios.get(`${URL_SEARCH}${query}`)
+            .then((res) => setProducts(res.data))
+            .catch((err) => console.log("err search", err))
         //     setPagination({
         //         page: pagination.page,
         //         count: pagination.count,
@@ -91,22 +90,8 @@ function Shop(props) {
         //         fildter: "name",
         //         category: pagination.category,
         //     });
-        setSearch(value)
-        const query = "?" + queryString.stringify(dataSearch)
+        // setSearch(value)
 
-        axios.get(`${URL_SEARCH}${query}`)
-            .then((res) => setProducts(res.data))
-            .catch((err) => console.log("err search", err))
-
-    }
-    if (handleSearch) {
-        //Nếu người dùng đang nhập thì mình clear cái giây đó
-        if (delaySearchTextTimeOut.current) {
-            clearTimeout(delaySearchTextTimeOut.current)
-        }
-        delaySearchTextTimeOut.current = setTimeout(() => {
-            handleSearch(search)
-        }, 500)
     }
 
     //Hàm này dùng để thay đổi state pagination.category
@@ -178,6 +163,21 @@ function Shop(props) {
 
     // }, [pagination])
 
+    //sort
+
+    // const handleSort = () => {
+    //     if (sort === "DownToUp") {
+    //         products.sort((a, b) => {
+    //             return a.price - b.price;
+    //         });
+    //     } else if (sort === "UpToDown") {
+    //         products.sort((a, b) => {
+    //             return b.price - a.price;
+    //         });
+    //     }
+    // }
+
+
     return (
         <div className="container main-shop">
             <section className="py-3 bg-light mb-3">
@@ -244,18 +244,10 @@ function Shop(props) {
                             <div className="row mb-3 align-items-center">
 
                                 {/* ------------------Search----------------- */}
-                                {/* <Search handlerSearch={handlerSearch} /> */}
-                                <div className="col-lg-4">
-                                    <input
-                                        className="form-control form-control-lg"
-                                        type="text"
-                                        placeholder="Sản phẩm cần tìm..."
-                                        onChange={handleSearch}
-                                    />
-                                </div>
+                                <Search handleSearch={handleSearch} />
                                 {/* ------------------Search----------------- */}
 
-                                <div className="col-lg-8">
+                                <div className="col-lg-4">
                                     <ul className="list-inline d-flex align-items-center justify-content-lg-end mb-0">
                                         <li className="list-inline-item">
                                             <SortProduct handlerChangeSort={handlerChangeSort} />
@@ -266,7 +258,7 @@ function Shop(props) {
 
                             <div className="row">
                                 {products.map((val, key) => (
-                                    <CardProduct key={key + 1} itemProduct={val} sort={sort} />
+                                    <CardProduct key={key + 1} itemProduct={val} />
                                 ))}
                             </div>
 

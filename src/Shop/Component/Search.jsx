@@ -1,30 +1,37 @@
 import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Form } from 'react-bootstrap';
 
 Search.propTypes = {
-    handlerSearch: PropTypes.func
+    handleSearch: PropTypes.func
 };
 
 Search.defaultProps = {
-    handlerSearch: null
+    handleSearch: null
 }
 
 function Search(props) {
 
-    const { handlerSearch } = props
+    const { handleSearch } = props
 
     const [search, setSearch] = useState('')
 
     const delaySearchTextTimeOut = useRef(null)
 
+    const [selectValue, setSelectValue] = useState('')
+
+    const handleSelectValue = (e) => {
+        setSelectValue(e.target.value)
+    }
+
     const onChangeText = (e) => {
         const value = e.target.value
-
-        setSearch(value)
-
-        // console.log(search)
-
-        if (handlerSearch) {
+        const dataSearch = {
+            value: value,
+            fildter: selectValue
+        }
+        setSearch(dataSearch)
+        if (handleSearch) {
 
             //Nếu người dùng đang nhập thì mình clear cái giây đó
             if (delaySearchTextTimeOut.current) {
@@ -32,21 +39,32 @@ function Search(props) {
             }
 
             delaySearchTextTimeOut.current = setTimeout(() => {
-                handlerSearch(value)
+                handleSearch(search)
             }, 500)
 
         }
     }
-
     return (
-        <div className="col-lg-4">
-            <input
-                className="form-control form-control-lg"
-                type="text"
-                placeholder="Sản phẩm cần tìm..."
-                onChange={onChangeText}
-                value={search} />
-        </div>
+        <>
+            <div className='col-lg-2 d-flex flex-row mb-3'>
+                <Form>
+                    <Form.Select size='md' value={selectValue} onChange={handleSelectValue} >
+                        <option>Danh sách tìm kiếm</option>
+                        <option value="name">Tên sản phẩm</option>
+                        <option value="category">Thể loại sản phẩm</option>
+                        <option value="brand">Thương hiệu</option>
+                    </Form.Select>
+                </Form>
+            </div>
+            <div className="col-lg-6 mb-3">
+                <input
+                    className="form-control form-control-md"
+                    type="text"
+                    placeholder="Nhập thứ bạn cần tìm..."
+                    onChange={onChangeText}
+                    value={search} />
+            </div>
+        </>
     );
 }
 
