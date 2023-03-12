@@ -99,8 +99,6 @@ function Checkout(props) {
         setLoad(!load);
       }, 4000);
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [load,getCartById]);
 
   //Hàm này dùng để tính tổng tiền carts
