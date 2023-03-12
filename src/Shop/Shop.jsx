@@ -107,12 +107,32 @@ function Shop(props) {
     //     })
     // }
 
+
+    //Hàm Sort sản phẩm theo giá
+    const sortPrice = (a, b) => {
+        if (sort === "DownToUp") {
+            if (a.price < b.price) {
+                return -1
+            }
+        }
+        if (sort === "UpToDown") {
+            if (a.price > b.price) {
+                return -1
+            }
+        }
+        if (sort === "default") {
+            return 0;
+        }
+    }
+    // sort price products
+    const handlerSort = () => products.sort(sortPrice)
+    handlerSort()
+
     //Gọi hàm useEffect tìm tổng số sản phẩm để tính tổng số trang
     //Và nó phụ thuộc và state pagination
     useEffect(() => {
         const fetchAllData = async () => {
             await ProductAPI.getAPI().then((res) => setProducts(res.data))
-            console.log('products', products);
             // Nếu mà category === 'all' thì nó sẽ gọi hàm get tất cả sản phẩm
             // Ngược lại thì nó sẽ gọi hàm pagination và phân loại sản phẩm
             // if (pagination.category === 'all'){
@@ -131,9 +151,10 @@ function Shop(props) {
             // setTotalPage(totalPage)
         };
         fetchAllData();
-        // pagination
     }, []);
 
+
+    // pagination
     //Gọi hàm Pagination
     // useEffect(() => {
 
@@ -162,21 +183,6 @@ function Shop(props) {
     //     fetchData()
 
     // }, [pagination])
-
-    //sort
-
-    // const handleSort = () => {
-    //     if (sort === "DownToUp") {
-    //         products.sort((a, b) => {
-    //             return a.price - b.price;
-    //         });
-    //     } else if (sort === "UpToDown") {
-    //         products.sort((a, b) => {
-    //             return b.price - a.price;
-    //         });
-    //     }
-    // }
-
 
     return (
         <div className="container main-shop">

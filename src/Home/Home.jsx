@@ -29,7 +29,7 @@ function Home(props) {
     const featured = products.filter(item => item.featured && item.featured.trim() !== '');
     const bestseller = products.filter(item => item.bestseller && item.bestseller.trim() !== '');
     const hotdeals = products.filter(item => item.hotdeals && item.hotdeals.trim() !== '');
-    console.log(hotdeals);
+
     return (
         <div className="page-holder m-t-10">
             <header className="header bg-white">
@@ -151,9 +151,9 @@ function Home(props) {
                             </div>
                             {
                                 featured ? (
-                                    featured.map(value => {
+                                    featured.map((value, key) => {
                                         return (
-                                            <CardProduct itemProduct={value} />
+                                            <CardProduct key={key + 1} itemProduct={value} />
                                         )
                                     })
                                 ) : (
@@ -214,9 +214,9 @@ function Home(props) {
                             </div>
                             {
                                 bestseller ? (
-                                    bestseller.map(value => {
+                                    bestseller.map((value, key) => {
                                         return (
-                                            <CardProduct itemProduct={value} />
+                                            <CardProduct key={key + 1} itemProduct={value} />
                                         )
                                     })
                                 ) : (
@@ -300,9 +300,9 @@ function Home(props) {
                         <div className='row card-product'>
                             {
                                 hotdeals ? (
-                                    hotdeals.map(value => {
+                                    hotdeals.map((value, key) => {
                                         return (
-                                            <CardProduct itemProduct={value} />
+                                            <CardProduct key={key + 1} itemProduct={value} />
                                         )
                                     })
                                 ) : (

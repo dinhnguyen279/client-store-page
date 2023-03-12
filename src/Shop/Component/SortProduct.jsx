@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Form } from 'react-bootstrap';
 
 SortProduct.propTypes = {
     handlerChangeSort: PropTypes.func
@@ -14,22 +15,18 @@ function SortProduct(props) {
     const { handlerChangeSort } = props
 
     const onChangeValue = (e) => {
-
-        const keyword = e.target.value
-        if (!handlerChangeSort) {
-            return
-        }
-
-        handlerChangeSort(keyword)
-
+        const value = e.target.value
+        handlerChangeSort(value)
     }
 
     return (
-        <select className="selectpicker ml-auto" onChange={onChangeValue}>
-            <option value="default">Sắp xếp mặc định</option>
-            <option value="DownToUp">Giá: Thấp đến cao</option>
-            <option value="UpToDown">Giá: Cao đến thấp</option>
-        </select>
+        <Form>
+            <Form.Select size='md' className="selectpicker ml-auto" onChange={onChangeValue}>
+                <option value="default">Sắp xếp giá</option>
+                <option value="DownToUp">Giá: Thấp đến cao</option>
+                <option value="UpToDown">Giá: Cao đến thấp</option>
+            </Form.Select>
+        </Form>
     );
 }
 
