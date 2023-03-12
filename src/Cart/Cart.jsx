@@ -13,6 +13,8 @@ import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 
 import { HOST } from "../domain/host/host";
 
+import { Button } from "react-bootstrap";
+
 function Cart(props) {
   //id_user được lấy từ redux
   // const id_user = useSelector(state => state.Cart.id_user)
@@ -71,34 +73,6 @@ function Cart(props) {
 
   //     setLoadAPI(false);
   //   }, [loadAPI]);
-
-  useEffect(() => {
-    if (sessionStorage.getItem("id_user")) {
-      const id_user = sessionStorage.getItem("id_user");
-      console.log("id_user", id_user);
-      axios
-        .get(`${URL_CART}/${id_user}`)
-        .then((response) => {
-          setCartById(response.data);
-          getTotal(response.data);
-        })
-        .catch((error) => console.log(error));
-    }
-  }, []);
-
-  //Hàm này dùng để tính tổng tiền carts
-  function getTotal(carts) {
-    console.log(carts);
-    // let total = carts.data;
-    // let sub_total = 0;
-
-    // total.map((value) => {
-    //   return (sub_total +=
-    //     parseInt(value.priceProduct) * parseInt(value.count));
-    // });
-
-    // setTotal(sub_total);
-  }
 
   //Hàm này dùng để truyền xuống cho component con xử và trả ngược dữ liệu lại component cha
   const onDeleteCart = (getUser, getProduct) => {
@@ -223,7 +197,7 @@ function Cart(props) {
       return;
     }
 
-    if (cart.length === 0) {
+    if (getCartById.length === 0) {
       alertify.set("notifier", "position", "bottom-left");
       alertify.error("Vui Lòng Kiểm Tra Lại Giỏ Hàng!");
       return;
@@ -231,6 +205,28 @@ function Cart(props) {
 
     setRedirect(true);
   };
+
+  //Hàm này dùng để tính tổng tiền carts
+  const getTotal = (getCartById) => {
+    let total = getCartById;
+    let sub_total = 0;
+    total.map((value) => {
+      return (sub_total += parseInt(value.price) * parseInt(value.quantity));
+    });
+    setTotal(sub_total);
+  };
+  useEffect(() => {
+    if (sessionStorage.getItem("id_user")) {
+      const id_user = sessionStorage.getItem("id_user");
+      axios
+        .get(`${URL_CART}/${id_user}`)
+        .then((response) => {
+          setCartById(response.data);
+          getTotal(response.data);
+        })
+        .catch((error) => console.log(error));
+    }
+  }, []);
 
   return (
     <div className="main-cart">
@@ -246,73 +242,73 @@ function Cart(props) {
           </ol>
         </div>
       </section>
-      {/*---------------- Check giỏ hàng rỗng đây nè Thuận^^ -------------*/}
-      {/* {!listProducts === undefined ? (
-                <section className='cart-empty'>
-                    <p className='text-lg mb-3'>Giỏ hàng của bạn rỗng</p>
-                    <Button variant='dark' type='button' href='/'>Tiếp tục mua hàng</Button>
-                </section>
-            ) : ( */}
-      <section className="py-5 container">
-        <h4 className="text-uppercase mb-4 text-center">Giỏ hàng của bạn</h4>
-        <div className="row">
-          <div className="col-lg-8 mb-4 mb-lg-0">
-            {getCartById.map((val) => (
+      {getCartById.length === 0 ? (
+        <section className="cart-empty">
+          <p className="text-lg mb-3">Giỏ hàng rỗng</p>
+          <Button variant="dark" type="button" href="/">
+            Tiếp tục mua hàng
+          </Button>
+        </section>
+      ) : (
+        <section className="py-5 container">
+          <h4 className="text-uppercase mb-4 text-center">Giỏ hàng của bạn</h4>
+          <div className="row">
+            <div className="col-lg-8 mb-4 mb-lg-0">
               <ListCart
-                getCart={val.idProduct}
+                getCart={getCartById}
                 onDeleteCart={onDeleteCart}
                 onUpdateCount={onUpdateCount}
-                idUser={val.idUser}
-                quantity={val.quantity}
               />
-            ))}
 
-            <div className="bg-light px-4 py-3 continue-shopping">
-              <div className="row align-items-center text-center">
-                <div className="col-md-6 mb-3 mb-md-0 text-md-left">
-                  <Link className="btn btn-link text-dark btn-sm" to={`/shop`}>
-                    <AiOutlineArrowLeft className="mr-2 text-lg" />
-                    Tiếp mua mua sắm
-                  </Link>
+              <div className="bg-light px-4 py-3 continue-shopping">
+                <div className="row align-items-center text-center">
+                  <div className="col-md-6 mb-3 mb-md-0 text-md-left">
+                    <Link
+                      className="btn btn-link text-dark btn-sm"
+                      to={`/shop`}
+                    >
+                      <AiOutlineArrowLeft className="mr-2 text-lg" />
+                      Tiếp mua mua sắm
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-4">
+              <div className="card border-0 rounded-0 p-lg-4 bg-light">
+                <div className="card-body">
+                  <h5 className="text-uppercase mb-4">Thông tin đơn hàng</h5>
+                  <ul className="list-unstyled mb-0">
+                    <li className="d-flex align-items-center justify-content-between">
+                      <strong className="small font-weight-bold">
+                        Thành tiền
+                      </strong>
+                      <span className="text-muted small">{total}₫</span>
+                    </li>
+                    <li className="border-bottom my-2"></li>
+                    <li className="d-flex align-items-center justify-content-between mb-4">
+                      <strong className="small font-weight-bold">
+                        Tổng tiền
+                      </strong>
+                      <span>{total}₫</span>
+                    </li>
+                  </ul>
+                  <div>
+                    {redirect && <Navigate replace to="/checkout" />}
+                    <button
+                      type="button"
+                      className="btn btn-dark btn-xs text-uppercase w-100"
+                      onClick={onCheckout}
+                    >
+                      Tiến hành thanh toán
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <div className="col-lg-4">
-            <div className="card border-0 rounded-0 p-lg-4 bg-light">
-              <div className="card-body">
-                <h5 className="text-uppercase mb-4">Thông tin đơn hàng</h5>
-                <ul className="list-unstyled mb-0">
-                  <li className="d-flex align-items-center justify-content-between">
-                    <strong className="small font-weight-bold">
-                      Thành tiền
-                    </strong>
-                    <span className="text-muted small">{total},000₫</span>
-                  </li>
-                  <li className="border-bottom my-2"></li>
-                  <li className="d-flex align-items-center justify-content-between mb-4">
-                    <strong className="small font-weight-bold">
-                      Tổng tiền
-                    </strong>
-                    <span>{total},000₫</span>
-                  </li>
-                </ul>
-                <div>
-                  {redirect && <Navigate replace to="/checkout" />}
-                  <button
-                    type="button"
-                    className="btn btn-dark btn-xs text-uppercase w-100"
-                    onClick={onCheckout}
-                  >
-                    Tiến hành thanh toán
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      {/* )} */}
+        </section>
+      )}
     </div>
   );
 }
