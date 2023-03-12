@@ -12,6 +12,7 @@ import CitySelectionForm from "./CitySelectionForm";
 
 function Checkout(props) {
   const URL_CART = `${HOST}/getCartById`;
+  const URL_CheckOut = `${HOST}/createBill`;
 
   const [getCartById, setCartById] = useState([]);
 
@@ -69,6 +70,9 @@ function Checkout(props) {
         .catch((error) => console.log(error));
     }
   }, []);
+
+  console.log('getCartById',getCartById);
+
   useEffect(() => {
     if (getCartById.length === 0) return;
     if (load) {
@@ -89,23 +93,7 @@ function Checkout(props) {
         size: size.toString(),
       };
       console.log("data", data);
-
-
-      // const query = "?" + queryString.stringify(params);
-
-      // const response = await CheckoutAPI.postEmail(query);
-
-      // console.log(response);
-
-      // sendMail();
-
-      // const data = sessionStorage.getItem("id_user");
-
-      // Gửi socket lên server
-      // socket.emit('send_order', data)
-
-      //Dùng setTimeout delay 3s
-      //Sau 4s nó sẽ thực hiện
+      axios.post(URL_CheckOut, data)
       setTimeout(() => {
         setSuccess(!success);
         setLoad(!load);
@@ -113,7 +101,7 @@ function Checkout(props) {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [load]);
+  }, [load,getCartById]);
 
   //Hàm này dùng để tính tổng tiền carts
   const getTotal = (getCartById) => {
