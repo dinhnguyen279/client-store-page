@@ -123,10 +123,12 @@ function Shop(props) {
         if (sort === "default") {
             return 0;
         }
+        // sort price products
     }
-    // sort price products
-    const handlerSort = () => products.sort(sortPrice)
-    handlerSort()
+    function handleSortPrice() {
+        products.sort(sortPrice)
+    }
+    handleSortPrice()
 
     //Gọi hàm useEffect tìm tổng số sản phẩm để tính tổng số trang
     //Và nó phụ thuộc và state pagination
