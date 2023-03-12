@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from "react";
-import queryString from "query-string";
-import CartAPI from "../API/CartAPI";
-import CheckoutAPI from "../API/CheckoutAPI";
 import "./Checkout.css";
 import { HOST } from "../domain/host/host";
 import axios from "axios";
-// import io from "socket.io-client";
 import { Link } from "react-router-dom";
 import CitySelectionForm from "./CitySelectionForm";
-// const socket = io("http://localhost:3003");
 
 function Checkout(props) {
   const URL_CART = `${HOST}/getCartById`;
@@ -22,39 +17,9 @@ function Checkout(props) {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
-
   const [errors, setErrors] = useState(false);
-
   const [success, setSuccess] = useState(false);
-
   const [load, setLoad] = useState(false);
-
-  //Hàm này dùng để gọi API và render số sản phẩm
-  // useEffect(() => {
-  //   if (sessionStorage.getItem("id_user")) {
-  //     const fetchData = async () => {
-  //       const params = {
-  //         idUser: sessionStorage.getItem("id_user"),
-  //       };
-
-  //       const query = "?" + queryString.stringify(params);
-
-  //       const response = await CartAPI.getCarts(query);
-
-  //       console.log(response);
-
-  //       setCarts(response);
-
-  //       getTotal(response);
-
-  //       if (response.length === 0) {
-  //         window.location.replace("/cart");
-  //       }
-  //     };
-
-  //     fetchData();
-  //   }
-  // }, []);
 
   //Hàm này bắt đầu gửi Email xác nhận đơn hàng
 
@@ -71,15 +36,15 @@ function Checkout(props) {
     }
   }, []);
 
-  console.log('getCartById',getCartById);
-
   useEffect(() => {
     if (getCartById.length === 0) return;
     if (load) {
-      const nameProduct = getCartById.map(val => val.nameProduct)
-      const price = getCartById.map(val => val.promotionPrice ? val.promotionPrice : val.price)
-      const quantity = getCartById.map(val => val.quantity)
-      const size = getCartById.map(val => val.size)
+      const nameProduct = getCartById.map((val) => val.nameProduct);
+      const price = getCartById.map((val) =>
+        val.promotionPrice ? val.promotionPrice : val.price
+      );
+      const quantity = getCartById.map((val) => val.quantity);
+      const size = getCartById.map((val) => val.size);
       const data = {
         email: email,
         fullname: fullName,
@@ -92,14 +57,13 @@ function Checkout(props) {
         quantity: quantity.toString(),
         size: size.toString(),
       };
-      console.log("data", data);
-      axios.post(URL_CheckOut, data)
+      axios.post(URL_CheckOut, data);
       setTimeout(() => {
         setSuccess(!success);
         setLoad(!load);
       }, 4000);
     }
-  }, [load,getCartById]);
+  }, [load, getCartById]);
 
   //Hàm này dùng để tính tổng tiền carts
   const getTotal = (getCartById) => {
