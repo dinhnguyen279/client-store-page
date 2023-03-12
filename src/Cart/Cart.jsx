@@ -27,17 +27,17 @@ function Cart(props) {
   const [total, setTotal] = useState();
   const dispatch = useDispatch();
   const [showProduct, setShowProduct] = useState("");
-  //State dùng để Load dữ liệu từ Redux
   const [loadRedux, setLoadRedux] = useState({
     idProduct: "",
     count: "",
   });
-  //State dùng để Load dữ liệu từ API
   const [loadAPI, setLoadAPI] = useState(false);
-
   const [getCartById, setCartById] = useState([]);
+  const [redirect, setRedirect] = useState(false);
+
 
   //Hàm này dùng để Load dữ liệu ở Redux
+
   //Khi người dùng chưa đăng nhập
   //   useEffect(() => {
   //     const fetchDataRedux = () => {
@@ -75,6 +75,7 @@ function Cart(props) {
   //   }, [loadAPI]);
 
   //Hàm này dùng để truyền xuống cho component con xử và trả ngược dữ liệu lại component cha
+  
   const onDeleteCart = (getUser, getProduct) => {
     console.log("idUser: " + getUser + ", idProduct: " + getProduct);
 
@@ -188,7 +189,6 @@ function Cart(props) {
   };
 
   //Hàm này dùng để redirect đến page checkout
-  const [redirect, setRedirect] = useState(false);
 
   const onCheckout = () => {
     if (!sessionStorage.getItem("id_user")) {
