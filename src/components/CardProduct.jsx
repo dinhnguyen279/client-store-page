@@ -58,22 +58,14 @@ const CardProduct = (props) => {
             </ul>
           </div>
           <div>
-            <button
+          <Link
               type="button"
               className="btn-addtocart"
-              onClick={() =>
-                addToCart(
-                  itemProduct._id,
-                  itemProduct.name,
-                  itemProduct.price,
-                  itemProduct.promotionPrice,
-                  itemProduct.avt
-                )
-              }
+              to={`/detail/${itemProduct._id}`}
             >
               <AiOutlineShoppingCart />
               Thêm giỏ hàng
-            </button>
+            </Link>
           </div>
         </div>
         <Card.Link
