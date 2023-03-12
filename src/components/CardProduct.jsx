@@ -10,7 +10,6 @@ import { Link } from "react-router-dom";
 import { HOST } from "../domain/host/host";
 const CardProduct = (props) => {
     const itemProduct = props.itemProduct;
-
     const URL_AddToCart = `${HOST}/addToCart`;
     const URL_UpdateToCart = `${HOST}/updateCart`;
 

@@ -8,7 +8,7 @@ function LogoutLink(props) {
                     Đăng nhập
                 </Link>
             </li>
-            <li className='d-md-none d-lg-block'>
+            <li className='d-none d-lg-block'>
                 {"|"}
             </li>
             <li className="nav-item">
