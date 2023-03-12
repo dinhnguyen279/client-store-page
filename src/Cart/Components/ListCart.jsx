@@ -7,18 +7,6 @@ import { AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai";
 import axios from "axios";
 import { HOST } from "../../domain/host/host";
 
-// ListCart.propTypes = {
-//     listCart: PropTypes.array,
-//     onDeleteCart: PropTypes.func,
-//     onUpdateCount: PropTypes.func
-// };
-
-// ListCart.defaultProps = {
-//     listCart: [],
-//     onDeleteCart: null,
-//     onUpdateCount: null
-// }
-
 function ListCart(props) {
   const URL_getProductById = `${HOST}/product`;
 
