@@ -20,6 +20,7 @@ import {
 import { HOST } from "../domain/host/host";
 function Detail(props) {
   const URL_AddToCart = `${HOST}/addToCart`;
+  const URL_GetVoucher = `${HOST}/coupons`;
 
   const [load_comment, set_load_comment] = useState(false);
   const [product, setProduct] = useState([]);
@@ -31,7 +32,7 @@ function Detail(props) {
   const [text, setText] = useState(1);
   const [index, setIndex] = useState(0);
   const [sizeProduct, setSizeProduct] = useState(null);
-
+  const [getVoucher, setGetVoucher] = useState("");
   let { id } = useParams();
   const listCart = useSelector((state) => state.Cart.listCart);
   const idUser = useSelector((state) => state.Session.idUser);
@@ -43,6 +44,20 @@ function Detail(props) {
     };
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (detail.coupons) {
+      axios
+        .get(URL_GetVoucher)
+        .then((response) => {
+          let voucher = response.data.filter(
+            (val) => detail.coupons === val.nameCoupons
+          )[0];
+          setGetVoucher(voucher.voucher);
+        })
+        .catch((error) => console.log("error", error));
+    }
+  }, [detail.coupons]);
 
   const addToCart = () => {
     let id_user_cart = "";
@@ -74,11 +89,10 @@ function Detail(props) {
     alertify.set("notifier", "position", "bottom-left");
     alertify.success("Bạn Đã Thêm Hàng Thành Công!");
   };
- 
+
   const onChangeText = (e) => {
     setText(e.target.value);
   };
-
 
   const upText = () => {
     const value = parseInt(text) + 1;
@@ -248,10 +262,10 @@ function Detail(props) {
             </div>
             <Card.Text className="text-base d-flex">
               {detail.coupons && (
-                <span className="sale-product">{detail.coupons}</span>
+                <span className="sale-product">{getVoucher}%</span>
               )}
               <span className="text-base" style={{ color: "red" }}>
-                {detail.promotionPrice ? detail.promotionPrice : detail.price}
+                {detail.promotionPrice ? detail.promotionPrice : detail.price}₫
               </span>
               <span style={{ color: "grey", paddingLeft: "10px" }}>
                 <del>{detail.promotionPrice ? detail.price + "₫" : ""}</del>
@@ -287,9 +301,8 @@ function Detail(props) {
                   </li>
                   <li className="py-2 mb-1 size-products">
                     <strong className="text-uppercase text-dark">Size:</strong>
-                    {arrSize.map((val, idx) => {
+                    {arrSize.length === 0 ? " freesize" : arrSize.map((val, idx) => {
                       return (
-                        <>
                           <a
                             key={idx + 1}
                             className={`size-product-item ml-2 ${
@@ -301,9 +314,8 @@ function Detail(props) {
                           >
                             {val}
                           </a>
-                        </>
                       );
-                    })}
+                    }) }
                   </li>
                 </ul>
               </div>

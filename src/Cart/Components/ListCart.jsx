@@ -13,8 +13,6 @@ function ListCart(props) {
   const onDeleteCart = props.onDeleteCart;
   const onUpdateCount = props.onUpdateCount;
 
-  const [dataProduct, setDataProduct] = useState([]);
-
   const handlerChangeText = (e) => {
     console.log(e.target.value);
   };
@@ -65,7 +63,7 @@ function ListCart(props) {
             </div>
             <div className="col-md-6">
               <Card.Title className="mb-3">{val.nameProduct}</Card.Title>
-              <Card.Subtitle className="mb-3">Size {"S"}</Card.Subtitle>
+              <Card.Subtitle className="mb-3">Size {val.size}</Card.Subtitle>
               <div className="quantity">
                 <button
                   className="dec-btn p-0"
@@ -90,7 +88,7 @@ function ListCart(props) {
               </div>
               <div className="align-middle border-0">
                 <p className="mb-0 small">
-                  {parseInt(val.price) * parseInt(1)}₫
+                  {parseInt(val.promotionPrice ? val.promotionPrice : val.price) * parseInt(val.quantity)}₫
                 </p>
               </div>
             </div>
@@ -110,7 +108,7 @@ function ListCart(props) {
                 className="mb-0 small"
                 style={{ color: "red", fontWeight: "700" }}
               >
-                {parseInt(val.price) * parseInt(1)}₫
+                {parseInt(val.promotionPrice ? val.promotionPrice : val.price) * parseInt(val.quantity)}₫
               </p>
             </div>
           </div>

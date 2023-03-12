@@ -211,7 +211,7 @@ function Cart(props) {
     let total = getCartById;
     let sub_total = 0;
     total.map((value) => {
-      return (sub_total += parseInt(value.price) * parseInt(value.quantity));
+      return (sub_total += parseInt(value.promotionPrice ? value.promotionPrice : value.price) * parseInt(value.quantity));
     });
     setTotal(sub_total);
   };
