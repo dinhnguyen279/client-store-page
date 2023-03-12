@@ -15,7 +15,6 @@ function Search(props) {
     const { handleSearch } = props
 
     const [search, setSearch] = useState('')
-
     const delaySearchTextTimeOut = useRef(null)
 
     const [selectValue, setSelectValue] = useState('')
@@ -30,7 +29,7 @@ function Search(props) {
             value: value,
             fildter: selectValue
         }
-        setSearch(dataSearch)
+        setSearch(value)
         if (handleSearch) {
 
             //Nếu người dùng đang nhập thì mình clear cái giây đó
@@ -39,7 +38,7 @@ function Search(props) {
             }
 
             delaySearchTextTimeOut.current = setTimeout(() => {
-                handleSearch(search)
+                handleSearch(dataSearch)
             }, 500)
 
         }
