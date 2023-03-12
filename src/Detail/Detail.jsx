@@ -10,162 +10,52 @@ import CommentAPI from "../API/CommentAPI";
 import axios from "axios";
 import axiosClient from "../API/axiosClient";
 import { Card, Carousel } from "react-bootstrap";
-import { AiOutlinePlus, AiOutlineLine, AiFillHeart, AiOutlineShoppingCart, AiTwotoneStar } from 'react-icons/ai'
-
+import {
+  AiOutlinePlus,
+  AiOutlineLine,
+  AiFillHeart,
+  AiOutlineShoppingCart,
+  AiTwotoneStar,
+} from "react-icons/ai";
+import { HOST } from "../domain/host/host";
 function Detail(props) {
-  const [detail, setDetail] = useState({});
+  const URL_AddToCart = `${HOST}/addToCart`;
 
-  const dispatch = useDispatch();
-
-  //id params cho từng sản phẩm
-  let { id } = useParams();
-  console.log("id product:", id);
-
-  //id_user được lấy từ redux
-  // const id_user = useSelector((state) => state.Cart.id_user);
-
-  //listCart được lấy từ redux
-  const listCart = useSelector((state) => state.Cart.listCart);
-
+  const [load_comment, set_load_comment] = useState(false);
   const [product, setProduct] = useState([]);
-
-  const [star, setStar] = useState(1);
-
+  const [list_comment, set_list_comment] = useState([]);
+  const [detail, setDetail] = useState({});
+  const [review, setReview] = useState("description");
   const [comment, setComment] = useState("");
+  const [star, setStar] = useState(1);
+  const [text, setText] = useState(1);
+  const [index, setIndex] = useState(0);
+  const [sizeProduct, setSizeProduct] = useState(null);
 
-  // id_user đã đăng nhập
+  let { id } = useParams();
+  const listCart = useSelector((state) => state.Cart.listCart);
   const idUser = useSelector((state) => state.Session.idUser);
 
-  // Listcomment
-  const [list_comment, set_list_comment] = useState([]);
-  // console.log("list_comment", list_comment);
-  // state này dùng để load lại comment khi user gửi comment lên
-  const [load_comment, set_load_comment] = useState(false);
-
-  const URL_PRODUCT = "http://localhost:3003/product";
-
-  const URL_CART = "http://localhost:3003/carts";
-
-  // Hàm này dùng để lấy dữ liệu comment
-  // Hàm này sẽ chạy lại phụ thuộc vào id Param
   useEffect(() => {
     const fetchData = async () => {
-      const params = {
-        idProduct: id,
-      };
-      const query = "?" + queryString.stringify(params);
-      const response = await CommentAPI.getCommentProduct(query);
-      set_list_comment(response);
-    };
-    fetchData();
-  }, [id]);
-
-  // Hàm thay đổi sao đánh giá
-  const onChangeStar = (e) => {
-    setStar(e.target.value);
-  };
-
-  // Hàm thay đổi comment
-  const onChangeComment = (e) => {
-    setComment(e.target.value);
-  };
-
-  // Hàm này dùng để bình luận
-  const handlerComment = () => {
-    if (idUser === "") {
-      alertify.set("notifier", "position", "bottom-left");
-      alertify.error("Vui Lòng Kiểm Tra Đăng Nhập!");
-      return;
-    }
-    const fetchSendComment = async () => {
-      const params = {
-        idProduct: id,
-        idUser: sessionStorage.getItem("id_user"),
-        fullname: sessionStorage.getItem("name_user"),
-        content: comment,
-        star: star,
-      };
-
-      const query = "?" + queryString.stringify(params);
-
-      // const response = await CommentAPI.postCommentProduct(query);
-      const response = await axios.post(`http://localhost:3003/comment/send/${query}`);
-
-      console.log(response);
-
-      set_load_comment(true);
-    };
-    fetchSendComment();
-    setComment("");
-  };
-
-  // Hàm này dùng để load lại dữ liệu comment
-  // Phụ thuộc vào state load_comment
-  useEffect(() => {
-    if (load_comment) {
-      const fetchData = async () => {
-        const params = {
-          idProduct: id,
-        };
-        const query = "?" + queryString.stringify(params);
-        // const response = await CommentAPI.getCommentProduct(query);
-        const response = await axios.get(`http://localhost:3003/comment/${query}`);
-        set_list_comment(response);
-      };
-      fetchData();
-      set_load_comment(false);
-    }
-  }, [load_comment]);
-
-  //Hàm này gọi API và cắt chỉ lấy 4 sản phẩm
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await ProductAPI.getAPI()
-      const data = response.data.splice(0, 4);
-      setProduct(data);
+      const response = await ProductAPI.getDetail(id);
+      setDetail(response.data);
     };
     fetchData();
   }, []);
 
-  //Phần này là để thay đổi số lượng khi mua sản phẩm
-  const [text, setText] = useState(1);
-  const onChangeText = (e) => {
-    setText(e.target.value);
-  };
-
-  //Tăng lên 1 đơn vị
-  const upText = () => {
-    const value = parseInt(text) + 1;
-    setText(value);
-  };
-
-  //Giảm 1 đơn vị
-  const downText = () => {
-    const value = parseInt(text) - 1;
-    if (value === 0) return;
-    setText(value);
-  };
-
-  //Hàm này để lấy dữ liệu chi tiết sản phẩm
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await ProductAPI.getDetail(id)
-      setDetail(response.data)
-    };
-    fetchData();
-  }, [id]);
-
-  //Phần này dùng để xem review hay description
-  const [review, setReview] = useState("description");
-  const handlerReview = (value) => {
-    setReview(value);
-  };
-
-  //------------------- Hàm này là Thêm Sản Phẩm vào giỏ ----------------
   const addToCart = () => {
     let id_user_cart = "";
     if (!sessionStorage.getItem("id_user")) {
       alertify.error("Bạn phải đăng nhập!");
+      return;
+    }
+    if (!sizeProduct) {
+      alertify.error("Bạn phải chon size!");
+      return;
+    }
+    if (!text) {
+      alertify.error("Bạn phải chon số lượng!");
       return;
     }
 
@@ -173,83 +63,141 @@ function Detail(props) {
     const data = {
       idUser: id_user_cart,
       idProduct: detail._id,
+      quantity: text,
       nameProduct: detail.name,
-      priceProduct: detail.price,
-      count: text,
+      price: detail.price,
+      promotionPrice: detail.promotionPrice,
       img: detail.avt,
-      size: sizeProduct
+      size: sizeProduct,
     };
-    console.log("addToCart: ", data);
-    if (sessionStorage.getItem("id_user")) {
-      const fetchPost = async () => {
-        const params = {
-          idUser: id_user_cart, //sessionStorage.getItem('id_user')
-          idProduct: detail._id, // Lấy idProduct
-          count: text, // Lấy số lượng
-        };
-        // const query = "?" + queryString.stringify(params);
-        const response = await axios.post(`${URL_CART}/add${params}`);
-        console.log("add to cart", response);
-      };
-      fetchPost();
-    } else {
-      const action = addCart(data);
-      dispatch(action);
-    }
+    axios.post(URL_AddToCart, data);
     alertify.set("notifier", "position", "bottom-left");
     alertify.success("Bạn Đã Thêm Hàng Thành Công!");
   };
+ 
+  const onChangeText = (e) => {
+    setText(e.target.value);
+  };
 
-  const [index, setIndex] = useState(0);
 
+  const upText = () => {
+    const value = parseInt(text) + 1;
+    setText(value);
+  };
+
+  const downText = () => {
+    const value = parseInt(text) - 1;
+    if (value === 0) return;
+    setText(value);
+  };
+
+  const selectSize = (selectedIndex) => {
+    setSizeProduct(selectedIndex);
+  };
+
+  const handlerReview = (value) => {
+    setReview(value);
+  };
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex);
   };
 
+  // Hàm thay đổi sao đánh giá
+  const onChangeStar = (e) => {
+    setStar(e.target.value);
+  };
+
+  // Hàm viết comment
+  const onChangeComment = (e) => {
+    setComment(e.target.value);
+  };
+
+  // Hàm này dùng để gửi bình luận
+  const submitComment = () => {
+    const id_user = sessionStorage.getItem("id_user");
+    if (!id_user) {
+      alertify.set("notifier", "position", "bottom-left");
+      alertify.error("Vui Lòng Kiểm Tra Đăng Nhập!");
+      return;
+    }
+    const data = {
+      idProduct: id,
+      idUser: sessionStorage.getItem("id_user"),
+      fullname: sessionStorage.getItem("name_user"),
+      content: comment,
+      star: star,
+    };
+    console.log("data", data);
+    // const response = await CommentAPI.postCommentProduct(query);
+    // const response = await axios.post(
+    //   `http://localhost:3003/comment/send/${query}`
+    // );
+
+    // console.log(response);
+
+    // set_load_comment(true);
+  };
+
+  //Hàm này gọi API lấy sản phẩm có liên quan
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await ProductAPI.getAPI();
+      const data = response.data.splice(0, 4);
+      setProduct(data);
+    };
+    fetchData();
+  }, []);
+
   // convert string to array
   const album = detail.album;
   const size = detail.size;
-  // console.log(album);
-  // Kiểm tra nếu album, size là null thì trả về array rỗng
   const arrAlbum = album ? album.split(" ") : [];
   const arrSize = size ? size.split(" ") : [];
-
-  //select size products
-  const [sizeProduct, setSizeProduct] = useState(null)
-  const selectSize = (selectedIndex) => {
-    setSizeProduct(selectedIndex)
-  }
-  console.log(sizeProduct);
-
   return (
     <section className="py-4 main-detail">
       <div className="py-2 bg-light mb-4">
         <div className="container">
           <ol className="breadcrumb justify-content-start">
-            <li className="breadcrumb-item"><Link to={"/"}>Trang chủ</Link></li>
-            <li className="breadcrumb-item active" aria-current="page">Cửa hàng</li>
-            <li className="breadcrumb-item active" aria-current="page">{detail.name}</li>
+            <li className="breadcrumb-item">
+              <Link to={"/"}>Trang chủ</Link>
+            </li>
+            <li className="breadcrumb-item active" aria-current="page">
+              Cửa hàng
+            </li>
+            <li className="breadcrumb-item active" aria-current="page">
+              {detail.name}
+            </li>
           </ol>
         </div>
       </div>
+
       <div className="container">
         <div className="row mb-5">
           <div className="col-lg-6">
             <div className="row">
               <div className="col-lg-2 col-3 d-flex flex-row flex-lg-column order-lg-1 order-2">
-                <Card.Img className="post-img mb-3 mr-4" src={detail.avt}></Card.Img>
-                {
-                  arrAlbum.map((val, idx) => {
-                    return (
-                      <>
-                        <Card.Img key={idx + 1} className="post-img mb-3 mr-4" src={val}></Card.Img>
-                        {/* <Card.Img key={idx + 1} className="post-img mb-3 mr-4" src={detail.avt}></Card.Img> */}
-                      </>
-                    )
-                  })
-                }
+                <Card.Img
+                  className="post-img mb-3 mr-4"
+                  src={detail.avt}
+                ></Card.Img>
+                {arrAlbum.map((val, idx) => {
+                  return (
+                    <>
+                      <Card.Img
+                        key={idx + 1}
+                        className="post-img mb-3 mr-4"
+                        src={val}
+                      ></Card.Img>
+                    </>
+                  );
+                })}
               </div>
-              <Carousel variant="dark" className="col-lg-10 order-lg-2 order-1" activeIndex={index} onSelect={handleSelect}>
+              <Carousel
+                variant="dark"
+                className="col-lg-10 order-lg-2 order-1"
+                activeIndex={index}
+                onSelect={handleSelect}
+              >
                 <Carousel.Item>
                   <img
                     className="d-block w-100"
@@ -257,23 +205,22 @@ function Detail(props) {
                     alt="Second Product"
                   />
                 </Carousel.Item>
-                {
-                  arrAlbum.map((val, idx) => {
-                    return (
-                      <Carousel.Item key={idx + 1}>
-                        <img
-                          className="d-block w-100"
-                          src={val}
-                          alt="Second Product"
-                        />
-                      </Carousel.Item>
-                    )
-                  })
-                }
+                {arrAlbum.map((val, idx) => {
+                  return (
+                    <Carousel.Item key={idx + 1}>
+                      <img
+                        className="d-block w-100"
+                        src={val}
+                        alt="Second Product"
+                      />
+                    </Carousel.Item>
+                  );
+                })}
               </Carousel>
             </div>
           </div>
           <div className="col-lg-6 ">
+            {/* Đánh giá  */}
             <ul className="list-inline mb-2">
               <li className="list-inline-item m-0">
                 <i className="fas fa-star small text-warning"></i>
@@ -291,16 +238,23 @@ function Detail(props) {
                 <i className="fas fa-star small text-warning"></i>
               </li>
             </ul>
-            <Card.Title className='title-product mb-3'>{detail.name}</Card.Title>
+            {/* end Đánh giá  */}
+            <Card.Title className="title-product mb-3">
+              {detail.name}
+            </Card.Title>
             <div className="text-gray pb-2">
-              <strong className="text-uppercase">Hãng:</strong>
+              <strong className="text-uppercase">Thương hiệu:</strong>
               <span className="ml-2 text-muted">{detail.brand}</span>
             </div>
             <Card.Text className="text-base d-flex">
-              <span className="sale-product">{"-30%"}</span>
-              <span className="text-base" style={{ color: "red" }}>399,000₫</span>
+              {detail.coupons && (
+                <span className="sale-product">{detail.coupons}</span>
+              )}
+              <span className="text-base" style={{ color: "red" }}>
+                {detail.promotionPrice ? detail.promotionPrice : detail.price}
+              </span>
               <span style={{ color: "grey", paddingLeft: "10px" }}>
-                <del>{detail.price}₫</del>
+                <del>{detail.promotionPrice ? detail.price + "₫" : ""}</del>
               </span>
             </Card.Text>
 
@@ -309,7 +263,7 @@ function Detail(props) {
                 <div className="d-flex align-items-center justify-content-between py-3">
                   <div className="quantity">
                     <button className="dec-btn" onClick={downText}>
-                      < AiOutlineLine />
+                      <AiOutlineLine />
                     </button>
                     <input
                       className="form-control border-0 shadow-0 p-0"
@@ -323,7 +277,7 @@ function Detail(props) {
                   </div>
                 </div>
               </div>
-              <div className="" >
+              <div className="">
                 <ul className="list-unstyled d-inline-block">
                   <li className="py-2 mb-1 bg-white text-muted">
                     <strong className="text-uppercase text-dark">
@@ -333,18 +287,23 @@ function Detail(props) {
                   </li>
                   <li className="py-2 mb-1 size-products">
                     <strong className="text-uppercase text-dark">Size:</strong>
-                    {
-                      arrSize.map((val, idx) => {
-                        return (
-                          <>
-                            <a key={idx + 1} className={`size-product-item ml-2 ${sizeProduct === val ? "text-check-size text-light" : "text-uncheck-size"}`}
-                              onClick={() => selectSize(val)}
-                            >
-                              {val}</a>
-                          </>
-                        )
-                      })
-                    }
+                    {arrSize.map((val, idx) => {
+                      return (
+                        <>
+                          <a
+                            key={idx + 1}
+                            className={`size-product-item ml-2 ${
+                              sizeProduct === val
+                                ? "text-check-size text-light"
+                                : "text-uncheck-size"
+                            }`}
+                            onClick={() => selectSize(val)}
+                          >
+                            {val}
+                          </a>
+                        </>
+                      );
+                    })}
                   </li>
                 </ul>
               </div>
@@ -355,8 +314,11 @@ function Detail(props) {
                 >
                   <AiOutlineShoppingCart /> Thêm vào giỏ hàng
                 </a>
-                <a className="btn btn-warning btn-base text-white hover-icon-heart mr-3 my-2" href="#">
-                  <AiFillHeart className="" /> Thêm vào yêu thích
+                <a
+                  className="btn btn-warning btn-base text-white hover-icon-heart mr-3 my-2"
+                  href="#"
+                >
+                  <AiFillHeart /> Thêm vào yêu thích
                 </a>
               </div>
             </div>
@@ -395,10 +357,8 @@ function Detail(props) {
           {review === "description" ? (
             <div className="tab-pane fade show active">
               <div className="p-4 p-lg-5 bg-white">
-                <h6 className="text-uppercase mb-3">Product description </h6>
-                <p className="text-muted text-small">
-                  {detail.description}
-                </p>
+                <h6 className="text-uppercase mb-3">Mô tả sản phẩm</h6>
+                <p className="text-muted text-small">{detail.description}</p>
               </div>
             </div>
           ) : (
@@ -406,7 +366,7 @@ function Detail(props) {
               <div className="p-4 p-lg-5 bg-white">
                 <div className="row">
                   <div className="col-lg-8">
-                    {list_comment &&
+                    {/* {list_comment &&
                       list_comment.map((value) => (
                         <div className="media mb-3" key={value._id}>
                           <img
@@ -444,7 +404,7 @@ function Detail(props) {
                             </p>
                           </div>
                         </div>
-                      ))}
+                      ))} */}
                   </div>
                 </div>
               </div>
@@ -473,13 +433,15 @@ function Detail(props) {
               onChange={onChangeStar}
             />
             &nbsp; &nbsp;
-            <span className="mt-2">Sao <AiTwotoneStar /> </span>
+            <span className="mt-2">
+              Sao <AiTwotoneStar />{" "}
+            </span>
           </div>
           <div>
             <a
               className="btn btn-dark btn-sm btn-block px-0 text-white sm-w-100"
               style={{ width: "12rem" }}
-              onClick={handlerComment}
+              onClick={submitComment}
             >
               Gửi
             </a>
@@ -502,7 +464,10 @@ function Detail(props) {
                     <div className="product-overlay">
                       <ul className="mb-0 list-inline">
                         <li className="list-inline-item m-0 p-0">
-                          <Link className="btn btn-sm btn-dark" to={`/detail/${value._id}`}>
+                          <Link
+                            className="btn btn-sm btn-dark"
+                            to={`/detail/${value._id}`}
+                          >
                             Thông tin sản phẩm
                           </Link>
                         </li>
@@ -514,9 +479,10 @@ function Detail(props) {
                       {value.name}
                     </a>
                   </h6>
-                  <Card.Text style={{ color: "red" }}>{value.promotionPrice}₫
+                  <Card.Text style={{ color: "red" }}>
+                    {value.promotionPrice ? value.promotionPrice : value.price}₫
                     <span style={{ color: "grey", paddingLeft: "10px" }}>
-                      <del>{value.price}₫</del>
+                      <del>{value.promotionPrice ? value.price + "₫" : ""}</del>
                     </span>
                   </Card.Text>
                 </div>
@@ -524,7 +490,7 @@ function Detail(props) {
             ))}
         </div>
       </div>
-    </section >
+    </section>
   );
 }
 

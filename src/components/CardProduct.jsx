@@ -11,22 +11,6 @@ import { HOST } from "../domain/host/host";
 const CardProduct = (props) => {
   const itemProduct = props.itemProduct;
 
-  const URL_AddToCart = `${HOST}/addToCart`;
-  const URL_UpdateToCart = `${HOST}/updateCart`;
-
-  const addToCart = (idProduct, name, price, promotionPrice, img) => {
-    const data = {
-      idUser: sessionStorage.getItem("id_user"),
-      idProduct: idProduct,
-      quantity: 1,
-      nameProduct: name,
-      price: price,
-      promotionPrice: promotionPrice,
-      img: img,
-    };
-    console.log("data", data);
-    axios.post(URL_AddToCart, data);
-  };
   return (
     <div className="col-md-6 col-xl-2 col-sm-6">
       <div className="product">
