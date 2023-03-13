@@ -39,7 +39,7 @@ const EditProfileUser = (props) => {
                         </div>
                         <div className='col-md-12'>
                             <Button className='w-50' type='button' >
-                                Lưu
+                                Lưu thay đổi
                             </Button>
                         </div>
                     </div>

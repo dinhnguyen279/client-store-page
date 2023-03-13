@@ -303,19 +303,18 @@ function Detail(props) {
                     <strong className="text-uppercase text-dark">Size:</strong>
                     {arrSize.length === 0 ? " freesize" : arrSize.map((val, idx) => {
                       return (
-                          <a
-                            key={idx + 1}
-                            className={`size-product-item ml-2 ${
-                              sizeProduct === val
-                                ? "text-check-size text-light"
-                                : "text-uncheck-size"
+                        <a
+                          key={idx + 1}
+                          className={`size-product-item ml-2 ${sizeProduct === val
+                            ? "text-check-size text-light"
+                            : "text-uncheck-size"
                             }`}
-                            onClick={() => selectSize(val)}
-                          >
-                            {val}
-                          </a>
+                          onClick={() => selectSize(val)}
+                        >
+                          {val}
+                        </a>
                       );
-                    }) }
+                    })}
                   </li>
                 </ul>
               </div>
@@ -465,7 +464,7 @@ function Detail(props) {
             product.map((value) => (
               <div className="col-lg-3 col-sm-6" key={value._id}>
                 <div className="product text-center skel-loader">
-                  <div className="d-block mb-3 position-relative product-detail">
+                  <div className="d-block mb-3 product-detail">
                     <Link className="d-block" to={`/detail/${value._id}`}>
                       <img
                         className="img-fluid w-100"
@@ -473,23 +472,21 @@ function Detail(props) {
                         alt="..."
                       />
                     </Link>
-                    <div className="product-overlay">
-                      <ul className="mb-0 list-inline">
-                        <li className="list-inline-item m-0 p-0">
-                          <Link
-                            className="btn btn-sm btn-dark"
-                            to={`/detail/${value._id}`}
-                          >
-                            Thông tin sản phẩm
-                          </Link>
-                        </li>
-                      </ul>
+                    <div className="product-overlay-detail">
+                      <div className="mb-0 list-inline btn-detail">
+                        <Link
+                          className="btn btn-sm btn-dark"
+                          to={`/detail/${value._id}`}
+                        >
+                          Thông tin sản phẩm
+                        </Link>
+                      </div>
                     </div>
                   </div>
                   <h6>
-                    <a className="reset-anchor" href={`/detail/${value._id}`}>
+                    <Link className="reset-anchor" to={`/detail/${value._id}`}>
                       {value.name}
-                    </a>
+                    </Link>
                   </h6>
                   <Card.Text style={{ color: "red" }}>
                     {value.promotionPrice ? value.promotionPrice : value.price}₫

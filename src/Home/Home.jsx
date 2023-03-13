@@ -204,7 +204,7 @@ function Home(props) {
                     </section>
 
                     {/* Best Seller */}
-                    <section className='py-5 container'>
+                    <section className='py-5'>
                         <header className="text-center">
                             <h2 className="h2 text-uppercase mb-4">Best Seller</h2>
                         </header>

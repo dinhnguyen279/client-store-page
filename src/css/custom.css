@@ -717,9 +717,10 @@ html {
   margin-top: 10px;
 }
 .title-product {
+  height: 40px;
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  align-items: start;
   margin-top: 10px;
   text-decoration: none;
 }

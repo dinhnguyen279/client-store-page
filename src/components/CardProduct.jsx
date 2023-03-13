@@ -42,19 +42,19 @@ const CardProduct = (props) => {
             </ul>
           </div>
           <div>
-          <Link
+            <Link
               type="button"
               className="btn-addtocart"
               to={`/detail/${itemProduct._id}`}
             >
-              <AiOutlineShoppingCart />
-              Thêm giỏ hàng
+              {/* <AiOutlineShoppingCart /> */}
+              Thông tin sản phẩm
             </Link>
           </div>
         </div>
         <Card.Link
           href={`detail/${itemProduct._id}`}
-          className="title-product h5"
+          className="title-product h6"
         >
           {itemProduct.name}
         </Card.Link>
