@@ -305,10 +305,8 @@ function Detail(props) {
                       return (
                         <a
                           key={idx + 1}
-                          className={`size-product-item ml-2 ${sizeProduct === val
-                            ? "text-check-size text-light"
-                            : "text-uncheck-size"
-                            }`}
+                          className={`size-product-item ml-2 
+                          ${sizeProduct === val ? "text-check-size text-light" : "text-uncheck-size"}`}
                           onClick={() => selectSize(val)}
                         >
                           {val}
@@ -461,8 +459,8 @@ function Detail(props) {
         <h2 className="h5 text-uppercase mb-4">Sản phẩm liên quan</h2>
         <div className="row">
           {product &&
-            product.map((value) => (
-              <div className="col-lg-3 col-sm-6" key={value._id}>
+            product.map((value, key) => (
+              <div className="col-lg-3 col-sm-6" key={key + 1}>
                 <div className="product text-center skel-loader">
                   <div className="d-block mb-3 product-detail">
                     <Link className="d-block" to={`/detail/${value._id}`}>

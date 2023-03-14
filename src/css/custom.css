@@ -171,18 +171,23 @@ html {
 }
 
 .textarea-contact {
-  padding: 10px;
+  padding: 10px 20px;
   border: 1px solid gray;
   border-radius: 8px;
   outline: none;
   width: 100%;
   background-color: #f5f5f5;
   margin-top: 15px;
-  font-weight: 400;
+  max-width: 100%;
+}
+
+.textarea-contact:focus {
+  outline: 2px solid #dcb14a;
+  box-shadow: 0px 2px 8px 4px #dab35a;
 }
 
 .input-contact {
-  line-height: 17px;
+  line-height: 30px;
   letter-spacing: 0em;
   font-weight: 400;
   text-transform: none;
@@ -192,6 +197,12 @@ html {
   padding: 5px 10px;
   border-radius: 8px;
   outline: none;
+  transition: all 0.5s linear;
+}
+
+.input-contact:focus {
+  outline: 2px solid #dcb14a;
+  box-shadow: 0px 2px 8px 4px #dab35a;
 }
 
 .form-input-contact {
@@ -199,25 +210,6 @@ html {
   flex-direction: column;
   padding-top: 10px;
   padding-bottom: 10px;
-}
-
-.btn-contact {
-  border-radius: 4px;
-  outline: none;
-  padding: 5px 20px;
-  margin-right: 20px;
-  margin-bottom: 20px;
-  background: gray;
-  color: white;
-  font-weight: 500;
-}
-
-.btn-contact:hover {
-  color: #0d0c0c;
-}
-
-.btn-contact:hover {
-  background-color: rgba(128, 128, 128, 0.556);
 }
 
 .contact-us {

@@ -45,18 +45,20 @@ function Checkout(props) {
       );
       const quantity = getCartById.map((val) => val.quantity);
       const size = getCartById.map((val) => val.size);
+
       const data = {
-        email: email,
-        fullname: fullName,
+        idUser: sessionStorage.getItem("id_user"),
         phone: phone,
         address: address,
-        idUser: sessionStorage.getItem("id_user"),
+        fullname: fullName,
         total: total,
+        quantity: quantity.toString(),
+        email: email,
         nameProduct: nameProduct.toString(),
         price: price.toString(),
-        quantity: quantity.toString(),
         size: size.toString(),
       };
+      console.log("data checkout", data);
       axios.post(URL_CheckOut, data);
       setTimeout(() => {
         setSuccess(!success);
@@ -181,6 +183,7 @@ function Checkout(props) {
                       </label>
                       <input
                         className="form-control form-control-lg"
+                        style={{ maxWidth: "100%" }}
                         value={fullName}
                         onChange={onChangeName}
                         type="text"
@@ -191,7 +194,7 @@ function Checkout(props) {
                         <span className="text-danger">{errors.fullName}</span>
                       )}
                     </div>
-                    <div className="ol-lg-12 form-group">
+                    <div className="col-lg-12 form-group">
                       <label
                         className="text-small text-uppercase"
                         htmlFor="Email"
@@ -199,7 +202,8 @@ function Checkout(props) {
                         Email:{" "}
                       </label>
                       <input
-                        className="form-control form-control-lg"
+                        className="form-control form-control-lg w-100"
+                        style={{ maxWidth: "100%" }}
                         value={email}
                         onChange={onChangeEmail}
                         type="text"
@@ -219,6 +223,7 @@ function Checkout(props) {
                       </label>
                       <input
                         className="form-control form-control-lg"
+                        style={{ maxWidth: "100%" }}
                         value={phone}
                         onChange={onChangePhone}
                         type="number"
@@ -238,6 +243,7 @@ function Checkout(props) {
                       </label>
                       <input
                         className="form-control form-control-lg"
+                        style={{ maxWidth: "100%" }}
                         value={address}
                         onChange={onChangeAddress}
                         type="text"
@@ -281,8 +287,8 @@ function Checkout(props) {
                                   value.promotionPrice
                                     ? value.promotionPrice
                                     : value.price
-                                )}{" "}
-                                x {value.quantity}₫
+                                )}{"₫ "}
+                                x {value.quantity}
                               </span>
                             </li>
                             <li className="border-bottom my-2"></li>
@@ -304,7 +310,7 @@ function Checkout(props) {
 
         {success && (
           <section className="py-5">
-            <div className="p-5">
+            <div className="p-5 text-center">
               <h1>Bạn đã đặt hàng thành công!</h1>
               <p style={{ fontSize: "1.2rem" }}>Vui lòng check mail.</p>
 

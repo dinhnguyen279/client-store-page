@@ -17,12 +17,11 @@ function ListCart(props) {
     console.log(e.target.value);
   };
 
-  const handlerDelete = (getUser, getProduct) => {
+  const handlerDelete = (getUser, getProduct, getQuantity) => {
     if (!onDeleteCart) {
       return;
     }
-
-    onDeleteCart(getUser, getProduct);
+    onDeleteCart(getUser, getProduct, getQuantity);
   };
 
   const handlerDown = (getIdUser, getIdProduct, getCount) => {
@@ -44,17 +43,18 @@ function ListCart(props) {
     if (!onUpdateCount) {
       return;
     }
-
+    console.log(getCount);
     //   Trước khi trả dữ liệu về component cha thì phải thay đổi biến count
     const updateCount = parseInt(getCount) + 1;
+    console.log(updateCount);
 
     onUpdateCount(getIdUser, getIdProduct, updateCount);
   };
 
   return (
     <>
-      {listProduct.map((val,key) => (
-        <div className="mb-4" key={key}>
+      {listProduct.map((val, key) => (
+        <div className="mb-4" key={key + 1}>
           <div className="row listcart-product position-relative">
             <div className="col-md-3 mb-3">
               <Link className="reset-anchor d-block animsition-link">
@@ -68,7 +68,7 @@ function ListCart(props) {
                 <button
                   className="dec-btn p-0"
                   style={{ cursor: "pointer" }}
-                    onClick={() => handlerDown(val.idUser, val.idProduct, val.quantity)}
+                  onClick={() => handlerDown(val.idUser, val.idProduct, val.quantity)}
                 >
                   <AiFillCaretLeft />
                 </button>
@@ -81,7 +81,7 @@ function ListCart(props) {
                 <button
                   className="inc-btn p-0"
                   style={{ cursor: "pointer" }}
-                    onClick={() => handlerUp(val.idUser, val.idProduct, val.quantity)}
+                  onClick={() => handlerUp(val.idUser, val.idProduct, val.quantity)}
                 >
                   <AiFillCaretRight />
                 </button>
@@ -97,7 +97,7 @@ function ListCart(props) {
                 href="/cart"
                 className="reset-anchor remove_cart"
                 style={{ cursor: "pointer" }}
-                onClick={() => handlerDelete(val.idUser, val.idProduct)}
+                onClick={() => handlerDelete(val.idUser, val.idProduct, val.quantity)}
               >
                 <i className="fas fa-trash-alt text-muted"></i>
               </a>

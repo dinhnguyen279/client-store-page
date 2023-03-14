@@ -58,58 +58,80 @@ const Contact = () => {
             </section>
             <section className='contact-main p-l-55 p-r-55 p-b-50'>
                 <div className="container">
+                    <h1 className="section-header">Contact</h1>
                     <div className='row p-t-50'>
-                        <div className='col-12 col-md-5 contact-first'>
-                            <h5>SPORT ZONE</h5>
-                            <ul className='text-small p-t-30 list-contact'>
-                                <li className='list-item'>55 Trần Văn Quang</li>
-                                <li className='list-item'>Phường 10, Quận Tân Bình</li>
-                                <li className='list-item'>Thành phố Hồ Chí Minh</li>
-                                <li className='p-t-40'>Điện thoại: +84 082 995 4321</li>
-                                <li className='list-item'>Email: sportzone@gmail.com</li>
-                            </ul>
 
-                        </div>
                         <div className='col-12 col-md-7'>
                             <h5>Điền giúp chúng tôi vài dòng</h5>
-                            <form className='text-small p-t-30' onSubmit={onSubmitForm}>
+                            <form className='text-small p-t-30 text-uppercase' onSubmit={onSubmitForm}>
                                 <div className='form-input-contact'>
                                     <label>Tên (bắt buộc)*</label>
                                     <input className='input-contact ' type="text" name="fullname" value={fullname} onChange={onChangeName} />
                                 </div>
                                 <div className='form-input-contact'>
                                     <label>Email (bắt buộc)*</label>
-                                    <input className='input-contact' type="text" name="email" value={email} onChange={onChangeEmail} />
+                                    <input className='input-contact ' type="text" name="email" value={email} onChange={onChangeEmail} />
                                 </div>
                                 <div className='form-input-contact'>
                                     <label>Số Điện Thoại</label>
-                                    <input className='input-contact' type="text" name="phone" value={phone} onChange={onChangePhone} />
+                                    <input className='input-contact ' type="text" name="phone" value={phone} onChange={onChangePhone} />
                                 </div>
-                                <div>
+                                <div className=''>
                                     <textarea
                                         onChange={onChangeContent}
                                         value={content}
                                         name="content"
                                         aria-required={true}
                                         aria-invalid={false}
-                                        rows={5}
+                                        rows={10}
                                         className="textarea-contact"
-                                        placeholder="Nội dung tư vấn"
-                                    ></textarea>
+                                        placeholder="NỘI DUNG CẦN TƯ VẤN"
+                                    />
                                 </div>
                                 <div className='contact-submit m-t-10'>
-                                    <button type='submit' className='btn-contact'>
+                                    {/* <button type='submit' className='btn-contact'>
                                         Gửi
+                                    </button> */}
+                                    <button className="btn btn-warning send-button" id="submit" type="submit" value="SEND">
+                                        <div className="alt-send-button">
+                                            <i className="fa fa-paper-plane"></i><span className="send-text">Gửi</span>
+                                        </div>
+
                                     </button>
+                                </div>
+                            </form>
+                        </div>
+                        <div className='col-12 col-md-5 contact-first'>
+                            <h5>SPORT ZONE</h5>
+                            <ul className='text-small p-t-30 list-contact'>
+                                <li className='list-item'> <i className="fa fa-map-marker fa-2x" /> <span className="contact-text place">TP. Hồ Chí Minh</span> </li>
+                                <li className='list-item'> <i className="fa fa-phone fa-2x" /><span className="contact-text phone">
                                     <a
                                         href="tel:0829954124"
                                         target="_self"
                                         className="contact-us"
                                     >
-                                        <i className='fa fa-phone'></i>  LIÊN HỆ CHÚNG TÔI
+                                        Điện thoại: +84 082 995 4321
                                     </a>
-                                </div>
-                            </form>
+                                </span></li>
+                                <li className='list-item'><i className="fa fa-envelope fa-2x" /><span className="contact-text gmail"><a href="mailto:sportzone@gmail.com" title="Gửi đến email của shop">Email: sportzone@gmail.com</a></span></li>
+                            </ul>
+                            {/* <ul className="social-media-list">
+                                <li><a href="#" target="_blank" className="contact-icon">
+                                    <i className="fa fa-github" aria-hidden="true"></i></a>
+                                </li>
+                                <li><a href="#" target="_blank" className="contact-icon">
+                                    <i className="fa fa-codepen" aria-hidden="true"></i></a>
+                                </li>
+                                <li><a href="#" target="_blank" className="contact-icon">
+                                    <i className="fa fa-twitter" aria-hidden="true"></i></a>
+                                </li>
+                                <li><a href="#" target="_blank" className="contact-icon">
+                                    <i className="fa fa-instagram" aria-hidden="true"></i></a>
+                                </li>
+                            </ul> */}
+
+                            {/* <div className="copyright">&copy; ALL OF THE RIGHTS RESERVED</div> */}
                         </div>
                     </div>
                 </div>

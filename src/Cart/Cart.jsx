@@ -75,9 +75,9 @@ function Cart(props) {
   //   }, [loadAPI]);
 
   //Hàm này dùng để truyền xuống cho component con xử và trả ngược dữ liệu lại component cha
-  
-  const onDeleteCart = (getUser, getProduct) => {
-    console.log("idUser: " + getUser + ", idProduct: " + getProduct);
+
+  const onDeleteCart = (getUser, getProduct, getQuantity) => {
+    console.log("idUser: " + getUser + ", idProduct: " + getProduct, "getQuantity" + getQuantity);
 
     if (sessionStorage.getItem("id_user")) {
       // user đã đăng nhập
@@ -87,13 +87,10 @@ function Cart(props) {
         const params = {
           idUser: getUser,
           idProduct: getProduct,
+          quantity: getQuantity
         };
 
-        const query = "?" + queryString.stringify(params);
-
-        // const response = await CartAPI.deleteToCart(query)
-        const response = await axios.delete(`${URL_CART}/delete${query}`);
-        console.log(response);
+        await axios.delete(`${HOST}/deleteCart/${params.idUser}/${params.idProduct}/${params.quantity}`);
       };
 
       fetchDelete();
@@ -128,32 +125,24 @@ function Cart(props) {
   };
 
   //Hàm này dùng để truyền xuống cho component con xử và trả ngược dữ liệu lại component cha
-  const onUpdateCount = (getUser, getProduct, getCount) => {
-    console.log(
-      "Count: " +
-        getCount +
-        ", idUser: " +
-        getUser +
-        ", idProduct: " +
-        getProduct
-    );
+  const onUpdateCount = (getUser, getProduct, updateCount) => {
+    console.log("updateCount", updateCount);
 
     if (sessionStorage.getItem("id_user")) {
       // user đã đăng nhập
-
       //Sau khi nhận được dữ liệu ở component con truyền lên thì sẽ gọi API xử lý dữ liệu
       const fetchPut = async () => {
         const params = {
           idUser: getUser,
           idProduct: getProduct,
-          count: getCount,
+          count: updateCount,
         };
 
         const query = "?" + queryString.stringify(params);
 
         // const response = await CartAPI.putToCart(query)
-        const response = await axios.put(`${URL_CART}/update${query}`);
-        console.log(response);
+        const response = await axios.put(`${HOST}/updateCart${query}`);
+        console.log("Put update", response.data);
       };
 
       fetchPut();
@@ -170,8 +159,9 @@ function Cart(props) {
       const data = {
         idProduct: getProduct,
         idUser: getUser,
-        count: getCount,
+        count: updateCount,
       };
+      console.log("Ban Da update that bai!");
 
       //Đưa dữ liệu vào Redux
       const action = updateCart(data);
@@ -242,14 +232,8 @@ function Cart(props) {
           </ol>
         </div>
       </section>
-      {getCartById.length === 0 ? (
-        <section className="cart-empty">
-          <p className="text-lg mb-3">Giỏ hàng rỗng</p>
-          <Button variant="dark" type="button" href="/">
-            Tiếp tục mua hàng
-          </Button>
-        </section>
-      ) : (
+      {getCartById.length !== 0 ? (
+
         <section className="py-5 container">
           <h4 className="text-uppercase mb-4 text-center">Giỏ hàng của bạn</h4>
           <div className="row">
@@ -307,8 +291,15 @@ function Cart(props) {
               </div>
             </div>
           </div>
-        </section>
-      )}
+        </section>)
+        : (
+          <section className="cart-empty">
+            <p className="text-lg mb-3">Giỏ hàng rỗng</p>
+            <Button variant="dark" type="button" href="/">
+              Tiếp tục mua hàng
+            </Button>
+          </section>
+        )}
     </div>
   );
 }
