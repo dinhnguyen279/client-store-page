@@ -89,8 +89,8 @@ function Cart(props) {
           idProduct: getProduct,
           size: getSize
         };
-
-        await axios.delete(`${HOST}/deleteCart/${params.idUser}/${params.idProduct}/${params.size}`).then((res) => {
+        const query = '?' + queryString.stringify(params)
+        await axios.delete(`${HOST}/deleteCart${query}`).then((res) => {
           alertify.set("notifier", "position", "bottom-left");
           alertify.success("Bạn Đã Xóa Hàng Thành Công!");
         }).catch((error) => {
