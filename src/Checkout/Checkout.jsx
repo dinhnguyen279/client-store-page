@@ -58,7 +58,6 @@ function Checkout(props) {
         price: price.toString(),
         size: size.toString(),
       };
-      console.log("data checkout", data);
       axios.post(URL_CheckOut, data);
       setTimeout(() => {
         setSuccess(!success);
