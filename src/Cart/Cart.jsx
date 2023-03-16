@@ -103,9 +103,6 @@ function Cart(props) {
 
       //Sau đó thay đổi state loadAPI và load lại hàm useEffect
       setLoadAPI(true);
-
-      // alertify.set("notifier", "position", "bottom-left");
-      // alertify.error("Bạn Đã Xóa Hàng Thành Công!");
     } else {
       // user chưa đăng nhập
 

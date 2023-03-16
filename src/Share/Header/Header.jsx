@@ -12,6 +12,11 @@ import { FaAngleDown, FaAngleRight, FaThList } from "react-icons/fa"
 import { Col, Container, Form, Nav, Navbar, NavDropdown, Offcanvas } from 'react-bootstrap';
 import ProductAPI from '../../API/ProductAPI';
 import Categories from '../../API/Categories';
+import { HOST } from '../../domain/host/host';
+import axios from 'axios';
+import axiosClient from '../../API/axiosClient';
+import CartAPI from '../../API/CartAPI';
+import queryString from 'query-string';
 
 function Header(props) {
     // const [active, setActive] = useState('Home')
@@ -20,6 +25,10 @@ function Header(props) {
     const [isOpen, setIsOpen] = useState(false)
 
     const [dataCategories, setDataCategories] = useState([])
+
+    const [countCart, setCountCart] = useState(0)
+
+    const URL_CART = `${HOST}/getCartById`
 
     //Sau khi F5 nó sẽ kiểm tra nếu phiên làm việc của Session vẫn còn thì nó sẽ tiếp tục
     // đưa dữ liệu vào Redux
@@ -60,9 +69,33 @@ function Header(props) {
         const fecthData = async () => {
             await Categories.getAllCategories()
                 .then((res) => setDataCategories(res.data))
+                .catch(err => console.log(err))
+
+            if (idUser) {
+                await CartAPI.getCartById(`/${idUser}`)
+                    .then((res) => getCount(res.data))
+                    .catch(error => console.log(error))
+            }
+
         }
         fecthData()
     }, [])
+    // console.log("dã toi count");
+    // if (countCart) {
+    //     const count = countCart.map((val) => val.quantity)
+    //     console.log(count);
+    // }
+    const getCount = (getCount) => {
+        let count = getCount
+        console.log(count);
+        let totalCount = 0
+        count.map((val) => {
+            return (
+                totalCount += val.quantity
+            )
+        })
+        setCountCart(totalCount)
+    }
 
     return (
 
@@ -101,7 +134,7 @@ function Header(props) {
                             <Nav className="justify-content-end">
                                 <ul className='nav-list-respon'>
                                     {nameUser && <li className="nav-item position-relative d-none d-lg-block">
-                                        <Link className="nav-link quantity-cart" to={`/cart`} data-order="20">
+                                        <Link className="nav-link quantity-cart" to={`/cart`} data-order={countCart}>
                                             <AiOutlineShoppingCart className='icon-cart' />
                                         </Link>
                                     </li>}
@@ -161,7 +194,7 @@ function Header(props) {
                     </Navbar.Offcanvas>
                     <div className='d-block d-lg-none'>
                         <li className="nav-item position-relative">
-                            <Link className="nav-link quantity-cart" to={`/cart`} data-order="20">
+                            <Link className="nav-link quantity-cart" to={`/cart`} data-order={countCart}>
                                 <AiOutlineShopping className='icon-cart' />
                             </Link>
                         </li>
