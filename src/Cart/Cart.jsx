@@ -76,8 +76,8 @@ function Cart(props) {
 
   //Hàm này dùng để truyền xuống cho component con xử và trả ngược dữ liệu lại component cha
 
-  const onDeleteCart = (getUser, getProduct, getQuantity) => {
-    console.log("idUser: " + getUser + ", idProduct: " + getProduct, "getQuantity" + getQuantity);
+  const onDeleteCart = (getUser, getProduct, getSize) => {
+    console.log("idUser: " + getUser + ", idProduct: " + getProduct, "getSize" + getSize);
 
     if (sessionStorage.getItem("id_user")) {
       // user đã đăng nhập
@@ -87,10 +87,16 @@ function Cart(props) {
         const params = {
           idUser: getUser,
           idProduct: getProduct,
-          quantity: getQuantity
+          size: getSize
         };
 
-        await axios.delete(`${HOST}/deleteCart/${params.idUser}/${params.idProduct}/${params.quantity}`);
+        await axios.delete(`${HOST}/deleteCart/${params.idUser}/${params.idProduct}/${params.size}`).then((res) => {
+          alertify.set("notifier", "position", "bottom-left");
+          alertify.success("Bạn Đã Xóa Hàng Thành Công!");
+        }).catch((error) => {
+          alertify.set("notifier", "position", "bottom-right");
+          alertify.error("Bạn Đã Xóa Hàng Thất bại!");
+        })
       };
 
       fetchDelete();
@@ -98,8 +104,8 @@ function Cart(props) {
       //Sau đó thay đổi state loadAPI và load lại hàm useEffect
       setLoadAPI(true);
 
-      alertify.set("notifier", "position", "bottom-left");
-      alertify.error("Bạn Đã Xóa Hàng Thành Công!");
+      // alertify.set("notifier", "position", "bottom-left");
+      // alertify.error("Bạn Đã Xóa Hàng Thành Công!");
     } else {
       // user chưa đăng nhập
 

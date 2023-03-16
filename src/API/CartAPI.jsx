@@ -7,8 +7,8 @@ const CartAPI = {
         return axiosClient.get(url)
     },
 
-    getAllCarts: (id) => {
-        const url = `/cart${id}`
+    getCartById: (id) => {
+        const url = `/getCartById${id}`
         return axiosClient.get(url)
     },
 

@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import ProductAPI from "../API/ProductAPI";
 import { Link, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
 import alertify from "alertifyjs";
-import { addCart } from "../Redux/Action/ActionCart";
-import CartAPI from "../API/CartAPI";
-import queryString from "query-string";
-import CommentAPI from "../API/CommentAPI";
+// import { addCart } from "../Redux/Action/ActionCart";
+// import CartAPI from "../API/CartAPI";
+// import queryString from "query-string";
+// import CommentAPI from "../API/CommentAPI";
 import axios from "axios";
-import axiosClient from "../API/axiosClient";
+// import axiosClient from "../API/axiosClient";
 import { Card, Carousel } from "react-bootstrap";
 import {
   AiOutlinePlus,
@@ -34,8 +34,8 @@ function Detail(props) {
   const [sizeProduct, setSizeProduct] = useState(null);
   const [getVoucher, setGetVoucher] = useState("");
   let { id } = useParams();
-  const listCart = useSelector((state) => state.Cart.listCart);
-  const idUser = useSelector((state) => state.Session.idUser);
+  // const listCart = useSelector((state) => state.Cart.listCart);
+  // const idUser = useSelector((state) => state.Session.idUser);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,7 +43,7 @@ function Detail(props) {
       setDetail(response.data);
     };
     fetchData();
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     if (detail.coupons) {

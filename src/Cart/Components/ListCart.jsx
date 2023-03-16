@@ -17,11 +17,11 @@ function ListCart(props) {
     console.log(e.target.value);
   };
 
-  const handlerDelete = (getUser, getProduct, getQuantity) => {
+  const handlerDelete = (getUser, getProduct, getSize) => {
     if (!onDeleteCart) {
       return;
     }
-    onDeleteCart(getUser, getProduct, getQuantity);
+    onDeleteCart(getUser, getProduct, getSize);
   };
 
   const handlerDown = (getIdUser, getIdProduct, getCount) => {
@@ -97,7 +97,7 @@ function ListCart(props) {
                 href="/cart"
                 className="reset-anchor remove_cart"
                 style={{ cursor: "pointer" }}
-                onClick={() => handlerDelete(val.idUser, val.idProduct, val.quantity)}
+                onClick={() => handlerDelete(val.idUser, val.idProduct, val.size)}
               >
                 <i className="fas fa-trash-alt text-muted"></i>
               </a>
