@@ -11,6 +11,36 @@ html {
   opacity: 0;
 }
 
+/* button:hover::before {
+  content: attr(title);
+  background-color: #09080831;
+  color: #b02929;
+  padding: 10px 50px;
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+button:hover::after {
+  content: "";
+  position: absolute;
+  bottom: 0px;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #000 transparent;
+}
+
+button:hover::before,
+button:hover::after {
+  opacity: 1;
+} */
+
 .scroll-to-top-button {
   position: fixed;
   width: 50px;
@@ -519,6 +549,9 @@ html {
   .continue-shopping {
     margin-top: 80px;
   }
+  .body-title-product {
+    font-size: 0.8rem;
+  }
 }
 
 /* Under-Banner */
@@ -588,10 +621,10 @@ html {
 }
 
 .action-banner {
-  margin-top: 0px;
+  margin-top: -20px;
   visibility: hidden;
   opacity: 0;
-  transition-delay: 0.4s;
+  transition-delay: 0.25s;
   z-index: -100;
 }
 
@@ -608,7 +641,7 @@ html {
 .main-banner:hover .content-banner,
 .main-banner:hover .action-banner {
   visibility: visible;
-  opacity: 10;
+  opacity: 1;
   margin-top: 30px;
   z-index: 10;
 }
@@ -673,7 +706,7 @@ html {
 }
 
 .band-select {
-  user-select: none;
+  user-select: auto;
 }
 
 .text-lookbook {
@@ -681,6 +714,11 @@ html {
   background: #494949;
   color: white;
   padding: 10px 25px;
+  text-decoration: none;
+}
+
+.images-item :hover .text-lookbook {
+  color: #efb93b;
 }
 
 /* Product Hot */
@@ -704,7 +742,7 @@ html {
 }
 
 .body-title-product {
-  border-bottom: 1px solid #7f7f7f;
+  border-bottom: 1px solid rgb(214, 211, 211);
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -724,6 +762,12 @@ html {
   margin-top: 10px;
   margin-bottom: 20px;
   color: red;
+}
+
+.content-product p {
+  color: gray;
+  font-weight: 500;
+  font-size: 1rem;
 }
 
 .body-product {

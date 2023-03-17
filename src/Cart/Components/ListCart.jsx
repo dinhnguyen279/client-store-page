@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { Card } from "react-bootstrap";
+import { Button, Card, Modal } from "react-bootstrap";
 import Image from "../../Share/img/Image";
 import { AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai";
 import axios from "axios";
 import { HOST } from "../../domain/host/host";
+import ModalDelete from "./ModalDelete";
 
 function ListCart(props) {
 
@@ -13,16 +13,41 @@ function ListCart(props) {
   const onDeleteCart = props.onDeleteCart;
   const onUpdateCount = props.onUpdateCount;
 
+  const [show, setShow] = useState(false);
+  const [dataDelete, setDataDelete] = useState({
+    idUser: "",
+    idProduct: "",
+    size: ""
+  })
+  const handleClose = () => setShow(false);
+
+  const handleShow = (idUser, idProduct, size) => {
+    const data = { idUser: idUser, idProduct: idProduct, size: size }
+    setDataDelete(data);
+    setShow(true);
+  }
+
   const handlerChangeText = (e) => {
     console.log(e.target.value);
   };
 
-  const handlerDelete = (getUser, getProduct, getSize) => {
+  const handlerDelete = () => {
     if (!onDeleteCart) {
       return;
     }
+    const getUser = dataDelete.idUser;
+    const getProduct = dataDelete.idProduct;
+    const getSize = dataDelete.size;
+
     onDeleteCart(getUser, getProduct, getSize);
   };
+
+  // const handlerDelete = (getUser, getProduct, getSize) => {
+  //   if (!onDeleteCart) {
+  //     return;
+  //   }
+  //   onDeleteCart(getUser, getProduct, getSize);
+  // };
 
   const handlerDown = (getIdUser, getIdProduct, getCount) => {
     if (!onUpdateCount) {
@@ -93,14 +118,16 @@ function ListCart(props) {
               </div>
             </div>
             <div className="col-md-3 text-end">
-              <a
+              <button
                 href="/cart"
                 className="reset-anchor remove_cart"
                 style={{ cursor: "pointer" }}
-                onClick={() => handlerDelete(val.idUser, val.idProduct, val.size)}
+                onClick={() => handleShow(val.idUser, val.idProduct, val.size)}
               >
                 <i className="fas fa-trash-alt text-muted"></i>
-              </a>
+              </button>
+              <ModalDelete show={show} handleClose={handleClose} handlerDelete={handlerDelete} />
+
             </div>
             <div className="col-md-12 d-flex justify-content-between total-listcart">
               <p style={{ fontWeight: "700" }}>Thành tiền:</p>
@@ -113,7 +140,8 @@ function ListCart(props) {
             </div>
           </div>
         </div>
-      ))}
+      ))
+      }
     </>
   );
 }

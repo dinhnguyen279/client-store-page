@@ -77,8 +77,7 @@ function Cart(props) {
   //Hàm này dùng để truyền xuống cho component con xử và trả ngược dữ liệu lại component cha
 
   const onDeleteCart = (getUser, getProduct, getSize) => {
-    console.log("idUser: " + getUser + ", idProduct: " + getProduct, "getSize" + getSize);
-
+    console.log("idUser: " + getUser + ", idProduct: " + getProduct, "getSize :" + getSize);
     if (sessionStorage.getItem("id_user")) {
       // user đã đăng nhập
 
@@ -90,13 +89,10 @@ function Cart(props) {
           size: getSize
         };
         const query = '?' + queryString.stringify(params)
-        await axios.delete(`${HOST}/deleteCart${query}`).then((res) => {
-          alertify.set("notifier", "position", "bottom-left");
-          alertify.success("Bạn Đã Xóa Hàng Thành Công!");
-        }).catch((error) => {
-          alertify.set("notifier", "position", "bottom-right");
-          alertify.error("Bạn Đã Xóa Hàng Thất bại!");
-        })
+
+        await axios.delete(`${HOST}/deleteCart${query}`)
+        alertify.set("notifier", "position", "bottom-left");
+        alertify.success("Bạn Đã Xóa Hàng Thành Công!");
       };
 
       fetchDelete();
