@@ -33,7 +33,7 @@ function Name(props) {
                 {name}
             </a>
             <div className="dropdown-menu mt-3 name-item" aria-labelledby="pagesDropdown">
-                <Link className="dropdown-item border-0 transition-link" to={'/detail-user'} >Thông tin người dùng</Link>
+                <Link className="dropdown-item border-0 transition-link" to={'/detail-user'}>Thông tin người dùng</Link>
                 <LoginLink />
             </div>
         </li>

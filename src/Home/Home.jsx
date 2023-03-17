@@ -93,7 +93,7 @@ function Home(props) {
                                         </div>
                                         <div className='content-banner'>
                                             <p>Cập nhật mẫu mới nhất</p>
-                                            <h3 className='banner-item'>Giày Đá Banh Cỏ Nhân Tạo</h3>
+                                            <h3>Giày Đá Banh Cỏ Nhân Tạo</h3>
                                             <p className='action-banner'>
                                                 <span className='button'>
                                                     Xem Ngay
@@ -181,21 +181,21 @@ function Home(props) {
                                     <Card.Img src={Image.lookbooks_1} />
                                     <div className='p-t-10'>
                                         <p style={{ fontSize: "18px", paddingBottom: "10px" }}>Buibal Falcon</p>
-                                        <span className='text-uppercase text-lookbook' style={{ fontFamily: "sans-serif" }}>In ấn miễn phí</span>
+                                        <Link to={"/contact"} className='text-uppercase text-lookbook' style={{ fontFamily: "sans-serif" }}>In ấn miễn phí</Link>
                                     </div>
                                 </div>
                                 <div className="images-item">
                                     <Card.Img src={Image.lookbooks_2} />
                                     <div className='p-t-10'>
                                         <p style={{ fontSize: "18px", paddingBottom: "10px" }}>Quần Áo Bóng Đá Thái Lan</p>
-                                        <span className='text-uppercase text-lookbook' style={{ fontFamily: "sans-serif" }}>In ấn font xịn</span>
+                                        <Link to={"/contact"} className='text-uppercase text-lookbook' style={{ fontFamily: "sans-serif" }}>In ấn font xịn</Link>
                                     </div>
                                 </div>
                                 <div className="images-item">
                                     <Card.Img src={Image.lookbooks_3} />
                                     <div className='p-t-10'>
                                         <p style={{ fontSize: "18px", paddingBottom: "10px" }}>Quần Áo Đá Banh Trẻ Em Mới Nhất</p>
-                                        <span className='text-uppercase text-lookbook' style={{ fontFamily: "sans-serif" }}>In ấn miễn phí</span>
+                                        <Link to={"/contact"} className='text-uppercase text-lookbook' style={{ fontFamily: "sans-serif" }}>In ấn miễn phí</Link>
                                     </div>
                                 </div>
                             </div>
@@ -238,7 +238,7 @@ function Home(props) {
                                 <Card.Title> <h1> KAMITO TA11 </h1></Card.Title>
                                 <div className='body-title-product'>
                                     <button className={`${navContent === "nav1" ? "text-dark" : "text-gray"}`} onClick={() => setNavContent("nav1")}>
-                                        THÔNG RIN TA11
+                                        THÔNG TIN TA11
                                     </button>
                                     <button className={`${navContent === "nav2" ? "text-dark" : "text-gray"}`} onClick={() => setNavContent("nav2")}>
                                         TA11 CÓ GÌ MỚI?
@@ -282,13 +282,14 @@ function Home(props) {
                                             <p>
                                                 Size: 38, 39, 40, 41, 42, 43
                                             </p>
+                                            <img src={Image.sizegiay} alt="Bảng size giày" title='Bảng size giày' className='post-img' />
                                         </div>
                                     ) : " "}
 
                                 </div>
-                                <button className='btn-view'>
+                                {/* <button className='btn-view' title='XEM NGAY'>
                                     XEM NGAY
-                                </button>
+                                </button> */}
                             </div>
                         </div>
                     </section>

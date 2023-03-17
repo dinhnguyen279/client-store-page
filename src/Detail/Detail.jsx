@@ -8,7 +8,6 @@ import alertify from "alertifyjs";
 // import queryString from "query-string";
 // import CommentAPI from "../API/CommentAPI";
 import axios from "axios";
-// import axiosClient from "../API/axiosClient";
 import { Card, Carousel } from "react-bootstrap";
 import {
   AiOutlinePlus,
@@ -22,9 +21,9 @@ function Detail(props) {
   const URL_AddToCart = `${HOST}/addToCart`;
   const URL_GetVoucher = `${HOST}/coupons`;
 
-  const [load_comment, set_load_comment] = useState(false);
+  // const [load_comment, set_load_comment] = useState(false);
   const [product, setProduct] = useState([]);
-  const [list_comment, set_list_comment] = useState([]);
+  // const [list_comment, set_list_comment] = useState([]);
   const [detail, setDetail] = useState({});
   const [review, setReview] = useState("description");
   const [comment, setComment] = useState("");
@@ -459,9 +458,9 @@ function Detail(props) {
         <h2 className="h5 text-uppercase mb-4">Sản phẩm liên quan</h2>
         <div className="row">
           {product &&
-            product.map((value, key) => (
-              <div className="col-lg-3 col-sm-6" key={key + 1}>
-                <div className="product text-center skel-loader">
+            product.map((value, idx) => (
+              <div className="col-lg-3 col-sm-6">
+                <div className="product text-center skel-loader" key={idx + 1}>
                   <div className="d-block mb-3 product-detail">
                     <Link className="d-block" to={`/detail/${value._id}`}>
                       <img

@@ -76,18 +76,11 @@ function Header(props) {
                     .then((res) => getCount(res.data))
                     .catch(error => console.log(error))
             }
-
         }
         fecthData()
     }, [])
-    // console.log("dã toi count");
-    // if (countCart) {
-    //     const count = countCart.map((val) => val.quantity)
-    //     console.log(count);
-    // }
     const getCount = (getCount) => {
         let count = getCount
-        console.log(count);
         let totalCount = 0
         count.map((val) => {
             return (
@@ -145,8 +138,8 @@ function Header(props) {
                             <div className='under-navbar d-block d-lg-none'>
                                 <Container className='d-block navbar-categories'>
                                     <div className="navbar-button mr-4">
-                                        <button className='btn-open-categories' onClick={handleOpen} onBlur={handleOnBlur}>
-                                            <span> <FaThList /> All Categories</span>
+                                        <button className='btn-open-categories' onClick={handleOpen} onBlur={handleOnBlur} title='All Categories'>
+                                            <span > <FaThList /> All Categories</span>
                                             <span><FaAngleDown /></span>
                                         </button>
                                         {isOpen ? (
