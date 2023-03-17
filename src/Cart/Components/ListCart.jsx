@@ -19,7 +19,7 @@ function ListCart(props) {
     idProduct: "",
     size: ""
   })
-  const [valueQuantity, setValueQuantity] = useState(0)
+
   const handleClose = () => setShow(false);
 
   const handleShow = (idUser, idProduct, size) => {
@@ -27,20 +27,6 @@ function ListCart(props) {
     setDataDelete(data);
     setShow(true);
   }
-  // useEffect(() => {
-  //   const quantityCart = () => {
-  //     listProduct.map((val) => setValueQuantity(val.quantity))
-  //   }
-  //   quantityCart()
-  // }, [])
-
-  console.log(valueQuantity);
-
-  const handlerChangeText = (e) => {
-    const value = e.target.value
-    console.log("value", value);
-    // setValueQuantity(value)
-  };
 
   const handlerDelete = () => {
     if (!onDeleteCart) {
@@ -53,7 +39,7 @@ function ListCart(props) {
     onDeleteCart(getUser, getProduct, getSize);
   };
 
-  const handlerDown = (getIdUser, getIdProduct, getCount) => {
+  const handlerDown = (getIdUser, getIdProduct, getCount, getSize) => {
     if (!onUpdateCount) {
       return;
     }
@@ -61,25 +47,19 @@ function ListCart(props) {
     if (getCount === 1) {
       return;
     }
-    console.log("Giam", getCount);
 
     //Trước khi trả dữ liệu về component cha thì phải thay đổi biến count
     const updateCount = parseInt(getCount) - 1;
-    console.log("Giam updatecount", updateCount);
-
-    // onUpdateCount(getIdUser, getIdProduct, updateCount);
+    onUpdateCount(getIdUser, getIdProduct, updateCount, getSize);
   };
 
-  const handlerUp = (getIdUser, getIdProduct, getCount) => {
+  const handlerUp = (getIdUser, getIdProduct, getCount, getSize) => {
     if (!onUpdateCount) {
       return;
     }
-    console.log("Tang", getCount);
     //   Trước khi trả dữ liệu về component cha thì phải thay đổi biến count
     const updateCount = parseInt(getCount) + 1;
-    console.log(updateCount);
-    setValueQuantity(updateCount)
-    // onUpdateCount(getIdUser, getIdProduct, updateCount);
+    onUpdateCount(getIdUser, getIdProduct, updateCount, getSize);
   };
 
   return (
@@ -100,21 +80,21 @@ function ListCart(props) {
                   variant="dark"
                   className="dec-btn p-0"
                   style={{ cursor: "pointer" }}
-                  onClick={() => handlerDown(val.idUser, val.idProduct, valueQuantity)}
+                  onClick={() => handlerDown(val.idUser, val.idProduct, val.quantity, val.size)}
                 >
                   <AiFillCaretLeft />
                 </Button>
-                {/* <input
+                <input
                   className="form-control form-control-sm border-0 shadow-0 p-0"
                   type="text"
-                  value={valueQuantity}
-                  onChange={handlerChangeText}
-                /> */} <p>{valueQuantity}</p>
+                  value={val.quantity}
+                  readOnly
+                />
                 <Button
                   variant="dark"
                   className="inc-btn p-0"
                   style={{ cursor: "pointer" }}
-                  onClick={() => handlerUp(val.idUser, val.idProduct, valueQuantity)}
+                  onClick={() => handlerUp(val.idUser, val.idProduct, val.quantity, val.size)}
                 >
                   <AiFillCaretRight />
                 </Button>
