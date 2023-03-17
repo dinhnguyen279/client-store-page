@@ -35,7 +35,19 @@ function Cart(props) {
   const [getCartById, setCartById] = useState([]);
   const [redirect, setRedirect] = useState(false);
 
-
+  // Lấy dữ liệu từ Cart ra
+  useEffect(() => {
+    if (sessionStorage.getItem("id_user")) {
+      const id_user = sessionStorage.getItem("id_user");
+      axios
+        .get(`${URL_CART}/${id_user}`)
+        .then((response) => {
+          setCartById(response.data);
+          getTotal(response.data);
+        })
+        .catch((error) => console.log(error));
+    }
+  }, [getCartById]);
   //Hàm này dùng để Load dữ liệu ở Redux
 
   //Khi người dùng chưa đăng nhập
@@ -77,10 +89,8 @@ function Cart(props) {
   //Hàm này dùng để truyền xuống cho component con xử và trả ngược dữ liệu lại component cha
 
   const onDeleteCart = (getUser, getProduct, getSize) => {
-    console.log("idUser: " + getUser + ", idProduct: " + getProduct, "getSize :" + getSize);
     if (sessionStorage.getItem("id_user")) {
       // user đã đăng nhập
-
       //Sau khi nhận được dữ liệu ở component con truyền lên thì sẽ gọi API xử lý dữ liệu
       const fetchDelete = async () => {
         const params = {
@@ -124,8 +134,7 @@ function Cart(props) {
   };
 
   //Hàm này dùng để truyền xuống cho component con xử và trả ngược dữ liệu lại component cha
-  const onUpdateCount = (getUser, getProduct, updateCount) => {
-    console.log("updateCount", updateCount);
+  const onUpdateCount = (getUser, getProduct, updateCount, getSize) => {
 
     if (sessionStorage.getItem("id_user")) {
       // user đã đăng nhập
@@ -135,13 +144,12 @@ function Cart(props) {
           idUser: getUser,
           idProduct: getProduct,
           count: updateCount,
+          size: getSize
         };
 
         const query = "?" + queryString.stringify(params);
 
-        // const response = await CartAPI.putToCart(query)
-        // const response = await axios.put(`${HOST}/updateCart${query}`);
-        // console.log("Put update", response.data);
+        await axios.put(`${HOST}/updateCart${query}`)
       };
 
       fetchPut();
@@ -204,18 +212,6 @@ function Cart(props) {
     });
     setTotal(sub_total);
   };
-  useEffect(() => {
-    if (sessionStorage.getItem("id_user")) {
-      const id_user = sessionStorage.getItem("id_user");
-      axios
-        .get(`${URL_CART}/${id_user}`)
-        .then((response) => {
-          setCartById(response.data);
-          getTotal(response.data);
-        })
-        .catch((error) => console.log(error));
-    }
-  }, []);
 
   return (
     <div className="main-cart">
