@@ -350,11 +350,13 @@ button:active {
 }
 
 .quantity {
-  display: -ms-flexbox;
+  /* display: -ms-flexbox; */
   display: flex;
   -ms-flex-align: center;
   align-items: center;
+  width: fit-content;
   border: 1px solid #f5f5f5;
+  margin-bottom: 10px;
 }
 
 .quantity input {

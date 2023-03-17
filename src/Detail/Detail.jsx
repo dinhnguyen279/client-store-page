@@ -65,11 +65,11 @@ function Detail(props) {
       return;
     }
     if (!sizeProduct) {
-      alertify.error("Bạn phải chon size!");
+      alertify.error("Bạn phải chọn size!");
       return;
     }
     if (!text) {
-      alertify.error("Bạn phải chon số lượng!");
+      alertify.error("Bạn phải chọn số lượng!");
       return;
     }
 

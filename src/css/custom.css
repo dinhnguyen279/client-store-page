@@ -120,6 +120,13 @@ button:hover::after {
   overflow: hidden;
 }
 
+/* .profile-checkout {
+  position: fixed;
+  right: 10%;
+  top: 45%;
+  transform: translateY(-50%);
+} */
+
 .remove_cart:hover {
   background-color: black;
   border-radius: 0.5rem !important;

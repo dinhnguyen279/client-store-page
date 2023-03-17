@@ -140,8 +140,8 @@ function Cart(props) {
         const query = "?" + queryString.stringify(params);
 
         // const response = await CartAPI.putToCart(query)
-        const response = await axios.put(`${HOST}/updateCart${query}`);
-        console.log("Put update", response.data);
+        // const response = await axios.put(`${HOST}/updateCart${query}`);
+        // console.log("Put update", response.data);
       };
 
       fetchPut();
@@ -270,7 +270,7 @@ function Cart(props) {
                     </li>
                     <li className="border-bottom my-2"></li>
                     <li className="d-flex align-items-center justify-content-between mb-4">
-                      <strong className="small font-weight-bold">
+                      <strong className="font-weight-bold">
                         Tổng tiền
                       </strong>
                       <span>{total}₫</span>

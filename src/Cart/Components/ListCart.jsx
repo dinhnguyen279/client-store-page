@@ -19,6 +19,7 @@ function ListCart(props) {
     idProduct: "",
     size: ""
   })
+  const [valueQuantity, setValueQuantity] = useState(0)
   const handleClose = () => setShow(false);
 
   const handleShow = (idUser, idProduct, size) => {
@@ -26,9 +27,19 @@ function ListCart(props) {
     setDataDelete(data);
     setShow(true);
   }
+  // useEffect(() => {
+  //   const quantityCart = () => {
+  //     listProduct.map((val) => setValueQuantity(val.quantity))
+  //   }
+  //   quantityCart()
+  // }, [])
+
+  console.log(valueQuantity);
 
   const handlerChangeText = (e) => {
-    console.log(e.target.value);
+    const value = e.target.value
+    console.log("value", value);
+    // setValueQuantity(value)
   };
 
   const handlerDelete = () => {
@@ -42,13 +53,6 @@ function ListCart(props) {
     onDeleteCart(getUser, getProduct, getSize);
   };
 
-  // const handlerDelete = (getUser, getProduct, getSize) => {
-  //   if (!onDeleteCart) {
-  //     return;
-  //   }
-  //   onDeleteCart(getUser, getProduct, getSize);
-  // };
-
   const handlerDown = (getIdUser, getIdProduct, getCount) => {
     if (!onUpdateCount) {
       return;
@@ -57,23 +61,25 @@ function ListCart(props) {
     if (getCount === 1) {
       return;
     }
+    console.log("Giam", getCount);
 
     //Trước khi trả dữ liệu về component cha thì phải thay đổi biến count
     const updateCount = parseInt(getCount) - 1;
+    console.log("Giam updatecount", updateCount);
 
-    onUpdateCount(getIdUser, getIdProduct, updateCount);
+    // onUpdateCount(getIdUser, getIdProduct, updateCount);
   };
 
   const handlerUp = (getIdUser, getIdProduct, getCount) => {
     if (!onUpdateCount) {
       return;
     }
-    console.log(getCount);
+    console.log("Tang", getCount);
     //   Trước khi trả dữ liệu về component cha thì phải thay đổi biến count
     const updateCount = parseInt(getCount) + 1;
     console.log(updateCount);
-
-    onUpdateCount(getIdUser, getIdProduct, updateCount);
+    setValueQuantity(updateCount)
+    // onUpdateCount(getIdUser, getIdProduct, updateCount);
   };
 
   return (
@@ -90,26 +96,28 @@ function ListCart(props) {
               <Card.Title className="mb-3">{val.nameProduct}</Card.Title>
               <Card.Subtitle className="mb-3">Size {val.size}</Card.Subtitle>
               <div className="quantity">
-                <button
+                <Button
+                  variant="dark"
                   className="dec-btn p-0"
                   style={{ cursor: "pointer" }}
-                  onClick={() => handlerDown(val.idUser, val.idProduct, val.quantity)}
+                  onClick={() => handlerDown(val.idUser, val.idProduct, valueQuantity)}
                 >
                   <AiFillCaretLeft />
-                </button>
-                <input
+                </Button>
+                {/* <input
                   className="form-control form-control-sm border-0 shadow-0 p-0"
                   type="text"
-                  value={val.quantity}
+                  value={valueQuantity}
                   onChange={handlerChangeText}
-                />
-                <button
+                /> */} <p>{valueQuantity}</p>
+                <Button
+                  variant="dark"
                   className="inc-btn p-0"
                   style={{ cursor: "pointer" }}
-                  onClick={() => handlerUp(val.idUser, val.idProduct, val.quantity)}
+                  onClick={() => handlerUp(val.idUser, val.idProduct, valueQuantity)}
                 >
                   <AiFillCaretRight />
-                </button>
+                </Button>
               </div>
               <div className="align-middle border-0">
                 <p className="mb-0 small">
@@ -126,6 +134,7 @@ function ListCart(props) {
               >
                 <i className="fas fa-trash-alt text-muted"></i>
               </button>
+              {/* Modal hiện popup xác nhận xóa sản phẩm */}
               <ModalDelete show={show} handleClose={handleClose} handlerDelete={handlerDelete} />
 
             </div>
