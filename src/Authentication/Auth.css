@@ -520,6 +520,12 @@ iframe {
   border: 1px solid #e6e6e6;
 }
 
+.wrap-inputInfo {
+  width: 100%;
+  position: relative;
+  /* border: 1px solid #e6e6e6; */
+}
+
 .input100 {
   display: block;
   width: 100%;
@@ -529,6 +535,18 @@ iframe {
   line-height: 1.2;
 }
 
+.inputInfo {
+  display: block;
+  width: 100%;
+  background: rgb(215, 213, 213);
+  font-size: 15px;
+  color: black;
+  line-height: 1.2;
+}
+
+.inputInfo:focus {
+  background: white;
+}
 .input100:focus {
   background: white;
 }
