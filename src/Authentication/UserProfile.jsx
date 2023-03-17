@@ -8,17 +8,18 @@ import { HOST } from "../domain/host/host";
 import axios from "axios";
 
 import Form from "react-bootstrap/Form";
-import {
-  AiOutlineMail,
-  AiOutlineLock,
-  AiFillEye,
-  AiFillEyeInvisible,
-} from "react-icons/ai";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import Table from "react-bootstrap/Table";
 
 const UserProfile = (props) => {
+  const URL_GetDetailUser = `${HOST}/user`;
+  const URL_BILLBYID = `${HOST}/getBillById`;
+
   const [active, setActive] = useState("Overview");
   const [modalShow, setModalShow] = useState(false);
   const [getDataUser, setGetDataUser] = useState({});
+  const [history, setHistory] = useState([]);
+
   // Show/hide password
   const [typePassWord, setTypePassWord] = useState("password");
   const handlerActive = (value) => {
@@ -28,12 +29,17 @@ const UserProfile = (props) => {
   useEffect(() => {
     let idUser = sessionStorage.getItem("id_user");
     axios
-      .get(`${HOST}/user/${idUser}`)
+      .get(`${URL_GetDetailUser}/${idUser}`)
       .then((response) => setGetDataUser(response.data))
+      .catch((error) => console.log(error));
+    axios
+      .get(`${URL_BILLBYID}/${idUser}`)
+      .then((response) => setHistory(response.data))
       .catch((error) => console.log(error));
   }, []);
 
   console.log("get data user", getDataUser);
+  console.log("bill", history);
   return (
     <div className={"container-fluid main-profile p-l-55 p-r-55 p-b-50"}>
       <div className="card-profile">
@@ -158,7 +164,10 @@ const UserProfile = (props) => {
             {/* <i className="fa fa-birthday-cake" aria-hidden="true"></i> */}
             <div>
               {/* <Form.input type="password" value={getDataUser.address} /> */}
-              <Form.Group className="wrap-inputInfo validate-input" controlId="formBasicPassword">
+              <Form.Group
+                className="wrap-inputInfo validate-input"
+                controlId="formBasicPassword"
+              >
                 <Form.Control
                   type={typePassWord}
                   value={getDataUser.password}
@@ -238,89 +247,34 @@ const UserProfile = (props) => {
       <div className="card-profile m-t-40 collapse" id="history">
         <h3 className="card-title title-text ">Lịch sử mua hàng</h3>
         <div className="table-responsive pt-5 pb-5">
-          <table className="table">
-            <thead className="bg-light">
-              <tr className="text-center">
-                <th className="border-0" scope="col">
-                  {" "}
-                  <strong className="text-small text-uppercase">
-                    ID Order
-                  </strong>
-                </th>
-                <th className="border-0" scope="col">
-                  {" "}
-                  <strong className="text-small text-uppercase">ID User</strong>
-                </th>
-                <th className="border-0" scope="col">
-                  {" "}
-                  <strong className="text-small text-uppercase">Name</strong>
-                </th>
-                <th className="border-0" scope="col">
-                  {" "}
-                  <strong className="text-small text-uppercase">Phone</strong>
-                </th>
-                <th className="border-0" scope="col">
-                  {" "}
-                  <strong className="text-small text-uppercase">Address</strong>
-                </th>
-                <th className="border-0" scope="col">
-                  {" "}
-                  <strong className="text-small text-uppercase">Total</strong>
-                </th>
-                <th className="border-0" scope="col">
-                  {" "}
-                  <strong className="text-small text-uppercase">
-                    Delivery
-                  </strong>
-                </th>
-                <th className="border-0" scope="col">
-                  {" "}
-                  <strong className="text-small text-uppercase">Status</strong>
-                </th>
-                <th className="border-0" scope="col">
-                  {" "}
-                  <strong className="text-small text-uppercase">Detail</strong>
-                </th>
+          <Table striped hover>
+            <thead>
+              <tr>
+                <th>Mã đơn hàng</th>
+                <th>Tên sản phẩm</th>
+                <th>Tổng</th>
+                <th>Ngày đặt</th>
+                <th>Chi tiết</th>
               </tr>
             </thead>
-            {/* <tbody>
-                            {
-                                listCart && listCart.map((value) => (
-                                    <tr className="text-center" key={value._id}>
-                                        <td className="align-middle border-0">
-                                            <p className="mb-0 small">{value._id}</p>
-                                        </td>
-                                        <td className="align-middle border-0">
-                                            <p className="mb-0 small">{value.idUser}</p>
-                                        </td>
-                                        <td className="align-middle border-0">
-                                            <p className="mb-0 small">{value.fullname}</p>
-                                        </td>
-                                        <td className="align-middle border-0">
-                                            <p className="mb-0 small">{value.phone}</p>
-                                        </td>
-                                        <td className="align-middle border-0">
-                                            <p className="mb-0 small">{value.address}</p>
-                                        </td>
-                                        <td className="align-middle border-0">
-                                            <p className="mb-0 small">${value.total}</p>
-                                        </td>
-                                        <td className="align-middle border-0">
-                                            <p className="mb-0 small">{!value.delivery ? 'Waiting for progressing' : 'Processed'}</p>
-                                        </td>
-                                        <td className="align-middle border-0">
-                                            <p className="mb-0 small">{!value.status ? 'Waiting for pay' : 'Paid'}</p>
-                                        </td>
-                                        <td className="align-middle border-0">
-                                            <Link className="btn btn-outline-dark btn-sm" to={`/history/${value._id}`}>
-                                                View<i className="fas fa-long-arrow-alt-right ml-2"></i>
-                                            </Link>
-                                        </td>
-                                    </tr>
-                                ))
-                            }
-                        </tbody> */}
-          </table>
+            <tbody>
+              <tr>
+                <td>{history._id}</td>
+                <td>{history.nameProduct}</td>
+                <td>{history.total}</td>
+                <td>{history.created_date}</td>
+                <td>
+                  <Button
+                    style={{ cursor: "pointer", color: "white" }}
+                    className="btn btn-success"
+                    onClick={() => handleShowModalView(value._id)}
+                  >
+                    View
+                  </Button>
+                </td>
+              </tr>
+            </tbody>
+          </Table>
         </div>
       </div>
     </div>
