@@ -319,7 +319,7 @@ function Shop(props) {
                 {/* <Search handleSearch={handleSearch} /> */}
 
                 <Form action="" style={{ display: "flex" }}>
-                  <InputGroup className="mb-3 w-50">
+                  <InputGroup className="mb-3" style={{ width: "40%" }}>
                     <Form.Select
                       value={filedSearches}
                       onChange={(e) => setFiledSearches(e.target.value)}
