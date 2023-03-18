@@ -17,7 +17,15 @@ const UserProfile = (props) => {
 
   const [active, setActive] = useState("Overview");
   const [modalShow, setModalShow] = useState(false);
-  const [getDataUser, setGetDataUser] = useState({});
+  const [getDataUser, setGetDataUser] = useState({
+    avatar: "",
+    fullname: "",
+    address: "",
+    email: "",
+    phone: "",
+    password: "",
+    sex: "",
+  });
   const [history, setHistory] = useState([]);
 
   // Show/hide password
@@ -37,9 +45,7 @@ const UserProfile = (props) => {
       .then((response) => setHistory(response.data))
       .catch((error) => console.log(error));
   }, []);
-
-  console.log("get data user", getDataUser);
-  console.log("bill", history);
+  
   return (
     <div className={"container-fluid main-profile p-l-55 p-r-55 p-b-50"}>
       <div className="card-profile">
@@ -133,6 +139,7 @@ const UserProfile = (props) => {
             show={modalShow}
             onHide={() => setModalShow(false)}
             getDataUser={getDataUser}
+            setGetDataUser={setGetDataUser}
           />
         </div>
 
@@ -173,6 +180,7 @@ const UserProfile = (props) => {
                   type={typePassWord}
                   value={getDataUser.password}
                   className="inputInfo"
+                  disabled
                 />
                 {typePassWord === "password" ? (
                   <button
