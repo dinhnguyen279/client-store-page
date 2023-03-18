@@ -1,55 +1,65 @@
-import React from 'react'
-import { Button, Modal } from 'react-bootstrap'
-
+import React from "react";
+import { Button, Modal } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
 const EditProfileUser = (props) => {
-    return (
-        <Modal
-            {...props}
-            size="md"
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
-        >
-            <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter" className='m-auto'>
-                    <h2 className="h4 text-uppercase text-dark">Cập nhật thông tin</h2>
-                </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <div className='input-edit-user'>
-                    <div className='row'>
-                        <div className='col-md-12 input-text position-relative'>
-                            <input className='form-input-user' type="text" name="fullName" placeholder=" " />
-                            <label className="text-small text-uppercase form-label" htmlFor="Fullname">Họ và Tên</label>
-                        </div>
-                        <div className='col-md-12 input-text position-relative'>
-                            <input className='form-input-user' type="text" name="Email" placeholder=' ' />
-                            <label className="text-small text-uppercase form-label" htmlFor="Email">Email</label>
-                        </div>
-                        <div className='col-md-12 input-text position-relative'>
-                            <input className='form-input-user' type="text" name="password" placeholder=' ' />
-                            <label className="text-small text-uppercase form-label" htmlFor="password">Mật khẩu</label>
-                        </div>
-                        <div className='col-md-12 input-text position-relative'>
-                            <input className='form-input-user' type="text" name="address" placeholder=' ' />
-                            <label className="text-small text-uppercase form-label" htmlFor="address">Địa chỉ</label>
-                        </div>
-                        <div className='col-md-12 input-text position-relative'>
-                            <input className='form-input-user' type="text" name="phone" placeholder=' ' />
-                            <label className="text-small text-uppercase form-label" htmlFor="phone">Số điện thoại</label>
-                        </div>
-                        <div className='col-md-12'>
-                            <Button className='w-50' type='button' >
-                                Lưu thay đổi
-                            </Button>
-                        </div>
-                    </div>
-                </div>
-            </Modal.Body>
-            <Modal.Footer>
-                <Button variant='danger' onClick={props.onHide}>Đóng</Button>
-            </Modal.Footer>
-        </Modal>
-    )
-}
+  const getDataUser = props.getDataUser;
+  console.log("getDataUser", getDataUser);
+  return (
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter" className="m-auto">
+          <h2 className="h4 text-uppercase text-dark">Cập nhật thông tin</h2>
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Họ tên</Form.Label>
+            <Form.Control type="name" placeholder="Họ và tên" value={getDataUser.fullname} />
+            {/* <Form.Text className="text-muted">
+              We'll never share your email with anyone else.
+            </Form.Text> */}
+          </Form.Group>
 
-export default EditProfileUser
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Số điện thoại</Form.Label>
+            <Form.Control type="phone" placeholder="Số điện thoại" value={getDataUser.phone} />
+            {/* <Form.Text className="text-muted">
+              We'll never share your email with anyone else.
+            </Form.Text> */}
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Email</Form.Label>
+            <Form.Control type="email" placeholder="email" value={getDataUser.email} />
+            {/* <Form.Text className="text-muted">
+              We'll never share your email with anyone else.
+            </Form.Text> */}
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Địa chỉ</Form.Label>
+            <Form.Control type="address" placeholder="address" value={getDataUser.address} />
+            {/* <Form.Text className="text-muted">
+              We'll never share your email with anyone else.
+            </Form.Text> */}
+          </Form.Group>
+
+          <Button type="submit">Cập nhật</Button>
+        </Form>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="danger" onClick={props.onHide}>
+          Đóng
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
+};
+
+export default EditProfileUser;

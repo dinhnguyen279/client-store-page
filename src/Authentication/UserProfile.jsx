@@ -10,7 +10,7 @@ import axios from "axios";
 import Form from "react-bootstrap/Form";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import Table from "react-bootstrap/Table";
-
+import Card from "react-bootstrap/Card";
 const UserProfile = (props) => {
   const URL_GetDetailUser = `${HOST}/user`;
   const URL_BILLBYID = `${HOST}/getBillById`;
@@ -66,6 +66,7 @@ const UserProfile = (props) => {
             </Button>
           </div>
         </div>
+
         <div className="row p-t-30" style={{ margin: "auto" }}>
           <div className="list-profile">
             <div
@@ -121,6 +122,7 @@ const UserProfile = (props) => {
       </div>
 
       <div className="card-profile m-t-40 collapse" id="overview">
+
         <div className="card-title d-flex justify-content-between">
           <h3 className="title-text">Thông tin cá nhân</h3>
           <Button
@@ -134,8 +136,10 @@ const UserProfile = (props) => {
           <EditProfileUser
             show={modalShow}
             onHide={() => setModalShow(false)}
+            getDataUser={getDataUser}
           />
         </div>
+
         <div className="row">
           <div className="col-md-6 icon-detail d-flex align-items-center">
             <i className="fa fa-envelope" aria-hidden="true"></i>
@@ -218,36 +222,17 @@ const UserProfile = (props) => {
             </div>
           </Col>
         </Row>
+
       </div>
-
-      {/* <div className='card-profile m-t-40 collapse' id='notes'>
-                <div className='d-flex justify-content-between'>
-                    <h3 className='card-title'>Notes</h3>
-                    <Button type='button' variant="primary" onClick={() => setModalShow(true)}>
-                        <AiOutlineEdit /> Chỉnh sửa
-                    </Button>
-                    <EditProfileUser
-                        show={modalShow}
-                        onHide={() => setModalShow(false)}
-                    />
-                </div>
-
-                <div className='row mt-3'>
-                    <div className='col-md-4 title-text'>Sở Thích:</div>
-                    <div className='col-md-4 title-text'>Thói Quen:</div>
-                    <div className='col-md-4 title-text'>Music:</div>
-                </div>
-                <div className='row'>
-                    <div className='col-md-4 title-text'>Sở Thích:</div>
-                    <div className='col-md-4 title-text'>Sở Thích:</div>
-                    <div className='col-md-4 title-text'>Sở Thích:</div>
-                </div>
-            </div> */}
 
       <div className="card-profile m-t-40 collapse" id="history">
         <h3 className="card-title title-text ">Lịch sử mua hàng</h3>
         <div className="table-responsive pt-5 pb-5">
-          <Table striped hover>
+          <Card>
+            <Card.Header>Mã Đơn hàng: {history._id}</Card.Header>
+            <Card.Body>Tên sản phẩm: {history.nameProduct}</Card.Body>
+          </Card>
+          {/* <Table striped hover>
             <thead>
               <tr>
                 <th>Mã đơn hàng</th>
@@ -274,7 +259,7 @@ const UserProfile = (props) => {
                 </td>
               </tr>
             </tbody>
-          </Table>
+          </Table> */}
         </div>
       </div>
     </div>
