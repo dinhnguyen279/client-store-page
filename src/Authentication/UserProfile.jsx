@@ -45,7 +45,7 @@ const UserProfile = (props) => {
       <div className="card-profile">
         <div className="row" style={{ margin: "auto" }}>
           <div
-            className="col-md-12 col-xl-4 position-relative"
+            className="col-md-12 col-xl-4 mb-3 position-relative"
             style={{ width: "200px", margin: "auto" }}
           >
             <img
@@ -56,11 +56,11 @@ const UserProfile = (props) => {
             />
             <AiOutlineEdit className="icon-userprofile" />
           </div>
-          <div className="col-md-12 col-xl-6 name-profile">
+          <div className="col-md-12 col-xl-6 name-profile mb-3">
             <h1>{getDataUser.fullname}</h1>
             {/* <p>Dev : Client</p> */}
           </div>
-          <div className="col-md-12 name-profile col-xl-2">
+          <div className="col-md-12 col-xl-2 name-profile">
             <Button className="text-uppercase">
               <AiOutlineScan /> In Hồ Sơ
             </Button>
@@ -161,13 +161,14 @@ const UserProfile = (props) => {
             </div>
           </div>
           <div className="col-md-6 icon-detail d-flex align-items-center">
-            {/* <i className="fa fa-birthday-cake" aria-hidden="true"></i> */}
+            <i className="fa fa-lock" aria-hidden="true"></i>
             <div>
               {/* <Form.input type="password" value={getDataUser.address} /> */}
               <Form.Group
                 className="wrap-inputInfo validate-input"
                 controlId="formBasicPassword"
               >
+                <p>Mật khẩu</p>
                 <Form.Control
                   type={typePassWord}
                   value={getDataUser.password}
@@ -176,7 +177,7 @@ const UserProfile = (props) => {
                 {typePassWord === "password" ? (
                   <button
                     type="button"
-                    className="show-password "
+                    className="show-password"
                     onClick={() => setTypePassWord("text")}
                   >
                     <AiFillEye />
@@ -191,34 +192,28 @@ const UserProfile = (props) => {
                   </button>
                 )}
               </Form.Group>
-              <p>Mật khẩu</p>
             </div>
           </div>
         </div>
 
         <hr className="line-page" />
 
-        <Row>
-          <Col>
-            <div className="col-md-12 icon-detail d-flex align-items-center col">
-              <i className="fa fa-location-arrow" aria-hidden="true"></i>
-              <div className="title-text">
-                {getDataUser.address}
-                <p>Địa chỉ</p>
-              </div>
+        <div className="row">
+          <div className="col-md-6 icon-detail d-flex align-items-center">
+            <i className="fa fa-location-arrow" aria-hidden="true"></i>
+            <div className="title-text">
+              {getDataUser.address}
+              <p>Địa chỉ</p>
             </div>
-          </Col>
-          <Col>
-            <div className="col-md-12 icon-detail d-flex align-items-center col">
-              <i className="fa fa-address-book" aria-hidden="true"></i>
-              <div className="title-text">
-                {getDataUser.created_date}
-                <p>Ngày tham gia</p>
-              </div>
+          </div>
+          <div className="col-md-6 icon-detail d-flex align-items-center">
+            <i className="fa fa-address-book" aria-hidden="true"></i>
+            <div className="title-text">
+              {getDataUser.created_date}
+              <p>Ngày tham gia</p>
             </div>
-          </Col>
-        </Row>
-
+          </div>
+        </div>
       </div>
 
       <div className="card-profile m-t-40 collapse" id="history">

@@ -16,7 +16,7 @@ html {
   right: 3%;
   font-size: 16px;
   color: gray;
-  transform: translateY(-50%);
+  transform: translateY(-15%);
 }
 
 /* User Profile */
@@ -32,7 +32,7 @@ html {
 }
 
 .name-profile h1 {
-  text-align: start;
+  text-align: left;
   margin: 0;
 }
 
@@ -48,7 +48,8 @@ html {
   border-radius: 8px;
   outline: none;
   transition: 0.5s ease-in-out;
-  padding: 10px 20px;
+  padding: 10px 0px;
+  padding-left: 10px;
 }
 
 .link-profile {
@@ -188,8 +189,22 @@ html {
   border-radius: 4px;
 }
 
+@media only screen and (max-width: 1200px) {
+  .name-profile {
+    text-align: center;
+  }
+
+  .name-profile h1 {
+    text-align: center;
+  }
+}
+
 @media only screen and (max-width: 770px) {
   .name-profile {
+    text-align: center;
+  }
+
+  .name-profile h1 {
     text-align: center;
   }
 
