@@ -76,7 +76,7 @@ function Shop(props) {
     const handleSearch = (e) => {
         console.log(e);
         const dataSearch = {
-            fildter: e.fildter,
+            fildter: e.fildter ? e.fildter : "name",
             value: e.value
         }
         const query = "?" + queryString.stringify(dataSearch)
