@@ -195,7 +195,6 @@ function Shop(props) {
     if (dataFilded.fildter === "") {
       dataFilded.fildter = "name";
     }
-    console.log('dataFilded', dataFilded);
     const query = "?" + queryString.stringify(dataFilded);
     if (!value) {
       axios
@@ -318,33 +317,35 @@ function Shop(props) {
                 {/* ------------------Search----------------- */}
                 {/* <Search handleSearch={handleSearch} /> */}
 
-                <Form action="" style={{ display: "flex" }}>
-                  <InputGroup className="mb-3" style={{ width: "40%" }}>
-                    <Form.Select
-                      value={filedSearches}
-                      onChange={(e) => setFiledSearches(e.target.value)}
-                    >
-                      <option value="name">Tên sản phẩm</option>
-                      <option value="category">Loại sản phẩm</option>
-                      <option value="brand">thương hiệu</option>
-                    </Form.Select>
-                    <Form.Control
-                      className="w-50"
-                      placeholder="tìm kiếm"
-                      onChange={onChangeText}
-                    />
-                  </InputGroup>
-                </Form>
-                {/* ------------------Search----------------- */}
-
-                {/* <div className="col-lg-4">
-                  <ul className="list-inline d-flex align-items-center justify-content-lg-end mb-0">
-                    <li className="list-inline-item">
-                      <SortProduct handlerChangeSort={handlerChangeSort} />
-                    </li>
-                  </ul>
-                </div> */}
+                <div className="col d-flex justify-content-between">
+                  <Form action="" style={{ display: "flex" }}>
+                    <InputGroup className="mb-3" style={{ width: "100%" }}>
+                      <Form.Select
+                        value={filedSearches}
+                        onChange={(e) => setFiledSearches(e.target.value)}
+                      >
+                        <option value="name">Tên sản phẩm</option>
+                        <option value="category">Loại sản phẩm</option>
+                        <option value="brand">thương hiệu</option>
+                      </Form.Select>
+                      <Form.Control
+                        className="w-50"
+                        placeholder="tìm kiếm"
+                        onChange={onChangeText}
+                      />
+                    </InputGroup>
+                  </Form>
+                  {/* <div className="col-lg-4"> */}
+                    <ul className="list-inline d-flex align-items-center justify-content-lg-end mb-0">
+                      <li className="list-inline-item">
+                        <SortProduct handlerChangeSort={handlerChangeSort} />
+                      </li>
+                    </ul>
+                  {/* </div> */}
+                </div>
               </div>
+
+              {/* ------------------Search----------------- */}
 
               <div className="row">
                 {products.map((val, key) => (
