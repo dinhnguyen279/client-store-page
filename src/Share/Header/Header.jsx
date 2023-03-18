@@ -19,6 +19,7 @@ import CartAPI from '../../API/CartAPI';
 import queryString from 'query-string';
 
 function Header(props) {
+    const countCart = props.countCart
     // const [active, setActive] = useState('Home')
     const dispatch = useDispatch()
 
@@ -26,7 +27,7 @@ function Header(props) {
 
     const [dataCategories, setDataCategories] = useState([])
 
-    const [countCart, setCountCart] = useState(0)
+    // const [countCart, setCountCart] = useState(0)
 
     const URL_CART = `${HOST}/getCartById`
 
@@ -70,25 +71,9 @@ function Header(props) {
             await Categories.getAllCategories()
                 .then((res) => setDataCategories(res.data))
                 .catch(err => console.log(err))
-
-            if (idUser) {
-                await CartAPI.getCartById(`/${idUser}`)
-                    .then((res) => getCount(res.data))
-                    .catch(error => console.log(error))
-            }
         }
         fecthData()
     }, [])
-    const getCount = (getCount) => {
-        let count = getCount
-        let totalCount = 0
-        count.map((val) => {
-            return (
-                totalCount += val.quantity
-            )
-        })
-        setCountCart(totalCount)
-    }
 
     return (
 

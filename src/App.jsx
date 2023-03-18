@@ -21,16 +21,19 @@ import MainHistory from "./History/MainHistory";
 import DetailHistory from "./History/DetailHistory";
 import ErrorPage from "./Share/404/404";
 import ScrollToTopButton from "./Share/ScrollTop/ScrollTopButton";
+import React, { useEffect, useState } from "react";
+import CartAPI from "./API/CartAPI";
 
 function App() {
+  const [countCart, setCountCart] = useState(0)
   return (
     <div className="App">
       <BrowserRouter>
-        <Header />
+        <Header countCart={countCart} />
         <ScrollToTopButton />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/detail/:id" element={<Detail />} />
+          <Route path="/detail/:id" element={<Detail setCountCart={setCountCart} />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />

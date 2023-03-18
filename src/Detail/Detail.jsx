@@ -17,7 +17,9 @@ import {
   AiTwotoneStar,
 } from "react-icons/ai";
 import { HOST } from "../domain/host/host";
+import CartAPI from "../API/CartAPI";
 function Detail(props) {
+  const setCountCart = props.setCountCart
   const URL_AddToCart = `${HOST}/addToCart`;
   const URL_GetVoucher = `${HOST}/coupons`;
 
@@ -85,6 +87,23 @@ function Detail(props) {
       size: sizeProduct,
     };
     axios.post(URL_AddToCart, data);
+    // Hàm này sẽ lấy quantity và tính tổng số lượng sản phẩm trong cart và cập nhật giỏ hàng ở header
+    if (id_user_cart) {
+      CartAPI.getCartById(`/${id_user_cart}`)
+        .then((res) => getCount(res.data))
+        .catch(error => console.log(error))
+    }
+    const getCount = (getCount) => {
+      let count = getCount
+      let totalCount = 0
+      count.map((val) => {
+        return (
+          totalCount += val.quantity
+        )
+      })
+      setCountCart(totalCount)
+    }
+
     alertify.set("notifier", "position", "bottom-left");
     alertify.success("Bạn Đã Thêm Hàng Thành Công!");
   };
@@ -166,6 +185,7 @@ function Detail(props) {
   const size = detail.size;
   const arrAlbum = album ? album.split(" ") : [];
   const arrSize = size ? size.split(" ") : [];
+
   return (
     <section className="py-4 main-detail">
       <div className="py-2 bg-light mb-4">

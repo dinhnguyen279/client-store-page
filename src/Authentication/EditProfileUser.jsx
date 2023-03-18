@@ -55,7 +55,7 @@ const EditProfileUser = (props) => {
               id="image"
               value={getDataUser.avatar}
               onDone={({ base64 }) =>
-              setGetDataUser({ ...getDataUser, avatar: base64 })
+                setGetDataUser({ ...getDataUser, avatar: base64 })
               }
             />
             {/* <Form.Label className="form-label">Ảnh đại diện</Form.Label> */}
@@ -140,20 +140,16 @@ const EditProfileUser = (props) => {
             />
             <Form.Label className="form-label">Mật Khẩu</Form.Label>
           </Form.Group>
-
-          <Button
-            className="w-100"
-            onClick={() => onSubmit(getDataUser._id)}
-          >
-            Cập nhật
-          </Button>
         </Form>
       </Modal.Body>
-      {/* <Modal.Footer>
-        <Button variant="danger" onClick={props.onHide}>
-          Đóng
+      <Modal.Footer>
+        <Button
+          className="w-100"
+          onClick={() => onSubmit(getDataUser._id)}
+        >
+          Cập nhật
         </Button>
-      </Modal.Footer> */}
+      </Modal.Footer>
     </Modal>
   );
 };
