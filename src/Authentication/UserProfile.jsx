@@ -91,10 +91,6 @@ const UserProfile = (props) => {
                 Tài khoản
               </button>
             </div>
-            {/* <div className='m-r-10 btn-detail' style={active === 'Notes' ? { background: '#6e00ff' } : { background: 'none' }} onClick={() => handlerActive("Notes")}>
-                            <button data-toggle="collapse" data-target="#notes" className="link-profile"
-                            ><i className="m-r-10 fa fa-sticky-note" style={{ fontSize: "20px" }} aria-hidden="true" /> Notes</button>
-                        </div> */}
             <div
               className="btn-detail"
               style={

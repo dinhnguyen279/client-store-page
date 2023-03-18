@@ -113,21 +113,19 @@ html {
   background: #fff;
   padding: 0 10px;
   color: black;
-  font-size: 13px;
+  font-size: 12px;
   color: black;
 }
 .form-label {
   font-weight: 400;
   position: absolute;
-  top: 40%;
-  left: 7%;
+  top: 50%;
+  left: 5%;
   transform: translateY(-60%);
   transition: 0.25s ease;
 }
 
 .form-input-user {
-  /* width: 100%; */
-  /* padding: 0 8px; */
   transition-timing-function: linear;
   user-select: none;
   border-width: 2px;
@@ -138,7 +136,7 @@ html {
   outline: none;
 }
 
-.form-edit-user {
+/* .form-edit-user {
   position: fixed;
   left: 70%;
   top: 50%;
@@ -150,7 +148,7 @@ html {
   border-radius: 8px;
   z-index: 10;
   box-shadow: 0px 2px 6px rgb(99, 98, 98);
-}
+} */
 
 .input-edit-user {
   margin-top: 30px;
@@ -187,12 +185,7 @@ html {
   color: black;
   padding: 10px 20px;
   margin-bottom: 20px;
-  width: 100%;
   border-radius: 4px;
-  border: 1px solid gray;
-}
-.input-text input:focus {
-  outline: 2px solid #4272d7;
 }
 
 @media only screen and (max-width: 770px) {

@@ -7,7 +7,7 @@ const EditProfileUser = (props) => {
   return (
     <Modal
       {...props}
-      size="lg"
+      size="md"
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
@@ -17,40 +17,28 @@ const EditProfileUser = (props) => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Họ tên</Form.Label>
-            <Form.Control type="name" placeholder="Họ và tên" value={getDataUser.fullname} />
-            {/* <Form.Text className="text-muted">
-              We'll never share your email with anyone else.
-            </Form.Text> */}
+        <Form className="input-edit-user">
+          <Form.Group className="mb-3 input-text position-relative" controlId="formBasicEmail">
+            <Form.Control className="form-input-user mw-100" type="name" placeholder=" " value={getDataUser.fullname} />
+            <Form.Label className="form-label">Họ và Tên</Form.Label>
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Số điện thoại</Form.Label>
-            <Form.Control type="phone" placeholder="Số điện thoại" value={getDataUser.phone} />
-            {/* <Form.Text className="text-muted">
-              We'll never share your email with anyone else.
-            </Form.Text> */}
+          <Form.Group className="mb-3 input-text position-relative" controlId="formBasicEmail">
+            <Form.Control className="form-input-user mw-100" type="phone" placeholder=" " value={getDataUser.phone} />
+            <Form.Label className="form-label">Số điện thoại</Form.Label>
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Email</Form.Label>
-            <Form.Control type="email" placeholder="email" value={getDataUser.email} />
-            {/* <Form.Text className="text-muted">
-              We'll never share your email with anyone else.
-            </Form.Text> */}
+          <Form.Group className="mb-3 input-text position-relative" controlId="formBasicEmail">
+            <Form.Control className="form-input-user mw-100" type="email" placeholder=" " value={getDataUser.email} />
+            <Form.Label className="form-label">Email</Form.Label>
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Địa chỉ</Form.Label>
-            <Form.Control type="address" placeholder="address" value={getDataUser.address} />
-            {/* <Form.Text className="text-muted">
-              We'll never share your email with anyone else.
-            </Form.Text> */}
+          <Form.Group className="mb-3 input-text position-relative" controlId="formBasicEmail">
+            <Form.Control className="form-input-user mw-100" type="address" placeholder=" " value={getDataUser.address} />
+            <Form.Label className="form-label">Địa chỉ</Form.Label>
           </Form.Group>
 
-          <Button type="submit">Cập nhật</Button>
+          <Button className='w-100' type="submit" >Cập nhật</Button>
         </Form>
       </Modal.Body>
       <Modal.Footer>
