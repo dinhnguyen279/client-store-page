@@ -45,28 +45,23 @@ const UserProfile = (props) => {
       .then((response) => setHistory(response.data))
       .catch((error) => console.log(error));
   }, []);
-  
+
   return (
     <div className={"container-fluid main-profile p-l-55 p-r-55 p-b-50"}>
       <div className="card-profile">
-        <div className="row" style={{ margin: "auto" }}>
+        <div className="d-block d-md-flex justify-between">
           <div
-            className="col-md-12 col-xl-4 mb-3 position-relative"
-            style={{ width: "200px", margin: "auto" }}
+            className=" mb-3 main-img-profile d-block d-md-flex align-items-end"
           >
             <img
               src={getDataUser.avatar}
-              style={{ width: "100%" }}
-              className="img-fluid rounded-circle img-profile"
+              style={{ width: "200px", height: "200px" }}
+              className="img-profile"
               alt="Profile Picture"
             />
-            <AiOutlineEdit className="icon-userprofile" />
-          </div>
-          <div className="col-md-12 col-xl-6 name-profile mb-3">
             <h1>{getDataUser.fullname}</h1>
-            {/* <p>Dev : Client</p> */}
           </div>
-          <div className="col-md-12 col-xl-2 name-profile">
+          <div className=" name-profile">
             <Button className="text-uppercase">
               <AiOutlineScan /> In Hồ Sơ
             </Button>

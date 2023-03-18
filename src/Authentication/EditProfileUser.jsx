@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import FileBase64 from "react-file-base64";
 import { HOST } from "../domain/host/host";
 import axios from "axios";
+import Image from "../Share/img/Image"
 const EditProfileUser = (props) => {
   const URL_UPDATEUSER = `${HOST}/updateUser`;
 
@@ -37,16 +38,14 @@ const EditProfileUser = (props) => {
       <Modal.Body>
         <Form className="input-edit-user">
           <Form.Group
-            className="mb-3 input-text position-relative"
+            className="mb-4 main-img-profile"
             controlId="formBasicEmail"
           >
             <img
               src={getDataUser.avatar}
-              alt=""
-              srcset=""
-              style={{ width: "30%" }}
+              alt="Hình ảnh người dùng"
+              className="img-profile"
             />
-
             <FileBase64
               accept="image/*"
               multiple={false}
@@ -58,7 +57,6 @@ const EditProfileUser = (props) => {
                 setGetDataUser({ ...getDataUser, avatar: base64 })
               }
             />
-            {/* <Form.Label className="form-label">Ảnh đại diện</Form.Label> */}
           </Form.Group>
 
           <Form.Group
