@@ -4,10 +4,12 @@ import { HOST } from "../domain/host/host";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import CitySelectionForm from "./CitySelectionForm";
+import alertify from "alertifyjs";
 
 function Checkout(props) {
   const URL_CART = `${HOST}/getCartById`;
   const URL_CheckOut = `${HOST}/createBill`;
+  const URL_getUserById = `${HOST}/user`;
 
   const [getCartById, setCartById] = useState([]);
 
@@ -20,6 +22,7 @@ function Checkout(props) {
   const [errors, setErrors] = useState(false);
   const [success, setSuccess] = useState(false);
   const [load, setLoad] = useState(false);
+  const [user, setUser] = useState({});
 
   //Hàm này bắt đầu gửi Email xác nhận đơn hàng
 
@@ -32,6 +35,10 @@ function Checkout(props) {
           setCartById(response.data);
           getTotal(response.data);
         })
+        .catch((error) => console.log(error));
+      axios
+        .get(`${URL_getUserById}/${id_user}`)
+        .then((response) => setUser(response.data))
         .catch((error) => console.log(error));
     }
   }, []);
@@ -48,16 +55,22 @@ function Checkout(props) {
 
       const data = {
         idUser: sessionStorage.getItem("id_user"),
-        phone: phone,
-        address: address,
-        fullname: fullName,
+        phone: phone ? phone : user.phone,
+        address: address ? address : user.address,
+        fullname: fullName ? fullName : user.fullname,
         total: total,
         quantity: quantity.toString(),
-        email: email,
+        email: email ? email : user.email,
         nameProduct: nameProduct.toString(),
         price: price.toString(),
         size: size.toString(),
       };
+      console.log(data);
+      if (data.total === 0){
+        alertify.set("notifier", "position", "bottom-left");
+        alertify.error("Vui Lòng Kiểm Tra Lại Giỏ Hàng!");
+        return;
+      }
       axios.post(URL_CheckOut, data);
       setTimeout(() => {
         setSuccess(!success);
@@ -89,7 +102,7 @@ function Checkout(props) {
   };
 
   const onChangeName = (e) => {
-    setFullName(e.target.value);
+    setFullName(user.fullname ? user.fullname : e.target.value);
   };
 
   const onChangeEmail = (e) => {
@@ -109,12 +122,12 @@ function Checkout(props) {
     let isValid = true;
     const error = {};
 
-    if (!fullName) {
+    if (!user.fullname && !fullName) {
       isValid = false;
       error.fullName = "Họ và Tên không được bỏ trống!";
     }
 
-    if (!email) {
+    if (!user.email && !email) {
       isValid = false;
       error.email = "Email không tồn tại!";
     } else if (!validateEmail(email)) {
@@ -122,7 +135,7 @@ function Checkout(props) {
       error.email = "Email không hợp lệ!";
     }
 
-    if (!phone) {
+    if (!user.phone && !phone) {
       isValid = false;
       error.phone = "Số điện thoại không được để trống!";
     } else if (!validatePhoneNumber(phone)) {
@@ -130,7 +143,7 @@ function Checkout(props) {
       error.phone = "Số điện thoại không hợp lệ!";
     }
 
-    if (!address) {
+    if (!user.address && !address) {
       isValid = false;
       error.address = "Địa chỉ không được bỏ trống!";
     } else {
@@ -183,7 +196,7 @@ function Checkout(props) {
                       <input
                         className="form-control form-control-lg"
                         style={{ maxWidth: "100%" }}
-                        value={fullName}
+                        value={user.fullname ? user.fullname : fullName}
                         onChange={onChangeName}
                         type="text"
                         placeholder="Nhập họ và tên của bạn ở đây!"
@@ -203,7 +216,7 @@ function Checkout(props) {
                       <input
                         className="form-control form-control-lg w-100"
                         style={{ maxWidth: "100%" }}
-                        value={email}
+                        value={user.email ? user.email : email}
                         onChange={onChangeEmail}
                         type="text"
                         placeholder="Nhập Email của bạn ở đây!"
@@ -223,7 +236,7 @@ function Checkout(props) {
                       <input
                         className="form-control form-control-lg"
                         style={{ maxWidth: "100%" }}
-                        value={phone}
+                        value={user.phone ? user.phone : phone}
                         onChange={onChangePhone}
                         type="number"
                         placeholder="Nhập số điện thoại của bạn ở đây!"
@@ -243,7 +256,7 @@ function Checkout(props) {
                       <input
                         className="form-control form-control-lg"
                         style={{ maxWidth: "100%" }}
-                        value={address}
+                        value={user.address ? user.address : address}
                         onChange={onChangeAddress}
                         type="text"
                         placeholder="Nhập địa chỉ của bạn ở đây!"
@@ -255,7 +268,7 @@ function Checkout(props) {
                     </div>
                   </div>
                   <div className="row">
-                    <CitySelectionForm />
+                    {/* <CitySelectionForm /> */}
                     <div className="col-lg-12 form-group">
                       <button
                         className="btn btn-dark"
@@ -286,8 +299,8 @@ function Checkout(props) {
                                   value.promotionPrice
                                     ? value.promotionPrice
                                     : value.price
-                                )}{"₫ "}
-                                x {value.quantity}
+                                )}
+                                {"₫ "}x {value.quantity}
                               </span>
                             </li>
                             <li className="border-bottom my-2"></li>
