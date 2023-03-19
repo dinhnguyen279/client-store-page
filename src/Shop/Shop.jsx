@@ -266,7 +266,9 @@ function Shop(props) {
 
                             <div className="row">
                                 {products.map((val, key) => (
-                                    <CardProduct key={key + 1} itemProduct={val} />
+                                    <div className="col-md-4 col-xl-3 col-sm-6">
+                                        <CardProduct key={key + 1} itemProduct={val} />
+                                    </div>
                                 ))}
                             </div>
 
