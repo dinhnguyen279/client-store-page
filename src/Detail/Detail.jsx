@@ -18,6 +18,7 @@ import {
 } from "react-icons/ai";
 import { HOST } from "../domain/host/host";
 import CartAPI from "../API/CartAPI";
+import CardProduct from "../components/CardProduct";
 function Detail(props) {
   const URL_AddToCart = `${HOST}/addToCart`;
   const URL_GetVoucher = `${HOST}/coupons`;
@@ -37,6 +38,7 @@ function Detail(props) {
   // const listCart = useSelector((state) => state.Cart.listCart);
   // const idUser = useSelector((state) => state.Session.idUser);
 
+  // Hàm này dùng để lấy ra thông tin từng sản phẩm
   useEffect(() => {
     const fetchData = async () => {
       const response = await ProductAPI.getDetail(id);
@@ -171,7 +173,7 @@ function Detail(props) {
   const arrSize = size ? size.split(" ") : [];
 
   return (
-    <section className="py-4 main-detail">
+    <section className="py-4 main-detail" >
       <div className="py-2 bg-light mb-4">
         <div className="container">
           <ol className="breadcrumb justify-content-start">
@@ -463,39 +465,8 @@ function Detail(props) {
         <div className="row">
           {product &&
             product.map((value, idx) => (
-              <div className="col-lg-3 col-sm-6">
-                <div className="product text-center skel-loader" key={idx + 1}>
-                  <div className="d-block mb-3 product-detail">
-                    <Link className="d-block" to={`/detail/${value._id}`}>
-                      <img
-                        className="img-fluid w-100"
-                        src={value.avt}
-                        alt="..."
-                      />
-                    </Link>
-                    <div className="product-overlay-detail">
-                      <div className="mb-0 list-inline btn-detail">
-                        <Link
-                          className="btn btn-sm btn-dark"
-                          to={`/detail/${value._id}`}
-                        >
-                          Thông tin sản phẩm
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                  <h6>
-                    <Link className="reset-anchor" to={`/detail/${value._id}`}>
-                      {value.name}
-                    </Link>
-                  </h6>
-                  <Card.Text style={{ color: "red" }}>
-                    {value.promotionPrice ? value.promotionPrice : value.price}₫
-                    <span style={{ color: "grey", paddingLeft: "10px" }}>
-                      <del>{value.promotionPrice ? value.price + "₫" : ""}</del>
-                    </span>
-                  </Card.Text>
-                </div>
+              <div className="col-md-4 col-xl-3 col-sm-6">
+                <CardProduct key={idx + 1} itemProduct={value} />
               </div>
             ))}
         </div>

@@ -3,7 +3,7 @@ import Image from '../Share/img/Image'
 import { Link } from 'react-router-dom';
 import ProductAPI from '../API/ProductAPI';
 import { Card } from 'react-bootstrap';
-import { AiOutlineShoppingCart } from 'react-icons/ai';
+import { AiOutlineProfile } from 'react-icons/ai';
 import Carousel from '../components/Carousel';
 import CardProduct from '../components/CardProduct';
 function Home(props) {
@@ -56,11 +56,20 @@ function Home(props) {
                                                         <li className="list-inline-item m-0"><i className="fas fa-star small text-warning"></i></li>
                                                     </ul>
                                                     <h2 className="h4">{value.name}</h2>
-                                                    <p className="text-muted">${value.price}</p>
+                                                    {value.promotionPrice === "" ? (
+                                                        <Card.Text>{value.price}₫</Card.Text>
+                                                    ) : (
+                                                        <Card.Text style={{ color: "red" }}>
+                                                            {value.promotionPrice}₫
+                                                            <span style={{ color: "grey", paddingLeft: "10px" }}>
+                                                                <del>{value.price}₫</del>
+                                                            </span>
+                                                        </Card.Text>
+                                                    )}
                                                     <p className="text-small mb-4">{value.description}</p>
                                                     <div className="row align-items-stretch mb-4">
                                                         <div className="col-sm-12 pl-sm-0 fix_addwish mb-2">
-                                                            <button type='button' className='btn-warning btn btn-sm btn-block'><AiOutlineShoppingCart /> Thêm giỏ hàng</button>
+                                                            <Link className='btn-warning btn btn-sm btn-block'><AiOutlineProfile /> Thông tin sản phẩm</Link>
                                                         </div>
                                                         <div className="col-sm-12 pl-sm-0 fix_addwish">
                                                             <a className="btn btn-dark btn-sm btn-block">
@@ -153,7 +162,9 @@ function Home(props) {
                                 featured ? (
                                     featured.map((value, key) => {
                                         return (
-                                            <CardProduct key={key + 1} itemProduct={value} />
+                                            <div className="col-md-4 col-xl-2 col-sm-6">
+                                                <CardProduct key={key + 1} itemProduct={value} />
+                                            </div>
                                         )
                                     })
                                 ) : (
@@ -216,7 +227,9 @@ function Home(props) {
                                 bestseller ? (
                                     bestseller.map((value, key) => {
                                         return (
-                                            <CardProduct key={key + 1} itemProduct={value} />
+                                            <div className="col-md-4 col-xl-2 col-sm-6">
+                                                <CardProduct key={key + 1} itemProduct={value} />
+                                            </div>
                                         )
                                     })
                                 ) : (
@@ -287,9 +300,6 @@ function Home(props) {
                                     ) : " "}
 
                                 </div>
-                                {/* <button className='btn-view' title='XEM NGAY'>
-                                    XEM NGAY
-                                </button> */}
                             </div>
                         </div>
                     </section>
@@ -303,7 +313,9 @@ function Home(props) {
                                 hotdeals ? (
                                     hotdeals.map((value, key) => {
                                         return (
-                                            <CardProduct key={key + 1} itemProduct={value} />
+                                            <div className="col-md-4 col-xl-3 col-sm-6">
+                                                <CardProduct key={key + 1} itemProduct={value} />
+                                            </div>
                                         )
                                     })
                                 ) : (
