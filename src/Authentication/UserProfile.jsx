@@ -11,8 +11,7 @@ import Form from "react-bootstrap/Form";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { FaStore, FaShippingFast, FaStoreAlt } from "react-icons/fa";
 import Table from "react-bootstrap/Table";
-import Card from "react-bootstrap/Card";
-import { Link } from "react-router-dom";
+
 const UserProfile = (props) => {
   const URL_GetDetailUser = `${HOST}/user`;
   const URL_BILLBYID = `${HOST}/getBillById`;
@@ -48,13 +47,25 @@ const UserProfile = (props) => {
       .catch((error) => console.log(error));
   }, []);
 
+  // const purchasedProduct = history.find(val => val.nameProduct)
+  const listProduct = [];
+
+  for (let i = 0; i < history.length; i++) {
+    const obj = {};
+    obj.name = history[i].nameProduct;
+    obj.quantity = history[i].quantity;
+    obj.price = history[i].price;
+    obj._id = history[i]._id;
+    listProduct.push(obj);
+  }
+
+  // console.log("listProduct", listProduct);
+  // console.log('purchasedProduct',purchasedProduct);
   return (
     <div className={"container-fluid main-profile p-l-55 p-r-55 p-b-50"}>
       <div className="card-profile">
         <div className="d-block d-md-flex justify-between">
-          <div
-            className=" mb-3 main-img-profile d-block d-md-flex align-items-end"
-          >
+          <div className=" mb-3 main-img-profile d-block d-md-flex align-items-end">
             <img
               src={getDataUser.avatar}
               className="img-profile"
@@ -120,7 +131,6 @@ const UserProfile = (props) => {
       </div>
 
       <div className="card-profile m-t-40 collapse" id="overview">
-
         <div className="card-title d-flex justify-content-between">
           <h3 className="title-text">Thông tin cá nhân</h3>
           <Button
@@ -221,50 +231,24 @@ const UserProfile = (props) => {
       </div>
 
       <div className="card-profile m-t-40 collapse" id="history">
-        <div className="row">
-          <div className="col-md-12 col-lg-6 history-profile-user">
+        {/* <div className="row"> */}
+        <FaStore className="mr-2" />
+        <span>Sports Zone</span>
+        {history.map((val, key) => (
+          <div className="col-md-12 history-profile-user">
             <div>
-              <FaStore className="mr-2" />
-              <span>Sports Zone</span>
+              <p>Mã đơn hàng: {val._id}</p>
+              <p>Tên sản phẩm: {val.nameProduct}</p>
+              <p>Số lượng: {val.quantity}</p>
+              <p>Giá: {val.price}</p>
+              <p>
+                <b>Tổng:</b> {val.total}
+              </p>
             </div>
-
-            {/* <h3 className="card-title title-text ">Lịch sử mua hàng</h3> */}
-            {/* <div className="table-responsive pt-5 pb-5"> */}
-            {/* <Card>
-            <Card.Header>Mã Đơn hàng: {history._id}</Card.Header>
-            <Card.Body>Tên sản phẩm: {history.nameProduct}</Card.Body>
-          </Card> */}
-            {/* <Table striped hover>
-            <thead>
-              <tr>
-                <th>Mã đơn hàng</th>
-                <th>Tên sản phẩm</th>
-                <th>Tổng</th>
-                <th>Ngày đặt</th>
-                <th>Chi tiết</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{history._id}</td>
-                <td>{history.nameProduct}</td>
-                <td>{history.total}</td>
-                <td>{history.created_date}</td>
-                <td>
-                  <Button
-                    style={{ cursor: "pointer", color: "white" }}
-                    className="btn btn-success"
-                    onClick={() => handleShowModalView(value._id)}
-                  >
-                    View
-                  </Button>
-                </td>
-              </tr>
-            </tbody>
-          </Table> */}
-
           </div>
-        </div>
+        ))}
+
+        {/* </div> */}
       </div>
     </div>
   );
