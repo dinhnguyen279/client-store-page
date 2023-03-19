@@ -18,6 +18,22 @@ html {
   color: gray;
   transform: translateY(-15%);
 }
+/* HISTORY */
+
+.history-profile-user {
+  display: flex;
+  gap: 20px;
+  border: 1px solid red;
+}
+
+.header-history {
+  display: flex;
+  align-items: center;
+}
+
+/* .content-history {
+
+} */
 
 /* User Profile */
 .main-profile {
@@ -82,11 +98,6 @@ html {
   width: 130px;
   /* margin-bottom: 30px; */
   text-align: center;
-}
-
-.history-profile-user {
-  display: flex;
-  gap: 20px;
 }
 
 .icon-detail {
