@@ -28,7 +28,6 @@ const UserProfile = (props) => {
     sex: "",
   });
   const [history, setHistory] = useState([]);
-
   // Show/hide password
   const [typePassWord, setTypePassWord] = useState("password");
   const handlerActive = (value) => {
@@ -231,12 +230,13 @@ const UserProfile = (props) => {
       </div>
 
       <div className="card-profile m-t-40 collapse" id="history">
-        {/* <div className="row"> */}
-        <FaStore className="mr-2" />
-        <span>Sports Zone</span>
+        <div className="header-history">
+          <FaStore className="mr-2" />
+          <span>Sports Zone</span>
+        </div>
         {history.map((val, key) => (
-          <div className="col-md-12 history-profile-user">
-            <div>
+          <div className="col-md-12 history-profile-user" key={key + 1}>
+            <div className="content-history">
               <p>Mã đơn hàng: {val._id}</p>
               <p>Tên sản phẩm: {val.nameProduct}</p>
               <p>Số lượng: {val.quantity}</p>
@@ -247,8 +247,6 @@ const UserProfile = (props) => {
             </div>
           </div>
         ))}
-
-        {/* </div> */}
       </div>
     </div>
   );
