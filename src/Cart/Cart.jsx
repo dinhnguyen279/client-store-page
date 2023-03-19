@@ -150,6 +150,7 @@ function Cart(props) {
         const query = "?" + queryString.stringify(params);
 
         await axios.put(`${HOST}/updateCart${query}`)
+        props.fecthCount()
       };
 
       fetchPut();

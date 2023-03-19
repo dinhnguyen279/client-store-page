@@ -9,8 +9,10 @@ import axios from "axios";
 
 import Form from "react-bootstrap/Form";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { FaStore, FaShippingFast, FaStoreAlt } from "react-icons/fa";
 import Table from "react-bootstrap/Table";
 import Card from "react-bootstrap/Card";
+import { Link } from "react-router-dom";
 const UserProfile = (props) => {
   const URL_GetDetailUser = `${HOST}/user`;
   const URL_BILLBYID = `${HOST}/getBillById`;
@@ -55,7 +57,6 @@ const UserProfile = (props) => {
           >
             <img
               src={getDataUser.avatar}
-              style={{ width: "200px", height: "200px" }}
               className="img-profile"
               alt="Profile Picture"
             />
@@ -220,13 +221,20 @@ const UserProfile = (props) => {
       </div>
 
       <div className="card-profile m-t-40 collapse" id="history">
-        <h3 className="card-title title-text ">Lịch sử mua hàng</h3>
-        <div className="table-responsive pt-5 pb-5">
-          <Card>
+        <div className="row">
+          <div className="col-md-12 col-lg-6 history-profile-user">
+            <div>
+              <FaStore className="mr-2" />
+              <span>Sports Zone</span>
+            </div>
+
+            {/* <h3 className="card-title title-text ">Lịch sử mua hàng</h3> */}
+            {/* <div className="table-responsive pt-5 pb-5"> */}
+            {/* <Card>
             <Card.Header>Mã Đơn hàng: {history._id}</Card.Header>
             <Card.Body>Tên sản phẩm: {history.nameProduct}</Card.Body>
-          </Card>
-          {/* <Table striped hover>
+          </Card> */}
+            {/* <Table striped hover>
             <thead>
               <tr>
                 <th>Mã đơn hàng</th>
@@ -254,6 +262,8 @@ const UserProfile = (props) => {
               </tr>
             </tbody>
           </Table> */}
+
+          </div>
         </div>
       </div>
     </div>

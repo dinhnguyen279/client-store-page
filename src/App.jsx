@@ -26,6 +26,30 @@ import CartAPI from "./API/CartAPI";
 
 function App() {
   const [countCart, setCountCart] = useState(0)
+  var idUser = sessionStorage.getItem("id_user")
+
+  const fecthCount = async () => {
+    const getCount = (getCount) => {
+      let count = getCount
+      let totalCount = 0
+      count.map((val) => {
+        return (
+          totalCount += val.quantity
+        )
+      })
+      setCountCart(totalCount)
+    }
+
+    if (idUser) {
+      await CartAPI.getCartById(`/${idUser}`)
+        .then((res) => getCount(res.data))
+        .catch(error => console.log(error))
+    }
+    console.log("Đã tới get count");
+  }
+  fecthCount()
+
+  console.log(countCart);
   return (
     <div className="App">
       <BrowserRouter>
@@ -33,8 +57,8 @@ function App() {
         <ScrollToTopButton />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/detail/:id" element={<Detail setCountCart={setCountCart} />} />
-          <Route path="/cart" element={<Cart />} />
+          <Route path="/detail/:id" element={<Detail fecthCount={fecthCount} />} />
+          <Route path="/cart" element={<Cart fecthCount={fecthCount} />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/checkout" element={<Checkout />} />

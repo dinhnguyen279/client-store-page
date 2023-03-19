@@ -84,6 +84,11 @@ html {
   text-align: center;
 }
 
+.history-profile-user {
+  display: flex;
+  gap: 20px;
+}
+
 .icon-detail {
   margin: 10px auto;
 }
