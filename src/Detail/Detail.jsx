@@ -306,7 +306,7 @@ function Detail(props) {
                   </li>
                   <li className="py-2 mb-1 size-products">
                     <strong className="text-uppercase text-dark">Size:</strong>
-                    {arrSize.length === 0 ? " freesize" : arrSize.map((val, idx) => {
+                    {arrSize.length === 0 ? "null" : arrSize.map((val, idx) => {
                       return (
                         <a
                           key={idx + 1}
