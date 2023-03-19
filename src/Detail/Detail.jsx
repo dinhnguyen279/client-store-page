@@ -5,7 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import alertify from "alertifyjs";
 // import { addCart } from "../Redux/Action/ActionCart";
 // import CartAPI from "../API/CartAPI";
-// import queryString from "query-string";
+import queryString from "query-string";
 // import CommentAPI from "../API/CommentAPI";
 import axios from "axios";
 import { Card, Carousel } from "react-bootstrap";
@@ -21,6 +21,7 @@ import CartAPI from "../API/CartAPI";
 import CardProduct from "../components/CardProduct";
 function Detail(props) {
   const URL_AddToCart = `${HOST}/addToCart`;
+  const URL_GetCartById = `${HOST}/getCartById`;
   const URL_GetVoucher = `${HOST}/coupons`;
 
   // const [load_comment, set_load_comment] = useState(false);
@@ -34,6 +35,7 @@ function Detail(props) {
   const [index, setIndex] = useState(0);
   const [sizeProduct, setSizeProduct] = useState(null);
   const [getVoucher, setGetVoucher] = useState("");
+  const [getCartById, setGetCartById] = useState({})
   let { id } = useParams();
   // const listCart = useSelector((state) => state.Cart.listCart);
   // const idUser = useSelector((state) => state.Session.idUser);
@@ -61,6 +63,25 @@ function Detail(props) {
     }
   }, [detail.coupons]);
 
+  // lấy ra tên sản phẩm, số lượng, và size ra để check 
+  let id_user = sessionStorage.getItem("id_user")
+  useEffect(() => {
+    if (id_user) {
+      axios.get(`${URL_GetCartById}/${id_user}`)
+        .then(res => {
+          const getProduct = res.data.find(val => val.idProduct === id && val.size === sizeProduct)
+          if (getProduct) {
+            const getQuantityCart = getProduct.size
+            setGetCartById(getQuantityCart)
+          }
+          else {
+            console.log("Không tìm thấy id product");
+          }
+        })
+        .catch(error => console.log(error))
+    }
+  }, [sizeProduct])
+
   const addToCart = () => {
     let id_user_cart = "";
     if (!sessionStorage.getItem("id_user")) {
@@ -87,11 +108,17 @@ function Detail(props) {
       img: detail.avt,
       size: sizeProduct,
     };
-    axios.post(URL_AddToCart, data);
-    props.fecthCount();
-    alertify.set("notifier", "position", "bottom-left");
-    alertify.success("Bạn Đã Thêm Hàng Thành Công!");
 
+    if (sizeProduct === getCartById) {
+      alertify.set("notifier", "position", "top-right"),
+        alertify.error("Sản phẩm này đã có trong giỏ hàng!")
+      return;
+    } else {
+      axios.post(URL_AddToCart, data)
+      alertify.set("notifier", "position", "bottom-left");
+      alertify.success("Bạn Đã Thêm Hàng Thành Công!");
+      props.fecthCount();
+    }
   };
 
   const onChangeText = (e) => {
@@ -429,6 +456,7 @@ function Detail(props) {
           <label htmlFor="exampleFormControlTextarea1">Bình Luận:</label>
           <textarea
             className="form-control"
+            style={{ maxWidth: "100%" }}
             rows="3"
             onChange={onChangeComment}
             value={comment}
@@ -465,8 +493,8 @@ function Detail(props) {
         <div className="row">
           {product &&
             product.map((value, idx) => (
-              <div className="col-md-4 col-xl-3 col-sm-6">
-                <CardProduct key={idx + 1} itemProduct={value} />
+              <div className="col-md-4 col-xl-3 col-sm-6" key={idx + 1}>
+                <CardProduct itemProduct={value} />
               </div>
             ))}
         </div>

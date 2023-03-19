@@ -190,7 +190,7 @@ const UserProfile = (props) => {
                 {typePassWord === "password" ? (
                   <button
                     type="button"
-                    className="show-password"
+                    className="show-password-profile"
                     onClick={() => setTypePassWord("text")}
                   >
                     <AiFillEye />
@@ -198,7 +198,7 @@ const UserProfile = (props) => {
                 ) : (
                   <button
                     type="button"
-                    className="show-password"
+                    className="show-password-profile"
                     onClick={() => setTypePassWord("password")}
                   >
                     <AiFillEyeInvisible />

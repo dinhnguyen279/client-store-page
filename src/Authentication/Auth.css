@@ -16,6 +16,15 @@ html {
   right: 3%;
   font-size: 16px;
   color: gray;
+  transform: translateY(-50%);
+}
+
+.show-password-profile {
+  position: absolute;
+  top: 50%;
+  right: 3%;
+  font-size: 16px;
+  color: gray;
   transform: translateY(-15%);
 }
 /* HISTORY */

@@ -45,11 +45,9 @@ function App() {
         .then((res) => getCount(res.data))
         .catch(error => console.log(error))
     }
-    console.log("Đã tới get count");
   }
   fecthCount()
 
-  console.log(countCart);
   return (
     <div className="App">
       <BrowserRouter>

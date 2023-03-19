@@ -48,6 +48,8 @@ function Cart(props) {
         .catch((error) => console.log(error));
     }
   }, [getCartById]);
+
+  // console.log(getCartById);
   //Hàm này dùng để Load dữ liệu ở Redux
 
   //Khi người dùng chưa đăng nhập

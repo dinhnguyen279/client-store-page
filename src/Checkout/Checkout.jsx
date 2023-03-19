@@ -66,7 +66,7 @@ function Checkout(props) {
         size: size.toString(),
       };
       console.log(data);
-      if (data.total === 0){
+      if (data.total === 0) {
         alertify.set("notifier", "position", "bottom-left");
         alertify.error("Vui Lòng Kiểm Tra Lại Giỏ Hàng!");
         return;
@@ -116,6 +116,7 @@ function Checkout(props) {
   const onChangeAddress = (e) => {
     setAddress(e.target.value);
   };
+
   //Check Validation
   const handlerSubmit = (e) => {
     e.preventDefault();

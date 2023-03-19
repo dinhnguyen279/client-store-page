@@ -162,8 +162,8 @@ function Home(props) {
                                 featured ? (
                                     featured.map((value, key) => {
                                         return (
-                                            <div className="col-md-4 col-xl-2 col-sm-6">
-                                                <CardProduct key={key + 1} itemProduct={value} />
+                                            <div className="col-md-4 col-xl-2 col-sm-6" key={key + 1}>
+                                                <CardProduct itemProduct={value} />
                                             </div>
                                         )
                                     })
@@ -227,8 +227,8 @@ function Home(props) {
                                 bestseller ? (
                                     bestseller.map((value, key) => {
                                         return (
-                                            <div className="col-md-4 col-xl-2 col-sm-6">
-                                                <CardProduct key={key + 1} itemProduct={value} />
+                                            <div className="col-md-4 col-xl-2 col-sm-6" key={key + 1}>
+                                                <CardProduct itemProduct={value} />
                                             </div>
                                         )
                                     })
@@ -313,8 +313,8 @@ function Home(props) {
                                 hotdeals ? (
                                     hotdeals.map((value, key) => {
                                         return (
-                                            <div className="col-md-4 col-xl-3 col-sm-6">
-                                                <CardProduct key={key + 1} itemProduct={value} />
+                                            <div className="col-md-4 col-xl-3 col-sm-6" key={key + 1}>
+                                                <CardProduct itemProduct={value} />
                                             </div>
                                         )
                                     })
