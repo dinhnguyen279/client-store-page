@@ -57,12 +57,12 @@ const CardProduct = (props) => {
         {itemProduct.name}
       </Card.Link>
       {itemProduct.promotionPrice === "" ? (
-        <Card.Text>{itemProduct.price}₫</Card.Text>
+        <Card.Text>{itemProduct.price.toLocaleString()}₫</Card.Text>
       ) : (
         <Card.Text style={{ color: "red" }}>
-          {itemProduct.promotionPrice}₫
+          {(parseInt(itemProduct.promotionPrice)).toLocaleString()}₫
           <span style={{ color: "grey", paddingLeft: "10px" }}>
-            <del>{itemProduct.price}₫</del>
+            <del>{itemProduct.price.toLocaleString()}₫</del>
           </span>
         </Card.Text>
       )}

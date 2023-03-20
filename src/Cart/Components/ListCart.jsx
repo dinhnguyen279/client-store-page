@@ -101,7 +101,7 @@ function ListCart(props) {
               </div>
               <div className="align-middle border-0">
                 <p className="mb-0 small">
-                  {parseInt(val.promotionPrice ? val.promotionPrice : val.price) * parseInt(val.quantity)}₫
+                  {(parseInt(val.promotionPrice ? val.promotionPrice : val.price) * parseInt(val.quantity)).toLocaleString()}₫
                 </p>
               </div>
             </div>
@@ -124,7 +124,7 @@ function ListCart(props) {
                 className="mb-0 small"
                 style={{ color: "red", fontWeight: "700" }}
               >
-                {parseInt(val.promotionPrice ? val.promotionPrice : val.price) * parseInt(val.quantity)}₫
+                {(parseInt(val.promotionPrice ? val.promotionPrice : val.price) * parseInt(val.quantity)).toLocaleString()}₫
               </p>
             </div>
           </div>

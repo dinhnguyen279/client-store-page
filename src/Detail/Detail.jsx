@@ -64,23 +64,24 @@ function Detail(props) {
   }, [detail.coupons]);
 
   // lấy ra tên sản phẩm, số lượng, và size ra để check 
-  let id_user = sessionStorage.getItem("id_user")
-  useEffect(() => {
-    if (id_user) {
-      axios.get(`${URL_GetCartById}/${id_user}`)
-        .then(res => {
-          const getProduct = res.data.find(val => val.idProduct === id && val.size === sizeProduct)
-          if (getProduct) {
-            const getQuantityCart = getProduct.size
-            setGetCartById(getQuantityCart)
-          }
-          else {
-            console.log("Không tìm thấy id product");
-          }
-        })
-        .catch(error => console.log(error))
-    }
-  }, [sizeProduct])
+  // let id_user = sessionStorage.getItem("id_user")
+  // useEffect(() => {
+  //   if (id_user) {
+  //     axios.get(`${URL_GetCartById}/${id_user}`)
+  //       .then(res => {
+  //         const getProduct = res.data.find(val => val.idProduct === id && val.size === sizeProduct)
+  //         console.log('getProduct', getProduct);
+  //         if (getProduct) {
+  //           const getQuantityCart = getProduct.size
+  //           setGetCartById(getQuantityCart)
+  //         }
+  //         else {
+  //           console.log("Không tìm thấy id product");
+  //         }
+  //       })
+  //       .catch(error => console.log(error))
+  //   }
+  // }, [sizeProduct])
 
   const addToCart = () => {
     let id_user_cart = "";
@@ -109,16 +110,10 @@ function Detail(props) {
       size: sizeProduct,
     };
 
-    if (sizeProduct === getCartById) {
-      alertify.set("notifier", "position", "top-right"),
-        alertify.error("Sản phẩm này đã có trong giỏ hàng!")
-      return;
-    } else {
       axios.post(URL_AddToCart, data)
       alertify.set("notifier", "position", "bottom-left");
       alertify.success("Bạn Đã Thêm Hàng Thành Công!");
       props.fecthCount();
-    }
   };
 
   const onChangeText = (e) => {
@@ -172,15 +167,6 @@ function Detail(props) {
       content: comment,
       star: star,
     };
-    console.log("data", data);
-    // const response = await CommentAPI.postCommentProduct(query);
-    // const response = await axios.post(
-    //   `http://localhost:3003/comment/send/${query}`
-    // );
-
-    // console.log(response);
-
-    // set_load_comment(true);
   };
 
   //Hàm này gọi API lấy sản phẩm có liên quan

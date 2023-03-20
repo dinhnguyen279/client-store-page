@@ -296,11 +296,11 @@ function Checkout(props) {
                                 {value.nameProduct}
                               </strong>
                               <span className="text-muted small">
-                                {parseInt(
+                                {(parseInt(
                                   value.promotionPrice
                                     ? value.promotionPrice
                                     : value.price
-                                )}
+                                )).toLocaleString()}
                                 {"₫ "}x {value.quantity}
                               </span>
                             </li>
@@ -310,7 +310,7 @@ function Checkout(props) {
                       <li className="d-flex align-items-center justify-content-between">
                         <strong className="font-weight-bold">Tổng cộng</strong>
                         <span className="d-flex">
-                          <p className="mr-2"> VND </p> {total}₫
+                          <p className="mr-2"> VND </p> {total.toLocaleString()}₫
                         </span>
                       </li>
                     </ul>

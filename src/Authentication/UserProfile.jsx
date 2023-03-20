@@ -57,9 +57,6 @@ const UserProfile = (props) => {
     obj._id = history[i]._id;
     listProduct.push(obj);
   }
-
-  // console.log("listProduct", listProduct);
-  // console.log('purchasedProduct',purchasedProduct);
   return (
     <div className={"container-fluid main-profile p-l-55 p-r-55 p-b-50"}>
       <div className="card-profile">
@@ -242,7 +239,7 @@ const UserProfile = (props) => {
               <p>Số lượng: {val.quantity}</p>
               <p>Giá: {val.price}</p>
               <p>
-                <b>Tổng:</b> {val.total}
+                <b>Tổng:</b> {(parseInt(val.total)).toLocaleString()}
               </p>
             </div>
           </div>

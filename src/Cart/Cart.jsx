@@ -160,8 +160,6 @@ function Cart(props) {
       //Sau đó thay đổi state loadAPI và load lại hàm useEffect
       setLoadAPI(true);
 
-      console.log("Ban Da Dang Nhap!");
-
       alertify.set("notifier", "position", "bottom-left");
       alertify.success("Bạn Đã Sửa Hàng Thành Công!");
     } else {
@@ -171,7 +169,6 @@ function Cart(props) {
         idUser: getUser,
         count: updateCount,
       };
-      console.log("Ban Da update that bai!");
 
       //Đưa dữ liệu vào Redux
       const action = updateCart(data);
@@ -265,14 +262,14 @@ function Cart(props) {
                       <strong className="small font-weight-bold">
                         Thành tiền
                       </strong>
-                      <span className="text-muted small">{total}₫</span>
+                      <span className="text-muted small">{total.toLocaleString()}₫</span>
                     </li>
                     <li className="border-bottom my-2"></li>
                     <li className="d-flex align-items-center justify-content-between mb-4">
                       <strong className="font-weight-bold">
                         Tổng tiền
                       </strong>
-                      <span>{total}₫</span>
+                      <span>{total.toLocaleString()}₫</span>
                     </li>
                   </ul>
                   <div>
