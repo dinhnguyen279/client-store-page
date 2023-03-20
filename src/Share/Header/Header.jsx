@@ -29,22 +29,10 @@ function Header(props) {
 
     // const [countCart, setCountCart] = useState(0)
 
-    const URL_CART = `${HOST}/getCartById`
-
-    //Sau khi F5 nó sẽ kiểm tra nếu phiên làm việc của Session vẫn còn thì nó sẽ tiếp tục
-    // đưa dữ liệu vào Redux
-    if (sessionStorage.getItem('id_user')) {
-        // const action = addSession(sessionStorage.getItem('id_user'))
-        // dispatch(action)
-    } else {
-        //Đưa idTemp vào Redux temp để tạm lưu trữ
-        sessionStorage.setItem('fake_id_user', '012146547543135')
-    }
-    //Get IdUser từ redux khi user đã đăng nhập
     // var idUser = useSelector(state => state.Session.idUser)
     var idUser = sessionStorage.getItem('id_user')
     //Get idtemp từ redux khi user chưa đăng nhập
-    var idTemp = useSelector(state => state.Cart.id_user)
+    // var idTemp = useSelector(state => state.Cart.id_user)
 
     const [loginUser, setLoginUser] = useState(false)
     const [nameUser, setNameUser] = useState(false)
@@ -74,10 +62,10 @@ function Header(props) {
         }
         fecthData()
     }, [])
-
     return (
 
         <>
+
             <Navbar bg="light" expand={"lg"} className="pt-3 bg-body" style={{ zIndex: 10 }} fixed='top'>
                 <Container>
                     <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-lg`} />
@@ -88,16 +76,26 @@ function Header(props) {
                         <span></span>
                         Sports Zone
                     </Link>
+
+                    {/* Navbar.Offcanvas là dữ liệu được đưa vào responsive */}
                     <Navbar.Offcanvas
                         id={`offcanvasNavbar-expand-lg`}
                         placement="start"
                     >
                         <Offcanvas.Header closeButton>
                             <Offcanvas.Title>
-                                Sports Zone
+                                <Link className='logo-navbar h4' to={"/"} >
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    Sports Zone
+                                </Link>
                             </Offcanvas.Title>
                         </Offcanvas.Header>
                         <Offcanvas.Body className='d-block d-lg-flex  justify-content-between align-item-center'>
+
+                            {/* Form search */}
                             <Form className="input-search-type d-flex justify-content-between align-item-center" as={Col}>
                                 <input
                                     type="search"
@@ -109,6 +107,7 @@ function Header(props) {
                                 <span className='search-button search-icon d-block d-lg-none'><AiOutlineSearch /></span>
                             </Form>
 
+                            {/* Giỏ hàng màn hình desktop */}
                             <Nav className="justify-content-end">
                                 <ul className='nav-list-respon'>
                                     {nameUser && <li className="nav-item position-relative d-none d-lg-block">
@@ -120,6 +119,8 @@ function Header(props) {
                                     {loginUser ? ' ' : (<LogoutLink />)}
                                 </ul>
                             </Nav>
+                            {/* Giỏ hàng màn hình desktop */}
+
                             <div className='under-navbar d-block d-lg-none'>
                                 <Container className='d-block navbar-categories'>
                                     <div className="navbar-button mr-4">
@@ -170,6 +171,8 @@ function Header(props) {
                             </div >
                         </Offcanvas.Body>
                     </Navbar.Offcanvas>
+
+                    {/* Giỏ hàng màn hình điện thoại */}
                     <div className='d-block d-lg-none'>
                         <li className="nav-item position-relative">
                             <Link className="nav-link quantity-cart" to={`/cart`} data-order={countCart}>
@@ -177,8 +180,11 @@ function Header(props) {
                             </Link>
                         </li>
                     </div>
+                    {/* Giỏ hàng màn hình điện thoại */}
                 </Container>
             </Navbar>
+
+            {/* Navbar màn hình desktop */}
             <div className='under-navbar d-none d-lg-block'>
                 <Container className='d-flex navbar-categories'>
                     <div className="navbar-button mr-4">
@@ -225,8 +231,16 @@ function Header(props) {
                             </Link>
                         </ul>
                     </div>
+                    <div className='d-flex'>
+                        <ul className="navbar-nav nav-menu">
+                            <Link className="nav-link" to={`/cart`}>
+                                Giỏ Hàng
+                            </Link>
+                        </ul>
+                    </div>
                 </Container>
             </div >
+            {/* Navbar màn hình desktop */}
         </>
 
     );

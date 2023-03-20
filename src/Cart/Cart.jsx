@@ -35,21 +35,29 @@ function Cart(props) {
   const [getCartById, setCartById] = useState([]);
   const [redirect, setRedirect] = useState(false);
 
+  // Kiểm tra id nếu idUser không có thì lấy id Khách
+  let idUser = ""
+  if (sessionStorage.getItem("id_user")) {
+    const id_user = sessionStorage.getItem("id_user");
+    idUser = id_user;
+  }
+  else if (sessionStorage.getItem("id_user_clientage")) {
+    const id_user_clientage = sessionStorage.getItem("id_user_clientage")
+    idUser = id_user_clientage;
+  }
+
   // Lấy dữ liệu từ Cart ra
   useEffect(() => {
-    if (sessionStorage.getItem("id_user")) {
-      const id_user = sessionStorage.getItem("id_user");
-      axios
-        .get(`${URL_CART}/${id_user}`)
-        .then((response) => {
-          setCartById(response.data);
-          getTotal(response.data);
-        })
-        .catch((error) => console.log(error));
-    }
+    axios
+      .get(`${URL_CART}/${idUser}`)
+      .then((response) => {
+        setCartById(response.data);
+        getTotal(response.data);
+      })
+      .catch((error) => console.log(error));
+
   }, [getCartById]);
 
-  // console.log(getCartById);
   //Hàm này dùng để Load dữ liệu ở Redux
 
   //Khi người dùng chưa đăng nhập
@@ -91,8 +99,8 @@ function Cart(props) {
   //Hàm này dùng để truyền xuống cho component con xử và trả ngược dữ liệu lại component cha
 
   const onDeleteCart = (getUser, getProduct, getSize) => {
-    if (sessionStorage.getItem("id_user")) {
-      // user đã đăng nhập
+
+    if (idUser) {
       //Sau khi nhận được dữ liệu ở component con truyền lên thì sẽ gọi API xử lý dữ liệu
       const fetchDelete = async () => {
         const params = {
@@ -111,34 +119,13 @@ function Cart(props) {
 
       //Sau đó thay đổi state loadAPI và load lại hàm useEffect
       setLoadAPI(true);
-    } else {
-      // user chưa đăng nhập
-
-      //Nếu không có phiên làm việc của Session User thì mình sẽ xử lý với Redux
-      const data = {
-        idProduct: getProduct,
-        idUser: getUser,
-      };
-
-      //Đưa dữ liệu vào Redux
-      const action = deleteCart(data);
-      dispatch(action);
-
-      alertify.set("notifier", "position", "bottom-left");
-      alertify.error("Bạn Đã Xóa Hàng Thành Công!");
-
-      //set state loadRedux để nó load lại hàm useEffect để tiếp tục lấy dữ liệu từ redux
-      setLoadRedux({
-        idProduct: getProduct,
-        count: "",
-      });
     }
   };
 
   //Hàm này dùng để truyền xuống cho component con xử và trả ngược dữ liệu lại component cha
   const onUpdateCount = (getUser, getProduct, updateCount, getSize) => {
 
-    if (sessionStorage.getItem("id_user")) {
+    if (idUser) {
       // user đã đăng nhập
       //Sau khi nhận được dữ liệu ở component con truyền lên thì sẽ gọi API xử lý dữ liệu
       const fetchPut = async () => {
@@ -160,42 +147,19 @@ function Cart(props) {
       //Sau đó thay đổi state loadAPI và load lại hàm useEffect
       setLoadAPI(true);
 
-      console.log("Ban Da Dang Nhap!");
-
       alertify.set("notifier", "position", "bottom-left");
       alertify.success("Bạn Đã Sửa Hàng Thành Công!");
-    } else {
-      //Nếu không có phiên làm việc của Session User thì mình sẽ xử lý với Redux
-      const data = {
-        idProduct: getProduct,
-        idUser: getUser,
-        count: updateCount,
-      };
-      console.log("Ban Da update that bai!");
-
-      //Đưa dữ liệu vào Redux
-      const action = updateCart(data);
-      dispatch(action);
-
-      alertify.set("notifier", "position", "bottom-left");
-      alertify.success("Bạn Đã Sửa Hàng Thành Công!");
-
-      //set state loadRedux để nó load lại hàm useEffect để tiếp tục lấy dữ liệu từ redux
-      setLoadRedux({
-        idProduct: getProduct,
-        count: getCount,
-      });
     }
   };
 
   //Hàm này dùng để redirect đến page checkout
 
   const onCheckout = () => {
-    if (!sessionStorage.getItem("id_user")) {
-      alertify.set("notifier", "position", "bottom-left");
-      alertify.error("Vui Lòng Kiểm Tra Lại Đăng Nhập!");
-      return;
-    }
+    // if (!sessionStorage.getItem("id_user")) {
+    //   alertify.set("notifier", "position", "bottom-left");
+    //   alertify.error("Vui Lòng Kiểm Tra Lại Đăng Nhập!");
+    //   return;
+    // }
 
     if (getCartById.length === 0) {
       alertify.set("notifier", "position", "bottom-left");
