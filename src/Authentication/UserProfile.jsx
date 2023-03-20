@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Image from "../Share/img/Image";
 import { AiOutlineEdit, AiOutlineScan } from "react-icons/ai";
 import "./Auth.css";
-import { Button, Col, Row } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import EditProfileUser from "./EditProfileUser";
 import { HOST } from "../domain/host/host";
 import axios from "axios";
@@ -10,7 +9,6 @@ import axios from "axios";
 import Form from "react-bootstrap/Form";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { FaStore, FaShippingFast, FaStoreAlt } from "react-icons/fa";
-import Table from "react-bootstrap/Table";
 
 const UserProfile = (props) => {
   const URL_GetDetailUser = `${HOST}/user`;

@@ -26,8 +26,17 @@ import CartAPI from "./API/CartAPI";
 
 function App() {
   const [countCart, setCountCart] = useState(0)
-  var idUser = sessionStorage.getItem("id_user")
+  let idUser = ""
+  if (sessionStorage.getItem("id_user")) {
+    const id_user = sessionStorage.getItem("id_user");
+    idUser = id_user;
+  }
+  else if (sessionStorage.getItem("id_user_clientage")) {
+    const id_user_clientage = sessionStorage.getItem("id_user_clientage")
+    idUser = id_user_clientage;
+  }
 
+  console.log(idUser);
   const fecthCount = async () => {
     const getCount = (getCount) => {
       let count = getCount

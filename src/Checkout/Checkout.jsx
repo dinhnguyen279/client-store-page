@@ -26,18 +26,28 @@ function Checkout(props) {
 
   //Hàm này bắt đầu gửi Email xác nhận đơn hàng
 
+  let idUser = ""
+  if (sessionStorage.getItem("id_user")) {
+    const id_user = sessionStorage.getItem("id_user");
+    idUser = id_user;
+  }
+  else if (sessionStorage.getItem("id_user_clientage")) {
+    const id_user_clientage = sessionStorage.getItem("id_user_clientage")
+    idUser = id_user_clientage;
+  }
+
   useEffect(() => {
-    if (sessionStorage.getItem("id_user")) {
-      const id_user = sessionStorage.getItem("id_user");
+    if (idUser) {
+      // const id_user = sessionStorage.getItem("id_user");
       axios
-        .get(`${URL_CART}/${id_user}`)
+        .get(`${URL_CART}/${idUser}`)
         .then((response) => {
           setCartById(response.data);
           getTotal(response.data);
         })
         .catch((error) => console.log(error));
       axios
-        .get(`${URL_getUserById}/${id_user}`)
+        .get(`${URL_getUserById}/${idUser}`)
         .then((response) => setUser(response.data))
         .catch((error) => console.log(error));
     }
@@ -54,7 +64,7 @@ function Checkout(props) {
       const size = getCartById.map((val) => val.size);
 
       const data = {
-        idUser: sessionStorage.getItem("id_user"),
+        idUser: idUser,
         phone: phone ? phone : user.phone,
         address: address ? address : user.address,
         fullname: fullName ? fullName : user.fullname,

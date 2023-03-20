@@ -68,7 +68,7 @@ function ListCart(props) {
         <div className="mb-4" key={key + 1}>
           <div className="row listcart-product position-relative">
             <div className="col-md-3 mb-3">
-              <Link className="reset-anchor d-block animsition-link">
+              <Link to={`/detail/${val.idProduct}`} className="reset-anchor d-block animsition-link">
                 <Card.Img src={val.img} />
               </Link>
             </div>

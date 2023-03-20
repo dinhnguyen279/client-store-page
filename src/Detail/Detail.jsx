@@ -19,6 +19,8 @@ import {
 import { HOST } from "../domain/host/host";
 import CartAPI from "../API/CartAPI";
 import CardProduct from "../components/CardProduct";
+import { v4 as uuid } from "uuid"
+
 function Detail(props) {
   const URL_AddToCart = `${HOST}/addToCart`;
   const URL_GetCartById = `${HOST}/getCartById`;
@@ -63,31 +65,17 @@ function Detail(props) {
     }
   }, [detail.coupons]);
 
-  // lấy ra tên sản phẩm, số lượng, và size ra để check 
-  // let id_user = sessionStorage.getItem("id_user")
-  // useEffect(() => {
-  //   if (id_user) {
-  //     axios.get(`${URL_GetCartById}/${id_user}`)
-  //       .then(res => {
-  //         const getProduct = res.data.find(val => val.idProduct === id && val.size === sizeProduct)
-  //         console.log('getProduct', getProduct);
-  //         if (getProduct) {
-  //           const getQuantityCart = getProduct.size
-  //           setGetCartById(getQuantityCart)
-  //         }
-  //         else {
-  //           console.log("Không tìm thấy id product");
-  //         }
-  //       })
-  //       .catch(error => console.log(error))
-  //   }
-  // }, [sizeProduct])
-
   const addToCart = () => {
     let id_user_cart = "";
+    let id_user_clientage = "";
     if (!sessionStorage.getItem("id_user")) {
-      alertify.error("Bạn phải đăng nhập!");
-      return;
+      if (!sessionStorage.getItem("id_user_clientage")) {
+        // Nếu id fake chưa có thì chúng ta tiến tạo hành một id mới
+        var unique_id = uuid();
+        var create_id_user_fake = unique_id.slice(0, 8)
+        sessionStorage.setItem("id_user_clientage", create_id_user_fake)
+        console.log(create_id_user_fake);
+      }
     }
     if (!sizeProduct) {
       alertify.error("Bạn phải chọn size!");
@@ -97,10 +85,12 @@ function Detail(props) {
       alertify.error("Bạn phải chọn số lượng!");
       return;
     }
-
+    // idUser
     id_user_cart = sessionStorage.getItem("id_user");
+    // idUser khách
+    id_user_clientage = sessionStorage.getItem("id_user_clientage");
     const data = {
-      idUser: id_user_cart,
+      idUser: id_user_cart ? id_user_cart : id_user_clientage,
       idProduct: detail._id,
       quantity: text,
       nameProduct: detail.name,
@@ -110,10 +100,10 @@ function Detail(props) {
       size: sizeProduct,
     };
 
-      axios.post(URL_AddToCart, data)
-      alertify.set("notifier", "position", "bottom-left");
-      alertify.success("Bạn Đã Thêm Hàng Thành Công!");
-      props.fecthCount();
+    axios.post(URL_AddToCart, data)
+    alertify.set("notifier", "position", "bottom-left");
+    alertify.success("Bạn Đã Thêm Hàng Thành Công!");
+    props.fecthCount();
   };
 
   const onChangeText = (e) => {
