@@ -99,7 +99,6 @@ function Detail(props) {
       img: detail.avt,
       size: sizeProduct,
     };
-
     axios.post(URL_AddToCart, data)
     alertify.set("notifier", "position", "bottom-left");
     alertify.success("Bạn Đã Thêm Hàng Thành Công!");
