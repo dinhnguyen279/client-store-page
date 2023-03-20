@@ -41,8 +41,8 @@ function Cart(props) {
     const id_user = sessionStorage.getItem("id_user");
     idUser = id_user;
   }
-  else if (sessionStorage.getItem("id_user_clientage")) {
-    const id_user_clientage = sessionStorage.getItem("id_user_clientage")
+  else if (localStorage.getItem("id_user_clientage")) {
+    const id_user_clientage = localStorage.getItem("id_user_clientage")
     idUser = id_user_clientage;
   }
 

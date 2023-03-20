@@ -69,11 +69,11 @@ function Detail(props) {
     let id_user_cart = "";
     let id_user_clientage = "";
     if (!sessionStorage.getItem("id_user")) {
-      if (!sessionStorage.getItem("id_user_clientage")) {
+      if (!localStorage.getItem("id_user_clientage")) {
         // Nếu id fake chưa có thì chúng ta tiến tạo hành một id mới
         var unique_id = uuid();
         var create_id_user_fake = unique_id.slice(0, 8)
-        sessionStorage.setItem("id_user_clientage", create_id_user_fake)
+        localStorage.setItem("id_user_clientage", create_id_user_fake)
         console.log(create_id_user_fake);
       }
     }
@@ -88,7 +88,7 @@ function Detail(props) {
     // idUser
     id_user_cart = sessionStorage.getItem("id_user");
     // idUser khách
-    id_user_clientage = sessionStorage.getItem("id_user_clientage");
+    id_user_clientage = localStorage.getItem("id_user_clientage");
     const data = {
       idUser: id_user_cart ? id_user_cart : id_user_clientage,
       idProduct: detail._id,
