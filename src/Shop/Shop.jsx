@@ -74,7 +74,6 @@ function Shop(props) {
     //Hàm này dùng để thay đổi state pagination.search
     //Hàm này sẽ truyền xuống Component con và nhận dữ liệu từ Component con truyền lên
     const handleSearch = (e) => {
-        console.log(e);
         const dataSearch = {
             fildter: e.fildter ? e.fildter : "name",
             value: e.value

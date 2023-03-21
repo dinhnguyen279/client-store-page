@@ -24,8 +24,7 @@ function Checkout(props) {
   const [load, setLoad] = useState(false);
   const [user, setUser] = useState({});
 
-  //Hàm này bắt đầu gửi Email xác nhận đơn hàng
-
+  //Hàm này check User có đăng nhập chưa nếu chưa thì sử dụng id khách
   let idUser = ""
   if (sessionStorage.getItem("id_user")) {
     const id_user = sessionStorage.getItem("id_user");
@@ -38,7 +37,6 @@ function Checkout(props) {
 
   useEffect(() => {
     if (idUser) {
-      // const id_user = sessionStorage.getItem("id_user");
       axios
         .get(`${URL_CART}/${idUser}`)
         .then((response) => {
