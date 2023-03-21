@@ -36,8 +36,6 @@ function App() {
     idUser = id_user_clientage;
   }
 
-
-  console.log(idUser);
   const fecthCount = async () => {
     const getCount = (getCount) => {
       let count = getCount

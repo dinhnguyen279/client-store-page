@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addUser } from '../../Redux/Action/ActionCart';
 import { addSession } from '../../Redux/Action/ActionSession';
@@ -9,7 +9,7 @@ import Name from '../../Authentication/Name';
 import { AiOutlineSearch, AiOutlineOrderedList, AiOutlineShoppingCart, AiOutlineCaretRight, AiOutlineShopping } from "react-icons/ai"
 import { FaAngleDown, FaAngleRight, FaThList } from "react-icons/fa"
 // React-Bootstrap
-import { Col, Container, Form, Nav, Navbar, NavDropdown, Offcanvas } from 'react-bootstrap';
+import { Card, Col, Container, Form, Nav, Navbar, NavDropdown, Offcanvas } from 'react-bootstrap';
 import ProductAPI from '../../API/ProductAPI';
 import Categories from '../../API/Categories';
 import { HOST } from '../../domain/host/host';
@@ -19,7 +19,44 @@ import CartAPI from '../../API/CartAPI';
 import queryString from 'query-string';
 
 function Header(props) {
+    // Hàm này lấy số lượng sản phẩm trong giỏ hàng
     const countCart = props.countCart
+    // Api search
+    const URL_SEARCH = `${HOST}/searchProducts`;
+
+    const [valueSearch, setValueSearch] = useState('')
+    const [searchProducts, setSearchProducts] = useState([])
+    const delaySearchTextTimeOut = useRef(null)
+
+    const onChangeText = (e) => {
+        const value = e.target.value
+        setValueSearch(value)
+        if (handleSearch) {
+            //Nếu người dùng đang nhập thì mình clear cái giây đó
+            if (delaySearchTextTimeOut.current) {
+                clearTimeout(delaySearchTextTimeOut.current)
+            }
+
+            delaySearchTextTimeOut.current = setTimeout(() => {
+                handleSearch(value)
+            }, 500)
+        }
+        setClose(false)
+    }
+
+    const handleSearch = (value) => {
+        const dataSearch = {
+            value: value,
+            fildter: "name"
+        }
+        const query = "?" + queryString.stringify(dataSearch)
+        axios.get(`${URL_SEARCH}${query}`)
+            .then((res) => {
+                const data = res.data.splice(0, 6);
+                setSearchProducts(data)
+            })
+            .catch((err) => console.log("err search", err))
+    }
     // const [active, setActive] = useState('Home')
     const dispatch = useDispatch()
 
@@ -36,6 +73,7 @@ function Header(props) {
 
     const [loginUser, setLoginUser] = useState(false)
     const [nameUser, setNameUser] = useState(false)
+    const [close, setClose] = useState(false)
 
     useEffect(() => {
         if (!idUser) {
@@ -46,6 +84,12 @@ function Header(props) {
             setNameUser(true)
         }
     }, [idUser])
+
+
+    const onClickItem = () => {
+        setClose(!close)
+        setValueSearch("")
+    }
 
     const handleOpen = () => {
         setIsOpen(!isOpen)
@@ -96,22 +140,57 @@ function Header(props) {
                         <Offcanvas.Body className='d-block d-lg-flex  justify-content-between align-item-center'>
 
                             {/* Form search */}
-                            <Form className="input-search-type d-flex justify-content-between align-item-center" as={Col}>
+                            <Form className="mb-2 input-search-type d-flex justify-content-between align-item-center" as={Col}>
                                 <input
                                     type="search"
-                                    placeholder="Search Products"
+                                    placeholder="Tìm kiếm tên sản phẩm"
                                     className="input-search"
                                     aria-label="Search"
+                                    value={valueSearch}
+                                    onChange={onChangeText}
                                 />
                                 <span className='search-button d-none d-lg-block'>Search</span>
                                 <span className='search-button search-icon d-block d-lg-none'><AiOutlineSearch /></span>
+                                <div className="product-search-main">
+                                    <div className={`product-search-submain ${valueSearch.length > 0 ? "d-block" : "d-none"} `}>
+                                        {!close && (
+                                            searchProducts && searchProducts.map((val, idx) => {
+                                                return (
+                                                    <div className='product-search' key={idx + 1}>
+                                                        <div>
+                                                            <Link to={`/detail/${val._id}`} onClick={onClickItem} className='text-uppercase' >{val.name}</Link>
+                                                            <p>{val.promotionPrice ? val.promotionPrice : val.price}₫</p>
+                                                        </div>
+                                                        <Link onClick={onClickItem} to={`/detail/${val._id}`} className='image-search-product'>
+                                                            <Card.Img src={val.avt} />
+                                                        </Link>
+                                                    </div>
+                                                )
+                                            })
+                                        )
+                                        }
+                                        {
+                                            !close && (
+                                                searchProducts.length > 0 ? (
+                                                    <div className="text-search-header" >
+                                                        <Link onClick={onClickItem} to={"/shop"} >Xem Thêm...</Link>
+                                                    </div>
+                                                ) : (
+                                                    <div className='check-no-product'>
+                                                        <p>Không có sản phẩm nào!</p>
+                                                    </div>
+                                                )
+                                            )
+                                        }
+                                    </div>
+                                </div>
                             </Form>
 
                             {/* Giỏ hàng màn hình desktop */}
                             <Nav className="justify-content-end">
                                 <ul className='nav-list-respon'>
                                     {nameUser && <li className="nav-item position-relative d-none d-lg-block">
-                                        <Link className="nav-link quantity-cart" to={`/cart`} data-order={countCart}>
+                                        <Link className="nav-link quantity-cart" to={`/ cart`} data-order={countCart}>
                                             <AiOutlineShoppingCart className='icon-cart' />
                                         </Link>
                                     </li>}
@@ -170,22 +249,22 @@ function Header(props) {
                                 </Container>
                             </div >
                         </Offcanvas.Body>
-                    </Navbar.Offcanvas>
+                    </Navbar.Offcanvas >
 
                     {/* Giỏ hàng màn hình điện thoại */}
-                    <div className='d-block d-lg-none'>
+                    < div className='d-block d-lg-none' >
                         <li className="nav-item position-relative">
                             <Link className="nav-link quantity-cart" to={`/cart`} data-order={countCart}>
                                 <AiOutlineShopping className='icon-cart' />
                             </Link>
                         </li>
-                    </div>
+                    </div >
                     {/* Giỏ hàng màn hình điện thoại */}
-                </Container>
-            </Navbar>
+                </Container >
+            </Navbar >
 
             {/* Navbar màn hình desktop */}
-            <div className='under-navbar d-none d-lg-block'>
+            < div className='under-navbar d-none d-lg-block' >
                 <Container className='d-flex navbar-categories'>
                     <div className="navbar-button mr-4">
                         <button className='btn-open-categories' onClick={handleOpen} onBlur={handleOnBlur}>
