@@ -85,7 +85,11 @@ function Header(props) {
         }
     }, [idUser])
 
-
+    const reloadPage = () => {
+        setTimeout(() => {
+            window.location.reload()
+        }, 2000)
+    }
     const onClickItem = () => {
         setClose(!close)
         setValueSearch("")
@@ -96,7 +100,7 @@ function Header(props) {
     }
 
     const handleOnBlur = () => {
-        setIsOpen(false)
+        setIsOpen(false);
     }
     useEffect(() => {
         const fecthData = async () => {
@@ -126,9 +130,10 @@ function Header(props) {
                         id={`offcanvasNavbar-expand-lg`}
                         placement="start"
                     >
+
                         <Offcanvas.Header closeButton>
                             <Offcanvas.Title>
-                                <Link className='logo-navbar h4' to={"/"} >
+                                <Link className='logo-navbar h4' to={"/"} onClick={reloadPage}>
                                     <span></span>
                                     <span></span>
                                     <span></span>
@@ -151,8 +156,8 @@ function Header(props) {
                                 />
                                 <span className='search-button d-none d-lg-block'>Search</span>
                                 <span className='search-button search-icon d-block d-lg-none'><AiOutlineSearch /></span>
-                                <div className="product-search-main">
-                                    <div className={`product-search-submain ${valueSearch.length > 0 ? "d-block" : "d-none"} `}>
+                                <div className={`product-search-main  ${valueSearch.length > 0 ? "product-search-main-block" : "product-search-main-none"} `}>
+                                    <div className={`product-search-submain`}>
                                         {!close && (
                                             searchProducts && searchProducts.map((val, idx) => {
                                                 return (
@@ -200,11 +205,11 @@ function Header(props) {
                             </Nav>
                             {/* Giỏ hàng màn hình desktop */}
 
-                            <div className='under-navbar d-block d-lg-none'>
+                            <div className='under-navbar d-block d-lg-none' style={{ zIndex: 100 }}>
                                 <Container className='d-block navbar-categories'>
                                     <div className="navbar-button mr-4">
                                         <button className='btn-open-categories' onClick={handleOpen} onBlur={handleOnBlur} title='All Categories'>
-                                            <span > <FaThList /> All Categories</span>
+                                            <span> <FaThList /> All Categories</span>
                                             <span><FaAngleDown /></span>
                                         </button>
                                         {isOpen ? (
@@ -213,7 +218,7 @@ function Header(props) {
                                                     dataCategories.map((val, idx) => {
                                                         return (
                                                             <li className="nav-item-list" key={idx + 1}>
-                                                                <a href={`/shop/${val._id}`}>
+                                                                <a href={`/shop/${val._id}`} onClick={reloadPage}>
                                                                     {val.nameCate} <FaAngleRight style={{ border: "none" }} />
                                                                 </a>
                                                             </li>
@@ -225,7 +230,7 @@ function Header(props) {
                                     </div>
                                     <div className=''>
                                         <ul className="navbar-nav nav-menu">
-                                            <Link className="nav-link" to={`/`}>
+                                            <Link className="nav-link" to={`/`} onClick={reloadPage}>
                                                 Trang Chủ
                                             </Link>
                                         </ul>
@@ -233,7 +238,7 @@ function Header(props) {
 
                                     <div className='d-flex'>
                                         <ul className="navbar-nav nav-menu">
-                                            <Link className="nav-link" to={`/shop`}>
+                                            <Link className="nav-link" to={`/shop`} onClick={reloadPage}>
                                                 Cửa Hàng
                                             </Link>
                                         </ul>
@@ -241,7 +246,7 @@ function Header(props) {
 
                                     <div className='d-flex'>
                                         <ul className="navbar-nav nav-menu">
-                                            <Link className="nav-link" to={`/contact`}>
+                                            <Link className="nav-link" to={`/contact`} onClick={reloadPage}>
                                                 Liên Hệ
                                             </Link>
                                         </ul>
@@ -249,6 +254,7 @@ function Header(props) {
                                 </Container>
                             </div >
                         </Offcanvas.Body>
+
                     </Navbar.Offcanvas >
 
                     {/* Giỏ hàng màn hình điện thoại */}
