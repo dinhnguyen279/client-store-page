@@ -86,6 +86,7 @@ function ShopFilterByCate(props) {
       .then((res) => setProducts(res.data))
       .catch((err) => console.log("err search", err));
   };
+  console.log(products);
 
   //Hàm Sort sản phẩm theo giá
   const sortPrice = (a, b) => {

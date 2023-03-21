@@ -416,36 +416,27 @@ button:hover::after {
   position: absolute;
   left: 0%;
   top: 0%;
-  transform: translateY(120%);
-  transition: height 5s ease-out 1s;
-}
-.element {
-  height: 0;
-  overflow: hidden;
-  transition: height 0.3s ease-out;
-}
-
-/* Thiết lập hiệu ứng animation cho thành phần */
-.element.animate {
-  animation: slide-down 0.3s;
-}
-
-/* Định nghĩa hiệu ứng animation slide-down */
-@keyframes slide-down {
-  0% {
-    transform: translateY(-100%);
-  }
-  100% {
-    transform: translateY(0);
-  }
+  /* transform: translateY(120%); */
+  transition: height 0.3s ease-out 1s;
 }
 
 .product-search-submain {
-  z-index: 100;
   box-shadow: 0 0 8px 4px #dcb14a;
   border-radius: 0 0 8px 8px;
   overflow: hidden;
   transition: all 0.3s ease-out;
+  z-index: 10;
+  opacity: 1;
+}
+.product-search-main-block {
+  display: block;
+  transform: translateY(120%);
+  z-index: 10;
+}
+
+.product-search-main-none {
+  transform: translateY(-120%);
+  display: none;
 }
 
 .text-search-header {
@@ -565,6 +556,7 @@ button:hover::after {
   padding: 10px 20px;
   width: 100%;
   border-radius: 8px 8px 0 0;
+  cursor: pointer;
 }
 
 .btn-open-categories svg {

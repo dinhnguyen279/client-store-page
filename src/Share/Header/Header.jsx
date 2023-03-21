@@ -1,7 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addUser } from '../../Redux/Action/ActionCart';
-import { addSession } from '../../Redux/Action/ActionSession';
 
 import { Link } from "react-router-dom";
 import LogoutLink from "../../Authentication/LogoutLink";
@@ -63,7 +61,6 @@ function Header(props) {
       })
       .catch((err) => console.log("err search", err))
   }
-  // const [active, setActive] = useState('Home')
   const dispatch = useDispatch()
 
   const [isOpen, setIsOpen] = useState(false);
@@ -80,7 +77,7 @@ function Header(props) {
   const [loginUser, setLoginUser] = useState(false)
   const [nameUser, setNameUser] = useState(false)
   const [close, setClose] = useState(false)
-
+  const [closeFocusInput, setCloseFocusInput] = useState(true)
   useEffect(() => {
     if (!idUser) {
       setLoginUser(false)
@@ -91,10 +88,24 @@ function Header(props) {
     }
   }, [idUser])
 
-
+  const reloadPage = () => {
+    setTimeout(() => {
+      window.location.reload()
+    }, 1000)
+  }
   const onClickItem = () => {
     setClose(!close)
     setValueSearch("")
+  }
+
+  const handleCloseInput = () => {
+    setTimeout(() => {
+      setCloseFocusInput(false)
+    }, 500)
+  }
+
+  const handleOpenInput = () => {
+    setCloseFocusInput(true)
   }
 
   const handleOpen = () => {
@@ -102,7 +113,9 @@ function Header(props) {
   };
 
   const handleOnBlur = () => {
-    setIsOpen(false);
+    setTimeout(() => {
+      setIsOpen(false);
+    }, 500)
   };
   useEffect(() => {
     const fecthData = async () => {
@@ -146,106 +159,30 @@ function Header(props) {
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body className="d-block d-lg-flex  justify-content-between align-item-center">
-              {/* Form search */}
-              <Form
-                className="input-search-type d-flex justify-content-between align-item-center"
-                as={Col}
-              >
+              <Form className="mb-2 input-search-type d-flex justify-content-between align-item-center" as={Col} onBlur={handleCloseInput} onClick={handleOpenInput}>
                 <input
                   type="search"
-                  placeholder="Search Products"
+                  placeholder="Tìm kiếm tên sản phẩm"
                   className="input-search"
                   aria-label="Search"
+                  value={valueSearch}
+                  onChange={onChangeText}
                 />
-                <span className="search-button d-none d-lg-block">Search</span>
-                <span className="search-button search-icon d-block d-lg-none">
-                  <AiOutlineSearch />
-                </span>
-              </Form>
-
-              {/* Giỏ hàng màn hình desktop */}
-              <Nav className="justify-content-end">
-                <ul className="nav-list-respon">
-                  {nameUser && (
-                    <li className="nav-item position-relative d-none d-lg-block">
-                      <Link
-                        className="nav-link quantity-cart"
-                        to={`/cart`}
-                        data-order={countCart}
-                      >
-                        <AiOutlineShoppingCart className="icon-cart" />
-                      </Link>
-                    </li>
-                  )}
-                  {nameUser ? <Name /> : " "}
-                  {loginUser ? " " : <LogoutLink />}
-                </ul>
-              </Nav>
-              {/* Giỏ hàng màn hình desktop */}
-
-              <div className="under-navbar d-block d-lg-none">
-                <Container className="d-block navbar-categories">
-                  <div className="navbar-button mr-4">
-                    <button
-                      className="btn-open-categories"
-                      onClick={handleOpen}
-                      onBlur={handleOnBlur}
-                      title="All Categories"
-                    >
-                      <span>
-                        {" "}
-                        <FaThList /> Bộ Sưu Tập
-                      </span>
-                      <span>
-                        <FaAngleDown />
-                      </span>
-                    </button>
-                    {isOpen ? (
-                      <ul className={`navbar-nav nav-link-page`}>
-                        {dataCategories.map((val, idx) => {
-                          return (
-                            <li className="nav-item-list" key={idx + 1}>
-                              <a href={`/shop/${val._id}`}>
-                                {val.nameCate}
-                                <FaAngleRight style={{ border: "none" }} />
-                              </a>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    ) : (
-                      ""
-                    )}
-                  </div>
-                  <div className="">
-                    <ul className="navbar-nav nav-menu">
-                      <Link className="nav-link" to={`/`}>
-                        Trang Chủ
-                      </Link>
-                    </ul>
-                  </div>
-
-                  {/* Form search */}
-                  <Form className="mb-2 input-search-type d-flex justify-content-between align-item-center" as={Col}>
-                    <input
-                      type="search"
-                      placeholder="Tìm kiếm tên sản phẩm"
-                      className="input-search"
-                      aria-label="Search"
-                      value={valueSearch}
-                      onChange={onChangeText}
-                    />
-                    <span className='search-button d-none d-lg-block'>Search</span>
-                    <span className='search-button search-icon d-block d-lg-none'><AiOutlineSearch /></span>
-                    <div className="product-search-main">
-                      <div className={`product-search-submain ${valueSearch.length > 0 ? "d-block" : "d-none"} `}>
+                <span className='search-button d-none d-lg-block'>Search</span>
+                <span className='search-button search-icon d-block d-lg-none'><AiOutlineSearch /></span>
+                {/* Form Search */}
+                {
+                  // Đóng input khi người dùng click outside 
+                  closeFocusInput && (
+                    <div className={`product-search-main  ${valueSearch.length > 0 ? "product-search-main-block" : "product-search-main-none"} `}>
+                      <div className={`product-search-submain`}>
                         {!close && (
                           searchProducts && searchProducts.map((val, idx) => {
                             return (
                               <div className='product-search' key={idx + 1}>
                                 <div>
                                   <Link to={`/detail/${val._id}`} onClick={onClickItem} className='text-uppercase' >{val.name}</Link>
-                                  <p>{val.promotionPrice ? val.promotionPrice : val.price}₫</p>
+                                  <p>{val.promotionPrice ? parseInt(val.promotionPrice).toLocaleString() : parseInt(val.price).toLocaleString()}₫</p>
                                 </div>
                                 <Link onClick={onClickItem} to={`/detail/${val._id}`} className='image-search-product'>
                                   <Card.Img src={val.avt} />
@@ -270,25 +207,51 @@ function Header(props) {
                         }
                       </div>
                     </div>
-                  </Form>
+                  )
+                }
+              </Form>
 
-                  {/*  Giỏ hàng màn hình desktop */}
-                  <Nav className="justify-content-end">
-                    <ul className='nav-list-respon'>
-                      {nameUser && <li className="nav-item position-relative d-none d-lg-block">
-                        <Link className="nav-link quantity-cart" to={`/ cart`} data-order={countCart}>
-                          <AiOutlineShoppingCart className='icon-cart' />
-                        </Link>
-                      </li>}
-                      {nameUser ? (<Name />) : ' '}
-                      {loginUser ? ' ' : (<LogoutLink />)}
-                    </ul>
-                  </Nav>
-                  {/* Giỏ hàng màn hình desktop */}
+              {/* Giỏ hàng màn hình desktop */}
+              <Nav className="justify-content-end">
+                <ul className='nav-list-respon'>
+                  <li className="nav-item position-relative d-none d-lg-block">
+                    <Link className="nav-link quantity-cart" to={`/ cart`} data-order={countCart}>
+                      <AiOutlineShoppingCart className='icon-cart' />
+                    </Link>
+                  </li>
+                  {nameUser ? (<Name />) : ' '}
+                  {loginUser ? ' ' : (<LogoutLink />)}
+                </ul>
+              </Nav>
+              {/* Giỏ hàng màn hình desktop */}
+
+              <div className='under-navbar d-block d-lg-none' style={{ zIndex: 100 }}>
+                <Container className='d-block navbar-categories'>
+                  <div className="navbar-button mr-4">
+                    <button className='btn-open-categories' onClick={handleOpen} onBlur={handleOnBlur} title='All Categories'>
+                      <span> <FaThList /> Bộ Sưu Tập</span>
+                      <span><FaAngleDown /></span>
+                    </button>
+                    {isOpen ? (
+                      <ul className={`navbar-nav nav-link-page`}>
+                        {
+                          dataCategories.map((val, idx) => {
+                            return (
+                              <li className="nav-item-list" key={idx + 1}>
+                                <a href={`/shop/category/${val.nameCate}`} onClick={reloadPage}>
+                                  {val.nameCate} <FaAngleRight style={{ border: "none" }} />
+                                </a>
+                              </li>
+                            )
+                          })
+                        }
+                      </ul>
+                    ) : ""}
+                  </div>
 
                   <div className=''>
                     <ul className="navbar-nav nav-menu">
-                      <Link className="nav-link" to={`/`}>
+                      <Link className="nav-link" to={`/`} onClick={reloadPage}>
                         Trang Chủ
                       </Link>
                     </ul>
@@ -296,7 +259,7 @@ function Header(props) {
 
                   <div className='d-flex'>
                     <ul className="navbar-nav nav-menu">
-                      <Link className="nav-link" to={`/shop`}>
+                      <Link className="nav-link" to={`/shop`} onClick={reloadPage}>
                         Cửa Hàng
                       </Link>
                     </ul>
@@ -304,18 +267,18 @@ function Header(props) {
 
                   <div className='d-flex'>
                     <ul className="navbar-nav nav-menu">
-                      <Link className="nav-link" to={`/contact`}>
+                      <Link className="nav-link" to={`/contact`} onClick={reloadPage}>
                         Liên Hệ
                       </Link>
                     </ul>
                   </div>
-                </Container>
+                </Container >
               </div >
-            </Offcanvas.Body>
+            </Offcanvas.Body >
           </Navbar.Offcanvas >
 
           {/* Giỏ hàng màn hình điện thoại */}
-          < div className='d-block d-lg-none' >
+          <div className='d-block d-lg-none' >
             <li className="nav-item position-relative">
               <Link className="nav-link quantity-cart" to={`/cart`} data-order={countCart}>
                 <AiOutlineShopping className='icon-cart' />
@@ -336,8 +299,7 @@ function Header(props) {
               onBlur={handleOnBlur}
             >
               <span>
-                {" "}
-                <FaThList /> All Categories
+                <FaThList /> Bộ Sưu Tập
               </span>
               <span>
                 <FaAngleDown />
