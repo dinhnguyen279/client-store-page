@@ -271,10 +271,10 @@ function Detail(props) {
                 <span className="sale-product">{getVoucher}%</span>
               )}
               <span className="text-base" style={{ color: "red" }}>
-                {detail.promotionPrice ? detail.promotionPrice : detail.price}₫
+                {parseInt(detail.promotionPrice ? detail.promotionPrice : detail.price).toLocaleString()}₫
               </span>
               <span style={{ color: "grey", paddingLeft: "10px" }}>
-                <del>{detail.promotionPrice ? detail.price + "₫" : ""}</del>
+                <del>{detail.promotionPrice ? parseInt(detail.price).toLocaleString() + "₫" : ""}</del>
               </span>
             </Card.Text>
 
