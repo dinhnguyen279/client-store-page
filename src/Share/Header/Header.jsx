@@ -215,7 +215,7 @@ function Header(props) {
               <Nav className="justify-content-end">
                 <ul className='nav-list-respon'>
                   <li className="nav-item position-relative d-none d-lg-block">
-                    <Link className="nav-link quantity-cart" to={`/ cart`} data-order={countCart}>
+                    <Link className="nav-link quantity-cart" to={`/cart`} data-order={countCart}>
                       <AiOutlineShoppingCart className='icon-cart' />
                     </Link>
                   </li>
