@@ -31,6 +31,10 @@ function Header(props) {
   const [valueSearch, setValueSearch] = useState('')
   const [searchProducts, setSearchProducts] = useState([])
   const delaySearchTextTimeOut = useRef(null)
+  const [loginUser, setLoginUser] = useState(false)
+  const [nameUser, setNameUser] = useState(false)
+  const [close, setClose] = useState(false)
+  const [closeFocusInput, setCloseFocusInput] = useState(true)
 
   const onChangeText = (e) => {
     const value = e.target.value
@@ -61,23 +65,17 @@ function Header(props) {
       })
       .catch((err) => console.log("err search", err))
   }
+
+  var idUser = sessionStorage.getItem('id_user')
+
   const dispatch = useDispatch()
 
   const [isOpen, setIsOpen] = useState(false);
 
   const [dataCategories, setDataCategories] = useState([]);
 
-  // const [countCart, setCountCart] = useState(0)
-
-  // var idUser = useSelector(state => state.Session.idUser)
   var idUser = sessionStorage.getItem("id_user");
-  //Get idtemp từ redux khi user chưa đăng nhập
-  // var idTemp = useSelector(state => state.Cart.id_user)
 
-  const [loginUser, setLoginUser] = useState(false)
-  const [nameUser, setNameUser] = useState(false)
-  const [close, setClose] = useState(false)
-  const [closeFocusInput, setCloseFocusInput] = useState(true)
   useEffect(() => {
     if (!idUser) {
       setLoginUser(false)
