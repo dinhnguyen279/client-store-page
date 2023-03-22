@@ -74,7 +74,7 @@ function Header(props) {
     const [loginUser, setLoginUser] = useState(false)
     const [nameUser, setNameUser] = useState(false)
     const [close, setClose] = useState(false)
-
+    const [closeFocusInput, setCloseFocusInput] = useState(true)
     useEffect(() => {
         if (!idUser) {
             setLoginUser(false)
@@ -90,6 +90,18 @@ function Header(props) {
             window.location.reload()
         }, 2000)
     }
+
+    // hàm này sẽ đóng input search khi người dùng click outside
+    const handleCloseInput = () => {
+        setTimeout(() => {
+            setCloseFocusInput(false)
+        }, 1000)
+    }
+    const handleOpenInput = () => {
+        setCloseFocusInput(true)
+    }
+
+    // hàm này sẽ clear search khi người dùng click vào 1 sản phẩm
     const onClickItem = () => {
         setClose(!close)
         setValueSearch("")
@@ -145,7 +157,7 @@ function Header(props) {
                         <Offcanvas.Body className='d-block d-lg-flex  justify-content-between align-item-center'>
 
                             {/* Form search */}
-                            <Form className="mb-2 input-search-type d-flex justify-content-between align-item-center" as={Col}>
+                            <Form className="mb-2 input-search-type d-flex justify-content-between align-item-center" as={Col} onBlur={handleCloseInput} onClick={handleOpenInput}>
                                 <input
                                     type="search"
                                     placeholder="Tìm kiếm tên sản phẩm"
@@ -156,41 +168,45 @@ function Header(props) {
                                 />
                                 <span className='search-button d-none d-lg-block'>Search</span>
                                 <span className='search-button search-icon d-block d-lg-none'><AiOutlineSearch /></span>
-                                <div className={`product-search-main  ${valueSearch.length > 0 ? "product-search-main-block" : "product-search-main-none"} `}>
-                                    <div className={`product-search-submain`}>
-                                        {!close && (
-                                            searchProducts && searchProducts.map((val, idx) => {
-                                                return (
-                                                    <div className='product-search' key={idx + 1}>
-                                                        <div>
-                                                            <Link to={`/detail/${val._id}`} onClick={onClickItem} className='text-uppercase' >{val.name}</Link>
-                                                            <p>{val.promotionPrice ? val.promotionPrice : val.price}₫</p>
-                                                        </div>
-                                                        <Link onClick={onClickItem} to={`/detail/${val._id}`} className='image-search-product'>
-                                                            <Card.Img src={val.avt} />
-                                                        </Link>
-                                                    </div>
-                                                )
-                                            })
-                                        )
-                                        }
-                                        {
-                                            !close && (
-                                                searchProducts.length > 0 ? (
-                                                    <div className="text-search-header" >
-                                                        <Link onClick={onClickItem} to={"/shop"} >Xem Thêm...</Link>
-                                                    </div>
-                                                ) : (
-                                                    <div className='check-no-product'>
-                                                        <p>Không có sản phẩm nào!</p>
-                                                    </div>
-                                                )
-                                            )
-                                        }
-                                    </div>
-                                </div>
+                                {
+                                    // Đóng input khi người dùng click outside
+                                    closeFocusInput && (
+                                        <div className={`product-search-main  ${valueSearch.length > 0 ? "product-search-main-block" : "product-search-main-none"} `}>
+                                            <div className={`product-search-submain`}>
+                                                {
+                                                    !close && (
+                                                        searchProducts && searchProducts.map((val, idx) => {
+                                                            return (
+                                                                <div className='product-search' key={idx + 1}>
+                                                                    <div>
+                                                                        <Link to={`/detail/${val._id}`} onClick={onClickItem} className='text-uppercase' >{val.name}</Link>
+                                                                        <p>{val.promotionPrice ? val.promotionPrice : val.price}₫</p>
+                                                                    </div>
+                                                                    <Link onClick={onClickItem} to={`/detail/${val._id}`} className='image-search-product'>
+                                                                        <Card.Img src={val.avt} />
+                                                                    </Link>
+                                                                </div>
+                                                            )
+                                                        })
+                                                    )
+                                                }
+                                                {
+                                                    !close && (
+                                                        searchProducts.length > 0 ? (
+                                                            <div className="text-search-header" >
+                                                                <Link onClick={onClickItem} to={"/shop"} >Xem Thêm...</Link>
+                                                            </div>
+                                                        ) : (
+                                                            <div className='check-no-product'>
+                                                                <p>Không có sản phẩm nào!</p>
+                                                            </div>
+                                                        )
+                                                    )
+                                                }
+                                            </div>
+                                        </div>
+                                    )}
                             </Form>
-
                             {/* Giỏ hàng màn hình desktop */}
                             <Nav className="justify-content-end">
                                 <ul className='nav-list-respon'>
