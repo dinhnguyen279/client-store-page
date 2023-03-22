@@ -17,7 +17,6 @@ import {
   AiTwotoneStar,
 } from "react-icons/ai";
 import { HOST } from "../domain/host/host";
-import CartAPI from "../API/CartAPI";
 import CardProduct from "../components/CardProduct";
 import { v4 as uuid } from "uuid"
 

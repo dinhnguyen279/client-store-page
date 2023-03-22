@@ -23,7 +23,7 @@ import ErrorPage from "./Share/404/404";
 import ScrollToTopButton from "./Share/ScrollTop/ScrollTopButton";
 import React, { useEffect, useState } from "react";
 import CartAPI from "./API/CartAPI";
-
+import ShopFilterByCate from "./Shop/ShopFilterByCate"
 function App() {
   const [countCart, setCountCart] = useState(0)
   let idUser = ""
@@ -36,8 +36,6 @@ function App() {
     idUser = id_user_clientage;
   }
 
-
-  console.log(idUser);
   const fecthCount = async () => {
     const getCount = (getCount) => {
       let count = getCount
@@ -70,7 +68,8 @@ function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/checkout" element={<Checkout />} />
-          <Route path="/shop" element={<Shop />} />
+          <Route path="/shop/" element={<Shop />} />
+          <Route path="/shop/category/:id" element={<ShopFilterByCate />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/detail-user" element={<UserProfile />} />
           <Route path="/history" element={<MainHistory />} />

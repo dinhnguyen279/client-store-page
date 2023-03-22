@@ -185,7 +185,6 @@ function Shop(props) {
     //     fetchData()
 
     // }, [pagination])
-
     return (
         <div className="container main-shop">
             <section className="py-3 bg-light mb-3">
