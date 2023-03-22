@@ -37,7 +37,7 @@ function Header(props) {
   // const [active, setActive] = useState('Home')
   const dispatch = useDispatch();
 
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   const [dataCategories, setDataCategories] = useState([]);
 
@@ -246,10 +246,10 @@ function Header(props) {
                 {dataCategories.map((val, idx) => {
                   return (
                     <li className="nav-item-list" key={idx + 1}>
-                      <Link to={`/shop/category/${val.nameCate}`}>
+                      <a href={`/shop/category/${val.nameCate}`}>
                         {val.nameCate}{" "}
                         <FaAngleRight style={{ border: "none" }} />
-                      </Link>
+                      </a>
                     </li>
                   );
                 })}

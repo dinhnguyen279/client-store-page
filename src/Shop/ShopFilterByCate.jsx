@@ -39,7 +39,8 @@ function ShopFilterByCate(props) {
   const URL_PRODUCT = `${HOST}/products`;
   const URL_SEARCH = `${HOST}/searchProducts`;
 
-  const idUser = sessionStorage.getItem("id_user");
+  const URT_getProductByCate = `${HOST}/getProductByCate`;
+  const { id } = useParams();
 
   //Hàm này dùng để thay đổi state pagination.category
   const handlerCategory = (value) => {
@@ -84,28 +85,7 @@ function ShopFilterByCate(props) {
       .get(`${URL_SEARCH}${query}`)
       .then((res) => setProducts(res.data))
       .catch((err) => console.log("err search", err));
-    //     setPagination({
-    //         page: pagination.page,
-    //         count: pagination.count,
-    //         search: value,
-    //         fildter: "name",
-    //         category: pagination.category,
-    //     });
-    // setSearch(value)
   };
-
-  //Hàm này dùng để thay đổi state pagination.category
-  // const handlerCategory = (value) => {
-  //     console.log("Value: ", value)
-
-  //     setPagination({
-  //         page: pagination.page,
-  //         count: pagination.count,
-  //         search: pagination.search,
-  //         category: value,
-
-  //     })
-  // }
 
   //Hàm Sort sản phẩm theo giá
   const sortPrice = (a, b) => {
@@ -132,60 +112,11 @@ function ShopFilterByCate(props) {
   //Gọi hàm useEffect tìm tổng số sản phẩm để tính tổng số trang
   //Và nó phụ thuộc và state pagination
   useEffect(() => {
-    const fetchAllData = async () => {
-      await ProductAPI.getAPI().then((res) => setProducts(res.data));
-      // Nếu mà category === 'all' thì nó sẽ gọi hàm get tất cả sản phẩm
-      // Ngược lại thì nó sẽ gọi hàm pagination và phân loại sản phẩm
-      // if (pagination.category === 'all'){
-      //     response = await axios.get(URL_PRODUCT)
-      //     console.log(response)
-
-      //     // response = await ProductAPI.getPagination(newQuery)
-      //     response = await axios.get(`${URL_PRODUCT}/pagination${newQuery}`)
-      //     console.log(response)
-      // }
-
-      //Tính tổng số trang = tổng số sản phẩm / số lượng sản phẩm 1 trang
-      // const totalPage = Math.ceil(parseInt(response.length) / parseInt(pagination.count))
-      // console.log('totalPage',totalPage)
-
-      // setTotalPage(totalPage)
-    };
-    fetchAllData();
+    axios
+      .get(`${URT_getProductByCate}/${id}`)
+      .then((response) => setProducts(response.data))
+      .catch((err) => console.log(err));
   }, []);
-
-  // pagination
-  //Gọi hàm Pagination
-  // useEffect(() => {
-
-  //     const fetchData = async () => {
-
-  //         const params = {
-  //             page: pagination.page,
-  //             count: pagination.count,
-  //             search: pagination.search,
-  //             category: pagination.category
-  //         }
-
-  //         const query = queryString.stringify(params)
-
-  //         const newQuery = '?' + query
-
-  //         // const response = await ProductAPI.getPagination(newQuery)
-  //         const response = await axios.get(`${URL_PRODUCT}/pagination${newQuery}`)
-  //         console.log(response)
-
-  //         setProducts(response)
-  //         setTemp(response)
-
-  //     }
-
-  //     fetchData()
-
-  // }, [pagination])
-
-  const { id } = useParams();
-  console.log("id cate", id);
   return (
     <div className="container main-shop">
       <section className="py-3 bg-light mb-3">
@@ -195,7 +126,7 @@ function ShopFilterByCate(props) {
               <Link to={"/"}>Trang chủ</Link>
             </li>
             <li className="breadcrumb-item active" aria-current="page">
-              Cửa hàng
+              Bộ sưu tập {id}
             </li>
           </ol>
         </div>
@@ -292,7 +223,7 @@ function ShopFilterByCate(props) {
             <div className="col-lg-12 mb-5 mb-lg-0">
               <div className="row mb-3 align-items-center">
                 {/* ------------------Search----------------- */}
-                <Search handleSearch={handleSearch} />
+                {/* <Search handleSearch={handleSearch} /> */}
                 {/* ------------------Search----------------- */}
 
                 <div className="col-lg-4">
