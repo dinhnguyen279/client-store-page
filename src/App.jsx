@@ -34,6 +34,7 @@ function App() {
   if (sessionStorage.getItem("id_user")) {
     const id_user = sessionStorage.getItem("id_user");
     idUser = id_user;
+
   }
   else if (localStorage.getItem("id_user_clientage")) {
     const id_user_clientage = localStorage.getItem("id_user_clientage")

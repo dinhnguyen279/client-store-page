@@ -66,10 +66,6 @@ function Header(props) {
       .catch((err) => console.log("err search", err))
   }
 
-  var idUser = sessionStorage.getItem('id_user')
-
-  const dispatch = useDispatch()
-
   const [isOpen, setIsOpen] = useState(false);
 
   const [dataCategories, setDataCategories] = useState([]);
@@ -89,11 +85,12 @@ function Header(props) {
   const reloadPage = () => {
     setTimeout(() => {
       window.location.reload()
-    }, 1000)
+    }, 500)
   }
   const onClickItem = () => {
     setClose(!close)
     setValueSearch("")
+    reloadPage()
   }
 
   const handleCloseInput = () => {
@@ -179,7 +176,7 @@ function Header(props) {
                             return (
                               <div className='product-search' key={idx + 1}>
                                 <div>
-                                  <Link to={`/detail/${val._id}`} onClick={onClickItem} className='text-uppercase' >{val.name}</Link>
+                                  <Link to={`/detail/${val._id}`} onClick={onClickItem} className='text-uppercase'>{val.name}</Link>
                                   <p>{val.promotionPrice ? parseInt(val.promotionPrice).toLocaleString() : parseInt(val.price).toLocaleString()}₫</p>
                                 </div>
                                 <Link onClick={onClickItem} to={`/detail/${val._id}`} className='image-search-product'>
@@ -218,56 +215,58 @@ function Header(props) {
                     </Link>
                   </li>
                   {nameUser ? (<Name />) : ' '}
-                  {loginUser ? ' ' : (<LogoutLink />)}
+                  {loginUser ? ' ' : (<LogoutLink reloadPage={reloadPage} />)}
                 </ul>
               </Nav>
               {/* Giỏ hàng màn hình desktop */}
 
               <div className='under-navbar d-block d-lg-none' style={{ zIndex: 100 }}>
-                <Container className='d-block navbar-categories'>
-                  <div className="navbar-button mr-4">
-                    <button className='btn-open-categories' onClick={handleOpen} onBlur={handleOnBlur} title='All Categories'>
-                      <span> <FaThList /> Bộ Sưu Tập</span>
-                      <span><FaAngleDown /></span>
-                    </button>
-                    {isOpen ? (
-                      <ul className={`navbar-nav nav-link-page`}>
-                        {
-                          dataCategories.map((val, idx) => {
-                            return (
-                              <li className="nav-item-list" key={idx + 1}>
-                                <a href={`/shop/category/${val.nameCate}`} onClick={reloadPage}>
-                                  {val.nameCate} <FaAngleRight style={{ border: "none" }} />
-                                </a>
-                              </li>
-                            )
-                          })
-                        }
-                      </ul>
-                    ) : ""}
-                  </div>
-                  <div className=''>
-                    <ul className="navbar-nav nav-menu">
-                      <Link className="nav-link" to={`/`} onClick={reloadPage}>
-                        Trang Chủ
-                      </Link>
+                <div className="navbar-button mr-4 navbar-categories">
+                  <button className='btn-open-categories' onClick={handleOpen} onBlur={handleOnBlur} title='All Categories'>
+                    <span> <FaThList /> Bộ Sưu Tập</span>
+                    <span><FaAngleDown /></span>
+                  </button>
+                  {isOpen ? (
+                    <ul className={`navbar-nav nav-link-page`}>
+                      {
+                        dataCategories.map((val, idx) => {
+                          return (
+                            <li className="nav-item-list" key={idx + 1}>
+                              <a href={`/shop/category/${val.nameCate}`} onClick={reloadPage}>
+                                {val.nameCate} <FaAngleRight style={{ border: "none" }} />
+                              </a>
+                            </li>
+                          )
+                        })
+                      }
                     </ul>
-                  </div>
-                  <div className='d-flex'>
-                    <ul className="navbar-nav nav-menu">
-                      <Link className="nav-link" to={`/shop`} onClick={reloadPage}>
-                        Cửa Hàng
-                      </Link>
-                    </ul>
-                  </div>
-                  <div className='d-flex'>
-                    <ul className="navbar-nav nav-menu">
-                      <Link className="nav-link" to={`/contact`} onClick={reloadPage}>
-                        Liên Hệ
-                      </Link>
-                    </ul>
-                  </div>
-                </Container >
+                  ) : ""}
+                </div>
+                <ul className='nav-list-respon'>
+                  <li className="navbar-nav nav-menu">
+                    <Link className="nav-link" to={`/`} onClick={reloadPage}>
+                      Trang Chủ
+                    </Link>
+                  </li>
+
+                  <li className="navbar-nav nav-menu">
+                    <Link className="nav-link" to={`/shop`} onClick={reloadPage}>
+                      Cửa Hàng
+                    </Link>
+                  </li>
+
+                  <li className="navbar-nav nav-menu">
+                    <Link className="nav-link" to={`/contact`} onClick={reloadPage}>
+                      Liên Hệ
+                    </Link>
+                  </li>
+
+                  <li className="navbar-nav nav-menu">
+                    <Link className="nav-link" to={`/cart`} onClick={reloadPage}>
+                      Giỏ Hàng
+                    </Link>
+                  </li>
+                </ul>
               </div >
             </Offcanvas.Body >
           </Navbar.Offcanvas >
