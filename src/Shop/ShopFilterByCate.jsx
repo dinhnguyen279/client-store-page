@@ -41,7 +41,6 @@ function ShopFilterByCate(props) {
 
   const URT_getProductByCate = `${HOST}/getProductByCate`;
   const { id } = useParams();
-
   //Hàm này dùng để thay đổi state pagination.category
   const handlerCategory = (value) => {
     console.log("Value: ", value);

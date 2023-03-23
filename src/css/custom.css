@@ -416,7 +416,6 @@ button:hover::after {
   position: absolute;
   left: 0%;
   top: 0%;
-  /* transform: translateY(120%); */
   transition: height 0.3s ease-out 1s;
 }
 
@@ -464,13 +463,13 @@ button:hover::after {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 0;
+  padding: 10px 20px;
   border-bottom: 0.1rem solid rgb(173, 173, 173);
   transition: all 0.25s ease-in-out;
 }
 
 .image-search-product {
-  width: 10%;
+  width: 5%;
 }
 
 .product-search a {
