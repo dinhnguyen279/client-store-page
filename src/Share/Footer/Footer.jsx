@@ -8,11 +8,11 @@ function Footer(props) {
                     <div className="col-md-4 mb-3 mb-md-0">
                         <h6 className="text-uppercase mb-3">Chính sách khách hàng</h6>
                         <ul className="list-unstyled mb-0">
-                            <li><a className="footer-link" href="abcds">Bảo hành &amp; Đỗi trả</a></li>
-                            <li><a className="footer-link" href="abcds">Chính sách bảo mật</a></li>
-                            <li><a className="footer-link" href="abcds">Chính sách vận chuyển</a></li>
-                            <li><a className="footer-link" href="abcds">Hướng dẫn mua hàng</a></li>
-                            <li><a className="footer-link" href="abcds">Quy định &amp; Điều khoản</a></li>
+                            <li><a className="footer-link" href="/gioi-thieu">Giới thiệu</a></li>
+                            <li><a className="footer-link" href="/chinh-sach-bao-mat">Chính sách bảo mật</a></li>
+                            <li><a className="footer-link" href="/chinh-sach-doi-tra">Chính sách đổi trả</a></li>
+                            <li><a className="footer-link" href="/dieu-khoang-dich-vu">Điều khoảng dịch vụ</a></li>
+                            {/* <li><a className="footer-link" href="abcds">Quy định &amp; Điều khoản</a></li> */}
                         </ul>
                     </div>
                     <div className="col-md-4 mb-3 mb-md-0">
