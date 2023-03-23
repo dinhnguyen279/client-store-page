@@ -3,16 +3,16 @@ import { Link } from 'react-router-dom';
 function LogoutLink(props) {
     return (
         <>
-            <li className="nav-item">
-                <Link className="nav-link" to={`/signin`}>
+            <li style={{ fontWeight: "600" }}>
+                <Link className="nav-link" to={`/signin`} onClick={() => props.reloadPage()}>
                     Đăng nhập
                 </Link>
             </li>
             <li className='d-none d-lg-block'>
                 {"|"}
             </li>
-            <li className="nav-item">
-                <Link className="nav-link" to={`/signup`}>
+            <li style={{ fontWeight: "600" }}>
+                <Link className="nav-link" to={`/signup`} onClick={() => props.reloadPage()}>
                     Đăng ký
                 </Link>
             </li>

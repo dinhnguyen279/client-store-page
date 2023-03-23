@@ -12,18 +12,11 @@ import axiosClient from '../API/axiosClient';
 import alertify from 'alertifyjs';
 
 function SignIn(props) {
-    //test new validate
-
     const [errors, setErrors] = useState({})
-
-    //listCart được lấy từ redux
-    // const listCart = useSelector(state => state.Cart.listCart)
-
     const [user, setUser] = useState({
         email: "",
         password: ""
     })
-
     // Show/hide password
     const [typePassWord, setTypePassWord] = useState("password")
 
@@ -97,7 +90,11 @@ function SignIn(props) {
         }
 
     }
-    sessionStorage.setItem('id_user', user._id)
+    if (user._id) {
+        // Lưu id-user vào sessionStorage 
+        const idUser = sessionStorage.setItem('id_user', user._id)
+        return idUser;
+    }
 
     //Hàm này dùng để đưa hết tất cả carts vào API của user
     // useEffect(() => {
