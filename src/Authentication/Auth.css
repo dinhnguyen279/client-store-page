@@ -30,19 +30,46 @@ html {
 /* HISTORY */
 
 .history-profile-user {
-  display: flex;
-  gap: 20px;
-  border: 1px solid red;
+  /* border: 1px solid red; */
+  /* border-radius: 4px; */
+  border-radius: 8px;
+  background: white;
+  padding: 20px 30px;
+  box-shadow: 0px 2px 3px rgb(165, 164, 164);
 }
 
 .header-history {
-  display: flex;
+  display: block;
   align-items: center;
 }
 
-/* .content-history {
+.code-order {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgb(214, 214, 214);
+}
 
-} */
+.content-order {
+  border-bottom: 1px solid rgb(214, 214, 214);
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.content-history {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-order {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  padding: 10px 0;
+}
 
 /* User Profile */
 .main-profile {
@@ -85,9 +112,9 @@ html {
   color: black;
 }
 
-.link-profile:focus {
+/* .link-profile:focus {
   color: white;
-}
+} */
 
 .card-profile {
   border-radius: 8px;
