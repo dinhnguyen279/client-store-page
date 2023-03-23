@@ -58,7 +58,7 @@ const Contact = () => {
             </section>
             <section className='contact-main p-l-55 p-r-55 p-b-50'>
                 <div className="container">
-                    <h1 className="section-header">Contact</h1>
+                    <h1 className="section-header">Liên Hệ Chúng Tôi</h1>
                     <div className='row p-t-50'>
 
                         <div className='col-12 col-md-7'>

@@ -246,7 +246,6 @@ function Header(props) {
                       </ul>
                     ) : ""}
                   </div>
-
                   <div className=''>
                     <ul className="navbar-nav nav-menu">
                       <Link className="nav-link" to={`/`} onClick={reloadPage}>
@@ -254,7 +253,6 @@ function Header(props) {
                       </Link>
                     </ul>
                   </div>
-
                   <div className='d-flex'>
                     <ul className="navbar-nav nav-menu">
                       <Link className="nav-link" to={`/shop`} onClick={reloadPage}>
@@ -262,7 +260,6 @@ function Header(props) {
                       </Link>
                     </ul>
                   </div>
-
                   <div className='d-flex'>
                     <ul className="navbar-nav nav-menu">
                       <Link className="nav-link" to={`/contact`} onClick={reloadPage}>

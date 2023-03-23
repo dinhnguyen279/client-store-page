@@ -190,7 +190,7 @@ function Checkout(props) {
 
         {!success && (
           <section className="py-5 container">
-            <h2 className="h5 text-uppercase mb-4">Chi tiết thanh toán</h2>
+            <h2 className="text-uppercase mb-4">Xác Nhận Đơn Hàng</h2>
             <div className="row">
               <div className="col-lg-8">
                 <form>

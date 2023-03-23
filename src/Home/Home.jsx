@@ -6,10 +6,12 @@ import { Card } from 'react-bootstrap';
 import { AiOutlineProfile } from 'react-icons/ai';
 import Carousel from '../components/Carousel';
 import CardProduct from '../components/CardProduct';
+import { HOST } from '../domain/host/host';
+import Categories from '../API/Categories';
 function Home(props) {
 
     const [products, setProducts] = useState([])
-
+    const [categories, setCategories] = useState([])
     //Fetch Product
     useEffect(() => {
 
@@ -18,6 +20,10 @@ function Home(props) {
 
             const data = response.data.splice(0, 8)
             setProducts(data)
+
+            await Categories.getAllCategories()
+                .then((res) => setCategories(res.data))
+                .catch(err => console.log(err))
         }
 
         fetchData()
@@ -29,6 +35,15 @@ function Home(props) {
     const featured = products.filter(item => item.featured && item.featured.trim() !== '');
     const bestseller = products.filter(item => item.bestseller && item.bestseller.trim() !== '');
     const hotdeals = products.filter(item => item.hotdeals && item.hotdeals.trim() !== '');
+
+    // Lọc sản phẩm theo category
+    const productShoe = categories.filter(item => item.nameCate === 'Giày Bóng Đá');
+    const productClothes = categories.filter(item => item.nameCate === 'Đồ Bóng Đá');
+    const productAccessory = categories.filter(item => item.nameCate === 'Phụ Kiện Bóng Đá');
+
+    const idProductShoe = productShoe.map(val => val.nameCate);
+    const idProductClothes = productClothes.map(val => val.nameCate);
+    const idProductAccessory = productAccessory.map(val => val.nameCate);
 
     return (
         <div className="page-holder m-t-10">
@@ -96,7 +111,7 @@ function Home(props) {
                         <div className='container'>
                             <div className='row'>
                                 <div className='col-md-12 col-sm-12 col-xl-6 col-xs-12 main-banner'>
-                                    <Link to={"/abcs"}>
+                                    <Link to={`/shop/category/${idProductShoe}`}>
                                         <div>
                                             <img className='img-banner' src={Image.categorybanner1} alt="" />
                                         </div>
@@ -113,7 +128,7 @@ function Home(props) {
                                 </div>
 
                                 <div className='col-md-6 col-sm-12 col-xl-3 col-xs-12 main-banner'>
-                                    <Link to={"/abcs"}>
+                                    <Link to={`/shop/category/${idProductClothes}`}>
                                         <div>
                                             <img className='img-banner' src={Image.categorybanner2} alt="" />
                                         </div>
@@ -130,7 +145,7 @@ function Home(props) {
                                 </div>
 
                                 <div className='col-md-6 col-sm-12 col-xl-3 col-xs-12 main-banner'>
-                                    <Link to={"/abcs"}>
+                                    <Link to={`/shop/category/${idProductAccessory}`}>
                                         <div>
                                             <img className='img-banner' src={Image.categorybanner3} alt="" />
                                         </div>
