@@ -43,7 +43,7 @@ function Footer(props) {
                             <p className="small text-muted mb-0">&copy; 2023 All rights reserved.</p>
                         </div>
                         <div className="col-lg-6 text-lg-right">
-                            <p className="small text-muted mb-0">Thuan Nguyen</p>
+                            <p className="small text-muted mb-0">sport zone</p>
                         </div>
                     </div>
                 </div>
