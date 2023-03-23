@@ -21,7 +21,6 @@ function Footer(props) {
                             <li>Gọi mua hàng:  0935 90 3666 (8h30 - 21h30)</li>
                             <li>Gọi khiếu nại: 096 893 89 88 - 079 01 23456 (9h00 - 20h00)</li>
                             <li>Gọi tư vấn:  0935 90 7979 (8h30 - 21h30)</li>
-                            <li>Gọi bảo hành: 0935 90 7979 - 079 01 23456 (10h00 - 20h00)</li>
                         </ul>
                     </div>
                     <div className="col-md-4">
