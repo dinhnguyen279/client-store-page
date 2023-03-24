@@ -52,39 +52,37 @@ const UserProfile = (props) => {
       .then((response) => setHistory(response.data))
       .catch((error) => console.log(error));
   }, []);
-  // const purchasedProduct = history.find(val => val.nameProduct)
-  // const listProduct = [];
 
-  // for (let i = 0; i < history.length; i++) {
-  //   const obj = {};
-  //   obj.name = history[i].nameProduct;
-  //   obj.quantity = history[i].quantity;
-  //   obj.price = history[i].price;
-  //   obj._id = history[i]._id;
-  //   listProduct.push(obj);
-  // }
-  // console.log(listProduct);
 
   // hàm này tách sản phẩm trong bill ra
   const listProduct = [];
-
+  const listItemProduct = [];
   for (let i = 0; i < history.length; i++) {
+    // const oBill = {}
     const oHistory = history[i];
     const idBills = oHistory._id.split(",");
     const names = oHistory.nameProduct.split(",");
     const quantities = oHistory.quantity.split(",");
+    // const sizes = oHistory.size.split(",");
     const prices = oHistory.price.split(",");
-    for (let j = 0; j < names.length; j++) {
+    const totals = oHistory.total.split(",");
+    console.log(names);
+    for (let j = 0; j < idBills.length; j++) {
       const oBill = {}
+      const oItems = {}
       oBill.idBill = idBills[j];
-      oBill.name = names[j];
       oBill.quantity = quantities[j];
-      oBill.price = prices[j]
+      // oBill.size = sizes[j];
+      oBill.total = totals[j];
+      oItems.name = names;
+      oItems.price = prices;
       listProduct.push(oBill)
+      listItemProduct.push(oItems)
+      console.log(oItems);
     }
   }
-  console.log(listProduct);
-
+  // console.log(newArr);
+  // console.log(idBills);
   return (
     <div className="container-fluid main-profile p-l-55 p-r-55 p-b-50">
       <div className="card-profile">
@@ -276,13 +274,13 @@ const UserProfile = (props) => {
                 <div className="content-history">
                   <div className="code-order">
                     <div>
-                      <p>Mã đơn hàng: {val._id}</p>
+                      <p>Mã đơn hàng: {val.idBill}</p>
                     </div>
                     <div style={{ fontSize: "13px" }}>
                       <span className="text-success"> <FaShippingFast /> Đơn hàng đã được giao thành công</span> | <span className="text-uppercase" style={{ color: "red", fontWeight: "bolder" }}>Hoàn thành</span>
                     </div>
                   </div>
-                  <div className="content-order">
+                  < div className="content-order">
                     <div>
                       <p>Tên sản phẩm: {val.nameProduct}</p>
                       <p>Số lượng: {val.quantity}</p>
@@ -304,9 +302,10 @@ const UserProfile = (props) => {
               </div>
             ))}
           </>
-        ) : ""}
+        ) : ""
+      }
 
-    </div>
+    </div >
   );
 };
 
