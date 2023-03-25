@@ -24,6 +24,21 @@
   padding: 0px 20px;
 }
 
+.form-method-pay {
+  border: 1px solid rgb(164, 164, 164);
+  padding: 10px 20px;
+  border-radius: 4px;
+}
+.img-logo-pay {
+  height: 15%;
+  width: 15%;
+  object-fit: cover;
+}
+.content-pay-method {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 /* Safari */
 @-webkit-keyframes spin {
   0% {

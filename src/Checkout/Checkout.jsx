@@ -3,9 +3,8 @@ import "./Checkout.css";
 import { HOST } from "../domain/host/host";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import CitySelectionForm from "./CitySelectionForm";
 import alertify from "alertifyjs";
-
+import Image from "../Share/img/Image"
 function Checkout(props) {
   const URL_CART = `${HOST}/getCartById`;
   const URL_CheckOut = `${HOST}/createBill`;
@@ -23,6 +22,54 @@ function Checkout(props) {
   const [success, setSuccess] = useState(false);
   const [load, setLoad] = useState(false);
   const [user, setUser] = useState({});
+
+  // Select City 
+  const [cities, setCities] = useState([]);
+  const [selectedCity, setSelectedCity] = useState("");
+  const [districts, setDistricts] = useState([]);
+  const [selectedDistrict, setSelectedDistrict] = useState("");
+  const [wards, setWards] = useState([]);
+  const [selectedWard, setSelectedWard] = useState("");
+
+  // Phương thức thanh toán
+  const [paymentMethod, setPaymentMethod] = useState('cod');
+  // gọi ra API của các thành phố
+  useEffect(() => {
+    axios
+      .get(
+        "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json"
+      )
+      .then((response) => {
+        setCities(response.data);
+      });
+  }, []);
+  // hàm này sẽ không cho user chọn quận huyện nếu chưa chọn tỉnh thành 
+  useEffect(() => {
+    if (selectedCity !== "") {
+      const districtsInSelectedCity = cities.find(
+        (city) => city.Id === selectedCity
+      ).Districts;
+      setDistricts(districtsInSelectedCity);
+    } else {
+      setDistricts([]);
+      setWards([]);
+    }
+    setSelectedDistrict("");
+    setSelectedWard("");
+  }, [selectedCity, cities]);
+
+  // hàm này sẽ không cho user chọn phường xã nếu chưa chọn quận huyện
+  useEffect(() => {
+    if (selectedDistrict !== "") {
+      const wardsInSelectedDistrict = districts.find(
+        (district) => district.Id === selectedDistrict
+      ).Wards;
+      setWards(wardsInSelectedDistrict);
+    } else {
+      setWards([]);
+    }
+    setSelectedWard("");
+  }, [selectedDistrict, districts]);
 
   //Hàm này check User có đăng nhập chưa nếu chưa thì sử dụng id khách
   let idUser = ""
@@ -73,7 +120,6 @@ function Checkout(props) {
         price: price.toString(),
         size: size.toString(),
       };
-      console.log(data);
       if (data.total === 0) {
         alertify.set("notifier", "position", "bottom-left");
         alertify.error("Vui Lòng Kiểm Tra Lại Giỏ Hàng!");
@@ -133,7 +179,7 @@ function Checkout(props) {
 
     if (!user.fullname && !fullName) {
       isValid = false;
-      error.fullName = "Họ và Tên không được bỏ trống!";
+      error.fullName = "Họ và Tên không được trống!";
     }
 
     if (!user.email && !email) {
@@ -146,7 +192,7 @@ function Checkout(props) {
 
     if (!user.phone && !phone) {
       isValid = false;
-      error.phone = "Số điện thoại không được để trống!";
+      error.phone = "Số điện thoại không được trống!";
     } else if (!validatePhoneNumber(phone)) {
       isValid = false;
       error.phone = "Số điện thoại không hợp lệ!";
@@ -154,8 +200,21 @@ function Checkout(props) {
 
     if (!user.address && !address) {
       isValid = false;
-      error.address = "Địa chỉ không được bỏ trống!";
-    } else {
+      error.address = "Địa chỉ không được trống!";
+    }
+    if (!selectedCity) {
+      isValid = false;
+      error.city = "Tỉnh thành không được trống!";
+    }
+    if (!selectedDistrict) {
+      isValid = false;
+      error.district = "Quận huyện không được trống!";
+    }
+    if (!selectedWard) {
+      isValid = false;
+      error.ward = "Phường xã không được trống!";
+    }
+    else {
       console.log("Thanh Cong");
       setLoad(!load);
     }
@@ -277,7 +336,87 @@ function Checkout(props) {
                     </div>
                   </div>
                   <div className="row">
-                    {/* <CitySelectionForm /> */}
+                    <div className='col-lg-4 col-md-12 mb-3'>
+                      <label className="text-small text-uppercase" htmlFor="Tỉnh thành">Tỉnh thành: </label>
+                      <select
+                        className="form-select form-select-sm form-control-lg"
+                        value={selectedCity}
+                        onChange={(event) => setSelectedCity(event.target.value)}
+                      >
+                        <option value="">Chọn tỉnh thành</option>
+                        {cities.map((city) => (
+                          <option key={city.Id} value={city.Id}>
+                            {city.Name}
+                          </option>
+                        ))}
+                      </select>
+                      {errors.city && (
+                        <span className="text-danger">{errors.city}</span>
+                      )}
+                    </div>
+
+                    <div className='col-lg-4 col-md-12 mb-3'>
+                      <label className="text-small text-uppercase" htmlFor="Quận huyện">Quận huyện: </label>
+                      <select
+                        className="form-select form-select-sm form-control-lg"
+                        value={selectedDistrict}
+                        onChange={(event) => setSelectedDistrict(event.target.value)}
+                        disabled={!selectedCity}
+                      >
+                        <option value="">Chọn quận huyện</option>
+                        {districts.map((district) => (
+                          <option key={district.Id} value={district.Id}>
+                            {district.Name}
+                          </option>
+                        ))}
+                      </select>
+                      {errors.district && (
+                        <span className="text-danger">{errors.district}</span>
+                      )}
+                    </div>
+
+                    <div className='col-lg-4 col-md-12 mb-3'>
+                      <label className="text-small text-uppercase" htmlFor="Phường xã">Phường xã: </label>
+                      <select
+                        className="form-select form-select-sm form-control-lg"
+                        value={selectedWard}
+                        onChange={(event) => setSelectedWard(event.target.value)}
+                        disabled={!selectedDistrict}
+                      >
+                        <option value="">Chọn phường xã</option>
+                        {wards.map((ward) => (
+                          <option key={ward.Id} value={ward.Id}>
+                            {ward.Name}
+                          </option>
+                        ))}
+                      </select>
+                      {errors.ward && (
+                        <span className="text-danger">{errors.ward}</span>
+                      )}
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-lg-12 mb-3">
+                      <div className="form-method-pay">
+                        <label className="text-small text-uppercase" htmlFor="Tỉnh thành">Phương thức thanh toán</label>
+                        <div className="content-pay-method">
+                          <div className="">
+                            <input type="radio" value="cod" checked={paymentMethod === 'cod'} onChange={(e) => setPaymentMethod(e.target.value)} />
+                            <label className="ml-3">Thanh toán khi nhận hàng</label>
+                          </div>
+                          <img src={Image.logoPay} className="img-logo-pay" alt="logoPay" />
+                        </div>
+                        <div className="content-pay-method">
+                          <div className="">
+                            <input type="radio" value="momo" checked={paymentMethod === 'momo'} onChange={(e) => setPaymentMethod(e.target.value)} />
+                            <label className="ml-3">Momo</label>
+                          </div>
+                          <img src={Image.logoMomo} className="img-logo-pay" alt="logoMomo" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row">
                     <div className="col-lg-12 form-group">
                       <button
                         className="btn btn-dark"
@@ -327,22 +466,25 @@ function Checkout(props) {
               </div>
             </div>
           </section>
-        )}
+        )
+        }
 
-        {success && (
-          <section className="py-5">
-            <div className="p-5 text-center">
-              <h1>Bạn đã đặt hàng thành công!</h1>
-              <p style={{ fontSize: "1.2rem" }}>Vui lòng check mail.</p>
+        {
+          success && (
+            <section className="py-5">
+              <div className="p-5 text-center">
+                <h1>Bạn đã đặt hàng thành công!</h1>
+                <p style={{ fontSize: "1.2rem" }}>Vui lòng check mail.</p>
 
-              <Link className="btn btn-warning mt-2" to={"/"}>
-                Trở về trang chủ
-              </Link>
-            </div>
-          </section>
-        )}
-      </div>
-    </div>
+                <Link className="btn btn-warning mt-2" to={"/"}>
+                  Trở về trang chủ
+                </Link>
+              </div>
+            </section>
+          )
+        }
+      </div >
+    </div >
   );
 }
 

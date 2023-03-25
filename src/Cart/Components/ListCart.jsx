@@ -116,9 +116,8 @@ function ListCart(props) {
               </button>
               {/* Modal hiện popup xác nhận xóa sản phẩm */}
               <ModalDelete show={show} handleClose={handleClose} handlerDelete={handlerDelete} />
-
             </div>
-            <div className="col-md-12 d-flex justify-content-between total-listcart">
+            <div className="col-md-12 d-flex justify-content-between">
               <p style={{ fontWeight: "700" }}>Thành tiền:</p>
               <p
                 className="mb-0 small"
@@ -126,6 +125,10 @@ function ListCart(props) {
               >
                 {(parseInt(val.promotionPrice ? val.promotionPrice : val.price) * parseInt(val.quantity)).toLocaleString()}₫
               </p>
+            </div>
+
+            <div className="mt-1 col-md-12">
+              <hr className="border-bottom" style={{ borderColor: '#1d1d1d' }} />
             </div>
           </div>
         </div>

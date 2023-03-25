@@ -13,7 +13,7 @@ import { Link, redirect, useNavigate } from "react-router-dom";
 
 const UserProfile = (props) => {
   const URL_GetDetailUser = `${HOST}/user`;
-  const URL_BILLBYID = `${HOST}/getBillById`;
+  const URL_BILLBYIDUSER = `${HOST}/getBillByIdUser`;
 
   const [active, setActive] = useState("Overview");
   const [modalShow, setModalShow] = useState(false);
@@ -48,11 +48,10 @@ const UserProfile = (props) => {
       .catch((error) => console.log(error));
     // hàm này gọi thông tin hóa đơn
     axios
-      .get(`${URL_BILLBYID}/${idUser}`)
+      .get(`${URL_BILLBYIDUSER}/${idUser}`)
       .then((response) => setHistory(response.data))
       .catch((error) => console.log(error));
   }, []);
-
 
   // hàm này tách sản phẩm trong bill ra
   const listProduct = [];

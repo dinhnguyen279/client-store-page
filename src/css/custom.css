@@ -162,13 +162,13 @@ button:hover::after {
   text-align: center;
   display: inline-block;
 }
-
+/* 
 .total-listcart {
   position: absolute;
   bottom: -10%;
   right: 0;
   left: 0;
-}
+} */
 
 .listcart-product img {
   height: 100%;
@@ -573,6 +573,9 @@ button:hover::after {
   .navbar-button {
     width: 30%;
   }
+  /* .remove_cart {
+    font-size: 30px;
+  } */
 }
 
 .nav-list-respon {

@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-function SelectionForm() {
+function SelectionForm(props) {
     const [cities, setCities] = useState([]);
     const [selectedCity, setSelectedCity] = useState("");
     const [districts, setDistricts] = useState([]);
     const [selectedDistrict, setSelectedDistrict] = useState("");
     const [wards, setWards] = useState([]);
     const [selectedWard, setSelectedWard] = useState("");
-
     useEffect(() => {
         axios
             .get(

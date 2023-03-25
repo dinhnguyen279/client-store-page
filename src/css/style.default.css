@@ -534,7 +534,7 @@ button:active {
 
 @media only screen and (max-width: 1200px) {
   .reset-anchor {
-    font-size: 10px;
+    font-size: 20px;
   }
 }
 /*
