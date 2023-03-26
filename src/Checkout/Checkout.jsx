@@ -100,38 +100,38 @@ function Checkout(props) {
 
   useEffect(() => {
     if (getCartById.length === 0) return;
-    if (load) {
-      const nameProduct = getCartById.map((val) => val.nameProduct);
-      const price = getCartById.map((val) =>
-        val.promotionPrice ? val.promotionPrice : val.price
-      );
-      const quantity = getCartById.map((val) => val.quantity);
-      const size = getCartById.map((val) => val.size);
+    // if (load) {
+    //   const nameProduct = getCartById.map((val) => val.nameProduct);
+    //   const price = getCartById.map((val) =>
+    //     val.promotionPrice ? val.promotionPrice : val.price
+    //   );
+    //   const quantity = getCartById.map((val) => val.quantity);
+    //   const size = getCartById.map((val) => val.size);
 
-      const data = {
-        idUser: idUser,
-        phone: phone ? phone : user.phone,
-        address: address ? address : user.address,
-        fullname: fullName ? fullName : user.fullname,
-        total: total,
-        quantity: quantity.toString(),
-        email: email ? email : user.email,
-        nameProduct: nameProduct.toString(),
-        price: price.toString(),
-        size: size.toString(),
-      };
-      if (data.total === 0) {
-        alertify.set("notifier", "position", "bottom-left");
-        alertify.error("Vui Lòng Kiểm Tra Lại Giỏ Hàng!");
-        return;
-      }
-      axios.post(URL_CheckOut, data);
-      setTimeout(() => {
-        setSuccess(!success);
-        setLoad(!load);
-      }, 4000);
-    }
-  }, [load, getCartById]);
+    //   const data = {
+    //     idUser: idUser,
+    //     phone: phone ? phone : user.phone,
+    //     address: address ? address : user.address,
+    //     fullname: fullName ? fullName : user.fullname,
+    //     total: total,
+    //     quantity: quantity.toString(),
+    //     email: email ? email : user.email,
+    //     nameProduct: nameProduct.toString(),
+    //     price: price.toString(),
+    //     size: size.toString(),
+    //   };
+    //   if (data.total === 0) {
+    //     alertify.set("notifier", "position", "bottom-left");
+    //     alertify.error("Vui Lòng Kiểm Tra Lại Giỏ Hàng!");
+    //     return;
+    //   }
+    //   axios.post(URL_CheckOut, data);
+    //   setTimeout(() => {
+    //     setSuccess(!success);
+    //     setLoad(!load);
+    //   }, 4000);
+    // }
+  }, [getCartById]);
 
   //Hàm này dùng để tính tổng tiền carts
   const getTotal = (getCartById) => {
@@ -172,8 +172,7 @@ function Checkout(props) {
   };
 
   //Check Validation
-  const handlerSubmit = (e) => {
-    e.preventDefault();
+  const validateFormCheckout = () => {
     let isValid = true;
     const error = {};
 
@@ -181,7 +180,6 @@ function Checkout(props) {
       isValid = false;
       error.fullName = "Họ và Tên không được trống!";
     }
-
     if (!user.email && !email) {
       isValid = false;
       error.email = "Email không tồn tại!";
@@ -214,12 +212,44 @@ function Checkout(props) {
       isValid = false;
       error.ward = "Phường xã không được trống!";
     }
-    else {
-      console.log("Thanh Cong");
-      setLoad(!load);
-    }
     setErrors(error);
     return isValid;
+  }
+  const handlerSubmit = (e) => {
+    e.preventDefault();
+    if (validateFormCheckout()) {
+      setLoad(true);
+      const nameProduct = getCartById.map((val) => val.nameProduct);
+      const price = getCartById.map((val) =>
+        val.promotionPrice ? val.promotionPrice : val.price
+      );
+      const quantity = getCartById.map((val) => val.quantity);
+      const size = getCartById.map((val) => val.size);
+
+      const data = {
+        idUser: idUser,
+        phone: phone ? phone : user.phone,
+        address: address ? address : user.address,
+        fullname: fullName ? fullName : user.fullname,
+        total: total,
+        quantity: quantity.toString(),
+        email: email ? email : user.email,
+        nameProduct: nameProduct.toString(),
+        price: price.toString(),
+        size: size.toString(),
+        payment: paymentMethod
+      };
+      if (data.total === 0) {
+        alertify.set("notifier", "position", "bottom-left");
+        alertify.error("Vui Lòng Kiểm Tra Lại Giỏ Hàng!");
+        return;
+      }
+      axios.post(URL_CheckOut, data);
+      setTimeout(() => {
+        setSuccess(!success);
+        setLoad(false);
+      }, 4000);
+    }
   };
 
   return (
