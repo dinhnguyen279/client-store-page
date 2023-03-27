@@ -59,13 +59,27 @@ html {
   align-items: center;
 }
 
-/* .detai-invoices { */
-/* border-top: 1px solid rgb(214, 214, 214); */
-/* } */
+.content-detail-invoices {
+  display: flex;
+  align-items: center;
+}
+
+.detail-invoices {
+  border-bottom: 1px solid rgb(214, 214, 214);
+  padding-bottom: 10px;
+}
+
+.total-detail-invoice {
+  float: right;
+}
+.total-detail-invoice p {
+  font-size: 18px;
+  font-weight: 600;
+}
 
 .img-invoices {
-  height: 30%;
-  width: 30%;
+  height: 15%;
+  width: 15%;
   object-fit: cover;
 }
 
@@ -80,6 +94,15 @@ html {
   flex-direction: column;
   align-items: end;
   padding: 10px 0;
+}
+
+.footer-order div {
+  display: flex;
+  align-items: end;
+}
+
+.footer-order button {
+  margin-right: 20px;
 }
 
 /* User Profile */
@@ -314,6 +337,24 @@ html {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+  .content-order {
+    align-items: start;
+    flex-direction: column;
+  }
+  .footer-order {
+    align-items: center;
+  }
+  .footer-order div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+    width: 100%;
+  }
+  .footer-order button {
+    margin-right: 0px;
   }
 }
 
@@ -914,6 +955,11 @@ input.input100 {
   }
   .main-profile {
     padding-top: 100px;
+  }
+
+  .code-order {
+    flex-direction: column;
+    align-items: start;
   }
 }
 

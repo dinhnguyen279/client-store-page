@@ -16,7 +16,7 @@ import { HOST } from "../domain/host/host";
 import { Button } from "react-bootstrap";
 
 function Cart(props) {
-  const URL_CART = `${HOST}/getCartByIdFieldDeletedIsNull`;
+  const URL_CART = `${HOST}/getCartById`;
 
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState();

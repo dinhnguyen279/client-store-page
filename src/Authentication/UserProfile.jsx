@@ -36,7 +36,7 @@ const UserProfile = (props) => {
     size: "",
     total: "",
     fullname: "",
-    avt: ""
+    idProduct: ""
   })
   const [history, setHistory] = useState([]);
   // Show/hide password
@@ -87,7 +87,7 @@ const UserProfile = (props) => {
             <h1>{getDataUser.fullname}</h1>
           </div>
           <div className=" name-profile">
-            <Button className="text-uppercase">
+            <Button variant="primary" className="text-uppercase">
               <AiOutlineScan /> In Hồ Sơ
             </Button>
           </div>
@@ -99,7 +99,7 @@ const UserProfile = (props) => {
               className="m-r-10 btn-detail"
               style={
                 active === "Overview"
-                  ? { background: "#6e00ff" }
+                  ? { background: "#0d6efd" }
                   : { background: "none" }
               }
               onClick={() => handlerActive("Overview")}
@@ -124,7 +124,7 @@ const UserProfile = (props) => {
               className="btn-detail"
               style={
                 active === "History"
-                  ? { background: "#6e00ff" }
+                  ? { background: "#0d6efd" }
                   : { background: "none" }
               }
               onClick={() => handlerActive("History")}
@@ -264,7 +264,7 @@ const UserProfile = (props) => {
                 </div>
                 <div className="content-history">
                   <div className="code-order">
-                    <div>
+                    <div className="mb-3 mb-md-0">
                       <p>Mã đơn hàng: {val._id}</p>
                     </div>
                     <div style={{ fontSize: "13px" }}>
@@ -285,14 +285,14 @@ const UserProfile = (props) => {
                     <p className="text-base">
                       <b>Tổng đơn:</b> {(parseInt(val.total)).toLocaleString()}₫
                     </p>
-                    <div className="mt-3">
-                      <Button onClick={() => handleShowDetailInvoices(val._id)} variant="danger" className="pr-4 pl-4 mr-3">Thông tin hóa đơn</Button>
-                      <Link to={`/`} className="btn btn-outline-dark">Liên Hệ Shop</Link>
-                      {/* <DetailInvoices
+                    <div className="">
+                      <Button onClick={() => handleShowDetailInvoices(val._id)} variant="primary" className="w-100">Thông tin hóa đơn</Button>
+                      <Link to={`/contact`} className="btn btn-outline-danger mt-3 w-100">Liên Hệ Shop</Link>
+                      <DetailInvoices
                         show={modalShowDetailInvoices}
                         onHide={() => setModalShowDetailInvoices(false)}
                         dataDetail={getDataInvoices}
-                      /> */}
+                      />
                     </div>
                   </div>
                 </div>

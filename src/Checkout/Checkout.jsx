@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import alertify from "alertifyjs";
 import Image from "../Share/img/Image"
 function Checkout(props) {
-  const URL_CART = `${HOST}/getCartByIdFieldDeletedIsNull`;
+  const URL_CART = `${HOST}/getCartById`;
   const URL_CheckOut = `${HOST}/createBill`;
   const URL_getUserById = `${HOST}/user`;
 
@@ -82,7 +82,6 @@ function Checkout(props) {
     idUser = id_user_clientage;
   }
 
-  console.log(getCartById);
   useEffect(() => {
     if (idUser) {
       axios
@@ -185,7 +184,6 @@ function Checkout(props) {
     setErrors(error);
     return isValid;
   }
-  // const img = getCartById.map(val => val.img);
   const handlerSubmit = (e) => {
     e.preventDefault();
     if (validateFormCheckout()) {
@@ -196,6 +194,7 @@ function Checkout(props) {
       );
       const quantity = getCartById.map((val) => val.quantity);
       const size = getCartById.map((val) => val.size);
+      const idProduct = getCartById.map((val) => val.idProduct);
       const data = {
         idUser: idUser,
         phone: phone ? phone : user.phone,
@@ -207,8 +206,10 @@ function Checkout(props) {
         nameProduct: nameProduct.toString(),
         price: price.toString(),
         size: size.toString(),
-        payment: paymentMethod
+        payment: paymentMethod,
+        idProduct: idProduct.toString()
       };
+      console.log(data);
       if (data.total === 0) {
         alertify.set("notifier", "position", "bottom-left");
         alertify.error("Vui Lòng Kiểm Tra Lại Giỏ Hàng!");

@@ -54,7 +54,7 @@ function App() {
     }
 
     if (idUser) {
-      await CartAPI.getCartByIdFieldDeletedIsNull(`/${idUser}`)
+      await CartAPI.getCartById(`/${idUser}`)
         .then((res) => getCount(res.data))
         .catch(error => console.log(error))
     }
