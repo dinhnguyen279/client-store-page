@@ -49,7 +49,6 @@ function Detail(props) {
     };
     fetchData();
   }, [id]);
-
   useEffect(() => {
     if (detail.coupons) {
       axios
@@ -99,9 +98,9 @@ function Detail(props) {
       size: sizeProduct,
     };
     axios.post(URL_AddToCart, data)
+    props.fecthCount();
     alertify.set("notifier", "position", "bottom-left");
     alertify.success("Bạn Đã Thêm Hàng Thành Công!");
-    props.fecthCount();
   };
 
   const onChangeText = (e) => {

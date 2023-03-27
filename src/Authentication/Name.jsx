@@ -18,12 +18,10 @@ function Name(props) {
     }, [])
     const handleUserNone = () => {
         const idUser = sessionStorage.getItem("id_user")
-        // window.location.href = "/"
+        props.handleReloadPage()
         // hàm này check người dùng đăng nhập chưa
         if (!idUser) {
-            // window.location.href = "/signin"
             return redirect("/signin")
-
         }
         return null
     }

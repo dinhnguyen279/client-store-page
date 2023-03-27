@@ -16,16 +16,10 @@ import { HOST } from "../domain/host/host";
 import { Button } from "react-bootstrap";
 
 function Cart(props) {
-  //id_user được lấy từ redux
-  // const id_user = useSelector(state => state.Cart.id_user)
-
-  //listCart được lấy từ redux
-  const listCart = useSelector((state) => state.Cart.listCart);
-  const URL_CART = `${HOST}/getCartById`;
+  const URL_CART = `${HOST}/getCartByIdFieldDeletedIsNull`;
 
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState();
-  const dispatch = useDispatch();
   const [showProduct, setShowProduct] = useState("");
   const [loadRedux, setLoadRedux] = useState({
     idProduct: "",
@@ -34,7 +28,6 @@ function Cart(props) {
   const [loadAPI, setLoadAPI] = useState(false);
   const [getCartById, setCartById] = useState([]);
   const [redirect, setRedirect] = useState(false);
-
   // Kiểm tra id nếu idUser không có thì lấy id Khách
   let idUser = ""
   if (sessionStorage.getItem("id_user")) {
@@ -55,7 +48,6 @@ function Cart(props) {
         getTotal(response.data);
       })
       .catch((error) => console.log(error));
-
   }, [getCartById]);
 
   //Hàm này dùng để Load dữ liệu ở Redux

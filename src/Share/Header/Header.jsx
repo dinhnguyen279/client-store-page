@@ -214,7 +214,7 @@ function Header(props) {
                       <AiOutlineShoppingCart className='icon-cart' />
                     </Link>
                   </li>
-                  {nameUser ? (<Name />) : ' '}
+                  {nameUser ? (<Name handleReloadPage={reloadPage} />) : ' '}
                   {loginUser ? ' ' : (<LogoutLink reloadPage={reloadPage} />)}
                 </ul>
               </Nav>

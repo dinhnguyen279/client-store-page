@@ -58,6 +58,17 @@ html {
   justify-content: space-between;
   align-items: center;
 }
+
+/* .detai-invoices { */
+/* border-top: 1px solid rgb(214, 214, 214); */
+/* } */
+
+.img-invoices {
+  height: 30%;
+  width: 30%;
+  object-fit: cover;
+}
+
 .content-history {
   padding-top: 20px;
   display: flex;

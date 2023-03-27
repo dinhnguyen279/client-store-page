@@ -4,7 +4,6 @@ import Form from "react-bootstrap/Form";
 import FileBase64 from "react-file-base64";
 import { HOST } from "../domain/host/host";
 import axios from "axios";
-import Image from "../Share/img/Image"
 const EditProfileUser = (props) => {
   const URL_UPDATEUSER = `${HOST}/updateUser`;
 

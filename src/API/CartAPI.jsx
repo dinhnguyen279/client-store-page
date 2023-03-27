@@ -12,6 +12,11 @@ const CartAPI = {
         return axiosClient.get(url)
     },
 
+    getCartByIdFieldDeletedIsNull: (id) => {
+        const url = `/getCartByIdFieldDeletedIsNull${id}`
+        return axiosClient.get(url)
+    },
+
 
     postAddToCart: (data) => {
         const url = `/cart/add${data}`

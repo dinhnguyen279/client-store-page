@@ -3,6 +3,7 @@ import { AiOutlineEdit, AiOutlineScan } from "react-icons/ai";
 import "./Auth.css";
 import { Button } from "react-bootstrap";
 import EditProfileUser from "./EditProfileUser";
+import DetailInvoices from './DetailInvoices'
 import { HOST } from "../domain/host/host";
 import axios from "axios";
 
@@ -14,8 +15,9 @@ import { Link, redirect, useNavigate } from "react-router-dom";
 const UserProfile = (props) => {
   const URL_GetDetailUser = `${HOST}/user`;
   const URL_BILLBYIDUSER = `${HOST}/getBillByIdUser`;
-
+  const URL_GetBillById = `${HOST}/getBillById`;
   const [active, setActive] = useState("Overview");
+  const [modalShowDetailInvoices, setModalShowDetailInvoices] = useState(false);
   const [modalShow, setModalShow] = useState(false);
   const [getDataUser, setGetDataUser] = useState({
     avatar: "",
@@ -26,6 +28,16 @@ const UserProfile = (props) => {
     password: "",
     sex: "",
   });
+  const [getDataInvoices, setGetDataInvoices] = useState({
+    imgProduct: "",
+    nameProduct: "",
+    price: "",
+    quantity: "",
+    size: "",
+    total: "",
+    fullname: "",
+    avt: ""
+  })
   const [history, setHistory] = useState([]);
   // Show/hide password
   const [typePassWord, setTypePassWord] = useState("password");
@@ -53,35 +65,15 @@ const UserProfile = (props) => {
       .catch((error) => console.log(error));
   }, []);
 
-  // hàm này tách sản phẩm trong bill ra
-  const listProduct = [];
-  const listItemProduct = [];
-  for (let i = 0; i < history.length; i++) {
-    // const oBill = {}
-    const oHistory = history[i];
-    const idBills = oHistory._id.split(",");
-    const names = oHistory.nameProduct.split(",");
-    const quantities = oHistory.quantity.split(",");
-    // const sizes = oHistory.size.split(",");
-    const prices = oHistory.price.split(",");
-    const totals = oHistory.total.split(",");
-    console.log(names);
-    for (let j = 0; j < idBills.length; j++) {
-      const oBill = {}
-      const oItems = {}
-      oBill.idBill = idBills[j];
-      oBill.quantity = quantities[j];
-      // oBill.size = sizes[j];
-      oBill.total = totals[j];
-      oItems.name = names;
-      oItems.price = prices;
-      listProduct.push(oBill)
-      listItemProduct.push(oItems)
-      console.log(oItems);
-    }
+  const handleShowDetailInvoices = (id) => {
+    axios.get(`${URL_GetBillById}/${id}`)
+      .then((res) => {
+        setGetDataInvoices(res.data[0])
+      })
+      .catch(err => console.log(err))
+    setModalShowDetailInvoices(true)
   }
-  // console.log(newArr);
-  // console.log(idBills);
+
   return (
     <div className="container-fluid main-profile p-l-55 p-r-55 p-b-50">
       <div className="card-profile">
@@ -273,28 +265,34 @@ const UserProfile = (props) => {
                 <div className="content-history">
                   <div className="code-order">
                     <div>
-                      <p>Mã đơn hàng: {val.idBill}</p>
+                      <p>Mã đơn hàng: {val._id}</p>
                     </div>
                     <div style={{ fontSize: "13px" }}>
                       <span className="text-success"> <FaShippingFast /> Đơn hàng đã được giao thành công</span> | <span className="text-uppercase" style={{ color: "red", fontWeight: "bolder" }}>Hoàn thành</span>
                     </div>
                   </div>
-                  < div className="content-order">
+                  <div className="content-order">
                     <div>
-                      <p>Tên sản phẩm: {val.nameProduct}</p>
-                      <p>Số lượng: {val.quantity}</p>
+                      <p><b>Người nhận: {val.fullname}</b></p>
+                      <p><b>Tổng sản phẩm: {val.nameProduct.split(",").length}</b></p>
+                      <p><b>Phương thức thanh toán: {val.payment}</b></p>
                     </div>
                     <div>
-                      <p>Giá: {val.price}₫</p>
+                      <p><b>Ngày mua: {val.created_date}</b></p>
                     </div>
                   </div>
                   <div className="footer-order">
                     <p className="text-base">
-                      <b>Thành tiền:</b> {(parseInt(val.total)).toLocaleString()}₫
+                      <b>Tổng đơn:</b> {(parseInt(val.total)).toLocaleString()}₫
                     </p>
                     <div className="mt-3">
-                      <Link className="btn btn-danger pr-4 pl-4 mr-3">Mua lại</Link>
-                      <Link className="btn btn-outline-dark">Liên Hệ Shop</Link>
+                      <Button onClick={() => handleShowDetailInvoices(val._id)} variant="danger" className="pr-4 pl-4 mr-3">Thông tin hóa đơn</Button>
+                      <Link to={`/`} className="btn btn-outline-dark">Liên Hệ Shop</Link>
+                      {/* <DetailInvoices
+                        show={modalShowDetailInvoices}
+                        onHide={() => setModalShowDetailInvoices(false)}
+                        dataDetail={getDataInvoices}
+                      /> */}
                     </div>
                   </div>
                 </div>
@@ -303,7 +301,6 @@ const UserProfile = (props) => {
           </>
         ) : ""
       }
-
     </div >
   );
 };

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import alertify from "alertifyjs";
 import Image from "../Share/img/Image"
 function Checkout(props) {
-  const URL_CART = `${HOST}/getCartById`;
+  const URL_CART = `${HOST}/getCartByIdFieldDeletedIsNull`;
   const URL_CheckOut = `${HOST}/createBill`;
   const URL_getUserById = `${HOST}/user`;
 
@@ -82,6 +82,7 @@ function Checkout(props) {
     idUser = id_user_clientage;
   }
 
+  console.log(getCartById);
   useEffect(() => {
     if (idUser) {
       axios
@@ -100,37 +101,6 @@ function Checkout(props) {
 
   useEffect(() => {
     if (getCartById.length === 0) return;
-    // if (load) {
-    //   const nameProduct = getCartById.map((val) => val.nameProduct);
-    //   const price = getCartById.map((val) =>
-    //     val.promotionPrice ? val.promotionPrice : val.price
-    //   );
-    //   const quantity = getCartById.map((val) => val.quantity);
-    //   const size = getCartById.map((val) => val.size);
-
-    //   const data = {
-    //     idUser: idUser,
-    //     phone: phone ? phone : user.phone,
-    //     address: address ? address : user.address,
-    //     fullname: fullName ? fullName : user.fullname,
-    //     total: total,
-    //     quantity: quantity.toString(),
-    //     email: email ? email : user.email,
-    //     nameProduct: nameProduct.toString(),
-    //     price: price.toString(),
-    //     size: size.toString(),
-    //   };
-    //   if (data.total === 0) {
-    //     alertify.set("notifier", "position", "bottom-left");
-    //     alertify.error("Vui Lòng Kiểm Tra Lại Giỏ Hàng!");
-    //     return;
-    //   }
-    //   axios.post(URL_CheckOut, data);
-    //   setTimeout(() => {
-    //     setSuccess(!success);
-    //     setLoad(!load);
-    //   }, 4000);
-    // }
   }, [getCartById]);
 
   //Hàm này dùng để tính tổng tiền carts
@@ -215,6 +185,7 @@ function Checkout(props) {
     setErrors(error);
     return isValid;
   }
+  // const img = getCartById.map(val => val.img);
   const handlerSubmit = (e) => {
     e.preventDefault();
     if (validateFormCheckout()) {
@@ -225,7 +196,6 @@ function Checkout(props) {
       );
       const quantity = getCartById.map((val) => val.quantity);
       const size = getCartById.map((val) => val.size);
-
       const data = {
         idUser: idUser,
         phone: phone ? phone : user.phone,
@@ -309,12 +279,12 @@ function Checkout(props) {
                         className="text-small text-uppercase"
                         htmlFor="Email"
                       >
-                        Email:{" "}
+                        Email:
                       </label>
                       <input
                         className="form-control form-control-lg w-100"
                         style={{ maxWidth: "100%" }}
-                        value={user.email ? user.email : email}
+                        value={email}
                         onChange={onChangeEmail}
                         type="text"
                         placeholder="Nhập Email của bạn ở đây!"
@@ -334,7 +304,7 @@ function Checkout(props) {
                       <input
                         className="form-control form-control-lg"
                         style={{ maxWidth: "100%" }}
-                        value={user.phone ? user.phone : phone}
+                        value={phone}
                         onChange={onChangePhone}
                         type="number"
                         placeholder="Nhập số điện thoại của bạn ở đây!"
