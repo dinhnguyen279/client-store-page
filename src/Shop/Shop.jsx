@@ -29,10 +29,8 @@ function Shop(props) {
     //Từng trang hiện tại
     const [pagination, setPagination] = useState({
         page: "1",
-        count: "9",
-        search: "",
+        count: "4",
         category: "all",
-        fildter: "",
     });
 
     const URL_PRODUCT = `${HOST}/products`;
@@ -41,17 +39,17 @@ function Shop(props) {
     const idUser = sessionStorage.getItem("id_user")
 
     //Hàm này dùng để thay đổi state pagination.category
-    const handlerCategory = (value) => {
-        console.log("Value: ", value);
+    // const handlerCategory = (value) => {
+    //     console.log("Value: ", value);
 
-        setPagination({
-            page: pagination.page,
-            count: pagination.count,
-            search: pagination.search,
-            category: value,
-            fildter: pagination.fildter,
-        });
-    };
+    //     setPagination({
+    //         page: pagination.page,
+    //         count: pagination.count,
+    //         search: pagination.search,
+    //         category: value,
+    //         fildter: pagination.fildter,
+    //     });
+    // };
 
     //Hàm này dùng để thay đổi state pagination.page
     //Nó sẽ truyền xuống Component con và nhận dữ liệu từ Component con truyền lên
@@ -60,10 +58,7 @@ function Shop(props) {
         setPagination({
             page: value,
             count: pagination.count,
-            search: pagination.search,
             category: pagination.category,
-            fildter: pagination.fildter
-
         })
     }
 
@@ -82,30 +77,8 @@ function Shop(props) {
         axios.get(`${URL_SEARCH}${query}`)
             .then((res) => setProducts(res.data))
             .catch((err) => console.log("err search", err))
-        //     setPagination({
-        //         page: pagination.page,
-        //         count: pagination.count,
-        //         search: value,
-        //         fildter: "name",
-        //         category: pagination.category,
-        //     });
-        // setSearch(value)
 
     }
-
-    //Hàm này dùng để thay đổi state pagination.category
-    // const handlerCategory = (value) => {
-    //     console.log("Value: ", value)
-
-    //     setPagination({
-    //         page: pagination.page,
-    //         count: pagination.count,
-    //         search: pagination.search,
-    //         category: value,
-
-    //     })
-    // }
-
 
     //Hàm Sort sản phẩm theo giá
     const sortPrice = (a, b) => {
@@ -133,23 +106,23 @@ function Shop(props) {
     //Và nó phụ thuộc và state pagination
     useEffect(() => {
         const fetchAllData = async () => {
-            await ProductAPI.getAPI().then((res) => setProducts(res.data))
+            const products = await ProductAPI.getAPI()
+            const response = products.data;
+
+            // .then((res) => setProducts(res.data))
             // Nếu mà category === 'all' thì nó sẽ gọi hàm get tất cả sản phẩm
             // Ngược lại thì nó sẽ gọi hàm pagination và phân loại sản phẩm
-            // if (pagination.category === 'all'){
-            //     response = await axios.get(URL_PRODUCT)
-            //     console.log(response)
-
-            //     // response = await ProductAPI.getPagination(newQuery)
-            //     response = await axios.get(`${URL_PRODUCT}/pagination${newQuery}`)
-            //     console.log(response)
+            // if (pagination.category === 'all') {
+            // const response = await axios.get(URL_PRODUCT)
+            // console.log(response)
+            // response = await ProductAPI.getPagination(newQuery)
+            // response = await axios.get(`${URL_PRODUCT}/pagination${newQuery}`)
+            // console.log(response)
             // }
 
-            //Tính tổng số trang = tổng số sản phẩm / số lượng sản phẩm 1 trang
-            // const totalPage = Math.ceil(parseInt(response.length) / parseInt(pagination.count))
-            // console.log('totalPage',totalPage)
-
-            // setTotalPage(totalPage)
+            // Tính tổng số trang = tổng số sản phẩm / số lượng sản phẩm 1 trang
+            const totalPage = Math.ceil(parseInt(response.length) / parseInt(pagination.count))
+            setTotalPage(totalPage)
         };
         fetchAllData();
     }, []);
@@ -157,33 +130,19 @@ function Shop(props) {
 
     // pagination
     //Gọi hàm Pagination
-    // useEffect(() => {
-
-    //     const fetchData = async () => {
-
-    //         const params = {
-    //             page: pagination.page,
-    //             count: pagination.count,
-    //             search: pagination.search,
-    //             category: pagination.category
-    //         }
-
-    //         const query = queryString.stringify(params)
-
-    //         const newQuery = '?' + query
-
-    //         // const response = await ProductAPI.getPagination(newQuery)
-    //         const response = await axios.get(`${URL_PRODUCT}/pagination${newQuery}`)
-    //         console.log(response)
-
-    //         setProducts(response)
-    //         setTemp(response)
-
-    //     }
-
-    //     fetchData()
-
-    // }, [pagination])
+    useEffect(() => {
+        const fetchData = async () => {
+            const params = {
+                page: pagination.page,
+                count: pagination.count,
+                category: pagination.category
+            }
+            const query = "?" + queryString.stringify(params)
+            const response = await axios.get(`${URL_PRODUCT}/pagination${query}`)
+            setProducts(response.data)
+        }
+        fetchData()
+    }, [pagination])
     return (
         <div className="container main-shop">
             <section className="py-3 bg-light mb-3">

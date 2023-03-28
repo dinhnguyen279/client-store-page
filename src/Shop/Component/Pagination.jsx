@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import IndexPage from './IndexPage';
-
 Pagination.propTypes = {
     pagination: PropTypes.object,
     handlerChangePage: PropTypes.func,
@@ -68,7 +67,7 @@ function Pagination(props) {
                 </li>
             </ul>
             <div className="pagination justify-content-center justify-content-lg-end">
-                <p className="text-small text-muted mb-0">Trang 1–9 của {parseInt(totalPage) * 9}</p>
+                <p className="text-small text-muted mb-0">Trang 1 của {parseInt(totalPage) * 4}</p>
             </div>
         </nav>
     );
