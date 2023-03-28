@@ -83,7 +83,7 @@ function App() {
           <Route path='/gioi-thieu' element={<Introduce />} />
           <Route path='/chinh-sach-bao-mat' element={<PrivacyPolicy />} />
           <Route path='/chinh-sach-doi-tra' element={<ReturnPolicy />} />
-          <Route path='/dieu-khoang-dich-vu' element={<TermsOfService />} />
+          <Route path='/dieu-khoan-dich-vu' element={<TermsOfService />} />
         </Routes>
       </BrowserRouter>
       <Footer />

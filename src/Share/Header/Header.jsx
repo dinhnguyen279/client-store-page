@@ -260,10 +260,24 @@ function Header(props) {
                       Liên Hệ
                     </Link>
                   </li>
-
-                  <li className="navbar-nav nav-menu">
-                    <Link className="nav-link" to={`/cart`} onClick={reloadPage}>
-                      Giỏ Hàng
+                  <li className='navbar-nav nav-menu'>
+                    <Link className="nav-link" to={"/gioi-thieu"}>
+                      Giới Thiệu
+                    </Link>
+                  </li>
+                  <li className='navbar-nav nav-menu'>
+                    <Link className="nav-link" to={"/chinh-sach-bao-mat"}>
+                      Chính sách bảo mật
+                    </Link>
+                  </li>
+                  <li className='navbar-nav nav-menu'>
+                    <Link className="nav-link" to={"/chinh-sach-doi-tra"}>
+                      Chính sách đổi trả
+                    </Link>
+                  </li>
+                  <li className='navbar-nav nav-menu'>
+                    <Link className="nav-link" to={"/dieu-khoan-dich-vu"}>
+                      Điều khoản dịch vụ
                     </Link>
                   </li>
                 </ul>
@@ -339,11 +353,33 @@ function Header(props) {
               </Link>
             </ul>
           </div>
-          <div className="d-flex">
-            <ul className="navbar-nav nav-menu">
-              <Link className="nav-link" to={`/cart`}>
-                Giỏ Hàng
+          <div className='d-flex'>
+            <ul className="navbar-nav nav-menu nav-menu-over">
+              <Link className="nav-link">
+                Trang Shop <FaAngleDown />
               </Link>
+              <div className='nav-menu-item'>
+                <li className='nav-item-link'>
+                  <Link className="nav-link" to={"/gioi-thieu"}>
+                    Giới Thiệu
+                  </Link>
+                </li>
+                <li className='nav-item-link'>
+                  <Link className="nav-link" to={"/chinh-sach-bao-mat"}>
+                    Chính sách bảo mật
+                  </Link>
+                </li>
+                <li className='nav-item-link'>
+                  <Link className="nav-link" to={"/chinh-sach-doi-tra"}>
+                    Chính sách đổi trả
+                  </Link>
+                </li>
+                <li className='nav-item-link'>
+                  <Link className="nav-link" to={"/dieu-khoan-dich-vu"}>
+                    Điều khoản dịch vụ
+                  </Link>
+                </li>
+              </div>
             </ul>
           </div>
         </Container>

@@ -24,7 +24,7 @@ function Footer(props) {
                             <li><a className="footer-link" href="/gioi-thieu">Giới thiệu</a></li>
                             <li><a className="footer-link" href="/chinh-sach-bao-mat">Chính sách bảo mật</a></li>
                             <li><a className="footer-link" href="/chinh-sach-doi-tra">Chính sách đổi trả</a></li>
-                            <li><a className="footer-link" href="/dieu-khoang-dich-vu">Điều khoảng dịch vụ</a></li>
+                            <li><a className="footer-link" href="/dieu-khoang-dich-vu">Điều khoản dịch vụ</a></li>
                         </ul>
                         <hr className='border-top d-md-none d-block' style={{ borderColor: '#1d1d1d !important' }} />
                     </div>
