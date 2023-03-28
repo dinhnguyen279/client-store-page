@@ -1287,6 +1287,9 @@ a.text-hover-dark:hover {
 }
 
 .size-products {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: unset;
 }
 
@@ -3758,6 +3761,7 @@ code {
 .breadcrumb-item a {
   color: inherit;
   transition: all 0.3s;
+  text-decoration: none;
 }
 
 .breadcrumb-item a:hover,

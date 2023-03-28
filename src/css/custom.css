@@ -186,6 +186,61 @@ button:hover::after {
     transform: scale(1);
   }
 }
+/* INTRODUCE */
+
+.header-introduce {
+  background: #ffbb38;
+  color: black;
+  padding: 50px 0;
+}
+.header-introduce-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.header-introduce-content h3 {
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+.header-introduce p {
+  color: black;
+  font-weight: 400;
+}
+
+.footer-introduce {
+  padding: 50px 0;
+}
+
+.footer-introduce-content {
+  text-align: center;
+}
+
+.footer-introduce-list {
+  gap: 30px;
+  justify-content: center;
+  padding: 50px 0;
+}
+
+.footer-introduce-item {
+  background: #f4f4f4;
+  color: #ffbb38;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 100px 0px;
+  border-radius: 3px;
+  box-shadow: 5px 10px 10px #b1aeae;
+}
+
+.item-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 /* CONTACT */
 
@@ -530,7 +585,7 @@ button:hover::after {
 .nav-item-link {
   padding: 2px 30px;
   width: 250px;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.25s ease-in-out;
 }
 
 .under-navbar {
