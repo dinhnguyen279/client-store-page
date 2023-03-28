@@ -210,7 +210,7 @@ button:hover::after {
 }
 
 .footer-introduce {
-  padding: 50px 0;
+  padding-top: 50px;
 }
 
 .footer-introduce-content {
@@ -240,6 +240,65 @@ button:hover::after {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+/* PRIVACYPOLICY */
+
+.header-Privacy {
+  padding: 50px 0;
+}
+
+.header-Privacy h3 {
+  font-weight: 700;
+}
+
+.header-Privacy h6 {
+  font-weight: 600;
+}
+
+.header-Privacy p {
+  margin-bottom: 10px;
+}
+
+/* Return Policy */
+
+.header-ReturnPolicy {
+  padding: 50px 0;
+}
+
+.list-ReturnPolicy li {
+  margin-bottom: 10px;
+  list-style-type: square;
+}
+
+.header-ReturnPolicy h3 {
+  font-weight: 700;
+}
+
+.header-ReturnPolicy h6 {
+  font-weight: 600;
+}
+
+/* TermsOfService */
+
+.header-TermsOfService {
+  padding: 50px 0;
+}
+
+.header-TermsOfService b {
+  text-decoration: underline;
+}
+
+.header-TermsOfService h3 {
+  font-weight: 700;
+}
+
+.header-TermsOfService h6 {
+  font-weight: 600;
+}
+
+.header-TermsOfService p {
+  margin-bottom: 10px;
 }
 
 /* CONTACT */

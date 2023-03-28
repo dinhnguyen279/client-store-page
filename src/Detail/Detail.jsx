@@ -176,9 +176,9 @@ function Detail(props) {
     <section className="py-4 main-detail" >
       <div className="py-2 bg-light mb-4">
         <div className="container">
-          <ol className="breadcrumb justify-content-start">
+          <ol className="breadcrumb">
             <li className="breadcrumb-item">
-              <Link to={"/"}>Trang chủ</Link>
+              <a href={"/"}>Trang chủ</a>
             </li>
             <li className="breadcrumb-item active" aria-current="page">
               Cửa hàng
@@ -306,16 +306,16 @@ function Detail(props) {
                   </li>
                   <li className="py-2 mb-1 size-products">
                     <strong className="text-uppercase text-dark">Size:</strong>
-                    {arrSize.length === 0 ? "null" : arrSize.map((val, idx) => {
+                    {arrSize.length === 0 ? "FreeSize" : arrSize.map((val, idx) => {
                       return (
-                        <a
+                        <p
                           key={idx + 1}
                           className={`size-product-item ml-2 
                           ${sizeProduct === val ? "text-check-size text-light" : "text-uncheck-size"}`}
                           onClick={() => selectSize(val)}
                         >
                           {val}
-                        </a>
+                        </p>
                       );
                     })}
                   </li>

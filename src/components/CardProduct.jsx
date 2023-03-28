@@ -14,13 +14,13 @@ const CardProduct = (props) => {
   return (
     <div className="product">
       <div className="position-relative mb-3 product-new">
-        <Link className="d-block" to={`/detail/${itemProduct._id}`}>
+        <a className="d-block" href={`/detail/${itemProduct._id}`}>
           <Card.Img
             className="img-banner"
             src={itemProduct.avt}
             alt="..."
           ></Card.Img>
-        </Link>
+        </a>
         <div className="product-overlay">
           <ul className="">
             <li className="list-item-overlay">
@@ -41,13 +41,13 @@ const CardProduct = (props) => {
           </ul>
         </div>
         <div>
-          <Link
+          <a
             type="button"
             className="btn-addtocart"
-            to={`/detail/${itemProduct._id}`}
+            href={`/detail/${itemProduct._id}`}
           >
             Thông tin sản phẩm
-          </Link>
+          </a>
         </div>
       </div>
       <Card.Link
@@ -60,7 +60,6 @@ const CardProduct = (props) => {
         <Card.Text>{parseInt(itemProduct.price).toLocaleString()}₫</Card.Text>
       ) : (
         <Card.Text style={{ color: "red" }}>
-          {/* {itemProduct.promotionPrice}₫ */}
           {(parseInt(itemProduct.promotionPrice)).toLocaleString()}₫
           <span style={{ color: "grey", paddingLeft: "10px" }}>
             <del>{parseInt(itemProduct.price).toLocaleString()}₫</del>
