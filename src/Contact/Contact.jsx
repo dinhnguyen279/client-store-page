@@ -1,6 +1,9 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
+import { BsFacebook, BsFillPhoneFill } from "react-icons/bs"
+import { FaEnvelope, FaMapMarkerAlt, FaPhone } from "react-icons/fa"
+import { AiFillGithub, AiFillFacebook, AiFillMail, } from "react-icons/ai"
 import "./Contact.css"
 const Contact = () => {
     const [fullname, setFullname] = useState("")
@@ -61,7 +64,7 @@ const Contact = () => {
                     <h1 className="section-header">Liên Hệ Chúng Tôi</h1>
                     <div className='row p-t-50'>
 
-                        <div className='col-12 col-md-7'>
+                        <div className='col-lg-7 col-md-12 mb-3'>
                             <h5>Điền giúp chúng tôi vài dòng</h5>
                             <form className='text-small p-t-30 text-uppercase' onSubmit={onSubmitForm}>
                                 <div className='form-input-contact'>
@@ -88,7 +91,7 @@ const Contact = () => {
                                         placeholder="NỘI DUNG CẦN TƯ VẤN"
                                     />
                                 </div>
-                                <div className='contact-submit m-t-10'>
+                                <div className='m-t-10'>
                                     <button className="btn btn-warning send-button" id="submit" type="submit" value="SEND">
                                         <div className="alt-send-button">
                                             <i className="fa fa-paper-plane"></i><span className="send-text">Gửi</span>
@@ -97,37 +100,35 @@ const Contact = () => {
                                 </div>
                             </form>
                         </div>
-                        <div className='col-12 col-md-5 contact-first'>
+                        <div className='col-lg-5 col-md-12 contact-first'>
                             <h5>SPORT ZONE</h5>
-                            <ul className='text-small p-t-30 list-contact'>
-                                <li className='list-item'> <i className="fa fa-map-marker fa-2x" /> <span className="contact-text place">TP. Hồ Chí Minh</span> </li>
-                                <li className='list-item'> <i className="fa fa-phone fa-2x" /><span className="contact-text phone">
+                            <ul className='text-lg p-t-30 list-contact'>
+                                <li className='list-item'> <FaMapMarkerAlt /> <span className="contact-text place">TP. Hồ Chí Minh</span> </li>
+                                <li className='list-item'> <FaPhone /><span className="contact-text phone">
                                     <a
                                         href="tel:0829954124"
                                         target="_self"
                                         className="contact-us"
                                     >
-                                        Điện thoại: +84 082 995 4321
+                                        +84 082 995 4321
                                     </a>
                                 </span></li>
-                                <li className='list-item'><i className="fa fa-envelope fa-2x" /><span className="contact-text gmail"><a href="mailto:sportzone@gmail.com" title="Gửi đến email của shop">Email: sportzone@gmail.com</a></span></li>
+                                <li className='list-item'><FaEnvelope /><span className="contact-text gmail"><a href="mailto:sportzone@gmail.com" title="Gửi đến email của shop">sportzone@gmail.com</a></span></li>
                             </ul>
-                            {/* <ul className="social-media-list">
-                                <li><a href="#" target="_blank" className="contact-icon">
-                                    <i className="fa fa-github" aria-hidden="true"></i></a>
+                            <ul className="social-media-list">
+                                <li><a href="https://github.com/" target="_blank" className="contact-icon">
+                                    <AiFillGithub /></a>
                                 </li>
-                                <li><a href="#" target="_blank" className="contact-icon">
-                                    <i className="fa fa-codepen" aria-hidden="true"></i></a>
+                                <li><a href="https://www.facebook.com/profile.php?id=100090752721069" target="_blank" className="contact-icon">
+                                    <BsFacebook /></a>
                                 </li>
-                                <li><a href="#" target="_blank" className="contact-icon">
-                                    <i className="fa fa-twitter" aria-hidden="true"></i></a>
+                                <li><a href="https://mail.google.com/" target="_blank" className="contact-icon">
+                                    <AiFillMail /></a>
                                 </li>
-                                <li><a href="#" target="_blank" className="contact-icon">
-                                    <i className="fa fa-instagram" aria-hidden="true"></i></a>
+                                <li><a href="tel:0829954124" className="contact-icon">
+                                    <BsFillPhoneFill /></a>
                                 </li>
-                            </ul> */}
-
-                            {/* <div className="copyright">&copy; ALL OF THE RIGHTS RESERVED</div> */}
+                            </ul>
                         </div>
                     </div>
                 </div>

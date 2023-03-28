@@ -48,14 +48,13 @@ textarea {
 .send-button {
   margin-top: 15px;
   height: 34px;
-  /* width: 400px; */
   width: 100%;
   overflow: hidden;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.25s ease-in-out;
 }
 
 .alt-send-button {
-  transition: all 0.2s ease-in-out 0.1s;
+  transition: all 0.25s ease-in-out 0.1s;
   text-align: center;
 }
 
@@ -83,7 +82,8 @@ textarea {
 }
 
 .list-item {
-  line-height: 4;
+  display: block;
+  line-height: 3;
   color: #aaa;
 }
 
@@ -119,11 +119,14 @@ textarea {
 /* Social Media Icons */
 .social-media-list {
   position: relative;
-  font-size: 22px;
   text-align: center;
   width: 100%;
   margin: 0 auto;
   padding: 0;
+}
+
+.social-media-list svg {
+  font-size: 30px;
 }
 
 .social-media-list li a {
@@ -183,7 +186,6 @@ hr {
   border-color: rgba(255, 255, 255, 0.6);
 }
 
-/* Begin Media Queries*/
 @media screen and (max-width: 850px) {
   .contact-wrapper {
     display: flex;
@@ -238,12 +240,28 @@ hr {
     height: 55px;
     width: 55px;
     line-height: 55px;
-    font-size: 2rem;
   }
   .social-media-list li:after {
     width: 55px;
     height: 55px;
     line-height: 55px;
+  }
+  .place {
+    margin-left: 20px;
+  }
+  .phone {
+    margin-left: 20px;
+  }
+  .gmail {
+    margin-left: 20px;
+  }
+  .list-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .list-item svg {
+    margin-bottom: 10px;
   }
 }
 
