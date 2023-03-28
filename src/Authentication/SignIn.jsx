@@ -13,29 +13,26 @@ import alertify from 'alertifyjs';
 
 function SignIn(props) {
     const [errors, setErrors] = useState({})
-    const [user, setUser] = useState({
-        email: "",
-        password: ""
-    })
+    const [user, setUser] = useState({})
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
     // Show/hide password
     const [typePassWord, setTypePassWord] = useState("password")
 
     // const [redirect, setRedirect] = useState(false)
 
-    // push cart lên db
-    // const [checkPush, setCheckPush] = useState(false)
 
     const SIGNIN_URL = "/login"
 
     const onChangeEmail = (e) => {
-        setUser({ ...user, email: e.target.value })
+        setEmail(e.target.value)
     }
 
     const onChangePassword = (e) => {
-        setUser({ ...user, password: e.target.value })
+        setPassword(e.target.value)
     }
 
-    //test new validate
+    //validate
     const validateEmail = (email) => {
         const validEmail = /\S+@\S+\.\S+/;
         return validEmail.test(String(email).toLowerCase())
@@ -45,15 +42,15 @@ function SignIn(props) {
         let isValid = true;
         const error = {};
 
-        if (!user.email) {
+        if (!email) {
             isValid = false;
             error.email = "Email không được để trống!"
-        } else if (!validateEmail(user.email)) {
+        } else if (!validateEmail(email)) {
             isValid = false;
             error.email = "Email không hợp lệ!"
         }
 
-        if (!user.password) {
+        if (!password) {
             isValid = false;
             error.password = "Mật khẩu không được để trống!"
         }
@@ -66,7 +63,11 @@ function SignIn(props) {
     const onSubmit = async (e) => {
         e.preventDefault();
         if (validateFormSignin()) {
-            await axiosClient.post(SIGNIN_URL, user)
+            const data = {
+                email: email,
+                password: password
+            }
+            await axiosClient.post(SIGNIN_URL, data)
                 .then((res) => {
                     setUser(res.data)
                     if (res.data !== null && typeof res.data === "object") {
@@ -78,9 +79,6 @@ function SignIn(props) {
                     } else {
                         alertify.set("notifier", "position", "bottom-right");
                         alertify.error("Bạn Đã Đăng Nhập Thất Bại!");
-                        setTimeout(() => {
-                            window.location.href = "http://localhost:5173/signin"
-                        }, 1000)
                     }
                 })
                 .catch((err) => {
@@ -96,38 +94,6 @@ function SignIn(props) {
         return idUser;
     }
 
-    //Hàm này dùng để đưa hết tất cả carts vào API của user
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         //Lần đầu sẽ không thực hiện insert được vì addCart = ''
-    //         if (checkPush === true) {
-
-    //             for (let i = 0; i < listCart.length; i++) {
-
-    //                 //Nó sẽ lấy idUser và idProduct và count cần thêm để gửi lên server
-    //                 const params = {
-    //                     idUser: sessionStorage.getItem('id_user'),
-    //                     idProduct: listCart[i].idProduct,
-    //                     count: listCart[i].count
-    //                 }
-
-    //                 const query = '?' + queryString.stringify(params)
-
-    //                 const response = await CartAPI.postAddToCart(query)
-    //                 console.log("fetchData cart", response)
-
-    //             }
-
-    //             setRedirect(true)
-    //         }
-
-    //     }
-
-    //     fetchData()
-
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [checkPush])
-
     return (
         <form onSubmit={onSubmit} className="">
             <div className="limiter">
@@ -140,12 +106,12 @@ function SignIn(props) {
                         </span>
                         <div className="wrap-input100 validate-input" >
                             <AiOutlineMail className='icon-form' />
-                            <input className="input100" type="text" placeholder="Email" value={user.email} onChange={onChangeEmail} />
+                            <input className="input100" type="text" placeholder="Email" value={email} onChange={onChangeEmail} />
                         </div>
                         {errors.email && <p className="text-danger">{errors.email}</p>}
                         <div className="wrap-input100 validate-input">
                             <AiOutlineLock className='icon-form' />
-                            <input className="input100" type={typePassWord} placeholder="Mật khẩu" value={user.password} onChange={onChangePassword} />
+                            <input className="input100" type={typePassWord} placeholder="Mật khẩu" value={password} onChange={onChangePassword} />
                             {typePassWord === "password" ? (
                                 <button type='button' className='show-password' onClick={() => setTypePassWord("text")}>
                                     <AiFillEye />
