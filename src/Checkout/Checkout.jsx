@@ -236,7 +236,7 @@ function Checkout(props) {
           <div className="container">
             <ol className="breadcrumb justify-content-start">
               <li className="breadcrumb-item">
-                <Link to={"/"}>Trang chủ</Link>{" "}
+                <a href="/">Trang chủ</a>
               </li>
               <li className="breadcrumb-item">
                 <Link to={"/cart"}>Giỏ hàng</Link>

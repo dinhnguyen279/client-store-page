@@ -322,18 +322,17 @@ function Detail(props) {
                 </ul>
               </div>
               <div className="col-md-8 d-flex flex-md-row flex-column align-item-center mb-2">
-                <a
+                <button
                   className="btn btn-dark btn-base mr-3 text-white my-2"
                   onClick={addToCart}
                 >
                   <AiOutlineShoppingCart /> Thêm vào giỏ hàng
-                </a>
-                <a
+                </button>
+                <button
                   className="btn btn-warning btn-base text-white hover-icon-heart mr-3 my-2"
-                  href="#"
                 >
                   <AiFillHeart /> Thêm vào yêu thích
-                </a>
+                </button>
               </div>
             </div>
           </div>
@@ -471,6 +470,83 @@ function Detail(props) {
               </div>
             ))}
         </div>
+        {/* -------------Modal Product----------------- */}
+        {product &&
+          product.map((value) => (
+            <div
+              className="modal fade show"
+              id={`product_${value._id}`}
+              key={value._id}
+            >
+              <div
+                className="modal-dialog modal-lg modal-dialog-centered"
+                role="document"
+              >
+                <div className="modal-content">
+                  <div className="modal-body p-0">
+                    <div className="row align-items-stretch">
+                      <div className="col-lg-6 p-lg-0">
+                        <img
+                          style={{ width: "100%" }}
+                          className="product-view d-block h-100 bg-cover bg-center"
+                          src={value.avt}
+                          data-lightbox={`product_${value._id}`}
+                        />
+                      </div>
+                      <div className="col-lg-6">
+                        {/* Để tắt modal phải có class="close" và data-dissmiss="modal" và aria-label="Close" */}
+                        <a
+                          className="close p-4"
+                          type="button"
+                          href="#section_product"
+                          data-dismiss="modal"
+                          aria-label="Close"
+                        >
+                          ×
+                        </a>
+                        <div className="p-5 my-md-4">
+                          <ul className="list-inline mb-2">
+                            <li className="list-inline-item m-0">
+                              <i className="fas fa-star small text-warning"></i>
+                            </li>
+                            <li className="list-inline-item m-0">
+                              <i className="fas fa-star small text-warning"></i>
+                            </li>
+                            <li className="list-inline-item m-0">
+                              <i className="fas fa-star small text-warning"></i>
+                            </li>
+                            <li className="list-inline-item m-0">
+                              <i className="fas fa-star small text-warning"></i>
+                            </li>
+                            <li className="list-inline-item m-0">
+                              <i className="fas fa-star small text-warning"></i>
+                            </li>
+                          </ul>
+                          <h2 className="h4">{value.name}</h2>
+                          <Card.Text style={{ color: "red" }}>
+                            {value.promotionPrice}₫
+                            <span style={{ color: "grey", paddingLeft: "10px" }}>
+                              <del>{value.price}₫</del>
+                            </span>
+                          </Card.Text>
+                          <p className="text-small mb-4">{value.description}</p>
+                          <div className="row align-items-stretch mb-4">
+                            <div className="col-sm-12 pl-sm-0 fix_addwish">
+                              <a className="btn btn-dark btn-sm btn-block">
+                                <i className="far fa-heart mr-2"></i>Thêm danh
+                                sách yêu thích
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        {/* -------------Modal Product----------------- */}
       </div>
     </section>
   );

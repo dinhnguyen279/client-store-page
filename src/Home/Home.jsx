@@ -84,7 +84,7 @@ function Home(props) {
                                                     <p className="text-small mb-4">{value.description}</p>
                                                     <div className="row align-items-stretch mb-4">
                                                         <div className="col-sm-12 pl-sm-0 fix_addwish mb-2">
-                                                            <Link className='btn-warning btn btn-sm btn-block'><AiOutlineProfile /> Thông tin sản phẩm</Link>
+                                                            <a href={`/detail/${value._id}`} className='btn-warning btn btn-sm btn-block'><AiOutlineProfile /> Thông tin sản phẩm</a>
                                                         </div>
                                                         <div className="col-sm-12 pl-sm-0 fix_addwish">
                                                             <a className="btn btn-dark btn-sm btn-block">

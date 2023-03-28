@@ -5,7 +5,7 @@ import Search from "./Component/Search";
 import Pagination from "./Component/Pagination";
 import SortProduct from "./Component/SortProduct";
 import axios from "axios";
-import { AiOutlineShoppingCart } from "react-icons/ai";
+import { AiOutlineProfile, AiOutlineShoppingCart } from "react-icons/ai";
 import ProductAPI from "../API/ProductAPI";
 import alertify from "alertifyjs";
 import CardProduct from "../components/CardProduct";
@@ -188,8 +188,8 @@ function Shop(props) {
         <div className="container main-shop">
             <section className="py-3 bg-light mb-3">
                 <div className="container">
-                    <ol className="breadcrumb justify-content-start">
-                        <li className="breadcrumb-item"><Link to={"/"}>Trang chủ</Link></li>
+                    <ol className="breadcrumb">
+                        <li className="breadcrumb-item"><a href={"/"}>Trang chủ</a></li>
                         <li className="breadcrumb-item active" aria-current="page">Cửa hàng</li>
                     </ol>
                 </div>
@@ -225,7 +225,7 @@ function Shop(props) {
                                                 <p className="text-small mb-4">{value.description}</p>
                                                 <div className="row align-items-stretch mb-4">
                                                     <div className="col-sm-12 pl-sm-0 fix_addwish mb-2">
-                                                        <button type='button' className='btn-warning btn btn-sm btn-block'><AiOutlineShoppingCart /> Thêm giỏ hàng</button>
+                                                        <a href={`/detail/${value._id}`} className='btn-warning btn btn-sm btn-block'><AiOutlineProfile /> Thông tin sản phẩm</a>
                                                     </div>
                                                     <div className="col-sm-12 pl-sm-0 fix_addwish">
                                                         <a className="btn btn-dark btn-sm btn-block">

@@ -82,15 +82,9 @@ function Header(props) {
     }
   }, [idUser])
 
-  const reloadPage = () => {
-    setTimeout(() => {
-      window.location.reload()
-    }, 500)
-  }
   const onClickItem = () => {
     setClose(!close)
     setValueSearch("")
-    reloadPage()
   }
 
   const handleCloseInput = () => {
@@ -132,25 +126,25 @@ function Header(props) {
       >
         <Container>
           <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-lg`} />
-          <Link className="logo-navbar h4" to={"/"}>
+          <a className="logo-navbar h4" href='/'>
             <span></span>
             <span></span>
             <span></span>
             <span></span>
             Sports Zone
-          </Link>
+          </a>
 
           {/* Navbar.Offcanvas là dữ liệu được đưa vào responsive */}
           <Navbar.Offcanvas id={`offcanvasNavbar-expand-lg`} placement="start">
             <Offcanvas.Header closeButton>
               <Offcanvas.Title>
-                <Link className="logo-navbar h4" to={"/"}>
+                <a className="logo-navbar h4" href="/">
                   <span></span>
                   <span></span>
                   <span></span>
                   <span></span>
                   Sports Zone
-                </Link>
+                </a>
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body className="d-block d-lg-flex  justify-content-between align-item-center">
@@ -176,12 +170,12 @@ function Header(props) {
                             return (
                               <div className='product-search' key={idx + 1}>
                                 <div>
-                                  <Link to={`/detail/${val._id}`} onClick={onClickItem} className='text-uppercase'>{val.name}</Link>
+                                  <a href={`/detail/${val._id}`} onClick={onClickItem} className='text-uppercase'>{val.name}</a>
                                   <p>{val.promotionPrice ? parseInt(val.promotionPrice).toLocaleString() : parseInt(val.price).toLocaleString()}₫</p>
                                 </div>
-                                <Link onClick={onClickItem} to={`/detail/${val._id}`} className='image-search-product'>
+                                <a onClick={onClickItem} href={`/detail/${val._id}`} className='image-search-product'>
                                   <Card.Img src={val.avt} />
-                                </Link>
+                                </a>
                               </div>
                             )
                           })
@@ -191,7 +185,7 @@ function Header(props) {
                           !close && (
                             searchProducts.length > 0 ? (
                               <div className="text-search-header" >
-                                <Link onClick={onClickItem} to={"/shop"} >Xem Thêm...</Link>
+                                <a onClick={onClickItem} href="/shop">Xem Thêm...</a>
                               </div>
                             ) : (
                               <div className='check-no-product'>
@@ -210,16 +204,16 @@ function Header(props) {
               <Nav className="justify-content-end">
                 <ul className='nav-list-respon'>
                   <li className="nav-item position-relative d-none d-lg-block">
-                    <Link className="nav-link quantity-cart" to={`/cart`} data-order={countCart}>
+                    <a className="nav-link quantity-cart" href='/cart' data-order={countCart}>
                       <AiOutlineShoppingCart className='icon-cart' />
-                    </Link>
+                    </a>
                   </li>
-                  {nameUser ? (<Name handleReloadPage={reloadPage} />) : ' '}
-                  {loginUser ? ' ' : (<LogoutLink reloadPage={reloadPage} />)}
+                  {nameUser ? (<Name />) : ' '}
+                  {loginUser ? ' ' : (<LogoutLink />)}
                 </ul>
               </Nav>
               {/* Giỏ hàng màn hình desktop */}
-
+              {/* Navbar màn hình điện thoại */}
               <div className='under-navbar d-block d-lg-none' style={{ zIndex: 100 }}>
                 <div className="navbar-button mr-4 navbar-categories">
                   <button className='btn-open-categories' onClick={handleOpen} onBlur={handleOnBlur} title='All Categories'>
@@ -232,7 +226,7 @@ function Header(props) {
                         dataCategories.map((val, idx) => {
                           return (
                             <li className="nav-item-list" key={idx + 1}>
-                              <a href={`/shop/category/${val.nameCate}`} onClick={reloadPage}>
+                              <a href={`/shop/category/${val.nameCate}`} >
                                 {val.nameCate} <FaAngleRight style={{ border: "none" }} />
                               </a>
                             </li>
@@ -244,53 +238,54 @@ function Header(props) {
                 </div>
                 <ul className='nav-list-respon'>
                   <li className="navbar-nav nav-menu">
-                    <Link className="nav-link" to={`/`} onClick={reloadPage}>
+                    <a className="nav-link" href='/'>
                       Trang Chủ
-                    </Link>
+                    </a>
                   </li>
 
                   <li className="navbar-nav nav-menu">
-                    <Link className="nav-link" to={`/shop`} onClick={reloadPage}>
+                    <a className="nav-link" href='/shop'>
                       Cửa Hàng
-                    </Link>
+                    </a>
                   </li>
 
                   <li className="navbar-nav nav-menu">
-                    <Link className="nav-link" to={`/contact`} onClick={reloadPage}>
+                    <a className="nav-link" href='/contact'>
                       Liên Hệ
-                    </Link>
+                    </a>
                   </li>
                   <li className='navbar-nav nav-menu'>
-                    <Link className="nav-link" to={"/gioi-thieu"}>
+                    <a className="nav-link" href='/gioi-thieu'>
                       Giới Thiệu
-                    </Link>
+                    </a>
                   </li>
                   <li className='navbar-nav nav-menu'>
-                    <Link className="nav-link" to={"/chinh-sach-bao-mat"}>
+                    <a className="nav-link" href="/chinh-sach-bao-mat">
                       Chính sách bảo mật
-                    </Link>
+                    </a>
                   </li>
                   <li className='navbar-nav nav-menu'>
-                    <Link className="nav-link" to={"/chinh-sach-doi-tra"}>
+                    <a className="nav-link" href="/chinh-sach-doi-tra">
                       Chính sách đổi trả
-                    </Link>
+                    </a>
                   </li>
                   <li className='navbar-nav nav-menu'>
-                    <Link className="nav-link" to={"/dieu-khoan-dich-vu"}>
+                    <a className="nav-link" href="/dieu-khoan-dich-vu">
                       Điều khoản dịch vụ
-                    </Link>
+                    </a>
                   </li>
                 </ul>
               </div >
+              {/* Navbar màn hình điện thoại */}
             </Offcanvas.Body >
           </Navbar.Offcanvas >
 
           {/* Giỏ hàng màn hình điện thoại */}
           <div className='d-block d-lg-none' >
             <li className="nav-item position-relative">
-              <Link className="nav-link quantity-cart" to={`/cart`} data-order={countCart}>
+              <a className="nav-link quantity-cart" href='/cart' data-order={countCart}>
                 <AiOutlineShopping className='icon-cart' />
-              </Link>
+              </a>
             </li>
           </div >
           {/* Giỏ hàng màn hình điện thoại */}
@@ -332,7 +327,7 @@ function Header(props) {
           </div>
           <div className="">
             <ul className="navbar-nav nav-menu">
-              <Link className="nav-link" to={`/`}>
+              <Link className="nav-link" to='/'>
                 Trang Chủ
               </Link>
             </ul>
@@ -340,7 +335,7 @@ function Header(props) {
 
           <div className="d-flex">
             <ul className="navbar-nav nav-menu">
-              <Link className="nav-link" to={`/shop`}>
+              <Link className="nav-link" to='/shop'>
                 Cửa Hàng
               </Link>
             </ul>
@@ -348,34 +343,34 @@ function Header(props) {
 
           <div className="d-flex">
             <ul className="navbar-nav nav-menu">
-              <Link className="nav-link" to={`/contact`}>
+              <Link className="nav-link" to='/contact'>
                 Liên Hệ
               </Link>
             </ul>
           </div>
           <div className='d-flex'>
             <ul className="navbar-nav nav-menu nav-menu-over">
-              <Link className="nav-link">
+              <p className="nav-link">
                 Trang Shop <FaAngleDown />
-              </Link>
+              </p>
               <div className='nav-menu-item'>
                 <li className='nav-item-link'>
-                  <Link className="nav-link" to={"/gioi-thieu"}>
+                  <Link className="nav-link" to="/gioi-thieu">
                     Giới Thiệu
                   </Link>
                 </li>
                 <li className='nav-item-link'>
-                  <Link className="nav-link" to={"/chinh-sach-bao-mat"}>
+                  <Link className="nav-link" to="/chinh-sach-bao-mat">
                     Chính sách bảo mật
                   </Link>
                 </li>
                 <li className='nav-item-link'>
-                  <Link className="nav-link" to={"/chinh-sach-doi-tra"}>
+                  <Link className="nav-link" to="/chinh-sach-doi-tra">
                     Chính sách đổi trả
                   </Link>
                 </li>
                 <li className='nav-item-link'>
-                  <Link className="nav-link" to={"/dieu-khoan-dich-vu"}>
+                  <Link className="nav-link" to="/dieu-khoan-dich-vu">
                     Điều khoản dịch vụ
                   </Link>
                 </li>

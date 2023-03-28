@@ -18,7 +18,6 @@ function Name(props) {
     }, [])
     const handleUserNone = () => {
         const idUser = sessionStorage.getItem("id_user")
-        props.handleReloadPage()
         // hàm này check người dùng đăng nhập chưa
         if (!idUser) {
             return redirect("/signin")
@@ -42,7 +41,7 @@ function Name(props) {
                 {name}
             </a>
             <div className="dropdown-menu mt-3 name-item" aria-labelledby="pagesDropdown">
-                <Link className="dropdown-item border-0 transition-link" to={'/detail-user'} onClick={handleUserNone}>Thông tin người dùng</Link>
+                <a className="dropdown-item border-0 transition-link" href='/detail-user' onClick={handleUserNone}>Thông tin người dùng</a>
                 <LoginLink />
             </div>
         </li>

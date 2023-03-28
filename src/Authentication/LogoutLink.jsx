@@ -1,20 +1,19 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-function LogoutLink(props) {
+function LogoutLink() {
     return (
         <>
             <li style={{ fontWeight: "600" }}>
-                <Link className="nav-link" to={`/signin`} onClick={() => props.reloadPage()}>
+                <a className="nav-link" href={`/signin`} >
                     Đăng nhập
-                </Link>
+                </a>
             </li>
             <li className='d-none d-lg-block'>
                 {"|"}
             </li>
             <li style={{ fontWeight: "600" }}>
-                <Link className="nav-link" to={`/signup`} onClick={() => props.reloadPage()}>
+                <a className="nav-link" href={`/signup`} >
                     Đăng ký
-                </Link>
+                </a>
             </li>
         </>
     );

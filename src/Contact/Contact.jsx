@@ -51,7 +51,7 @@ const Contact = () => {
             <section className="py-3 bg-light mb-3 header-contact">
                 <div className="container">
                     <ol className="breadcrumb justify-content-start">
-                        <li className="breadcrumb-item"><Link to={"/"}>Trang chủ</Link></li>
+                        <li className="breadcrumb-item"><a href={"/"}>Trang chủ</a></li>
                         <li className="breadcrumb-item active" aria-current="page">Liên hệ</li>
                     </ol>
                 </div>
@@ -89,14 +89,10 @@ const Contact = () => {
                                     />
                                 </div>
                                 <div className='contact-submit m-t-10'>
-                                    {/* <button type='submit' className='btn-contact'>
-                                        Gửi
-                                    </button> */}
                                     <button className="btn btn-warning send-button" id="submit" type="submit" value="SEND">
                                         <div className="alt-send-button">
                                             <i className="fa fa-paper-plane"></i><span className="send-text">Gửi</span>
                                         </div>
-
                                     </button>
                                 </div>
                             </form>

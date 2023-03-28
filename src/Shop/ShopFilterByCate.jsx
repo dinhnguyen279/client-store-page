@@ -121,9 +121,9 @@ function ShopFilterByCate(props) {
     <div className="container main-shop">
       <section className="py-3 bg-light mb-3">
         <div className="container">
-          <ol className="breadcrumb justify-content-start">
+          <ol className="breadcrumb">
             <li className="breadcrumb-item">
-              <Link to={"/"}>Trang chủ</Link>
+              <a href={"/"}>Trang chủ</a>
             </li>
             <li className="breadcrumb-item active" aria-current="page">
               Bộ sưu tập {id}
