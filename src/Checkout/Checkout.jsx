@@ -152,7 +152,7 @@ function Checkout(props) {
     if (!user.email && !email) {
       isValid = false;
       error.email = "Email không tồn tại!";
-    } else if (!validateEmail(email)) {
+    } else if (!validateEmail(user.email ? user.email : email)) {
       isValid = false;
       error.email = "Email không hợp lệ!";
     }
@@ -160,7 +160,7 @@ function Checkout(props) {
     if (!user.phone && !phone) {
       isValid = false;
       error.phone = "Số điện thoại không được trống!";
-    } else if (!validatePhoneNumber(phone)) {
+    } else if (!validatePhoneNumber(user.phone ? user.phone : phone)) {
       isValid = false;
       error.phone = "Số điện thoại không hợp lệ!";
     }
@@ -285,7 +285,7 @@ function Checkout(props) {
                       <input
                         className="form-control form-control-lg w-100"
                         style={{ maxWidth: "100%" }}
-                        value={email}
+                        value={user.email ? user.email : email}
                         onChange={onChangeEmail}
                         type="text"
                         placeholder="Nhập Email của bạn ở đây!"
@@ -305,7 +305,8 @@ function Checkout(props) {
                       <input
                         className="form-control form-control-lg"
                         style={{ maxWidth: "100%" }}
-                        value={phone}
+                        value={user.phone ? user.phone : phone}
+
                         onChange={onChangePhone}
                         type="number"
                         placeholder="Nhập số điện thoại của bạn ở đây!"
