@@ -28,6 +28,7 @@ import Carouselendpage6 from "./Carouselendpage6.png"
 import sizegiay from "./bangsizegiay.png"
 import logoPay from "./logoPay.png"
 import logoMomo from "./logoMomo.png"
+import avatarClone from "./default-avatar.png"
 const Image = {
     banner: banner,
     banner1: banner1,
@@ -58,6 +59,7 @@ const Image = {
     Carouselendpage6: Carouselendpage6,
     sizegiay: sizegiay,
     logoPay: logoPay,
-    logoMomo: logoMomo
+    logoMomo: logoMomo,
+    avatarClone: avatarClone
 }
 export default Image

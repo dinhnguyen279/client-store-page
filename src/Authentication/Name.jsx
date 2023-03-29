@@ -22,7 +22,6 @@ function Name(props) {
         if (!idUser) {
             return redirect("/signin")
         }
-        return null
     }
 
     return (

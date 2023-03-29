@@ -3,31 +3,35 @@ import ProductAPI from "../API/ProductAPI";
 import { Link, useParams } from "react-router-dom";
 // import { useDispatch, useSelector } from "react-redux";
 import alertify from "alertifyjs";
-// import { addCart } from "../Redux/Action/ActionCart";
 // import CartAPI from "../API/CartAPI";
 import queryString from "query-string";
 // import CommentAPI from "../API/CommentAPI";
 import axios from "axios";
-import { Card, Carousel } from "react-bootstrap";
+import { Card, Carousel, Form } from "react-bootstrap";
 import {
   AiOutlinePlus,
   AiOutlineLine,
   AiFillHeart,
   AiOutlineShoppingCart,
   AiTwotoneStar,
+  AiOutlineStar
 } from "react-icons/ai";
 import { HOST } from "../domain/host/host";
 import CardProduct from "../components/CardProduct";
 import { v4 as uuid } from "uuid"
+import Image from "../Share/img/Image";
 
 function Detail(props) {
   const URL_AddToCart = `${HOST}/addToCart`;
   const URL_GetCartById = `${HOST}/getCartById`;
   const URL_GetVoucher = `${HOST}/coupons`;
+  const URL_GetCommentByIdProduct = `${HOST}/comment`
+  const URL_CreateComment = `${HOST}/comment/send`
+  const URL_GetByIdUser = `${HOST}/user`
 
   // const [load_comment, set_load_comment] = useState(false);
   const [product, setProduct] = useState([]);
-  // const [list_comment, set_list_comment] = useState([]);
+  const [list_comment, set_list_comment] = useState([]);
   const [detail, setDetail] = useState({});
   const [review, setReview] = useState("description");
   const [comment, setComment] = useState("");
@@ -37,10 +41,11 @@ function Detail(props) {
   const [sizeProduct, setSizeProduct] = useState(null);
   const [getVoucher, setGetVoucher] = useState("");
   const [getCartById, setGetCartById] = useState({})
+  const [user, setUser] = useState({})
   let { id } = useParams();
   // const listCart = useSelector((state) => state.Cart.listCart);
   // const idUser = useSelector((state) => state.Session.idUser);
-
+  const idUser = sessionStorage.getItem("id_user")
   // Hàm này dùng để lấy ra thông tin từng sản phẩm
   useEffect(() => {
     const fetchData = async () => {
@@ -72,7 +77,6 @@ function Detail(props) {
         var unique_id = uuid();
         var create_id_user_fake = unique_id.slice(0, 8)
         localStorage.setItem("id_user_clientage", create_id_user_fake)
-        console.log(create_id_user_fake);
       }
     }
     if (!sizeProduct) {
@@ -140,32 +144,49 @@ function Detail(props) {
   };
 
   // Hàm này dùng để gửi bình luận
-  const submitComment = () => {
-    const id_user = sessionStorage.getItem("id_user");
-    if (!id_user) {
-      alertify.set("notifier", "position", "bottom-left");
-      alertify.error("Vui Lòng Kiểm Tra Đăng Nhập!");
-      return;
-    }
+  const submitComment = async () => {
     const data = {
       idProduct: id,
-      idUser: sessionStorage.getItem("id_user"),
-      fullname: sessionStorage.getItem("name_user"),
+      idUser: idUser,
+      fullname: user.fullname,
       content: comment,
       star: star,
+      avt: user.avatar
     };
+    if (data.content === "") {
+      alertify.set("notifier", "position", "bottom-right");
+      alertify.error("Vui lòng nhập bình luận!");
+      return
+    }
+    if (idUser) {
+      await axios.post(URL_CreateComment, data)
+      alertify.set("notifier", "position", "bottom-left");
+      alertify.success("Bạn Đã Bình Luận Thành Công!");
+      setTimeout(() => {
+        window.location.reload()
+      }, 1000)
+      return
+    }
+    alertify.set("notifier", "position", "top-right");
+    alertify.error("Bình luận thất bại bạn phải đăng nhập!");
   };
 
-  //Hàm này gọi API lấy sản phẩm có liên quan
   useEffect(() => {
     const fetchData = async () => {
+      //Hàm này gọi API lấy sản phẩm có liên quan
       const response = await ProductAPI.getAPI();
       const data = response.data.splice(0, 4);
       setProduct(data);
+      // Hàm này gọi thông tin user 
+      const idUser = sessionStorage.getItem("id_user")
+      await axios.get(`${URL_GetByIdUser}/${idUser}`).then((res) => setUser(res.data))
+      //Hàm này gọi API lấy comment của sản phẩm dựa theo id sản phẩm
+      const responseListComment = await axios.get(`${URL_GetCommentByIdProduct}/${id}`)
+      const dataComment = responseListComment.data.splice(0, 5)
+      set_list_comment(dataComment)
     };
     fetchData();
   }, []);
-
   // convert string to array
   const album = detail.album;
   const size = detail.size;
@@ -323,13 +344,13 @@ function Detail(props) {
               </div>
               <div className="col-md-8 d-flex flex-md-row flex-column align-item-center mb-2">
                 <button
-                  className="btn btn-dark btn-base mr-3 text-white my-2"
+                  className="btn btn-dark btn-base text-white my-2 btn-addToCart-detail"
                   onClick={addToCart}
                 >
                   <AiOutlineShoppingCart /> Thêm vào giỏ hàng
                 </button>
                 <button
-                  className="btn btn-warning btn-base text-white hover-icon-heart mr-3 my-2"
+                  className="btn btn-warning btn-base text-white hover-icon-heart my-2"
                 >
                   <AiFillHeart /> Thêm vào yêu thích
                 </button>
@@ -379,45 +400,73 @@ function Detail(props) {
               <div className="p-4 p-lg-5 bg-white">
                 <div className="row">
                   <div className="col-lg-8">
-                    {/* {list_comment &&
-                      list_comment.map((value) => (
-                        <div className="media mb-3" key={value._id}>
+                    {list_comment && list_comment.map((value, idx) => (
+                      <div className="media mb-3" key={idx + 1} >
+                        <div className="main-img-detail">
                           <img
-                            className="rounded-circle"
-                            src="https://img.icons8.com/color/36/000000/administrator-male.png"
-                            alt=""
-                            width="50"
+                            className="img-detail"
+                            src={value.avt ? value.avt : Image.avatarClone}
+                            alt="Avatar user"
                           />
-                          <div className="media-body ml-3">
-                            <h6 className="mb-0 text-uppercase">
-                              {value.fullname}
-                            </h6>
-                            <p className="small text-muted mb-0 text-uppercase">
-                              dd/mm/yyyy
-                            </p>
-                            <ul className="list-inline mb-1 text-xs">
-                              <li className="list-inline-item m-0">
-                                <i className={value.star1}></i>
-                              </li>
-                              <li className="list-inline-item m-0">
-                                <i className={value.star2}></i>
-                              </li>
-                              <li className="list-inline-item m-0">
-                                <i className={value.star3}></i>
-                              </li>
-                              <li className="list-inline-item m-0">
-                                <i className={value.star4}></i>
-                              </li>
-                              <li className="list-inline-item m-0">
-                                <i className={value.star5}></i>
-                              </li>
-                            </ul>
-                            <p className="text-small mb-0 text-muted">
-                              {value.content}
-                            </p>
-                          </div>
                         </div>
-                      ))} */}
+                        <div className="media-body ml-3">
+                          <div className="d-flex justify-content-between flex-wrap">
+                            <div>
+                              <h6 className="mb-0 text-uppercase">
+                                {value.fullname}
+                              </h6>
+                              <p className="small text-muted mb-0 text-uppercase">
+                                {value.created_date}
+                              </p>
+                            </div>
+                            <div>
+                              <ul className="list-inline mb-1 text-xs">
+                                <li className="list-inline-item m-0 existsStar">
+                                  {value.star >= 1 ?
+                                    <AiTwotoneStar className="text-warning text-base" />
+                                    :
+                                    <AiOutlineStar className="text-warning text-base" />
+                                  }
+                                </li>
+                                <li className="list-inline-item m-0">
+                                  {value.star >= 2 ?
+                                    <AiTwotoneStar className="text-warning text-base" />
+                                    :
+                                    <AiOutlineStar className="text-warning text-base" />
+                                  }
+                                </li>
+                                <li className="list-inline-item m-0">
+                                  {value.star >= 3 ?
+                                    <AiTwotoneStar className="text-warning text-base" />
+                                    :
+                                    <AiOutlineStar className="text-warning text-base" />
+                                  }
+                                </li>
+                                <li className="list-inline-item m-0">
+                                  {value.star >= 4 ?
+                                    <AiTwotoneStar className="text-warning text-base" />
+                                    :
+                                    <AiOutlineStar className="text-warning text-base" />
+                                  }
+                                </li>
+                                <li className="list-inline-item m-0">
+                                  {
+                                    value.star >= 5 ?
+                                      <AiTwotoneStar className="text-warning text-base" />
+                                      :
+                                      <AiOutlineStar className="text-warning text-base" />
+                                  }
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+
+                          <p className="text-small mb-0 text-muted">
+                            {value.content}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -429,32 +478,33 @@ function Detail(props) {
           <textarea
             className="form-control"
             style={{ maxWidth: "100%" }}
-            rows="3"
+            rows="4"
             onChange={onChangeComment}
             value={comment}
+            disabled={idUser === null ? true : false}
           ></textarea>
         </div>
         <div className="d-flex flex-column flex-sm-row justify-content-between py-4">
-          <div className="d-flex sm-w-50 w-100 mb-3 sm-mb-0">
+          <div className="d-flex mb-3">
             <span className="mt-2">Đánh giá: </span>
             &nbsp; &nbsp;
-            <input
-              className="form-control w-25"
-              type="number"
-              min="1"
-              max="5"
-              value={star}
-              onChange={onChangeStar}
-            />
+            <Form>
+              <Form.Select size='md' value={star} onChange={onChangeStar} >
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </Form.Select>
+            </Form>
             &nbsp; &nbsp;
             <span className="mt-2">
-              Sao <AiTwotoneStar />{" "}
+              Sao <AiTwotoneStar className="" />
             </span>
           </div>
-          <div>
+          <div className="btn-send-comment">
             <a
-              className="btn btn-dark btn-sm btn-block px-0 text-white sm-w-100"
-              style={{ width: "12rem" }}
+              className="btn btn-dark btn-base btn-block text-white"
               onClick={submitComment}
             >
               Gửi
@@ -548,7 +598,7 @@ function Detail(props) {
           ))}
         {/* -------------Modal Product----------------- */}
       </div>
-    </section>
+    </section >
   );
 }
 
