@@ -34,7 +34,7 @@ function SignIn(props) {
 
     //validate
     const validateEmail = (email) => {
-        const validEmail = /\S+@\S+\.\S+/;
+        const validEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{3})+$/;
         return validEmail.test(String(email).toLowerCase())
     }
 

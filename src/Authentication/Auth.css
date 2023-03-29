@@ -27,11 +27,18 @@ html {
   color: gray;
   transform: translateY(-15%);
 }
+
+.show-password-editprofile {
+  position: absolute;
+  top: 50%;
+  right: 3%;
+  font-size: 16px;
+  color: gray;
+  transform: translateY(-50%);
+}
 /* HISTORY */
 
 .history-profile-user {
-  /* border: 1px solid red; */
-  /* border-radius: 4px; */
   border-radius: 8px;
   background: white;
   padding: 20px 30px;
@@ -108,8 +115,8 @@ html {
 /* User Profile */
 .main-profile {
   background: rgb(220, 220, 220);
-  padding-top: 30px;
   position: relative;
+  padding: 45px 50px;
 }
 
 .name-profile {
@@ -174,13 +181,17 @@ html {
   margin: 10px auto;
 }
 
-.icon-detail i::before {
+.icon-detail i {
   background: rgba(220, 220, 220, 0.887);
   border-radius: 10px;
-  font-size: 25px;
-  padding: 10px 15px;
+  font-size: 20px;
+  width: 40px;
+  height: 40px;
   margin-right: 10px;
   color: grey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .line-page {
@@ -644,6 +655,12 @@ iframe {
   }
 }
 
+@media only screen and (max-width: 470px) {
+  .main-profile {
+    padding: 40px 10px;
+  }
+}
+
 /*------------------------------------------------------------------
 [ Input ]*/
 
@@ -954,7 +971,7 @@ input.input100 {
     opacity: 1;
   }
   .main-profile {
-    padding-top: 100px;
+    margin-top: 100px;
   }
 
   .code-order {

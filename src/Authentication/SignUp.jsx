@@ -43,12 +43,13 @@ function SignUp(props) {
     }
 
     const validateEmail = (email) => {
-        const validEmail = /\S+@\S+\.\S+/;
+        const validEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{3})+$/
         return validEmail.test(String(email).toLowerCase())
     }
 
     const validatePhoneNumber = (phone) => {
-        const validPhone = /^\d{10}$/;
+        const validPhone = /^(\+84|0)\d{9,10}$/;
+        console.log(phone);
         return validPhone.test(phone)
     }
 
@@ -93,43 +94,27 @@ function SignUp(props) {
         return isValid
     }
 
-    const params = {
-        fullname: fullName,
-        email: email,
-        password: password,
-        phone: phone
-    }
+
     const handlerSignUp = async (e) => {
         e.preventDefault()
         if (validateForm()) {
-            await axiosClient.post(REGISTER_URL, params)
-                .then((res) => {
-                    if (res.data !== "") {
-                        alertify.set("notifier", "position", "bottom-left");
-                        alertify.success("Chào mừng người mới");
-                        setSuccess(true)
-                    } else {
-                        alertify.set("notifier", "position", "bottom-right");
-                        alertify.error("Email đã được đăng ký");
-                    }
-                })
-
-            // Hàm này dùng để tạo các conversation cho user và admin
-            // const fetchConversation = async () => {
-
-            //     const params = {
-            //         email: email,
-            //         password: password
-            //     }
-
-            //     const query = '?' + queryString.stringify(params)
-
-            //     const response = await MessengerAPI.postConversation(query)
-            //     console.log(response)
-
-            // }
-
-            // fetchConversation()
+            const params = {
+                fullname: fullName,
+                email: email,
+                password: password,
+                phone: phone
+            }
+            // await axiosClient.post(REGISTER_URL, params)
+            //     .then((res) => {
+            //         if (res.data !== "") {
+            //             alertify.set("notifier", "position", "bottom-left");
+            //             alertify.success("Chào mừng người mới");
+            //             setSuccess(true)
+            //         } else {
+            //             alertify.set("notifier", "position", "bottom-right");
+            //             alertify.error("Email đã được đăng ký");
+            //         }
+            //     })
         }
     }
 

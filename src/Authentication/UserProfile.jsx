@@ -27,6 +27,7 @@ const UserProfile = (props) => {
     phone: "",
     password: "",
     sex: "",
+    birthday: ""
   });
   const [getDataInvoices, setGetDataInvoices] = useState({
     imgProduct: "",
@@ -75,7 +76,7 @@ const UserProfile = (props) => {
   }
 
   return (
-    <div className="container-fluid main-profile p-l-55 p-r-55 p-b-50">
+    <div className="container-fluid main-profile">
       <div className="card-profile">
         <div className="d-block d-md-flex justify-between">
           <div className=" mb-3 main-img-profile d-block d-md-flex align-items-end">
@@ -86,7 +87,7 @@ const UserProfile = (props) => {
             />
             <h1>{getDataUser.fullname}</h1>
           </div>
-          <div className=" name-profile">
+          <div className="name-profile">
             <Button variant="primary" className="text-uppercase">
               <AiOutlineScan /> In Hồ Sơ
             </Button>
@@ -170,19 +171,20 @@ const UserProfile = (props) => {
             />
           </div>
 
+
           <div className="row">
             <div className="col-md-6 icon-detail d-flex align-items-center">
-              <i className="fa fa-envelope" aria-hidden="true"></i>
+              <i className="fa fa-user" aria-hidden="true"></i>
               <div className="title-text">
-                {getDataUser.email}
-                <p>Địa chỉ email</p>
+                {getDataUser.fullname}
+                <p>Họ và tên</p>
               </div>
             </div>
             <div className="col-md-6 icon-detail d-flex align-items-center">
-              <i className="fa fa-mobile" aria-hidden="true"></i>
+              <i className="fa fa-birthday-cake" aria-hidden="true"></i>
               <div>
-                {getDataUser.phone}
-                <p>Số điện thoại</p>
+                {getDataUser.birthday}
+                <p>Ngày sinh</p>
               </div>
             </div>
           </div>
@@ -232,7 +234,23 @@ const UserProfile = (props) => {
           </div>
 
           <hr className="line-page" />
-
+          <div className="row">
+            <h3 className="title-text">Thông tin liên hệ</h3>
+            <div className="col-md-6 icon-detail d-flex align-items-center">
+              <i className="fa fa-envelope" aria-hidden="true"></i>
+              <div className="title-text">
+                {getDataUser.email}
+                <p>Địa chỉ email</p>
+              </div>
+            </div>
+            <div className="col-md-6 icon-detail d-flex align-items-center">
+              <i className="fa fa-mobile" aria-hidden="true"></i>
+              <div>
+                {getDataUser.phone}
+                <p>Số điện thoại</p>
+              </div>
+            </div>
+          </div>
           <div className="row">
             <div className="col-md-6 icon-detail d-flex align-items-center">
               <i className="fa fa-location-arrow" aria-hidden="true"></i>

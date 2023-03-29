@@ -14,14 +14,19 @@ function Checkout(props) {
 
   const [total, setTotal] = useState(0);
 
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
+  // const [fullName, setFullName] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [phone, setPhone] = useState("");
+  // const [address, setAddress] = useState("");
   const [errors, setErrors] = useState(false);
   const [success, setSuccess] = useState(false);
   const [load, setLoad] = useState(false);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({
+    fullname: "",
+    email: "",
+    phone: "",
+    address: ""
+  });
 
   // Select City 
   const [cities, setCities] = useState([]);
@@ -116,28 +121,28 @@ function Checkout(props) {
 
   // ---------------------- validate ----------------------
   const validateEmail = (email) => {
-    const validEmail = /\S+@\S+\.\S+/;
+    const validEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{3})+$/;
     return validEmail.test(String(email).toLowerCase());
   };
   const validatePhoneNumber = (phone) => {
-    const validPhone = /^\d{10}$/;
+    const validPhone = /^(\+84|0)\d{9,10}$/;
     return validPhone.test(phone);
   };
 
   const onChangeName = (e) => {
-    setFullName(user.fullname ? user.fullname : e.target.value);
+    setUser({ ...user, fullname: e.target.value });
   };
 
   const onChangeEmail = (e) => {
-    setEmail(e.target.value);
+    setUser({ ...user, email: e.target.value });
   };
 
   const onChangePhone = (e) => {
-    setPhone(e.target.value);
+    setUser({ ...user, phone: e.target.value });
   };
 
   const onChangeAddress = (e) => {
-    setAddress(e.target.value);
+    setUser({ ...user, address: e.target.value });
   };
 
   //Check Validation
@@ -145,27 +150,27 @@ function Checkout(props) {
     let isValid = true;
     const error = {};
 
-    if (!user.fullname && !fullName) {
+    if (!user.fullname) {
       isValid = false;
       error.fullName = "Họ và Tên không được trống!";
     }
-    if (!user.email && !email) {
+    if (!user.email) {
       isValid = false;
       error.email = "Email không tồn tại!";
-    } else if (!validateEmail(user.email ? user.email : email)) {
+    } else if (!validateEmail(user.email)) {
       isValid = false;
       error.email = "Email không hợp lệ!";
     }
 
-    if (!user.phone && !phone) {
+    if (!user.phone) {
       isValid = false;
       error.phone = "Số điện thoại không được trống!";
-    } else if (!validatePhoneNumber(user.phone ? user.phone : phone)) {
+    } else if (!validatePhoneNumber(user.phone)) {
       isValid = false;
       error.phone = "Số điện thoại không hợp lệ!";
     }
 
-    if (!user.address && !address) {
+    if (!user.address) {
       isValid = false;
       error.address = "Địa chỉ không được trống!";
     }
@@ -197,12 +202,12 @@ function Checkout(props) {
       const idProduct = getCartById.map((val) => val.idProduct);
       const data = {
         idUser: idUser,
-        phone: phone ? phone : user.phone,
-        address: address ? address : user.address,
-        fullname: fullName ? fullName : user.fullname,
+        phone: user.phone,
+        address: user.address,
+        fullname: user.fullname,
         total: total,
         quantity: quantity.toString(),
-        email: email ? email : user.email,
+        email: user.email,
         nameProduct: nameProduct.toString(),
         price: price.toString(),
         size: size.toString(),
@@ -265,7 +270,7 @@ function Checkout(props) {
                       <input
                         className="form-control form-control-lg"
                         style={{ maxWidth: "100%" }}
-                        value={user.fullname ? user.fullname : fullName}
+                        value={user.fullname}
                         onChange={onChangeName}
                         type="text"
                         placeholder="Nhập họ và tên của bạn ở đây!"
@@ -285,7 +290,7 @@ function Checkout(props) {
                       <input
                         className="form-control form-control-lg w-100"
                         style={{ maxWidth: "100%" }}
-                        value={user.email ? user.email : email}
+                        value={user.email}
                         onChange={onChangeEmail}
                         type="text"
                         placeholder="Nhập Email của bạn ở đây!"
@@ -305,7 +310,7 @@ function Checkout(props) {
                       <input
                         className="form-control form-control-lg"
                         style={{ maxWidth: "100%" }}
-                        value={user.phone ? user.phone : phone}
+                        value={user.phone}
 
                         onChange={onChangePhone}
                         type="number"
@@ -326,7 +331,7 @@ function Checkout(props) {
                       <input
                         className="form-control form-control-lg"
                         style={{ maxWidth: "100%" }}
-                        value={user.address ? user.address : address}
+                        value={user.address}
                         onChange={onChangeAddress}
                         type="text"
                         placeholder="Nhập địa chỉ của bạn ở đây!"

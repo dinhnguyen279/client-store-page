@@ -1281,7 +1281,7 @@ a.text-hover-dark:hover {
 }
 
 .size-product-item {
-  transition: all 0.3s;
+  transition: all 0.25s ease-in;
   cursor: pointer;
   text-decoration: none;
 }
@@ -1295,14 +1295,15 @@ a.text-hover-dark:hover {
 
 .size-products .size-product-item {
   border: 1px solid black;
-  padding: 10px 15px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
 }
 
 /* .size-product */
-
-.size-product-item:focus {
-  text-decoration: none;
-}
 
 .index-forward {
   z-index: 99;
