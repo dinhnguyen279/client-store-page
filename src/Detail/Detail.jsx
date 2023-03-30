@@ -588,30 +588,30 @@ function Detail(props) {
                           ×
                         </a>
                         <div className="p-5 my-md-4">
-                          {/* <ul className="list-inline mb-2"> */}
-                          {/* <li className="list-inline-item m-0 existsStar">
-                              {avg >= 1 ?
+                          {/* <ul className="list-inline mb-2">
+                            <li className="list-inline-item m-0 existsStar">
+                              {starMedium >= 1 ?
                                 <AiTwotoneStar className="text-warning text-base" />
                                 :
                                 <AiOutlineStar className="text-warning text-base" />
                               }
                             </li>
                             <li className="list-inline-item m-0">
-                              {avg >= 2 ?
+                              {starMedium >= 2 ?
                                 <AiTwotoneStar className="text-warning text-base" />
                                 :
                                 <AiOutlineStar className="text-warning text-base" />
                               }
                             </li>
                             <li className="list-inline-item m-0">
-                              {avg >= 3 ?
+                              {starMedium >= 3 ?
                                 <AiTwotoneStar className="text-warning text-base" />
                                 :
                                 <AiOutlineStar className="text-warning text-base" />
                               }
                             </li>
                             <li className="list-inline-item m-0">
-                              {avg >= 4 ?
+                              {starMedium >= 4 ?
                                 <AiTwotoneStar className="text-warning text-base" />
                                 :
                                 <AiOutlineStar className="text-warning text-base" />
@@ -619,13 +619,13 @@ function Detail(props) {
                             </li>
                             <li className="list-inline-item m-0">
                               {
-                                avg >= 5 ?
+                                starMedium >= 5 ?
                                   <AiTwotoneStar className="text-warning text-base" />
                                   :
                                   <AiOutlineStar className="text-warning text-base" />
                               }
-                            </li> */}
-                          {/* </ul> */}
+                            </li>
+                          </ul> */}
                           <h2 className="h4">{value.name}</h2>
                           <Card.Text style={{ color: "red" }}>
                             {value.promotionPrice}₫

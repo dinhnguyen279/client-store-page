@@ -54,7 +54,7 @@ function Pagination(props) {
                     <button className="page-link"
                         onClick={() => onDownPage(page)}
                         disabled={page <= 1}>
-                        <span>«</span>
+                        <span style={{ color: "black" }}>«</span>
                     </button>
                 </li>
                 <IndexPage indexPage={indexPage} handlerChangePage={handlerChangePage} pagination={pagination} />
@@ -62,12 +62,12 @@ function Pagination(props) {
                     <button className="page-link"
                         onClick={() => onUpPage(page)}
                         disabled={page >= totalPage}>
-                        <span>»</span>
+                        <span style={{ color: "black" }}>»</span>
                     </button>
                 </li>
             </ul>
             <div className="pagination justify-content-center justify-content-lg-end">
-                <p className="text-small text-muted mb-0">Trang 1 của {parseInt(totalPage) * 4}</p>
+                <p className="text-small text-muted mb-0">Trang 1 của {parseInt(totalPage) * 1}</p>
             </div>
         </nav>
     );

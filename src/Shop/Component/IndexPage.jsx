@@ -21,7 +21,7 @@ function IndexPage(props) {
 
     const onIndexPage = (value) => {
 
-        if (!handlerChangePage){
+        if (!handlerChangePage) {
             return
         }
 
@@ -29,14 +29,12 @@ function IndexPage(props) {
 
     }
 
-    console.log(indexPage)
-
     return (
         <div className="d-flex">
             {
                 indexPage && indexPage.map(value => (
-                    <li className={value === parseInt(page) ? 'page-item active' : 'page-item'} 
-                        key={value} 
+                    <li className={value === parseInt(page) ? 'page-item active' : 'page-item'}
+                        key={value}
                         onClick={() => onIndexPage(value)}>
 
                         <a className="page-link">{value}</a>

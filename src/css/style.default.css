@@ -2684,12 +2684,12 @@ a.text-primary:focus {
 
 .page-item.active .page-link {
   color: #fff;
-  background-color: #111111;
-  border-color: #111111;
+  background-color: #e0a800;
+  border-color: #e0a800;
 }
 
 .page-item:hover .page-link {
-  color: #fff !important;
+  color: black;
 }
 
 .page-item.disabled .page-link {

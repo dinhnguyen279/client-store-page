@@ -20,7 +20,7 @@ function ShopFilterByCate(props) {
   // search product
   const [search, setSearch] = useState("");
   const delaySearchTextTimeOut = useRef(null);
-
+  const [nameCategory, setNameCategory] = useState("")
   //state dùng để sắp xếp sản phẩm
   const [sort, setSort] = useState("");
 
@@ -30,29 +30,12 @@ function ShopFilterByCate(props) {
   //Từng trang hiện tại
   const [pagination, setPagination] = useState({
     page: "1",
-    count: "9",
-    search: "",
+    count: "1",
     category: "all",
-    fildter: "",
   });
-
-  const URL_PRODUCT = `${HOST}/products`;
   const URL_SEARCH = `${HOST}/searchProducts`;
-
   const URT_getProductByCate = `${HOST}/getProductByCate`;
   const { id } = useParams();
-  //Hàm này dùng để thay đổi state pagination.category
-  const handlerCategory = (value) => {
-    console.log("Value: ", value);
-
-    setPagination({
-      page: pagination.page,
-      count: pagination.count,
-      search: pagination.search,
-      category: value,
-      fildter: pagination.fildter,
-    });
-  };
 
   //Hàm này dùng để thay đổi state pagination.page
   //Nó sẽ truyền xuống Component con và nhận dữ liệu từ Component con truyền lên
@@ -61,9 +44,7 @@ function ShopFilterByCate(props) {
     setPagination({
       page: value,
       count: pagination.count,
-      search: pagination.search,
       category: pagination.category,
-      fildter: pagination.fildter,
     });
   };
 
@@ -85,7 +66,6 @@ function ShopFilterByCate(props) {
       .then((res) => setProducts(res.data))
       .catch((err) => console.log("err search", err));
   };
-  console.log(products);
 
   //Hàm Sort sản phẩm theo giá
   const sortPrice = (a, b) => {
@@ -116,7 +96,27 @@ function ShopFilterByCate(props) {
       .get(`${URT_getProductByCate}/${id}`)
       .then((response) => setProducts(response.data))
       .catch((err) => console.log(err));
+
+    // Tính tổng số trang = tổng số sản phẩm / số lượng sản phẩm 1 trang
+    // const totalPage = Math.ceil(parseInt(products.length) / parseInt(pagination.count))
+    // setTotalPage(totalPage)
   }, []);
+
+  // pagination
+  //Gọi hàm Pagination
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const params = {
+  //       page: pagination.page,
+  //       count: pagination.count,
+  //       category: pagination.category
+  //     }
+  //     const query = "?" + queryString.stringify(params)
+  //     const response = await axios.get(`${URT_getProductByCate}/pagination${query}`)
+  //     setProducts(response.data)
+  //   }
+  //   fetchData()
+  // }, [pagination])
   return (
     <div className="container main-shop">
       <section className="py-3 bg-light mb-3">
@@ -227,7 +227,7 @@ function ShopFilterByCate(props) {
                 {/* ------------------Search----------------- */}
 
                 <div className="col-lg-4">
-                  <ul className="list-inline d-flex align-items-center justify-content-lg-end mb-0">
+                  <ul className="list-inline d-flex align-items-center justify-content-lg-start mb-0">
                     <li className="list-inline-item">
                       <SortProduct handlerChangeSort={handlerChangeSort} />
                     </li>
