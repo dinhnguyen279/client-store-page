@@ -153,22 +153,24 @@ function Detail(props) {
       star: star,
       avt: user.avatar
     };
-    if (data.content === "") {
-      alertify.set("notifier", "position", "bottom-right");
-      alertify.error("Vui lòng nhập bình luận!");
-      return
-    }
     if (idUser) {
+      if (data.content === "") {
+        alertify.set("notifier", "position", "bottom-right");
+        alertify.error("Vui lòng nhập bình luận!");
+        return
+      }
       await axios.post(URL_CreateComment, data)
       alertify.set("notifier", "position", "bottom-left");
       alertify.success("Bạn Đã Bình Luận Thành Công!");
       setTimeout(() => {
         window.location.reload()
       }, 1000)
+    } else {
+      alertify.set("notifier", "position", "top-right");
+      alertify.error("Bình luận thất bại bạn phải đăng nhập!");
       return
     }
-    alertify.set("notifier", "position", "top-right");
-    alertify.error("Bình luận thất bại bạn phải đăng nhập!");
+
   };
 
   useEffect(() => {
@@ -192,6 +194,16 @@ function Detail(props) {
   const size = detail.size;
   const arrAlbum = album ? album.split(" ") : [];
   const arrSize = size ? size.split(" ") : [];
+
+  // Tính trung bình số sao người dùng đánh giá của từng sản phẩm
+  const arr = list_comment.map(val => val.star)
+  console.log(arr);
+  const intArr = arr.map((str) => parseInt(str))
+  let sum = 0;
+  for (const a of intArr) {
+    sum += a;
+  }
+  const starMedium = sum / intArr.length;
 
   return (
     <section className="py-4 main-detail" >
@@ -262,20 +274,41 @@ function Detail(props) {
           <div className="col-lg-6 ">
             {/* Đánh giá  */}
             <ul className="list-inline mb-2">
-              <li className="list-inline-item m-0">
-                <i className="fas fa-star small text-warning"></i>
+              <li className="list-inline-item m-0 existsStar">
+                {starMedium >= 1 ?
+                  <AiTwotoneStar className="text-warning text-base" />
+                  :
+                  <AiOutlineStar className="text-warning text-base" />
+                }
               </li>
               <li className="list-inline-item m-0">
-                <i className="fas fa-star small text-warning"></i>
+                {starMedium >= 2 ?
+                  <AiTwotoneStar className="text-warning text-base" />
+                  :
+                  <AiOutlineStar className="text-warning text-base" />
+                }
               </li>
               <li className="list-inline-item m-0">
-                <i className="fas fa-star small text-warning"></i>
+                {starMedium >= 3 ?
+                  <AiTwotoneStar className="text-warning text-base" />
+                  :
+                  <AiOutlineStar className="text-warning text-base" />
+                }
               </li>
               <li className="list-inline-item m-0">
-                <i className="fas fa-star small text-warning"></i>
+                {starMedium >= 4 ?
+                  <AiTwotoneStar className="text-warning text-base" />
+                  :
+                  <AiOutlineStar className="text-warning text-base" />
+                }
               </li>
               <li className="list-inline-item m-0">
-                <i className="fas fa-star small text-warning"></i>
+                {
+                  starMedium >= 5 ?
+                    <AiTwotoneStar className="text-warning text-base" />
+                    :
+                    <AiOutlineStar className="text-warning text-base" />
+                }
               </li>
             </ul>
             {/* end Đánh giá  */}
@@ -499,7 +532,7 @@ function Detail(props) {
             </Form>
             &nbsp; &nbsp;
             <span className="mt-2">
-              Sao <AiTwotoneStar className="" />
+              Sao <AiTwotoneStar className="text-warning" />
             </span>
           </div>
           <div className="btn-send-comment">
@@ -555,23 +588,44 @@ function Detail(props) {
                           ×
                         </a>
                         <div className="p-5 my-md-4">
-                          <ul className="list-inline mb-2">
-                            <li className="list-inline-item m-0">
-                              <i className="fas fa-star small text-warning"></i>
+                          {/* <ul className="list-inline mb-2"> */}
+                          {/* <li className="list-inline-item m-0 existsStar">
+                              {avg >= 1 ?
+                                <AiTwotoneStar className="text-warning text-base" />
+                                :
+                                <AiOutlineStar className="text-warning text-base" />
+                              }
                             </li>
                             <li className="list-inline-item m-0">
-                              <i className="fas fa-star small text-warning"></i>
+                              {avg >= 2 ?
+                                <AiTwotoneStar className="text-warning text-base" />
+                                :
+                                <AiOutlineStar className="text-warning text-base" />
+                              }
                             </li>
                             <li className="list-inline-item m-0">
-                              <i className="fas fa-star small text-warning"></i>
+                              {avg >= 3 ?
+                                <AiTwotoneStar className="text-warning text-base" />
+                                :
+                                <AiOutlineStar className="text-warning text-base" />
+                              }
                             </li>
                             <li className="list-inline-item m-0">
-                              <i className="fas fa-star small text-warning"></i>
+                              {avg >= 4 ?
+                                <AiTwotoneStar className="text-warning text-base" />
+                                :
+                                <AiOutlineStar className="text-warning text-base" />
+                              }
                             </li>
                             <li className="list-inline-item m-0">
-                              <i className="fas fa-star small text-warning"></i>
-                            </li>
-                          </ul>
+                              {
+                                avg >= 5 ?
+                                  <AiTwotoneStar className="text-warning text-base" />
+                                  :
+                                  <AiOutlineStar className="text-warning text-base" />
+                              }
+                            </li> */}
+                          {/* </ul> */}
                           <h2 className="h4">{value.name}</h2>
                           <Card.Text style={{ color: "red" }}>
                             {value.promotionPrice}₫
@@ -582,10 +636,11 @@ function Detail(props) {
                           <p className="text-small mb-4">{value.description}</p>
                           <div className="row align-items-stretch mb-4">
                             <div className="col-sm-12 pl-sm-0 fix_addwish">
-                              <a className="btn btn-dark btn-sm btn-block">
-                                <i className="far fa-heart mr-2"></i>Thêm danh
-                                sách yêu thích
-                              </a>
+                              <button
+                                className="btn btn-warning btn-block btn-sm text-white hover-icon-heart"
+                              >
+                                <AiFillHeart /> Thêm vào yêu thích
+                              </button>
                             </div>
                           </div>
                         </div>
