@@ -35,7 +35,7 @@ function Detail(props) {
   const [detail, setDetail] = useState({});
   const [review, setReview] = useState("description");
   const [comment, setComment] = useState("");
-  const [star, setStar] = useState(1);
+  const [star, setStar] = useState(5);
   const [text, setText] = useState(1);
   const [index, setIndex] = useState(0);
   const [sizeProduct, setSizeProduct] = useState(null);
@@ -43,8 +43,7 @@ function Detail(props) {
   const [getCartById, setGetCartById] = useState({})
   const [user, setUser] = useState({})
   let { id } = useParams();
-  // const listCart = useSelector((state) => state.Cart.listCart);
-  // const idUser = useSelector((state) => state.Session.idUser);
+
   const idUser = sessionStorage.getItem("id_user")
   // Hàm này dùng để lấy ra thông tin từng sản phẩm
   useEffect(() => {
@@ -160,11 +159,8 @@ function Detail(props) {
         return
       }
       await axios.post(URL_CreateComment, data)
-      alertify.set("notifier", "position", "bottom-left");
-      alertify.success("Bạn Đã Bình Luận Thành Công!");
-      setTimeout(() => {
-        window.location.reload()
-      }, 1000)
+      setReview("review")
+      setComment("")
     } else {
       alertify.set("notifier", "position", "top-right");
       alertify.error("Bình luận thất bại bạn phải đăng nhập!");
@@ -179,16 +175,23 @@ function Detail(props) {
       const response = await ProductAPI.getAPI();
       const data = response.data.splice(0, 4);
       setProduct(data);
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchDataComment = async () => {
       // Hàm này gọi thông tin user 
       const idUser = sessionStorage.getItem("id_user")
       await axios.get(`${URL_GetByIdUser}/${idUser}`).then((res) => setUser(res.data))
       //Hàm này gọi API lấy comment của sản phẩm dựa theo id sản phẩm
       const responseListComment = await axios.get(`${URL_GetCommentByIdProduct}/${id}`)
-      const dataComment = responseListComment.data.splice(0, 5)
+      const dataComment = responseListComment.data
       set_list_comment(dataComment)
     };
-    fetchData();
-  }, []);
+    fetchDataComment();
+  }, [comment])
+
   // convert string to array
   const album = detail.album;
   const size = detail.size;
