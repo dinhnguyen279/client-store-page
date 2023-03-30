@@ -200,7 +200,6 @@ function Detail(props) {
 
   // Tính trung bình số sao người dùng đánh giá của từng sản phẩm
   const arr = list_comment.map(val => val.star)
-  console.log(arr);
   const intArr = arr.map((str) => parseInt(str))
   let sum = 0;
   for (const a of intArr) {

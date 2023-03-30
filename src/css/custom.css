@@ -155,6 +155,14 @@ button:hover::after {
   margin-top: 30px;
 }
 
+.btn-buy {
+  text-decoration: none;
+}
+
+.btn-buy:focus {
+  text-decoration: none;
+}
+
 .cart-empty {
   height: 100%;
   width: 100%;
@@ -389,10 +397,22 @@ button:hover::after {
   text-align: center;
 }
 
+.wishlist-header {
+  z-index: 1;
+  margin-bottom: 5px;
+}
+
+.wishlist-header:hover {
+  color: #efb93b;
+}
+
 .icon-cart {
   color: gray;
-  margin-right: 5px;
   padding-bottom: 5px;
+  font-size: 26px;
+}
+
+.icon-wishlist {
   font-size: 26px;
 }
 
@@ -681,6 +701,9 @@ button:hover::after {
     text-align: center;
   }
   .icon-cart {
+    font-size: 30px;
+  }
+  .icon-wishlist {
     font-size: 30px;
   }
   .navbar-button {
@@ -1227,11 +1250,15 @@ button:hover::after {
   .icon-cart {
     font-size: 40px;
   }
+  .icon-wishlist {
+    font-size: 25px;
+  }
   .quantity-cart:before {
     top: -20%;
     right: 5%;
     font-size: 0.8rem;
   }
+
   .nav-list-respon {
     display: block;
     margin-top: 10px;

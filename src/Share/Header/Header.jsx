@@ -10,6 +10,7 @@ import {
   AiOutlineShoppingCart,
   AiOutlineCaretRight,
   AiOutlineShopping,
+  AiOutlineHeart
 } from "react-icons/ai";
 import { FaAngleDown, FaAngleRight, FaThList } from "react-icons/fa";
 // React-Bootstrap
@@ -120,7 +121,7 @@ function Header(props) {
       <Navbar
         bg="light"
         expand={"lg"}
-        className="pt-3 bg-body"
+        className="pt-3 bg-body shadow"
         style={{ zIndex: 10 }}
         fixed="top"
       >
@@ -147,7 +148,7 @@ function Header(props) {
                 </a>
               </Offcanvas.Title>
             </Offcanvas.Header>
-            <Offcanvas.Body className="d-block d-lg-flex  justify-content-between align-item-center">
+            <Offcanvas.Body className="d-block d-lg-flex justify-content-between align-item-center">
               <Form className="mb-2 input-search-type d-flex justify-content-between align-item-center" as={Col} onBlur={handleCloseInput} onClick={handleOpenInput}>
                 <input
                   type="search"
@@ -203,6 +204,11 @@ function Header(props) {
               {/* Giỏ hàng màn hình desktop */}
               <Nav className="justify-content-end">
                 <ul className='nav-list-respon'>
+                  <li className="nav-item d-none d-lg-block">
+                    <a className="nav-link wishlist-header" href='/wishlist' >
+                      <AiOutlineHeart className='icon-wishlist' /> {"20"}
+                    </a>
+                  </li>
                   <li className="nav-item position-relative d-none d-lg-block">
                     <a className="nav-link quantity-cart" href='/cart' data-order={countCart}>
                       <AiOutlineShoppingCart className='icon-cart' />
@@ -213,6 +219,7 @@ function Header(props) {
                 </ul>
               </Nav>
               {/* Giỏ hàng màn hình desktop */}
+
               {/* Navbar màn hình điện thoại */}
               <div className='under-navbar d-block d-lg-none' style={{ zIndex: 100 }}>
                 <div className="navbar-button mr-4 navbar-categories">
@@ -281,13 +288,20 @@ function Header(props) {
           </Navbar.Offcanvas >
 
           {/* Giỏ hàng màn hình điện thoại */}
-          <div className='d-block d-lg-none' >
-            <li className="nav-item position-relative">
-              <a className="nav-link quantity-cart" href='/cart' data-order={countCart}>
-                <AiOutlineShopping className='icon-cart' />
-              </a>
-            </li>
-          </div >
+          <div className='d-block d-lg-none'>
+            <ul className='d-flex align-items-center justify-content-between pl-0'>
+              <li className="nav-item">
+                <a className="nav-link wishlist-header" href='/wishlist' >
+                  <AiOutlineHeart className='icon-wishlist' /> {"20"}
+                </a>
+              </li>
+              <li className="nav-item position-relative">
+                <a className="nav-link quantity-cart" href='/cart' data-order={countCart}>
+                  <AiOutlineShopping className='icon-cart' />
+                </a>
+              </li>
+            </ul >
+          </div>
           {/* Giỏ hàng màn hình điện thoại */}
         </Container >
       </Navbar >

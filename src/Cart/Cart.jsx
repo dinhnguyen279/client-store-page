@@ -244,9 +244,9 @@ function Cart(props) {
         : (
           <section className="cart-empty">
             <p className="text-lg mb-3">Giỏ hàng rỗng</p>
-            <Button variant="dark" type="button" href="/">
+            <a className="btn-buy" href="/">
               Tiếp tục mua hàng
-            </Button>
+            </a>
           </section>
         )}
     </div>

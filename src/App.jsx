@@ -24,6 +24,7 @@ import ScrollToTopButton from "./Share/ScrollTop/ScrollTopButton";
 import React, { useEffect, useState } from "react";
 import CartAPI from "./API/CartAPI";
 import ShopFilterByCate from "./Shop/ShopFilterByCate"
+import Favorites from "./Favorites/Favorites"
 import Introduce from "./pageBranch/introduce/introduce";
 import PrivacyPolicy from "./pageBranch/PrivacyPolicy/PrivacyPolicy";
 import ReturnPolicy from "./pageBranch/returnPolicy/ReturnPolicy";
@@ -80,6 +81,7 @@ function App() {
           <Route path="/history" element={<MainHistory />} />
           <Route path='/history/:id' element={<DetailHistory />} />
           <Route path='*' element={<ErrorPage />} />
+          <Route path='/wishlist' element={<Favorites />} />
           <Route path='/gioi-thieu' element={<Introduce />} />
           <Route path='/chinh-sach-bao-mat' element={<PrivacyPolicy />} />
           <Route path='/chinh-sach-doi-tra' element={<ReturnPolicy />} />
