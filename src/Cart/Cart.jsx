@@ -50,44 +50,6 @@ function Cart(props) {
       .catch((error) => console.log(error));
   }, [getCartById]);
 
-  //Hàm này dùng để Load dữ liệu ở Redux
-
-  //Khi người dùng chưa đăng nhập
-  //   useEffect(() => {
-  //     const fetchDataRedux = () => {
-  //       if (!sessionStorage.getItem("id_user")) {
-  //         setCart(listCart);
-  //         getTotal(listCart);
-  //         return;
-  //       }
-  //     };
-  //     fetchDataRedux();
-  //   }, [loadRedux]);
-
-  //Hàm này dùng để load dữ liệu từ API
-  //Khi người dùng đã đăng nhập
-  //   useEffect(() => {
-  //     const fetchData = async () => {
-  //       if (sessionStorage.getItem("id_user")) {
-  //         const idUser = {
-  //           idUser: sessionStorage.getItem("id_user"),
-  //         };
-  //         console.log(idUser);
-
-  //         // const response = await CartAPI.getCarts(query)
-  //         const response = await axios.get(`${URL_CART}${idUser}`);
-
-  //         setCart(response);
-
-  //         getTotal(response);
-  //       }
-  //     };
-
-  //     fetchData();
-
-  //     setLoadAPI(false);
-  //   }, [loadAPI]);
-
   //Hàm này dùng để truyền xuống cho component con xử và trả ngược dữ liệu lại component cha
 
   const onDeleteCart = (getUser, getProduct, getSize) => {
@@ -244,7 +206,7 @@ function Cart(props) {
         : (
           <section className="cart-empty">
             <p className="text-lg mb-3">Giỏ hàng rỗng</p>
-            <a className="btn-buy" href="/">
+            <a className="btn-buy btn btn-dark" href="/">
               Tiếp tục mua hàng
             </a>
           </section>

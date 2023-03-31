@@ -7,7 +7,8 @@ const ModalDelete = (props) => {
     const handlerDelete = props.handlerDelete
 
     const deleteProduct = () => {
-        handlerDelete
+        handlerDelete()
+        window.location.reload()
     }
     return (
         <>
@@ -20,7 +21,7 @@ const ModalDelete = (props) => {
                     <Button variant="secondary" onClick={handleClose}>
                         Đóng
                     </Button>
-                    <Button variant="danger" onClick={() => deleteProduct}>
+                    <Button variant="danger" onClick={deleteProduct}>
                         Xóa
                     </Button>
                 </Modal.Footer>

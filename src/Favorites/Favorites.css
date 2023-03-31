@@ -1,20 +1,38 @@
 .title-header {
-  margin: 0 auto;
   padding: 40px 0;
   color: black;
   text-transform: uppercase;
-  letter-spacing: 6px;
+  letter-spacing: 4px;
 }
 
 .img-product {
-  height: 100%;
-  width: 100%;
+  height: 40%;
+  width: 40%;
   object-fit: cover;
 }
 
 .header-wishlist {
   border: white;
 }
-.header-wishlist-title th {
-  border-top: transparent !important;
+.header-wishlist-title {
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 1px solid gray;
+}
+
+.wishlist-list {
+  align-items: center;
+  background: white;
+  padding: 15px 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgb(164, 164, 164);
+  outline: none;
+}
+
+.wishlist-item-one {
+  text-align: end;
+}
+
+.wishlist-item-three {
+  text-align: end;
 }

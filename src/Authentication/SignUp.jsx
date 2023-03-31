@@ -49,7 +49,6 @@ function SignUp(props) {
 
     const validatePhoneNumber = (phone) => {
         const validPhone = /^(\+84|0)\d{9,10}$/;
-        console.log(phone);
         return validPhone.test(phone)
     }
 
@@ -104,20 +103,21 @@ function SignUp(props) {
                 password: password,
                 phone: phone
             }
-            // await axiosClient.post(REGISTER_URL, params)
-            //     .then((res) => {
-            //         if (res.data !== "") {
-            //             alertify.set("notifier", "position", "bottom-left");
-            //             alertify.success("Chào mừng người mới");
-            //             setSuccess(true)
-            //         } else {
-            //             alertify.set("notifier", "position", "bottom-right");
-            //             alertify.error("Email đã được đăng ký");
-            //         }
-            //     })
+            await axiosClient.post(REGISTER_URL, params)
+                .then((res) => {
+                    if (res.data !== "") {
+                        console.log(res.data);
+                        alertify.set("notifier", "position", "bottom-left");
+                        alertify.success("Chào mừng người mới");
+                        setSuccess(true)
+                    } else {
+                        console.log(res.data);
+                        alertify.set("notifier", "position", "bottom-right");
+                        alertify.error("Email đã được đăng ký");
+                    }
+                })
         }
     }
-
     return (
         <form onSubmit={handlerSignUp}>
 

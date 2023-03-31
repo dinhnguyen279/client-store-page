@@ -27,6 +27,7 @@ function Detail(props) {
   const URL_GetVoucher = `${HOST}/coupons`;
   const URL_GetCommentByIdProduct = `${HOST}/comment`
   const URL_CreateComment = `${HOST}/comment/send`
+  const URL_CreateFavorites = `${HOST}/favorite/send`
   const URL_GetByIdUser = `${HOST}/user`
 
   // const [load_comment, set_load_comment] = useState(false);
@@ -67,7 +68,7 @@ function Detail(props) {
     }
   }, [detail.coupons]);
 
-  const addToCart = () => {
+  const addToCart = async () => {
     let id_user_cart = "";
     let id_user_clientage = "";
     if (!sessionStorage.getItem("id_user")) {
@@ -100,7 +101,7 @@ function Detail(props) {
       img: detail.avt,
       size: sizeProduct,
     };
-    axios.post(URL_AddToCart, data)
+    await axios.post(URL_AddToCart, data)
     props.fecthCount();
     alertify.set("notifier", "position", "bottom-left");
     alertify.success("Bạn Đã Thêm Hàng Thành Công!");
@@ -142,6 +143,39 @@ function Detail(props) {
     setComment(e.target.value);
   };
 
+  // Thêm vào yêu thích sản phẩm
+  const addWishlist = async (idProduct) => {
+    let id_user_clientage = "";
+    if (!idUser) {
+      if (!localStorage.getItem("id_user_clientage")) {
+        // Nếu id fake chưa có thì chúng ta tiến tạo hành một id mới
+        var unique_id = uuid();
+        var create_id_user_fake = unique_id.slice(0, 8)
+        localStorage.setItem("id_user_clientage", create_id_user_fake)
+      }
+    }
+    if (!sizeProduct) {
+      alertify.error("Bạn phải chọn size!");
+      return;
+    }
+    // idUser khách
+    id_user_clientage = localStorage.getItem("id_user_clientage");
+    const data = {
+      idUser: idUser ? idUser : id_user_clientage,
+      idProduct: idProduct,
+      size: sizeProduct
+    }
+    await axios.post(URL_CreateFavorites, data)
+      .then(res => {
+        if (res.data !== "") {
+          return
+        } else {
+          alertify.set("notifier", "position", "bottom-right");
+          alertify.error("Sản phẩm đã có trong danh sách");
+          return
+        }
+      })
+  }
   // Hàm này dùng để gửi bình luận
   const submitComment = async () => {
     const data = {
@@ -166,7 +200,6 @@ function Detail(props) {
       alertify.error("Bình luận thất bại bạn phải đăng nhập!");
       return
     }
-
   };
 
   useEffect(() => {
@@ -386,6 +419,7 @@ function Detail(props) {
                 </button>
                 <button
                   className="btn btn-warning btn-base text-white hover-icon-heart my-2"
+                  onClick={() => addWishlist(detail._id)}
                 >
                   <AiFillHeart /> Thêm vào yêu thích
                 </button>
@@ -557,11 +591,11 @@ function Detail(props) {
         </div>
         {/* -------------Modal Product----------------- */}
         {product &&
-          product.map((value) => (
+          product.map((value, idx) => (
             <div
               className="modal fade show"
               id={`product_${value._id}`}
-              key={value._id}
+              key={idx + 1}
             >
               <div
                 className="modal-dialog modal-lg modal-dialog-centered"
