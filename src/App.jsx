@@ -106,6 +106,7 @@ function App() {
         }
       })
   }
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -131,8 +132,8 @@ function App() {
           <Route path='/chinh-sach-doi-tra' element={<ReturnPolicy />} />
           <Route path='/dieu-khoan-dich-vu' element={<TermsOfService />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
-      <Footer />
     </div>
   );
 }

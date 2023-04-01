@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
 import { Link } from "react-router-dom";
 import LogoutLink from "../../Authentication/LogoutLink";
@@ -14,13 +13,10 @@ import {
 } from "react-icons/ai";
 import { FaAngleDown, FaAngleRight, FaThList } from "react-icons/fa";
 // React-Bootstrap
-import { Card, Col, Container, Form, Nav, Navbar, NavDropdown, Offcanvas } from 'react-bootstrap';
-import ProductAPI from '../../API/ProductAPI';
+import { Card, Col, Container, Form, Nav, Navbar, Offcanvas } from 'react-bootstrap';
 import Categories from '../../API/Categories';
 import { HOST } from '../../domain/host/host';
 import axios from 'axios';
-import axiosClient from '../../API/axiosClient';
-import CartAPI from '../../API/CartAPI';
 import queryString from 'query-string';
 
 function Header(props) {
@@ -60,6 +56,7 @@ function Header(props) {
       fildter: "name"
     }
     const query = "?" + queryString.stringify(dataSearch)
+    console.log(query);
     axios.get(`${URL_SEARCH}${query}`)
       .then((res) => {
         const data = res.data.splice(0, 6);
@@ -72,6 +69,7 @@ function Header(props) {
 
   const [dataCategories, setDataCategories] = useState([]);
 
+  const [isActive, setIsActive] = useState(false);
   var idUser = sessionStorage.getItem("id_user");
 
   useEffect(() => {
@@ -117,6 +115,15 @@ function Header(props) {
     fecthData();
   }, []);
 
+  const handleFocus = () => {
+    setIsActive(true);
+  };
+
+  const handleBlur = () => {
+    setIsActive(false);
+  };
+
+
   return (
     <>
       <Navbar
@@ -158,9 +165,11 @@ function Header(props) {
                   aria-label="Search"
                   value={valueSearch}
                   onChange={onChangeText}
+                  onFocus={() => handleFocus()}
+                  onBlur={() => handleBlur()}
                 />
-                <span className='search-button d-none d-lg-block'>Search</span>
-                <span className='search-button search-icon d-block d-lg-none'><AiOutlineSearch /></span>
+                <span className={`search-button d-none d-lg-block ${isActive ? "text-light" : "text-dark"}`}>Search</span>
+                <span className={`search-button search-icon d-block d-lg-none ${isActive ? "text-light" : "text-dark"}`}><AiOutlineSearch /></span>
                 {/* Form Search */}
                 {
                   // Đóng input khi người dùng click outside 
@@ -206,14 +215,14 @@ function Header(props) {
               <Nav className="justify-content-end">
                 <ul className='nav-list-respon'>
                   <li className="nav-item d-none d-lg-block">
-                    <a className="nav-link wishlist-header" href='/wishlist' >
+                    <Link className="nav-link wishlist-header" to='/wishlist' >
                       <AiOutlineHeart className='icon-wishlist' /> <span style={{ color: "#efb93b" }}>{countWishlist}</span>
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item position-relative d-none d-lg-block">
-                    <a className="nav-link quantity-cart" href='/cart' data-order={countCart}>
+                    <Link className="nav-link quantity-cart" to='/cart' data-order={countCart}>
                       <AiOutlineShoppingCart className='icon-cart' />
-                    </a>
+                    </Link>
                   </li>
                   {nameUser ? (<Name />) : ' '}
                   {loginUser ? ' ' : (<LogoutLink />)}
@@ -292,14 +301,15 @@ function Header(props) {
           <div className='d-block d-lg-none'>
             <ul className='d-flex align-items-center justify-content-between pl-0'>
               <li className="nav-item">
-                <a className="nav-link wishlist-header" href='/wishlist' >
-                  <AiOutlineHeart className='icon-wishlist' /><span style={{ color: "#efb93b" }}>{countWishlist}</span>
-                </a>
+                <Link className="nav-link wishlist-header" to='/wishlist' >
+                  <AiOutlineHeart className='icon-wishlist' />
+                  <span style={{ color: "#efb93b" }}>{countWishlist}</span>
+                </Link>
               </li>
               <li className="nav-item position-relative">
-                <a className="nav-link quantity-cart" href='/cart' data-order={countCart}>
+                <Link className="nav-link quantity-cart" to='/cart' data-order={countCart}>
                   <AiOutlineShopping className='icon-cart' />
-                </a>
+                </Link>
               </li>
             </ul >
           </div>
@@ -366,7 +376,7 @@ function Header(props) {
           <div className='d-flex'>
             <ul className="navbar-nav nav-menu nav-menu-over">
               <p className="nav-link">
-                Trang Shop <FaAngleDown />
+                Về chúng tôi <FaAngleDown />
               </p>
               <div className='nav-menu-item'>
                 <li className='nav-item-link'>

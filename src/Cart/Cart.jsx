@@ -1,8 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteCart, updateCart } from "../Redux/Action/ActionCart";
 import ListCart from "./Components/ListCart";
 
 import alertify from "alertifyjs";
@@ -13,19 +11,12 @@ import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 
 import { HOST } from "../domain/host/host";
 
-import { Button } from "react-bootstrap";
-
 function Cart(props) {
   const URL_CART = `${HOST}/getCartById`;
 
-  const [cart, setCart] = useState([]);
   const [total, setTotal] = useState();
-  const [showProduct, setShowProduct] = useState("");
-  const [loadRedux, setLoadRedux] = useState({
-    idProduct: "",
-    count: "",
-  });
-  const [loadAPI, setLoadAPI] = useState(false);
+
+  // const [loadAPI, setLoadAPI] = useState(false);
   const [getCartById, setCartById] = useState([]);
   const [redirect, setRedirect] = useState(false);
   // Kiểm tra id nếu idUser không có thì lấy id Khách
@@ -40,14 +31,17 @@ function Cart(props) {
   }
 
   // Lấy dữ liệu từ Cart ra
-  useEffect(async () => {
-    await axios
-      .get(`${URL_CART}/${idUser}`)
-      .then((response) => {
-        setCartById(response.data);
-        getTotal(response.data);
-      })
-      .catch((error) => console.log(error));
+  useEffect(() => {
+    const fetchData = async () => {
+      await axios
+        .get(`${URL_CART}/${idUser}`)
+        .then((response) => {
+          setCartById(response.data);
+          getTotal(response.data);
+        })
+        .catch((error) => console.log(error));
+    }
+    fetchData()
   }, [getCartById]);
 
   //Hàm này dùng để truyền xuống cho component con xử và trả ngược dữ liệu lại component cha
@@ -72,7 +66,7 @@ function Cart(props) {
       fetchDelete();
 
       //Sau đó thay đổi state loadAPI và load lại hàm useEffect
-      setLoadAPI(true);
+      // setLoadAPI(true);
     }
   };
 
@@ -99,7 +93,7 @@ function Cart(props) {
       fetchPut();
 
       //Sau đó thay đổi state loadAPI và load lại hàm useEffect
-      setLoadAPI(true);
+      // setLoadAPI(true);
 
       alertify.set("notifier", "position", "bottom-left");
       alertify.success("Bạn Đã Sửa Hàng Thành Công!");

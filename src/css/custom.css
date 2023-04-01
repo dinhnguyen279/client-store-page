@@ -435,7 +435,7 @@ button:hover::after {
 }
 
 .search-button:hover {
-  color: white;
+  color: white !important;
 }
 
 .input-search-type {
@@ -741,7 +741,7 @@ button:hover::after {
 }
 
 .nav-item-list {
-  transition: all 0.5s ease-in;
+  transition: none 0.25s linear;
 }
 
 .nav-item-list a {
@@ -1020,10 +1020,10 @@ button:hover::after {
 }
 
 /* detai-product-comment */
-.existsStar i:before {
-  /* color: #000; */
-  /* background: #000; */
-}
+/* .existsStar i:before { */
+/* color: #000; */
+/* background: #000; */
+/* } */
 .main-img-detail {
   text-align: center;
 }
