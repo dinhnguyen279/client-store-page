@@ -102,7 +102,7 @@ function Detail(props) {
       size: sizeProduct,
     };
     await axios.post(URL_AddToCart, data)
-    props.fecthCount();
+    await props.fecthCount();
     alertify.set("notifier", "position", "bottom-left");
     alertify.success("Bạn Đã Thêm Hàng Thành Công!");
   };

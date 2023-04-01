@@ -6,12 +6,15 @@ import { Link } from 'react-router-dom'
 import { HOST } from '../domain/host/host'
 import axios from 'axios'
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import ModalDelete from '../components/ModalDelete'
+import ModalDeleted from '../components/ModalDeleted'
 import queryString from 'query-string'
+import alertify from 'alertifyjs'
 
-const Favorites = () => {
+const Favorites = (props) => {
     const URL_GETFAVORITES = `${HOST}/favorite`
     const URL_GETPRODUCTS = `${HOST}/product`
+    const URL_AddToCart = `${HOST}/addToCart`;
+
     const [favorites, setFavorites] = useState([])
     const [getDataFavorites, setGetDataFavorites] = useState([])
     const [show, setShow] = useState(false);
@@ -22,7 +25,7 @@ const Favorites = () => {
         idProduct: "",
         size: ""
     })
-    // Kiểm tra id nếu idUser không có thì lấy id Khách
+    // Kiểm tra lấy id nếu idUser không có thì lấy id Khách
     let getIdUser = ""
     if (sessionStorage.getItem("id_user")) {
         const id_user = sessionStorage.getItem("id_user");
@@ -32,33 +35,7 @@ const Favorites = () => {
         const id_user_clientage = localStorage.getItem("id_user_clientage")
         getIdUser = id_user_clientage;
     }
-    // Show popup xóa sản phẩm khỏi wishlist
-    const handleShow = (idFavorite, idProduct, size) => {
-        const data = { idFavorite: idFavorite, idUser: getIdUser, idProduct: idProduct, size: size }
-        setDataDelete(data);
-        setShow(true);
-    }
 
-    const handlerDelete = () => {
-        if (getIdUser) {
-            //Sau khi nhận được dữ liệu ở component con truyền lên thì sẽ gọi API xử lý dữ liệu
-            const fetchDelete = async () => {
-                const params = {
-                    idFavorite: dataDelete.idFavorite,
-                    idUser: dataDelete.idUser,
-                    idProduct: dataDelete.idProduct,
-                    size: dataDelete.size
-                };
-                const query = '?' + queryString.stringify(params)
-                console.log(query);
-
-                await axios.delete(`${HOST}/deleteFavorite${query}`)
-                alertify.set("notifier", "position", "bottom-left");
-                alertify.success("Bạn Đã Xóa Thành Công!");
-            };
-            fetchDelete();
-        }
-    }
     // Gọi ra danh sách thông tin FAVORITES
     useEffect(() => {
         const fetchFavorites = async () => {
@@ -79,11 +56,11 @@ const Favorites = () => {
                 setGetDataFavorites(dataProduct)
             })
     }, [favorites])
-
-    // Hàm này sẽ ghép id của bảng favorites và sản phẩm lấy được dựa vào idProduct
+    // Hàm này sẽ ghép id của bảng favorites và sản phẩm lấy được dựa vào idProduct đưa vào listFavorites
     const listFavorites = []
     if (favorites.length > 0) {
         const listIdFavorites = favorites.map(val => val._id)
+        const listIdUser = favorites.map(val => val.idUser)
         const listSizeFavorites = favorites.map(val => val.size)
         const listName = getDataFavorites.map(val => val.name)
         const listPrice = getDataFavorites.map(val => val.promotionPrice ? val.promotionPrice : val.price)
@@ -93,6 +70,7 @@ const Favorites = () => {
         for (let i = 0; i < listIdFavorites.length; i++) {
             const oFavorites = {}
             oFavorites.id = listIdFavorites[i];
+            oFavorites.idUser = listIdUser[[i]]
             oFavorites.size = listSizeFavorites[i];
             oFavorites.name = listName[i];
             oFavorites.price = listPrice[i];
@@ -103,6 +81,51 @@ const Favorites = () => {
             listFavorites.push(oFavorites);
         }
     }
+    // Show popup xóa sản phẩm khỏi wishlist
+    const handleShow = (id, idUser, idProduct, size) => {
+        const data = { idFavorite: id, idUser: idUser, idProduct: idProduct, size: size }
+        setDataDelete(data);
+        setShow(true);
+    }
+    const handlerDelete = async () => {
+        const params = {
+            idFavorite: dataDelete.idFavorite,
+            idUser: dataDelete.idUser,
+            idProduct: dataDelete.idProduct,
+            size: dataDelete.size
+        };
+        const query = '?' + queryString.stringify(params)
+
+        try {
+            await axios.delete(`${HOST}/deleteFavorite${query}`)
+            alertify.set("notifier", "position", "bottom-left");
+            alertify.success("Bạn Đã Xóa Thành Công!");
+            await props.fecthCount();
+        } catch (error) {
+            console.log(error);
+            alertify.success("Xóa Không Thành Công!");
+        }
+    }
+
+    const addToCart = async (idProduct, name, price, avt, size) => {
+        // idUser
+        const id_user_cart = sessionStorage.getItem("id_user");
+        // idUser khách
+        const id_user_clientage = localStorage.getItem("id_user_clientage");
+        const data = {
+            idUser: id_user_cart ? id_user_cart : id_user_clientage,
+            idProduct: idProduct,
+            quantity: 1,
+            nameProduct: name,
+            price: price,
+            img: avt,
+            size: size,
+        };
+        await axios.post(URL_AddToCart, data)
+        props.fecthCount();
+        alertify.set("notifier", "position", "bottom-left");
+        alertify.success("Bạn Đã Thêm Hàng Thành Công!");
+    };
     return (
         <>
             <section className="py-3 bg-light mb-3 header-contact">
@@ -122,38 +145,47 @@ const Favorites = () => {
                                 return (
                                     <div className='my-4' key={idx + 1}>
                                         <div className='wishlist-list row'>
-                                            <div className='wishlist-item-one col-lg-12'>
-                                                <Button variant='light'
-                                                    onClick={() => handleShow(val.id, val.idProduct, val.size)}
-                                                    className="reset-anchor remove_cart"
+                                            <div className='wishlist-item-first col-lg-12 d-block d-lg-none'>
+                                                <button
+                                                    onClick={() => handleShow(val.id, val.idUser, val.idProduct, val.size)}
+                                                    className="reset-anchor remove_cart btn-base"
                                                 >
-                                                    <AiOutlineClose />
-                                                </Button>
-                                                <ModalDelete show={show} handleClose={handleClose} handlerDelete={handlerDelete} />
+                                                    <AiOutlineClose className='text-muted text-base' />
+                                                </button>
                                             </div>
-                                            <div className='wishlist-item col-lg-3'>
+                                            <div className='wishlist-item col-lg-3 col-md-5'>
                                                 <Link to={`/detail/${val.idProduct}`}>
                                                     <img src={val.avt} alt="Name Product" className='img-product' />
                                                 </Link>
                                             </div>
-                                            <div className='wishlist-item-two col-lg-4'>
-                                                <div>
+                                            <div className='wishlist-item-second col-lg-4 col-md-7'>
+                                                <div className=''>
                                                     <h5>
                                                         {val.name}
                                                     </h5>
-                                                    <b>Size:</b> {val.size}
-                                                    <br />
-                                                    <b>Kho:</b> {val.stock}
+                                                    <div>
+                                                        <b>Size:</b> <span className='mr-3'>{val.size}</span>
+                                                        <b>Kho:</b><span> {val.stock}</span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div className='wishlist-item-three col-lg-5'>
+                                            <div className='wishlist-item-third col-lg-5'>
+                                                <button
+                                                    onClick={() => handleShow(val.id, val.idUser, val.idProduct, val.size)}
+                                                    className="reset-anchor remove_cart btn-base"
+                                                >
+                                                    <AiOutlineClose className='text-muted text-base' />
+                                                </button>
                                                 <p className='py-3 text-lg'>
                                                     {parseInt(val.price).toLocaleString()}₫
                                                 </p>
-                                                <Button variant='warning'>
+                                                <button className='btnAddToCart bg-warning' onClick={() => addToCart(val.idProduct, val.name, val.price, val.avt, val.size)}>
                                                     <AiOutlineShoppingCart /> Thêm giỏ hàng
-                                                </Button >
+                                                </button >
                                             </div>
+                                            {show &&
+                                                <ModalDeleted show={show} handleClose={handleClose} handlerDelete={handlerDelete} />
+                                            }
                                         </div>
                                     </div>
                                 )

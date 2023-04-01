@@ -25,6 +25,7 @@ import queryString from 'query-string';
 
 function Header(props) {
   // Hàm này lấy số lượng sản phẩm trong giỏ hàng
+  const countWishlist = props.countWishlist
   const countCart = props.countCart
   // Api search
   const URL_SEARCH = `${HOST}/searchProducts`;
@@ -206,7 +207,7 @@ function Header(props) {
                 <ul className='nav-list-respon'>
                   <li className="nav-item d-none d-lg-block">
                     <a className="nav-link wishlist-header" href='/wishlist' >
-                      <AiOutlineHeart className='icon-wishlist' /> {"20"}
+                      <AiOutlineHeart className='icon-wishlist' /> <span style={{ color: "#efb93b" }}>{countWishlist}</span>
                     </a>
                   </li>
                   <li className="nav-item position-relative d-none d-lg-block">
@@ -292,7 +293,7 @@ function Header(props) {
             <ul className='d-flex align-items-center justify-content-between pl-0'>
               <li className="nav-item">
                 <a className="nav-link wishlist-header" href='/wishlist' >
-                  <AiOutlineHeart className='icon-wishlist' /> {"20"}
+                  <AiOutlineHeart className='icon-wishlist' /><span style={{ color: "#efb93b" }}>{countWishlist}</span>
                 </a>
               </li>
               <li className="nav-item position-relative">

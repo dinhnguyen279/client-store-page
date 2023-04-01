@@ -29,8 +29,11 @@ import Introduce from "./pageBranch/introduce/introduce";
 import PrivacyPolicy from "./pageBranch/PrivacyPolicy/PrivacyPolicy";
 import ReturnPolicy from "./pageBranch/returnPolicy/ReturnPolicy";
 import TermsOfService from "./pageBranch/termsOfService/termsOfService";
+import axios from "axios";
+import FavoriteAPI from "./API/Favorites";
 function App() {
   const [countCart, setCountCart] = useState(0)
+  const [countWishlist, setCountWishlist] = useState(0)
   let idUser = ""
   if (sessionStorage.getItem("id_user")) {
     const id_user = sessionStorage.getItem("id_user");
@@ -58,6 +61,10 @@ function App() {
       await CartAPI.getCartById(`/${idUser}`)
         .then((res) => getCount(res.data))
         .catch(error => console.log(error))
+
+      await FavoriteAPI.getFavoriteById(`/${idUser}`)
+        .then(res => setCountWishlist(res.data))
+        .catch(error => console.log(error))
     }
   }
   fecthCount()
@@ -65,7 +72,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Header countCart={countCart} />
+        <Header countCart={countCart} countWishlist={countWishlist.length} />
         <ScrollToTopButton />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -81,7 +88,7 @@ function App() {
           <Route path="/history" element={<MainHistory />} />
           <Route path='/history/:id' element={<DetailHistory />} />
           <Route path='*' element={<ErrorPage />} />
-          <Route path='/wishlist' element={<Favorites />} />
+          <Route path='/wishlist' element={<Favorites fecthCount={fecthCount} />} />
           <Route path='/gioi-thieu' element={<Introduce />} />
           <Route path='/chinh-sach-bao-mat' element={<PrivacyPolicy />} />
           <Route path='/chinh-sach-doi-tra' element={<ReturnPolicy />} />

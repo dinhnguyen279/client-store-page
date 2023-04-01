@@ -29,10 +29,49 @@
   outline: none;
 }
 
-.wishlist-item-one {
+.wishlist-item {
+  text-align: left;
+}
+
+.wishlist-item-first {
   text-align: end;
 }
 
-.wishlist-item-three {
+.wishlist-item-second {
+  text-align: left;
+}
+
+.wishlist-item-third {
   text-align: end;
+  font-weight: 500;
+}
+.wishlist-item-third .reset-anchor {
+  display: inline-block;
+}
+.btnAddToCart {
+  padding: 10px 20px;
+  outline: none;
+  border-radius: 50px;
+  color: black;
+}
+
+@media only screen and (max-width: 997px) {
+  .wishlist-item {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .wishlist-item-third button {
+    width: 100%;
+  }
+  .wishlist-item-second {
+    text-align: center;
+  }
+  .wishlist-item-third .reset-anchor {
+    display: none;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .wishlist-item-third {
+    text-align: center;
+  }
 }
