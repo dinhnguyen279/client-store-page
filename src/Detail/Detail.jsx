@@ -143,39 +143,39 @@ function Detail(props) {
     setComment(e.target.value);
   };
 
-  // Thêm vào yêu thích sản phẩm
-  const addWishlist = async (idProduct) => {
-    let id_user_clientage = "";
-    if (!idUser) {
-      if (!localStorage.getItem("id_user_clientage")) {
-        // Nếu id fake chưa có thì chúng ta tiến tạo hành một id mới
-        var unique_id = uuid();
-        var create_id_user_fake = unique_id.slice(0, 8)
-        localStorage.setItem("id_user_clientage", create_id_user_fake)
-      }
-    }
-    if (!sizeProduct) {
-      alertify.error("Bạn phải chọn size!");
-      return;
-    }
-    // idUser khách
-    id_user_clientage = localStorage.getItem("id_user_clientage");
-    const data = {
-      idUser: idUser ? idUser : id_user_clientage,
-      idProduct: idProduct,
-      size: sizeProduct
-    }
-    await axios.post(URL_CreateFavorites, data)
-      .then(res => {
-        if (res.data !== "") {
-          return
-        } else {
-          alertify.set("notifier", "position", "bottom-right");
-          alertify.error("Sản phẩm đã có trong danh sách");
-          return
-        }
-      })
-  }
+  // // Thêm vào yêu thích sản phẩm
+  // const addWishlist = async (idProduct) => {
+  //   let id_user_clientage = "";
+  //   if (!idUser) {
+  //     if (!localStorage.getItem("id_user_clientage")) {
+  //       // Nếu id fake chưa có thì chúng ta tiến tạo hành một id mới
+  //       var unique_id = uuid();
+  //       var create_id_user_fake = unique_id.slice(0, 8)
+  //       localStorage.setItem("id_user_clientage", create_id_user_fake)
+  //     }
+  //   }
+  //   if (!sizeProduct) {
+  //     alertify.error("Bạn phải chọn size!");
+  //     return;
+  //   }
+  //   // idUser khách
+  //   id_user_clientage = localStorage.getItem("id_user_clientage");
+  //   const data = {
+  //     idUser: idUser ? idUser : id_user_clientage,
+  //     idProduct: idProduct,
+  //     size: sizeProduct
+  //   }
+  //   await axios.post(URL_CreateFavorites, data)
+  //     .then(res => {
+  //       if (res.data !== "") {
+  //         return
+  //       } else {
+  //         alertify.set("notifier", "position", "bottom-right");
+  //         alertify.error("Sản phẩm đã có trong danh sách");
+  //         return
+  //       }
+  //     })
+  // }
   // Hàm này dùng để gửi bình luận
   const submitComment = async () => {
     const data = {
@@ -419,7 +419,8 @@ function Detail(props) {
                 </button>
                 <button
                   className="btn btn-warning btn-base text-white hover-icon-heart my-2"
-                  onClick={() => addWishlist(detail._id)}
+                  // onClick={() => addWishlist(detail._id)}
+                  onClick={() => props.handleAddWishlist(detail._id, sizeProduct)}
                 >
                   <AiFillHeart /> Thêm vào yêu thích
                 </button>
@@ -624,7 +625,7 @@ function Detail(props) {
                           ×
                         </a>
                         <div className="p-5 my-md-4">
-                          {/* <ul className="list-inline mb-2">
+                          <ul className="list-inline mb-2">
                             <li className="list-inline-item m-0 existsStar">
                               {starMedium >= 1 ?
                                 <AiTwotoneStar className="text-warning text-base" />
@@ -661,7 +662,7 @@ function Detail(props) {
                                   <AiOutlineStar className="text-warning text-base" />
                               }
                             </li>
-                          </ul> */}
+                          </ul>
                           <h2 className="h4">{value.name}</h2>
                           <Card.Text style={{ color: "red" }}>
                             {value.promotionPrice}₫
@@ -674,6 +675,7 @@ function Detail(props) {
                             <div className="col-sm-12 pl-sm-0 fix_addwish">
                               <button
                                 className="btn btn-warning btn-block btn-sm text-white hover-icon-heart"
+                                onClick={() => props.handleAddWishlist(detail._id, sizeProduct)}
                               >
                                 <AiFillHeart /> Thêm vào yêu thích
                               </button>

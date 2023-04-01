@@ -160,7 +160,7 @@ const Favorites = (props) => {
                                             </div>
                                             <div className='wishlist-item-second col-lg-4 col-md-7'>
                                                 <div className=''>
-                                                    <h5>
+                                                    <h5 className='mb-3'>
                                                         {val.name}
                                                     </h5>
                                                     <div>

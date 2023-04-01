@@ -5,7 +5,7 @@ import Search from "./Component/Search";
 import Pagination from "./Component/Pagination";
 import SortProduct from "./Component/SortProduct";
 import axios from "axios";
-import { AiOutlineShoppingCart } from "react-icons/ai";
+import { AiOutlineProfile, AiOutlineShoppingCart } from "react-icons/ai";
 import ProductAPI from "../API/ProductAPI";
 import alertify from "alertifyjs";
 import CardProduct from "../components/CardProduct";
@@ -193,18 +193,15 @@ function ShopFilterByCate(props) {
                         <p className="text-small mb-4">{value.description}</p>
                         <div className="row align-items-stretch mb-4">
                           <div className="col-sm-12 pl-sm-0 fix_addwish mb-2">
-                            <button
-                              type="button"
-                              className="btn-warning btn btn-sm btn-block"
-                            >
-                              <AiOutlineShoppingCart /> Thêm giỏ hàng
-                            </button>
+                            <div className="col-sm-12 pl-sm-0 fix_addwish mb-2">
+                              <a href={`/detail/${value._id}`} className='btn-warning btn btn-sm btn-block'><AiOutlineProfile /> Thông tin sản phẩm</a>
+                            </div>
                           </div>
                           <div className="col-sm-12 pl-sm-0 fix_addwish">
-                            <a className="btn btn-dark btn-sm btn-block">
+                            <button className="btn btn-dark btn-sm btn-block" onClick={() => props.handleAddWishlist(value._id, value.size[0])}>
                               <i className="far fa-heart mr-2"></i>Thêm danh
                               sách yêu thích
-                            </a>
+                            </button>
                           </div>
                         </div>
                       </div>
@@ -238,7 +235,7 @@ function ShopFilterByCate(props) {
               <div className="row">
                 {products.map((val, key) => (
                   <div className="col-md-4 col-xl-3 col-sm-6">
-                    <CardProduct key={key + 1} itemProduct={val} />
+                    <CardProduct key={key + 1} itemProduct={val} addWishlist={props.handleAddWishlist} />
                   </div>
                 ))}
               </div>

@@ -7,7 +7,6 @@ import {
   AiOutlineShoppingCart,
 } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { HOST } from "../domain/host/host";
 const CardProduct = (props) => {
   const itemProduct = props.itemProduct;
 
@@ -34,9 +33,9 @@ const CardProduct = (props) => {
               </a>
             </li>
             <li className="list-item-overlay">
-              <a className="btn btn-sm btn-outline-dark">
+              <button className="btn btn-sm btn-outline-dark" onClick={() => props.addWishlist(itemProduct._id, itemProduct.size[0])}>
                 <AiOutlineHeart />
-              </a>
+              </button>
             </li>
           </ul>
         </div>

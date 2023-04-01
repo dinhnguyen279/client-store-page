@@ -163,8 +163,9 @@ function Shop(props) {
                                                         <a href={`/detail/${value._id}`} className='btn-warning btn btn-sm btn-block'><AiOutlineProfile /> Thông tin sản phẩm</a>
                                                     </div>
                                                     <div className="col-sm-12 pl-sm-0 fix_addwish">
-                                                        <a className="btn btn-dark btn-sm btn-block">
-                                                            <i className="far fa-heart mr-2"></i>Thêm danh sách yêu thích</a>
+                                                        <button className="btn btn-dark btn-sm btn-block" onClick={() => props.handleAddWishlist(value._id, value.size[0])}>
+                                                            <i className="far fa-heart mr-2"></i>Thêm danh sách yêu thích
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -200,7 +201,7 @@ function Shop(props) {
                             <div className="row">
                                 {products.map((val, key) => (
                                     <div className="col-md-4 col-xl-3 col-sm-6">
-                                        <CardProduct key={key + 1} itemProduct={val} />
+                                        <CardProduct key={key + 1} itemProduct={val} addWishlist={props.handleAddWishlist} />
                                     </div>
                                 ))}
                             </div>

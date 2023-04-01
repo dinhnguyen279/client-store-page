@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import './Auth.css'
-import queryString from 'query-string'
-import MessengerAPI from '../API/MessengerAPI';
 import axios from 'axios';
 import { AiFillEye, AiFillEyeInvisible, AiOutlineLock, AiOutlineMail, AiOutlineUser, AiOutlinePhone } from "react-icons/ai"
 import axiosClient from '../API/axiosClient';

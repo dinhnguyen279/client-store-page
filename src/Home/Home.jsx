@@ -6,7 +6,6 @@ import { Card } from 'react-bootstrap';
 import { AiOutlineProfile } from 'react-icons/ai';
 import Carousel from '../components/Carousel';
 import CardProduct from '../components/CardProduct';
-import { HOST } from '../domain/host/host';
 import Categories from '../API/Categories';
 function Home(props) {
 
@@ -84,11 +83,12 @@ function Home(props) {
                                                     <p className="text-small mb-4">{value.description}</p>
                                                     <div className="row align-items-stretch mb-4">
                                                         <div className="col-sm-12 pl-sm-0 fix_addwish mb-2">
-                                                            <a href={`/detail/${value._id}`} className='btn-warning btn btn-sm btn-block'><AiOutlineProfile /> Thông tin sản phẩm</a>
+                                                            <a href={`/detail/${value._id}`} className='btn-warning btn btn-base btn-block'><AiOutlineProfile /> Thông tin sản phẩm</a>
                                                         </div>
                                                         <div className="col-sm-12 pl-sm-0 fix_addwish">
-                                                            <a className="btn btn-dark btn-sm btn-block">
-                                                                <i className="far fa-heart mr-2"></i>Thêm danh sách yêu thích</a>
+                                                            <button className="btn btn-dark btn-base btn-block" onClick={() => props.handleAddWishlist(value._id, value.size[0])}>
+                                                                <i className="far fa-heart mr-2"></i>Thêm danh sách yêu thích
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -178,7 +178,7 @@ function Home(props) {
                                     featured.map((value, key) => {
                                         return (
                                             <div className="col-md-4 col-xl-2 col-sm-6" key={key + 1}>
-                                                <CardProduct itemProduct={value} />
+                                                <CardProduct addWishlist={props.handleAddWishlist} itemProduct={value} />
                                             </div>
                                         )
                                     })
@@ -243,7 +243,7 @@ function Home(props) {
                                     bestseller.map((value, key) => {
                                         return (
                                             <div className="col-md-4 col-xl-2 col-sm-6" key={key + 1}>
-                                                <CardProduct itemProduct={value} />
+                                                <CardProduct addWishlist={props.handleAddWishlist} itemProduct={value} />
                                             </div>
                                         )
                                     })
@@ -329,7 +329,7 @@ function Home(props) {
                                     hotdeals.map((value, key) => {
                                         return (
                                             <div className="col-md-4 col-xl-3 col-sm-6" key={key + 1}>
-                                                <CardProduct itemProduct={value} />
+                                                <CardProduct addWishlist={props.handleAddWishlist} itemProduct={value} />
                                             </div>
                                         )
                                     })

@@ -39,8 +39,8 @@ function Checkout(props) {
   // Phương thức thanh toán
   const [paymentMethod, setPaymentMethod] = useState('cod');
   // gọi ra API của các thành phố
-  useEffect(() => {
-    axios
+  useEffect(async () => {
+    await axios
       .get(
         "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json"
       )
@@ -88,25 +88,27 @@ function Checkout(props) {
   }
 
   useEffect(() => {
-    if (idUser) {
-      axios
-        .get(`${URL_CART}/${idUser}`)
-        .then((response) => {
-          setCartById(response.data);
-          getTotal(response.data);
-        })
-        .catch((error) => console.log(error));
-      axios
-        .get(`${URL_getUserById}/${idUser}`)
-        .then((response) => setUser(response.data))
-        .catch((error) => console.log(error));
+    const fetchData = async () => {
+      if (idUser) {
+        await axios
+          .get(`${URL_CART}/${idUser}`)
+          .then((response) => {
+            setCartById(response.data);
+            getTotal(response.data);
+          })
+          .catch((error) => console.log(error));
+        await axios
+          .get(`${URL_getUserById}/${idUser}`)
+          .then((response) => setUser(response.data))
+          .catch((error) => console.log(error));
+      }
     }
+    fetchData()
   }, []);
 
-  useEffect(() => {
-    if (getCartById.length === 0) return;
-  }, [getCartById]);
-
+  // useEffect(() => {
+  //   if (getCartById.length === 0) return;
+  // }, [getCartById]);
   //Hàm này dùng để tính tổng tiền carts
   const getTotal = (getCartById) => {
     let total = getCartById;
@@ -118,6 +120,7 @@ function Checkout(props) {
     });
     setTotal(sub_total);
   };
+
 
   // ---------------------- validate ----------------------
   const validateEmail = (email) => {

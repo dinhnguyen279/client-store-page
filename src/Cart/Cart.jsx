@@ -40,8 +40,8 @@ function Cart(props) {
   }
 
   // Lấy dữ liệu từ Cart ra
-  useEffect(() => {
-    axios
+  useEffect(async () => {
+    await axios
       .get(`${URL_CART}/${idUser}`)
       .then((response) => {
         setCartById(response.data);
