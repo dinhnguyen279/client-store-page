@@ -23,11 +23,10 @@ import Image from "../Share/img/Image";
 
 function Detail(props) {
   const URL_AddToCart = `${HOST}/addToCart`;
-  const URL_GetCartById = `${HOST}/getCartById`;
+  // const URL_GetCartById = `${HOST}/getCartById`;
   const URL_GetVoucher = `${HOST}/coupons`;
   const URL_GetCommentByIdProduct = `${HOST}/comment`
   const URL_CreateComment = `${HOST}/comment/send`
-  const URL_CreateFavorites = `${HOST}/favorite/send`
   const URL_GetByIdUser = `${HOST}/user`
 
   // const [load_comment, set_load_comment] = useState(false);
@@ -44,7 +43,6 @@ function Detail(props) {
   const [getCartById, setGetCartById] = useState({})
   const [user, setUser] = useState({})
   let { id } = useParams();
-
   const idUser = sessionStorage.getItem("id_user")
   // Hàm này dùng để lấy ra thông tin từng sản phẩm
   useEffect(() => {
@@ -102,7 +100,7 @@ function Detail(props) {
       size: sizeProduct,
     };
     await axios.post(URL_AddToCart, data)
-    await props.fecthCount();
+    await props.setHandleCount(false);
     alertify.set("notifier", "position", "bottom-left");
     alertify.success("Bạn Đã Thêm Hàng Thành Công!");
   };
@@ -143,39 +141,6 @@ function Detail(props) {
     setComment(e.target.value);
   };
 
-  // // Thêm vào yêu thích sản phẩm
-  // const addWishlist = async (idProduct) => {
-  //   let id_user_clientage = "";
-  //   if (!idUser) {
-  //     if (!localStorage.getItem("id_user_clientage")) {
-  //       // Nếu id fake chưa có thì chúng ta tiến tạo hành một id mới
-  //       var unique_id = uuid();
-  //       var create_id_user_fake = unique_id.slice(0, 8)
-  //       localStorage.setItem("id_user_clientage", create_id_user_fake)
-  //     }
-  //   }
-  //   if (!sizeProduct) {
-  //     alertify.error("Bạn phải chọn size!");
-  //     return;
-  //   }
-  //   // idUser khách
-  //   id_user_clientage = localStorage.getItem("id_user_clientage");
-  //   const data = {
-  //     idUser: idUser ? idUser : id_user_clientage,
-  //     idProduct: idProduct,
-  //     size: sizeProduct
-  //   }
-  //   await axios.post(URL_CreateFavorites, data)
-  //     .then(res => {
-  //       if (res.data !== "") {
-  //         return
-  //       } else {
-  //         alertify.set("notifier", "position", "bottom-right");
-  //         alertify.error("Sản phẩm đã có trong danh sách");
-  //         return
-  //       }
-  //     })
-  // }
   // Hàm này dùng để gửi bình luận
   const submitComment = async () => {
     const data = {

@@ -87,11 +87,10 @@ function Cart(props) {
         const query = "?" + queryString.stringify(params);
 
         await axios.put(`${HOST}/updateCart${query}`)
-        props.fecthCount()
+        await props.setHandleCount(false);
       };
 
       fetchPut();
-
       //Sau đó thay đổi state loadAPI và load lại hàm useEffect
       // setLoadAPI(true);
 

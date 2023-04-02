@@ -124,7 +124,7 @@ const Favorites = (props) => {
             await axios.delete(`${HOST}/deleteFavorite${query}`)
             alertify.set("notifier", "position", "bottom-left");
             alertify.success("Bạn Đã Xóa Thành Công!");
-            await props.fecthCount();
+            await props.setHandleCount(false);
         } catch (error) {
             console.log(error);
             alertify.success("Xóa Không Thành Công!");
@@ -146,7 +146,7 @@ const Favorites = (props) => {
             size: size,
         };
         await axios.post(URL_AddToCart, data)
-        await props.fecthCount();
+        await props.setHandleCount(false);
         alertify.set("notifier", "position", "bottom-left");
         alertify.success("Bạn Đã Thêm Hàng Thành Công!");
     };

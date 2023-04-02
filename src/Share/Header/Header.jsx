@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from 'react';
 
 import { Link } from "react-router-dom";
 import LogoutLink from "../../Authentication/LogoutLink";
@@ -182,16 +182,14 @@ function Header(props) {
                   onBlur={() => handleBlur()}
                 />
                 <span
-                  className={`search-button d-none d-lg-block ${
-                    isActive ? "text-light" : "text-dark"
-                  }`}
+                  className={`search-button d-none d-lg-block ${isActive ? "text-light" : "text-dark"
+                    }`}
                 >
                   Search
                 </span>
                 <span
-                  className={`search-button search-icon d-block d-lg-none ${
-                    isActive ? "text-light" : "text-dark"
-                  }`}
+                  className={`search-button search-icon d-block d-lg-none ${isActive ? "text-light" : "text-dark"
+                    }`}
                 >
                   <AiOutlineSearch />
                 </span>
@@ -200,11 +198,10 @@ function Header(props) {
                   // Đóng input khi người dùng click outside
                   closeFocusInput && (
                     <div
-                      className={`product-search-main  ${
-                        valueSearch.length > 0
-                          ? "product-search-main-block"
-                          : "product-search-main-none"
-                      } `}
+                      className={`product-search-main  ${valueSearch.length > 0
+                        ? "product-search-main-block"
+                        : "product-search-main-none"
+                        } `}
                     >
                       <div className={`product-search-submain`}>
                         {!close &&
@@ -223,8 +220,8 @@ function Header(props) {
                                   <p>
                                     {val.promotionPrice
                                       ? parseInt(
-                                          val.promotionPrice
-                                        ).toLocaleString()
+                                        val.promotionPrice
+                                      ).toLocaleString()
                                       : parseInt(val.price).toLocaleString()}
                                     ₫
                                   </p>

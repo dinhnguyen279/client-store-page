@@ -36,6 +36,7 @@ import { HOST } from "./domain/host/host";
 function App() {
   const [countCart, setCountCart] = useState(0)
   const [countWishlist, setCountWishlist] = useState(0)
+  const [reloadCount, setReloadCount] = useState(true)
   const URL_CreateFavorites = `${HOST}/favorite/send`
   let idUser = ""
   if (sessionStorage.getItem("id_user")) {
@@ -48,32 +49,36 @@ function App() {
     idUser = id_user_clientage;
   }
 
-  const fecthCount = async () => {
-    const getCount = (getCount) => {
-      let count = getCount
-      let totalCount = 0
-      count.map((val) => {
-        return (
-          totalCount += val.quantity
-        )
-      })
-      setCountCart(totalCount)
-    }
+  useEffect(() => {
+    const fecthCount = async () => {
+      const getCount = (getCount) => {
+        let count = getCount
+        let totalCount = 0
+        count.map((val) => {
+          return (
+            totalCount += val.quantity
+          )
+        })
+        setCountCart(totalCount)
+      }
 
-    try {
-      const cartResponse = await CartAPI.getCartById(`/${idUser}`)
-      getCount(cartResponse.data)
-    } catch (error) {
-      console.log(error);
-    }
+      try {
+        const cartResponse = await CartAPI.getCartById(`/${idUser}`)
+        getCount(cartResponse.data)
+      } catch (error) {
+        console.log(error);
+      }
 
-    try {
-      const favoritesResponse = await FavoriteAPI.getFavoriteById(`/${idUser}`)
-      setCountWishlist(favoritesResponse.data)
-    } catch (error) {
-      console.log(error);
+      try {
+        const favoritesResponse = await FavoriteAPI.getFavoriteById(`/${idUser}`)
+        setCountWishlist(favoritesResponse.data)
+      } catch (error) {
+        console.log(error);
+      }
     }
-  }
+    fecthCount()
+    setReloadCount(true)
+  }, [reloadCount])
   // hàm này xử lý thêm sản phẩm vào yêu thích
   const addWishlist = async (idProduct, sizeProduct) => {
     let id_user_clientage = "";
@@ -99,6 +104,7 @@ function App() {
     await axios.post(URL_CreateFavorites, data)
       .then(res => {
         if (res.data !== "") {
+          setReloadCount(false)
           return
         } else {
           alertify.set("notifier", "position", "bottom-right");
@@ -107,7 +113,6 @@ function App() {
         }
       })
   }
-
   return (
     <div className="App">
       <BrowserRouter>
@@ -115,19 +120,18 @@ function App() {
         <ScrollToTopButton />
         <Routes>
           <Route path="/" element={<Home handleAddWishlist={addWishlist} />} />
-          <Route path="/detail/:id" element={<Detail fecthCount={fecthCount} handleAddWishlist={addWishlist} />} />
-          <Route path="/cart" element={<Cart fecthCount={fecthCount} />} />
+          <Route path="/detail/:id" element={<Detail setHandleCount={setReloadCount} handleAddWishlist={addWishlist} />} />
+          <Route path="/cart" element={<Cart setHandleCount={setReloadCount} />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/shop/:id" element={<Shop handleAddWishlist={addWishlist} />} />
-          {/* <Route path="/shop/category/:id" element={<ShopFilterByCate handleAddWishlist={addWishlist} />} /> */}
           <Route path="/contact" element={<Contact />} />
           <Route path="/detail-user" element={<UserProfile />} />
           <Route path="/history" element={<MainHistory />} />
           <Route path='/history/:id' element={<DetailHistory />} />
           <Route path='*' element={<ErrorPage />} />
-          <Route path='/wishlist' element={<Favorites fecthCount={fecthCount} />} />
+          <Route path='/wishlist' element={<Favorites setHandleCount={setReloadCount} />} />
           <Route path='/gioi-thieu' element={<Introduce />} />
           <Route path='/chinh-sach-bao-mat' element={<PrivacyPolicy />} />
           <Route path='/chinh-sach-doi-tra' element={<ReturnPolicy />} />
