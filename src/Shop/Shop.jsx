@@ -11,8 +11,13 @@ import alertify from "alertifyjs";
 import CardProduct from "../components/CardProduct";
 import queryString from "query-string";
 import { HOST } from "../domain/host/host";
+import { useParams } from "react-router-dom";
 
 function Shop(props) {
+    const { id } = useParams();
+
+    console.log('id',id );
+
     const [products, setProducts] = useState([]);
     const [temp, setTemp] = useState([]);
 

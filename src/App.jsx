@@ -75,8 +75,6 @@ function App() {
       console.log(error);
     }
   }
-  // fecthCount()
-  console.log("do");
   // hàm này xử lý thêm sản phẩm vào yêu thích
   const addWishlist = async (idProduct, sizeProduct) => {
     let id_user_clientage = "";
@@ -123,8 +121,8 @@ function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/checkout" element={<Checkout />} />
-          <Route path="/shop/" element={<Shop handleAddWishlist={addWishlist} />} />
-          <Route path="/shop/category/:id" element={<ShopFilterByCate handleAddWishlist={addWishlist} />} />
+          <Route path="/shop/:id" element={<Shop handleAddWishlist={addWishlist} />} />
+          {/* <Route path="/shop/category/:id" element={<ShopFilterByCate handleAddWishlist={addWishlist} />} /> */}
           <Route path="/contact" element={<Contact />} />
           <Route path="/detail-user" element={<UserProfile />} />
           <Route path="/history" element={<MainHistory />} />
