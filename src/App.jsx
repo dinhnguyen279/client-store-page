@@ -23,7 +23,6 @@ import ErrorPage from "./Share/404/404";
 import ScrollToTopButton from "./Share/ScrollTop/ScrollTopButton";
 import React, { useEffect, useState } from "react";
 import CartAPI from "./API/CartAPI";
-import ShopFilterByCate from "./Shop/ShopFilterByCate"
 import Favorites from "./Favorites/Favorites"
 import Introduce from "./pageBranch/introduce/introduce";
 import PrivacyPolicy from "./pageBranch/PrivacyPolicy/PrivacyPolicy";
