@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 
 import { Link } from "react-router-dom";
 import LogoutLink from "../../Authentication/LogoutLink";
@@ -25,7 +25,6 @@ function Header(props) {
   const countCart = props.countCart
   // Api search
   const URL_SEARCH = `${HOST}/searchProducts`;
-
   const [valueSearch, setValueSearch] = useState('')
   const [searchProducts, setSearchProducts] = useState([])
   const delaySearchTextTimeOut = useRef(null)
