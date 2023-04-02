@@ -29,7 +29,14 @@ function Home(props) {
 
     }, [])
     const [navContent, setNavContent] = useState("nav1")
-
+    // hàm này dành cho button trong popover product
+    const addWishlist = (idProduct, size) => {
+        // Xử lý size thành array
+        const itemSizes = size.split(" ")
+        props.handleAddWishlist(
+            idProduct, itemSizes[0]
+        )
+    }
     // Lọc sản phẩm dựa trên chủ đề
     const featured = products.filter(item => item.featured && item.featured.trim() !== '');
     const bestseller = products.filter(item => item.bestseller && item.bestseller.trim() !== '');
@@ -86,7 +93,7 @@ function Home(props) {
                                                             <a href={`/detail/${value._id}`} className='btn-warning btn btn-base btn-block'><AiOutlineProfile /> Thông tin sản phẩm</a>
                                                         </div>
                                                         <div className="col-sm-12 pl-sm-0 fix_addwish">
-                                                            <button className="btn btn-dark btn-base btn-block" onClick={() => props.handleAddWishlist(value._id, value.size[0])}>
+                                                            <button className="btn btn-dark btn-base btn-block" onClick={() => addWishlist(value._id, value.size)}>
                                                                 <i className="far fa-heart mr-2"></i>Thêm danh sách yêu thích
                                                             </button>
                                                         </div>
@@ -111,7 +118,7 @@ function Home(props) {
                         <div className='container'>
                             <div className='row'>
                                 <div className='col-md-12 col-sm-12 col-xl-6 col-xs-12 main-banner'>
-                                    <Link to={`/shop/category/${idProductShoe}`}>
+                                    <Link to={`/shop/${idProductShoe}`}>
                                         <div>
                                             <img className='img-banner' src={Image.categorybanner1} alt="" />
                                         </div>
@@ -128,7 +135,7 @@ function Home(props) {
                                 </div>
 
                                 <div className='col-md-6 col-sm-12 col-xl-3 col-xs-12 main-banner'>
-                                    <Link to={`/shop/category/${idProductClothes}`}>
+                                    <Link to={`/shop/${idProductClothes}`}>
                                         <div>
                                             <img className='img-banner' src={Image.categorybanner2} alt="" />
                                         </div>
@@ -145,7 +152,7 @@ function Home(props) {
                                 </div>
 
                                 <div className='col-md-6 col-sm-12 col-xl-3 col-xs-12 main-banner'>
-                                    <Link to={`/shop/category/${idProductAccessory}`}>
+                                    <Link to={`/shop/${idProductAccessory}`}>
                                         <div>
                                             <img className='img-banner' src={Image.categorybanner3} alt="" />
                                         </div>
@@ -178,7 +185,7 @@ function Home(props) {
                                     featured.map((value, key) => {
                                         return (
                                             <div className="col-md-4 col-xl-2 col-sm-6" key={key + 1}>
-                                                <CardProduct addWishlist={props.handleAddWishlist} itemProduct={value} />
+                                                <CardProduct handleAddWishlist={props.handleAddWishlist} itemProduct={value} />
                                             </div>
                                         )
                                     })
@@ -243,7 +250,7 @@ function Home(props) {
                                     bestseller.map((value, key) => {
                                         return (
                                             <div className="col-md-4 col-xl-2 col-sm-6" key={key + 1}>
-                                                <CardProduct addWishlist={props.handleAddWishlist} itemProduct={value} />
+                                                <CardProduct handleAddWishlist={props.handleAddWishlist} itemProduct={value} />
                                             </div>
                                         )
                                     })
@@ -329,7 +336,7 @@ function Home(props) {
                                     hotdeals.map((value, key) => {
                                         return (
                                             <div className="col-md-4 col-xl-3 col-sm-6" key={key + 1}>
-                                                <CardProduct addWishlist={props.handleAddWishlist} itemProduct={value} />
+                                                <CardProduct handleAddWishlist={props.handleAddWishlist} itemProduct={value} />
                                             </div>
                                         )
                                     })

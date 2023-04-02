@@ -82,6 +82,15 @@ function Shop(props) {
   }
   handleSortPrice();
 
+  const addWishlist = (idProduct, size) => {
+    if (size.length > 0) {
+      const itemSizes = size.split(" ")
+      props.handleAddWishlist(
+        idProduct, itemSizes[0]
+      )
+    }
+  }
+
   //Gọi hàm useEffect tìm tổng số sản phẩm để tính tổng số trang
   //Và nó phụ thuộc và state pagination
   useEffect(() => {
@@ -118,7 +127,9 @@ function Shop(props) {
       .get(`${URL_getProductByCate}/${id}`)
       .then((response) => setProducts(response.data))
       .catch((err) => console.log(err));
+
   }, [pagination]);
+
   return (
     <div className="container main-shop">
       <section className="py-3 bg-light mb-3">
@@ -206,10 +217,7 @@ function Shop(props) {
                             <button
                               className="btn btn-dark btn-sm btn-block"
                               onClick={() =>
-                                props.handleAddWishlist(
-                                  value._id,
-                                  value.size[0]
-                                )
+                                addWishlist(value._id, value.size)
                               }
                             >
                               <i className="far fa-heart mr-2"></i>Thêm danh
@@ -251,7 +259,7 @@ function Shop(props) {
                     <CardProduct
                       key={key + 1}
                       itemProduct={val}
-                      addWishlist={props.handleAddWishlist}
+                      handleAddWishlist={props.handleAddWishlist}
                     />
                   </div>
                 ))}

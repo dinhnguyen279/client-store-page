@@ -77,14 +77,6 @@ function Detail(props) {
         localStorage.setItem("id_user_clientage", create_id_user_fake)
       }
     }
-    if (!sizeProduct) {
-      alertify.error("Bạn phải chọn size!");
-      return;
-    }
-    if (!text) {
-      alertify.error("Bạn phải chọn số lượng!");
-      return;
-    }
     // idUser
     id_user_cart = sessionStorage.getItem("id_user");
     // idUser khách
@@ -97,7 +89,7 @@ function Detail(props) {
       price: detail.price,
       promotionPrice: detail.promotionPrice,
       img: detail.avt,
-      size: sizeProduct,
+      size: sizeProduct ? sizeProduct : arrSize[0],
     };
     await axios.post(URL_AddToCart, data)
     await props.setHandleCount(false);
@@ -167,9 +159,9 @@ function Detail(props) {
     }
   };
 
+  //Hàm này gọi API lấy sản phẩm có liên quan
   useEffect(() => {
     const fetchData = async () => {
-      //Hàm này gọi API lấy sản phẩm có liên quan
       const response = await ProductAPI.getAPI();
       const data = response.data.splice(0, 4);
       setProduct(data);
@@ -190,12 +182,19 @@ function Detail(props) {
     fetchDataComment();
   }, [comment])
 
+  // hàm này thêm sản phẩm vào wishlist với component SẢN PHẨM LIÊN QUAN
+  const addWishlist = (idProduct, size) => {
+    // Xử lý size thành array
+    const itemSizes = size.split(" ")
+    props.handleAddWishlist(
+      idProduct, itemSizes[0]
+    )
+  }
   // convert string to array
   const album = detail.album;
   const size = detail.size;
   const arrAlbum = album ? album.split(" ") : [];
   const arrSize = size ? size.split(" ") : [];
-
   // Tính trung bình số sao người dùng đánh giá của từng sản phẩm
   const arr = list_comment.map(val => val.star)
   const intArr = arr.map((str) => parseInt(str))
@@ -384,8 +383,7 @@ function Detail(props) {
                 </button>
                 <button
                   className="btn btn-warning btn-base text-white hover-icon-heart my-2"
-                  // onClick={() => addWishlist(detail._id)}
-                  onClick={() => props.handleAddWishlist(detail._id, sizeProduct)}
+                  onClick={() => props.handleAddWishlist(detail._id, sizeProduct ? sizeProduct : arrSize[0])}
                 >
                   <AiFillHeart /> Thêm vào yêu thích
                 </button>
@@ -551,7 +549,7 @@ function Detail(props) {
           {product &&
             product.map((value, idx) => (
               <div className="col-md-4 col-xl-3 col-sm-6" key={idx + 1}>
-                <CardProduct itemProduct={value} />
+                <CardProduct itemProduct={value} listSize={arrSize} handleAddWishlist={props.handleAddWishlist} />
               </div>
             ))}
         </div>
@@ -640,7 +638,7 @@ function Detail(props) {
                             <div className="col-sm-12 pl-sm-0 fix_addwish">
                               <button
                                 className="btn btn-warning btn-block btn-sm text-white hover-icon-heart"
-                                onClick={() => props.handleAddWishlist(detail._id, sizeProduct)}
+                                onClick={() => addWishlist(value._id, value.size)}
                               >
                                 <AiFillHeart /> Thêm vào yêu thích
                               </button>

@@ -4,12 +4,19 @@ import { Card } from "react-bootstrap";
 import {
   AiOutlineExpand,
   AiOutlineHeart,
-  AiOutlineShoppingCart,
 } from "react-icons/ai";
-import { Link } from "react-router-dom";
 const CardProduct = (props) => {
   const itemProduct = props.itemProduct;
-
+  // listSize được lấy từ component Detail
+  const listSize = props.listSize
+  const addWishlist = (idProduct, size) => {
+    // Xử lý size thành array
+    const itemSizes = size.split(" ")
+    props.handleAddWishlist(
+      idProduct,
+      itemSizes[0] ? itemSizes[0] : listSize[0]
+    )
+  }
   return (
     <div className="product">
       <div className="position-relative mb-3 product-new">
@@ -33,7 +40,7 @@ const CardProduct = (props) => {
               </a>
             </li>
             <li className="list-item-overlay">
-              <button className="btn btn-sm btn-outline-dark" onClick={() => props.addWishlist(itemProduct._id, itemProduct.size[0])}>
+              <button className="btn btn-sm btn-outline-dark" onClick={() => addWishlist(itemProduct._id, itemProduct.size)}>
                 <AiOutlineHeart />
               </button>
             </li>
