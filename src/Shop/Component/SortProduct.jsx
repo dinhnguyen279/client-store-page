@@ -20,8 +20,8 @@ function SortProduct(props) {
     }
 
     return (
-        <Form>
-            <Form.Select size='md' className="selectpicker ml-auto" onChange={onChangeValue}>
+        <Form className=''>
+            <Form.Select size='md' onChange={onChangeValue}>
                 <option value="default">Sắp xếp giá</option>
                 <option value="DownToUp">Giá: Thấp đến cao</option>
                 <option value="UpToDown">Giá: Cao đến thấp</option>

@@ -239,13 +239,12 @@ function Shop(props) {
         <div className="container p-0">
           <div className="row">
             <div className="col-lg-12 mb-5 mb-lg-0">
-              <div className="row mb-3 align-items-center">
+              <div className="row mb-3">
                 {/* ------------------Search----------------- */}
                 <Search handleSearch={handleSearch} />
                 {/* ------------------Search----------------- */}
-
-                <div className="col-lg-4">
-                  <ul className="list-inline d-flex align-items-center justify-content-lg-end mb-0">
+                <div className="col-lg-4 mb-3">
+                  <ul className="list-inline d-flex justify-content-lg-end">
                     <li className="list-inline-item">
                       <SortProduct handlerChangeSort={handlerChangeSort} />
                     </li>

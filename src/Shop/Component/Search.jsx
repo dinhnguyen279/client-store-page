@@ -45,7 +45,7 @@ function Search(props) {
     }
     return (
         <>
-            <div className='col-lg-2 d-flex flex-row mb-3'>
+            <div className='col-lg-2 mb-3'>
                 <Form>
                     <Form.Select size='md' value={selectValue} onChange={handleSelectValue} >
                         <option>Danh sách tìm kiếm</option>
@@ -57,7 +57,7 @@ function Search(props) {
             </div>
             <div className="col-lg-6 mb-3">
                 <input
-                    className="form-control form-control-md"
+                    className="form-control form-control-md mw-100"
                     type="text"
                     placeholder="Nhập thứ bạn cần tìm..."
                     onChange={onChangeText}
