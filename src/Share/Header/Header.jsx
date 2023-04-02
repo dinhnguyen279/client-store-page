@@ -20,7 +20,7 @@ import axios from 'axios';
 import queryString from 'query-string';
 
 function Header(props) {
-  // Hàm này lấy số lượng sản phẩm trong giỏ hàng
+  // Hàm này lấy số lượng sản phẩm và yêu thích
   const countWishlist = props.countWishlist
   const countCart = props.countCart
   // Api search
@@ -220,9 +220,9 @@ function Header(props) {
                     </Link>
                   </li>
                   <li className="nav-item position-relative d-none d-lg-block">
-                    <Link className="nav-link quantity-cart" to='/cart' data-order={countCart}>
+                    <a className="nav-link quantity-cart" href='/cart' data-order={countCart}>
                       <AiOutlineShoppingCart className='icon-cart' />
-                    </Link>
+                    </a>
                   </li>
                   {nameUser ? (<Name />) : ' '}
                   {loginUser ? ' ' : (<LogoutLink />)}
@@ -301,15 +301,15 @@ function Header(props) {
           <div className='d-block d-lg-none'>
             <ul className='d-flex align-items-center justify-content-between pl-0'>
               <li className="nav-item">
-                <Link className="nav-link wishlist-header" to='/wishlist' >
+                <a className="nav-link wishlist-header" href='/wishlist' >
                   <AiOutlineHeart className='icon-wishlist' />
                   <span style={{ color: "#efb93b" }}>{countWishlist}</span>
-                </Link>
+                </a>
               </li>
               <li className="nav-item position-relative">
-                <Link className="nav-link quantity-cart" to='/cart' data-order={countCart}>
+                <a className="nav-link quantity-cart" href='/cart' data-order={countCart}>
                   <AiOutlineShopping className='icon-cart' />
-                </Link>
+                </a>
               </li>
             </ul >
           </div>

@@ -186,7 +186,7 @@ function Cart(props) {
                     {redirect && <Navigate replace to="/checkout" />}
                     <button
                       type="button"
-                      className="btn btn-dark btn-xs text-uppercase w-100"
+                      className="btn btn-dark btn-sm text-uppercase w-100"
                       onClick={onCheckout}
                     >
                       Tiến hành thanh toán

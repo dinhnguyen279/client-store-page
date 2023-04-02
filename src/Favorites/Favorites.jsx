@@ -25,6 +25,7 @@ const Favorites = (props) => {
         idProduct: "",
         size: ""
     })
+    const [listFavorites, setListFavorites] = useState([])
     // Kiểm tra lấy id nếu idUser không có thì lấy id Khách
     let getIdUser = ""
     if (sessionStorage.getItem("id_user")) {
@@ -39,48 +40,71 @@ const Favorites = (props) => {
     // Gọi ra danh sách thông tin FAVORITES
     useEffect(() => {
         const fetchFavorites = async () => {
-            await
-                axios
-                    .get(`${URL_GETFAVORITES}/${getIdUser}`)
-                    .then(res => setFavorites(res.data))
-                    .catch(err => console.log(err))
+            try {
+                const res = await axios.get(`${URL_GETFAVORITES}/${getIdUser}`)
+                if (res.data.length === 0) {
+                    return
+                }
+                setFavorites(res.data)
+                if (res.data.length > 0) {
+                    const data = res.data
+                    const dataFavorites = data.map(val => axios.get(`${URL_GETPRODUCTS}/${val.idProduct}`))
+                    Promise.all(dataFavorites).then(res => {
+                        const dataProduct = res.map(res => res.data)
+                        setGetDataFavorites(dataProduct)
+                    })
+                }
+            } catch (error) {
+                console.log(error);
+            }
         }
         fetchFavorites()
     }, [])
+
     // Dựa vào FAVORITES để lấy sản phẩm trong product
-    useEffect(() => {
-        const dataFavorites = favorites.map(val => axios.get(`${URL_GETPRODUCTS}/${val.idProduct}`))
-        Promise.all(dataFavorites)
-            .then(res => {
-                const dataProduct = res.map(res => res.data)
-                setGetDataFavorites(dataProduct)
-            })
-    }, [favorites])
+    // useEffect(() => {
+    //     let isMounted = true;
+    //     const dataFavorites = favorites.map(val => axios.get(`${URL_GETPRODUCTS}/${val.idProduct}`))
+    //     Promise.all(dataFavorites)
+    //         .then(res => {
+    //             if (isMounted) {
+    //                 const dataProduct = res.map(res => res.data)
+    //                 setGetDataFavorites(dataProduct)
+    //             }
+    //             console.log("xu ly dư lieu");
+    //         })
+
+    //         .catch(err => console.log(err))
+    // }, [favorites]) // chỉ gọi lại hàm nếu favorites thay đổi
     // Hàm này sẽ ghép id của bảng favorites và sản phẩm lấy được dựa vào idProduct đưa vào listFavorites
-    const listFavorites = []
-    if (favorites.length > 0) {
-        const listIdFavorites = favorites.map(val => val._id)
-        const listIdUser = favorites.map(val => val.idUser)
-        const listSizeFavorites = favorites.map(val => val.size)
-        const listName = getDataFavorites.map(val => val.name)
-        const listPrice = getDataFavorites.map(val => val.promotionPrice ? val.promotionPrice : val.price)
-        const listIdProduct = getDataFavorites.map(val => val._id)
-        const listQuantity = getDataFavorites.map(val => val.quantity)
-        const listImages = getDataFavorites.map(val => val.avt)
-        for (let i = 0; i < listIdFavorites.length; i++) {
-            const oFavorites = {}
-            oFavorites.id = listIdFavorites[i];
-            oFavorites.idUser = listIdUser[[i]]
-            oFavorites.size = listSizeFavorites[i];
-            oFavorites.name = listName[i];
-            oFavorites.price = listPrice[i];
-            oFavorites.idProduct = listIdProduct[i]
-            oFavorites.stock = listQuantity[i];
-            oFavorites.stock = listQuantity[i];
-            oFavorites.avt = listImages[i];
-            listFavorites.push(oFavorites);
+    useEffect(() => {
+        const alistFavorites = []
+        if (favorites.length > 0 && getDataFavorites.length > 0) {
+            const listIdFavorites = favorites.map(val => val._id)
+            const listIdUser = favorites.map(val => val.idUser)
+            const listSizeFavorites = favorites.map(val => val.size)
+            const listName = getDataFavorites.map(val => val.name)
+            const listPrice = getDataFavorites.map(val => val.promotionPrice ? val.promotionPrice : val.price)
+            const listIdProduct = getDataFavorites.map(val => val._id)
+            const listQuantity = getDataFavorites.map(val => val.quantity)
+            const listImages = getDataFavorites.map(val => val.avt)
+            for (let i = 0; i < listIdFavorites.length; i++) {
+                const oFavorites = {}
+                oFavorites.id = listIdFavorites[i];
+                oFavorites.idUser = listIdUser[[i]]
+                oFavorites.size = listSizeFavorites[i];
+                oFavorites.name = listName[i];
+                oFavorites.price = listPrice[i];
+                oFavorites.idProduct = listIdProduct[i]
+                oFavorites.stock = listQuantity[i];
+                oFavorites.stock = listQuantity[i];
+                oFavorites.avt = listImages[i];
+                alistFavorites.push(oFavorites);
+            }
         }
-    }
+        setListFavorites(alistFavorites)
+    }, [favorites, getDataFavorites])
+
     // Show popup xóa sản phẩm khỏi wishlist
     const handleShow = (id, idUser, idProduct, size) => {
         const data = { idFavorite: id, idUser: idUser, idProduct: idProduct, size: size }
@@ -122,7 +146,7 @@ const Favorites = (props) => {
             size: size,
         };
         await axios.post(URL_AddToCart, data)
-        props.fecthCount();
+        await props.fecthCount();
         alertify.set("notifier", "position", "bottom-left");
         alertify.success("Bạn Đã Thêm Hàng Thành Công!");
     };
@@ -136,11 +160,11 @@ const Favorites = (props) => {
                     </ol>
                 </div>
             </section>
-            <div className='main-cart p-l-55 p-r-55 p-b-50 bg-light'>
-                <div className='container main-wishlist'>
-                    <h3 className="title-header">Sản phẩm yêu thích</h3>
-                    {listFavorites.length !== 0 ? (
+            {listFavorites.length !== 0 ? (
+                <section className='main-cart p-l-55 p-r-55 p-b-50 bg-light'>
+                    <div className='container main-wishlist'>
                         <div className=''>
+                            <h3 className="title-header">Sản phẩm yêu thích</h3>
                             {listFavorites && listFavorites.map((val, idx) => {
                                 return (
                                     <div className='my-4' key={idx + 1}>
@@ -191,16 +215,17 @@ const Favorites = (props) => {
                                 )
                             })}
                         </div>
-                    ) : (
-                        <section className="cart-empty">
-                            <p className="text-lg mb-3">Danh sách yêu thích rỗng</p>
-                            <a className='btn-buy btn btn-dark' href="/">
-                                Tiếp tục xem sản phẩm
-                            </a>
-                        </section>
-                    )}
-                </div>
-            </div>
+                    </div>
+                </section>
+            ) : (
+                <section className="cart-empty">
+                    <p className="text-lg mb-3">Danh sách yêu thích rỗng</p>
+                    <a className='btn-buy btn btn-dark' href="/">
+                        Tiếp tục xem sản phẩm
+                    </a>
+                </section>
+
+            )}
         </>
     )
 }

@@ -61,18 +61,22 @@ function App() {
       setCountCart(totalCount)
     }
 
-    if (idUser) {
-      await CartAPI.getCartById(`/${idUser}`)
-        .then((res) => getCount(res.data))
-        .catch(error => console.log(error))
+    try {
+      const cartResponse = await CartAPI.getCartById(`/${idUser}`)
+      getCount(cartResponse.data)
+    } catch (error) {
+      console.log(error);
+    }
 
-      await FavoriteAPI.getFavoriteById(`/${idUser}`)
-        .then(res => setCountWishlist(res.data))
-        .catch(error => console.log(error))
+    try {
+      const favoritesResponse = await FavoriteAPI.getFavoriteById(`/${idUser}`)
+      setCountWishlist(favoritesResponse.data)
+    } catch (error) {
+      console.log(error);
     }
   }
-  fecthCount()
-
+  // fecthCount()
+  console.log("do");
   // hàm này xử lý thêm sản phẩm vào yêu thích
   const addWishlist = async (idProduct, sizeProduct) => {
     let id_user_clientage = "";

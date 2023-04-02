@@ -48,7 +48,7 @@ button:hover::after {
   background-color: #266cfb;
   color: #fff;
   right: 24px;
-  bottom: 50px;
+  bottom: 10px;
   font-weight: 800;
   text-align: center;
   overflow: hidden;

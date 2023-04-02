@@ -39,14 +39,18 @@ function Checkout(props) {
   // Phương thức thanh toán
   const [paymentMethod, setPaymentMethod] = useState('cod');
   // gọi ra API của các thành phố
-  useEffect(async () => {
-    await axios
-      .get(
-        "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json"
-      )
-      .then((response) => {
-        setCities(response.data);
-      });
+  useEffect(() => {
+    const fetchDataCity = async () => {
+      await axios
+        .get(
+          "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json"
+        )
+        .then((response) => {
+          setCities(response.data);
+        })
+        .catch(err => console.log(err))
+    }
+    fetchDataCity()
   }, []);
   // hàm này sẽ không cho user chọn quận huyện nếu chưa chọn tỉnh thành 
   useEffect(() => {
