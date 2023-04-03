@@ -65,8 +65,6 @@ function Cart(props) {
 
       fetchDelete();
 
-      //Sau đó thay đổi state loadAPI và load lại hàm useEffect
-      // setLoadAPI(true);
     }
   };
 
@@ -91,8 +89,6 @@ function Cart(props) {
       };
 
       fetchPut();
-      //Sau đó thay đổi state loadAPI và load lại hàm useEffect
-      // setLoadAPI(true);
 
       alertify.set("notifier", "position", "bottom-left");
       alertify.success("Bạn Đã Sửa Hàng Thành Công!");
@@ -137,9 +133,8 @@ function Cart(props) {
         </div>
       </section>
       {getCartById.length !== 0 ? (
-
         <section className="py-5 container">
-          <h4 className="text-uppercase mb-4 text-center">Giỏ hàng của bạn</h4>
+          <h4 className="text-uppercase mb-5 text-center">Giỏ hàng của bạn</h4>
           <div className="row">
             <div className="col-lg-8 mb-4 mb-lg-0">
               <ListCart
@@ -147,10 +142,9 @@ function Cart(props) {
                 onDeleteCart={onDeleteCart}
                 onUpdateCount={onUpdateCount}
               />
-
               <div className="bg-light px-4 py-3 continue-shopping">
                 <div className="row align-items-center text-center">
-                  <div className="col-md-6 mb-3 mb-md-0 text-md-left">
+                  <div className="col-lg-6 col-md-12 mb-3 mb-md-0 text-md-left">
                     <Link
                       className="btn btn-link text-dark btn-sm"
                       to={`/shop`}

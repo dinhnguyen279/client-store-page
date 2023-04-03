@@ -1,13 +1,11 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { Link } from "react-router-dom";
 import LogoutLink from "../../Authentication/LogoutLink";
 import Name from "../../Authentication/Name";
 import {
   AiOutlineSearch,
-  AiOutlineOrderedList,
   AiOutlineShoppingCart,
-  AiOutlineCaretRight,
   AiOutlineShopping,
   AiOutlineHeart,
 } from "react-icons/ai";
@@ -40,6 +38,12 @@ function Header(props) {
   const [nameUser, setNameUser] = useState(false)
   const [close, setClose] = useState(false)
   const [closeFocusInput, setCloseFocusInput] = useState(true)
+  const [isOpen, setIsOpen] = useState(false);
+
+  const [dataCategories, setDataCategories] = useState([]);
+
+  const [isActive, setIsActive] = useState(false);
+  var idUser = sessionStorage.getItem("id_user");
 
   const onChangeText = (e) => {
     const value = e.target.value;
@@ -49,7 +53,6 @@ function Header(props) {
       if (delaySearchTextTimeOut.current) {
         clearTimeout(delaySearchTextTimeOut.current);
       }
-
       delaySearchTextTimeOut.current = setTimeout(() => {
         handleSearch(value);
       }, 500);
@@ -63,7 +66,6 @@ function Header(props) {
       fildter: "name",
     };
     const query = "?" + queryString.stringify(dataSearch);
-    console.log(query);
     axios
       .get(`${URL_SEARCH}${query}`)
       .then((res) => {
@@ -72,13 +74,6 @@ function Header(props) {
       })
       .catch((err) => console.log("err search", err));
   };
-
-  const [isOpen, setIsOpen] = useState(false);
-
-  const [dataCategories, setDataCategories] = useState([]);
-
-  const [isActive, setIsActive] = useState(false);
-  var idUser = sessionStorage.getItem("id_user");
 
   useEffect(() => {
     if (!idUser) {
@@ -181,13 +176,13 @@ function Header(props) {
                   onBlur={() => handleBlur()}
                 />
                 <span
-                  className={`search-button d-none d-lg-block ${isActive ? "text-light" : "text-dark"
+                  className={`search-icon d-none d-lg-block ${isActive ? "text-light" : "text-dark"
                     }`}
                 >
                   Search
                 </span>
                 <span
-                  className={`search-button search-icon d-block d-lg-none ${isActive ? "text-light" : "text-dark"
+                  className={`search-icon search-icon d-block d-lg-none ${isActive ? "text-light" : "text-dark"
                     }`}
                 >
                   <AiOutlineSearch />
@@ -207,15 +202,14 @@ function Header(props) {
                           searchProducts &&
                           searchProducts.map((val, idx) => {
                             return (
-                              <div className="product-search" key={idx + 1}>
+                              <a className="product-search bg-light" key={idx + 1} href={`/detail/${val._id}`} >
                                 <div>
-                                  <a
-                                    href={`/detail/${val._id}`}
+                                  <p
                                     onClick={onClickItem}
                                     className="text-uppercase"
                                   >
                                     {val.name}
-                                  </a>
+                                  </p>
                                   <p>
                                     {val.promotionPrice
                                       ? parseInt(
@@ -225,20 +219,19 @@ function Header(props) {
                                     ₫
                                   </p>
                                 </div>
-                                <a
+                                <div
                                   onClick={onClickItem}
-                                  href={`/detail/${val._id}`}
                                   className="image-search-product"
                                 >
                                   <Card.Img src={val.avt} />
-                                </a>
-                              </div>
+                                </div>
+                              </a>
                             );
                           })}
                         {!close &&
                           (searchProducts.length > 0 ? (
                             <div className="text-search-header">
-                              <a onClick={onClickItem} href="/shop">
+                              <a onClick={onClickItem} href="/shop/all">
                                 Xem Thêm...
                               </a>
                             </div>

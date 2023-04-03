@@ -9,6 +9,7 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import ModalDeleted from '../components/ModalDeleted'
 import queryString from 'query-string'
 import alertify from 'alertifyjs'
+import ModalDeletedAll from '../components/ModalDeletedAll'
 
 const Favorites = (props) => {
     const URL_GETFAVORITES = `${HOST}/favorite`
@@ -19,6 +20,9 @@ const Favorites = (props) => {
     const [getDataFavorites, setGetDataFavorites] = useState([])
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
+
+    const [showAll, setShowAll] = useState(false);
+    const handleCloseDeleteAll = () => setShowAll(false);
     const [dataDelete, setDataDelete] = useState({
         idFavorite: "",
         idUser: "",
@@ -46,6 +50,7 @@ const Favorites = (props) => {
                     return
                 }
                 setFavorites(res.data)
+                // Dựa vào data get từ FAVORITES để lấy sản phẩm trong product
                 if (res.data.length > 0) {
                     const data = res.data
                     const dataFavorites = data.map(val => axios.get(`${URL_GETPRODUCTS}/${val.idProduct}`))
@@ -61,21 +66,6 @@ const Favorites = (props) => {
         fetchFavorites()
     }, [])
 
-    // Dựa vào FAVORITES để lấy sản phẩm trong product
-    // useEffect(() => {
-    //     let isMounted = true;
-    //     const dataFavorites = favorites.map(val => axios.get(`${URL_GETPRODUCTS}/${val.idProduct}`))
-    //     Promise.all(dataFavorites)
-    //         .then(res => {
-    //             if (isMounted) {
-    //                 const dataProduct = res.map(res => res.data)
-    //                 setGetDataFavorites(dataProduct)
-    //             }
-    //             console.log("xu ly dư lieu");
-    //         })
-
-    //         .catch(err => console.log(err))
-    // }, [favorites]) // chỉ gọi lại hàm nếu favorites thay đổi
     // Hàm này sẽ ghép id của bảng favorites và sản phẩm lấy được dựa vào idProduct đưa vào listFavorites
     useEffect(() => {
         const alistFavorites = []
@@ -131,6 +121,22 @@ const Favorites = (props) => {
         }
     }
 
+    // Hàm này sẽ xóa toàn bộ sản phẩm yêu thích
+    const handleShowAll = () => {
+        setShowAll(true);
+    }
+    const handleDeleteAll = async () => {
+        try {
+            await axios.delete(`${HOST}/deleteAllFavorite/${getIdUser}`)
+            alertify.set("notifier", "position", "bottom-left");
+            alertify.success("Bạn Đã Xóa Thành Công!");
+            await props.setHandleCount(false);
+        } catch (error) {
+            console.log(error);
+            alertify.success("Xóa Không Thành Công!");
+        }
+    }
+
     const addToCart = async (idProduct, name, price, avt, size) => {
         // idUser
         const id_user_cart = sessionStorage.getItem("id_user");
@@ -165,6 +171,14 @@ const Favorites = (props) => {
                     <div className='container main-wishlist'>
                         <div className=''>
                             <h3 className="title-header">Sản phẩm yêu thích</h3>
+                            <div className='d-flex justify-content-end'>
+                                <button className='btnAddToCart bg-danger text-light' onClick={() => handleShowAll()}>
+                                    Xóa toàn bộ yêu thích
+                                </button>
+                                {
+                                    showAll && <ModalDeletedAll showAll={showAll} handleCloseAll={handleCloseDeleteAll} handlerDeleteAll={handleDeleteAll} />
+                                }
+                            </div>
                             {listFavorites && listFavorites.map((val, idx) => {
                                 return (
                                     <div className='my-4' key={idx + 1}>

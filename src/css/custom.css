@@ -120,6 +120,13 @@ button:hover::after {
   overflow: hidden;
 }
 
+.btnRemoveCart {
+  padding: 10px 20px;
+  outline: none;
+  border-radius: 50px;
+  color: black;
+}
+
 /* .profile-checkout {
   position: fixed;
   right: 10%;
@@ -420,12 +427,11 @@ button:hover::after {
   font-size: 20px;
 }
 
-.search-button {
+.search-icon {
   background: #efb93b;
   display: inline-block;
   text-align: center;
   text-decoration: none;
-  cursor: pointer;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   padding: 0 30px;
@@ -434,7 +440,7 @@ button:hover::after {
   transition: all 0.5s ease-in-out;
 }
 
-.search-button:hover {
+.search-icon:hover {
   color: white !important;
 }
 
@@ -592,29 +598,26 @@ button:hover::after {
   text-align: center;
 }
 .product-search {
-  background-color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
   border-bottom: 0.1rem solid rgb(173, 173, 173);
   transition: all 0.25s ease-in-out;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 500;
 }
 
 .image-search-product {
   width: 5%;
 }
 
-.product-search a {
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.product-search a:hover {
+.product-search :hover {
   color: #efb93b;
 }
 
-.product-search a:focus {
+.product-search :focus {
   text-decoration: none;
 }
 
