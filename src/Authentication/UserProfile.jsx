@@ -87,11 +87,6 @@ const UserProfile = (props) => {
             />
             <h1>{getDataUser.fullname}</h1>
           </div>
-          <div className="name-profile">
-            <Button variant="primary" className="text-uppercase">
-              <AiOutlineScan /> In Hồ Sơ
-            </Button>
-          </div>
         </div>
 
         <div className="row p-t-30" style={{ margin: "auto" }}>
