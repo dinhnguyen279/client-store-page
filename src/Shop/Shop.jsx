@@ -61,26 +61,27 @@ function Shop(props) {
   };
 
   //Hàm Sort sản phẩm theo giá
-  const sortPrice = (a, b) => {
+  const sortPrice = (a, b, sort) => {
+    const priceA = parseInt(a.promotionPrice) ? parseInt(a.promotionPrice) : a.price
+    const priceB = parseInt(b.promotionPrice) ? parseInt(b.promotionPrice) : b.price
+
     if (sort === "DownToUp") {
-      if (a.price < b.price) {
+      if (priceA < priceB) {
         return -1;
       }
     }
     if (sort === "UpToDown") {
-      if (a.price > b.price) {
+      if (priceA > priceB) {
         return -1;
       }
     }
-    if (sort === "default") {
-      return 0;
-    }
-    // sort price products
+    return 0;
   };
-  function handleSortPrice() {
-    products.sort(sortPrice);
-  }
-  handleSortPrice();
+  useEffect(() => {
+    // sort price products
+    const handleSortPrice = [...products].sort((a, b) => sortPrice(a, b, sort));
+    setProducts(handleSortPrice)
+  }, [sort])
 
   const addWishlist = (idProduct, size) => {
     if (size.length > 0) {
