@@ -111,6 +111,48 @@ html {
 .footer-order button {
   margin-right: 20px;
 }
+/* Confirm Cancel Bill */
+.content-cancel {
+  border: 1px solid #efb93b;
+  padding: 10px 20px;
+}
+
+.list-radio {
+  padding: 10px 20px;
+}
+
+.list-radio-item {
+  display: flex;
+  align-self: center;
+  gap: 10px;
+}
+
+.list-radio-item__circle {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.list-radio-main {
+  cursor: pointer;
+  padding: 4px 0;
+}
+
+.item-checked {
+  border: 1px solid red;
+}
+.item-unchecked {
+  border: 1px solid black;
+}
+.list-radio-item__dot {
+  height: 5px;
+  width: 5px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
 /* User Profile */
 .main-profile {

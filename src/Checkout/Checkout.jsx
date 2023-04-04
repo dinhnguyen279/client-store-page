@@ -14,10 +14,6 @@ function Checkout(props) {
 
   const [total, setTotal] = useState(0);
 
-  // const [fullName, setFullName] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [phone, setPhone] = useState("");
-  // const [address, setAddress] = useState("");
   const [errors, setErrors] = useState(false);
   const [success, setSuccess] = useState(false);
   const [load, setLoad] = useState(false);
@@ -110,9 +106,6 @@ function Checkout(props) {
     fetchData()
   }, []);
 
-  // useEffect(() => {
-  //   if (getCartById.length === 0) return;
-  // }, [getCartById]);
   //Hàm này dùng để tính tổng tiền carts
   const getTotal = (getCartById) => {
     let total = getCartById;
@@ -209,6 +202,7 @@ function Checkout(props) {
       const idProduct = getCartById.map((val) => val.idProduct);
       const data = {
         idUser: idUser,
+        idProduct: idProduct.toString(),
         phone: user.phone,
         address: user.address,
         fullname: user.fullname,
@@ -219,9 +213,8 @@ function Checkout(props) {
         price: price.toString(),
         size: size.toString(),
         payment: paymentMethod,
-        idProduct: idProduct.toString()
+        status: "waiting"
       };
-      console.log(data);
       if (data.total === 0) {
         alertify.set("notifier", "position", "bottom-left");
         alertify.error("Vui Lòng Kiểm Tra Lại Giỏ Hàng!");
@@ -229,6 +222,7 @@ function Checkout(props) {
       }
       axios.post(URL_CheckOut, data);
       setTimeout(() => {
+        props.setHandleCount(false)
         setSuccess(!success);
         setLoad(false);
       }, 4000);

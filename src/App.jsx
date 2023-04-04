@@ -124,7 +124,7 @@ function App() {
           <Route path="/cart" element={<Cart setHandleCount={setReloadCount} />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/checkout" element={<Checkout setHandleCount={setReloadCount} />} />
           <Route path="/shop/:id" element={<Shop handleAddWishlist={addWishlist} />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/detail-user" element={<UserProfile />} />

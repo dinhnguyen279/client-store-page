@@ -115,7 +115,9 @@ function ListCart(props) {
                 <i className="fas fa-trash-alt text-muted"></i>
               </button>
               {/* Modal hiện popup xác nhận xóa sản phẩm */}
-              <ModalDelete show={show} handleClose={handleClose} handlerDelete={handlerDelete} />
+              {show &&
+                <ModalDelete show={show} handleClose={handleClose} handlerDelete={handlerDelete} />
+              }
             </div>
             <div className="col-md-12 d-flex justify-content-between">
               <p style={{ fontWeight: "700" }}>Thành tiền:</p>

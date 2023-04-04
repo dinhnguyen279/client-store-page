@@ -2,15 +2,16 @@ import React, { useEffect, useState } from "react";
 import { AiOutlineEdit, AiOutlineScan } from "react-icons/ai";
 import "./Auth.css";
 import { Button } from "react-bootstrap";
-import EditProfileUser from "./EditProfileUser";
-import DetailInvoices from './DetailInvoices'
+import EditProfileUser from "./components/EditProfileUser";
+import DetailInvoices from './components/DetailInvoices'
 import { HOST } from "../domain/host/host";
 import axios from "axios";
 
 import Form from "react-bootstrap/Form";
-import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { AiFillEye, AiFillEyeInvisible, AiOutlineReload } from "react-icons/ai";
 import { FaStore, FaShippingFast, FaStoreAlt } from "react-icons/fa";
-import { Link, redirect, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import ConfirmCancelOrder from "./components/ConfirmCancelOrder";
 
 const UserProfile = (props) => {
   const URL_GetDetailUser = `${HOST}/user`;
@@ -18,6 +19,7 @@ const UserProfile = (props) => {
   const URL_GetBillById = `${HOST}/getBillById`;
   const [active, setActive] = useState("Overview");
   const [modalShowDetailInvoices, setModalShowDetailInvoices] = useState(false);
+  const [modalShowFormCancelOrder, setModalShowFormCancelOrder] = useState(false);
   const [modalShow, setModalShow] = useState(false);
   const [getDataUser, setGetDataUser] = useState({
     avatar: "",
@@ -39,6 +41,7 @@ const UserProfile = (props) => {
     fullname: "",
     idProduct: ""
   })
+  const [idCancelOrder, setIdCancelOrder] = useState("")
   const [history, setHistory] = useState([]);
   // Show/hide password
   const [typePassWord, setTypePassWord] = useState("password");
@@ -73,6 +76,19 @@ const UserProfile = (props) => {
       })
       .catch(err => console.log(err))
     setModalShowDetailInvoices(true)
+  }
+
+  const handleShowFormCancelOrder = (id) => {
+    setIdCancelOrder(id);
+    setModalShowFormCancelOrder(true);
+  }
+
+  const handleDoneOrder = () => {
+    console.log("Xác nhận đã giao hàng");
+  }
+
+  const handleDeleteOrder = () => {
+    console.log(idCancelOrder);
   }
 
   return (
@@ -269,50 +285,103 @@ const UserProfile = (props) => {
       {active === "History" ?
         (
           <>
-            {history.map((val, key) => (
-              <div className="history-profile-user m-t-40" key={key + 1}>
-                <div className="header-history">
-                  <FaStore className="mr-2" />
-                  <span>Sports Zone</span>
+            {history.length > 0 ? (
+              history.map((val, key) => (
+                <div className="history-profile-user m-t-40" key={key + 1}>
+                  <div className="header-history">
+                    <FaStore className="mr-2" />
+                    <span>Sports Zone</span>
+                  </div>
+                  <div className="content-history">
+                    <div className="code-order">
+                      <div className="mb-3 mb-md-0">
+                        <p>Mã đơn hàng: {val._id}</p>
+                      </div>
+                      <div style={{ fontSize: "13px" }}>
+                        <span className="mr-1">
+                          {val.status === "waiting" ? (
+                            <span className="">
+                              <AiOutlineReload /> Đang chờ xác nhận
+                            </span>
+                          ) : ""}
+                          {val.status === "delivery" ? (
+                            <span className="text-success">
+                              <FaShippingFast /> Đơn hàng đang được vận chuyển
+                            </span>
+                          ) : ""}
+                          {val.status === "finish" ? (
+                            <span className="text-success">
+                              <FaShippingFast /> Đơn hàng đã được giao thành công
+                            </span>
+                          ) : ""}
+                        </span>
+                        |
+                        <span className="text-uppercase ml-1" style={{ color: "red", fontWeight: "bolder" }}>
+                          {val.status === "waiting" ? "Chờ xác nhận" : ""}
+                          {val.status === "delivery" ? "Đang vận chuyển" : ""}
+                          {val.status === "finish" ? "Hoàn thành" : ""}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="content-order">
+                      <div>
+                        <p><b>Người nhận: {val.fullname}</b></p>
+                        <p><b>Tổng sản phẩm: {val.nameProduct.split(",").length}</b></p>
+                        <p><b>Phương thức thanh toán: {val.payment}</b></p>
+                      </div>
+                      <div>
+                        <p><b>Ngày mua: {val.created_date}</b></p>
+                      </div>
+                    </div>
+                    <div className="footer-order">
+                      <p className="text-base">
+                        <b>Tổng đơn:</b> {(parseInt(val.total)).toLocaleString()}₫
+                      </p>
+                      <div className="">
+                        <Button onClick={() => handleShowDetailInvoices(val._id)} variant="primary" className="w-100 mb-3">Thông tin đơn hàng</Button>
+                        {val.status !== "waiting" ? (
+                          <Button onClick={() => handleShowFormCancelOrder(val._id)} variant="light" className="btn-outline-dark w-100">Hủy Đơn Hàng</Button>
+                        ) : (
+                          <Button onClick={() => handleDoneOrder(val._id)} variant="primary" className="w-100">Hoàn Thành</Button>
+                        )}
+                        <Link to={`/contact`} className="btn btn-outline-danger mt-3 w-100">Liên Hệ Shop</Link>
+                        {/* Modal cancel đơn hàng */}
+                        {
+                          modalShowFormCancelOrder &&
+                          <ConfirmCancelOrder
+                            show={modalShowFormCancelOrder}
+                            onHide={() => setModalShowFormCancelOrder(false)}
+                            DeleteOrder={handleDeleteOrder}
+                          />
+                        }
+                        {/* Modal thông tin hóa đơn */}
+                        {modalShowDetailInvoices &&
+                          <DetailInvoices
+                            show={modalShowDetailInvoices}
+                            onHide={() => setModalShowDetailInvoices(false)}
+                            dataDetail={getDataInvoices}
+                          />
+                        }
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="content-history">
-                  <div className="code-order">
-                    <div className="mb-3 mb-md-0">
-                      <p>Mã đơn hàng: {val._id}</p>
-                    </div>
-                    <div style={{ fontSize: "13px" }}>
-                      <span className="text-success"> <FaShippingFast /> Đơn hàng đã được giao thành công</span> | <span className="text-uppercase" style={{ color: "red", fontWeight: "bolder" }}>Hoàn thành</span>
-                    </div>
-                  </div>
-                  <div className="content-order">
-                    <div>
-                      <p><b>Người nhận: {val.fullname}</b></p>
-                      <p><b>Tổng sản phẩm: {val.nameProduct.split(",").length}</b></p>
-                      <p><b>Phương thức thanh toán: {val.payment}</b></p>
-                    </div>
-                    <div>
-                      <p><b>Ngày mua: {val.created_date}</b></p>
-                    </div>
-                  </div>
-                  <div className="footer-order">
-                    <p className="text-base">
-                      <b>Tổng đơn:</b> {(parseInt(val.total)).toLocaleString()}₫
-                    </p>
-                    <div className="">
-                      <Button onClick={() => handleShowDetailInvoices(val._id)} variant="primary" className="w-100">Thông tin hóa đơn</Button>
-                      <Link to={`/contact`} className="btn btn-outline-danger mt-3 w-100">Liên Hệ Shop</Link>
-                      <DetailInvoices
-                        show={modalShowDetailInvoices}
-                        onHide={() => setModalShowDetailInvoices(false)}
-                        dataDetail={getDataInvoices}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <section className="cart-empty history-profile-user m-t-40">
+                <p className="text-lg mb-3">
+                  Hiện tại bạn chưa có đơn hàng nào
+                </p>
+                <Link className="btn-buy btn btn-warning" to="/shop/all">
+                  Tiếp tục mua hàng
+                </Link>
+              </section>
+            )}
+
           </>
-        ) : ""
+        ) : (
+          ""
+        )
       }
     </div >
   );

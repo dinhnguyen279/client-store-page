@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { HOST } from '../domain/host/host';
+import { HOST } from '../../domain/host/host';
 
 function DetailInvoices(props) {
     const dataDetail = props.dataDetail
@@ -27,7 +27,6 @@ function DetailInvoices(props) {
             })
     }, [listIdProduct])
 
-
     for (let i = 0; i < listNameProduct.length; i++) {
         const oBill = {}
         oBill.name = listNameProduct[i];
@@ -39,6 +38,8 @@ function DetailInvoices(props) {
         oBill.avt = listImage[i];
         listProduct.push(oBill);
     }
+
+
     return (
         <Modal
             {...props}
@@ -58,21 +59,17 @@ function DetailInvoices(props) {
                 </div>
                 {listProduct && listProduct.map((val, idx) => {
                     return (
-                        <div>
-                            <div className="content-order" key={idx + 1}>
-                                <div className='content-detail-invoices'>
-                                    <img src={val.avt} alt={val.name} className='img-invoices' />
-                                    <div className='ml-3'>
-                                        <p><b>{val.name}</b></p>
-                                        <p><b>x{val.quantity}</b></p>
-                                        <p><b>Size: {val.size}</b></p>
-                                    </div>
-                                </div>
-                                <div>
-                                    <p><b>₫{parseInt(val.price).toLocaleString()}</b></p>
+                        <div className="content-order" key={idx + 1}>
+                            <div className='content-detail-invoices'>
+                                <img src={val.avt} alt={val.name} className='img-invoices' />
+                                <div className='ml-3'>
+                                    <p><b>{val.name}</b></p>
+                                    <p><b>x{val.quantity}</b></p>
+                                    <p><b>Size: {val.size}</b></p>
                                 </div>
                             </div>
                             <div>
+                                <p><b>₫{parseInt(val.price).toLocaleString()}</b></p>
                             </div>
                         </div>
                     )

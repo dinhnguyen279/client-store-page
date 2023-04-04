@@ -2,19 +2,19 @@ import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import FileBase64 from "react-file-base64";
-import { HOST } from "../domain/host/host";
+import { HOST } from "../../domain/host/host";
 import axios from "axios";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 const EditProfileUser = (props) => {
   const URL_UPDATEUSER = `${HOST}/updateUser`;
 
-  const getDataUser = props.getDataUser;
-  const setGetDataUser = props.setGetDataUser;
+  const dataUser = props.getDataUser;
+  const setGetData = props.setGetDataUser;
   const [typePassWord, setTypePassWord] = useState("password");
 
   const onSubmit = async (id) => {
     await axios
-      .put(`${URL_UPDATEUSER}/${id}`, getDataUser)
+      .put(`${URL_UPDATEUSER}/${id}`, dataUser)
       .then((res) => console.log("res", res))
       .catch((err) => console.error("err", err));
     alertify.set("notifier", "position", "top-right");
@@ -43,7 +43,7 @@ const EditProfileUser = (props) => {
             controlId="formBasicEmail"
           >
             <img
-              src={getDataUser.avatar}
+              src={dataUser.avatar}
               alt="Hình ảnh người dùng"
               className="img-profile"
             />
@@ -53,9 +53,9 @@ const EditProfileUser = (props) => {
               type="file"
               className="form-control-file"
               id="image"
-              value={getDataUser.avatar}
+              value={dataUser.avatar}
               onDone={({ base64 }) =>
-                setGetDataUser({ ...getDataUser, avatar: base64 })
+                setGetData({ ...dataUser, avatar: base64 })
               }
             />
           </Form.Group>
@@ -68,9 +68,9 @@ const EditProfileUser = (props) => {
               className="form-input-user mw-100"
               type="name"
               placeholder=" "
-              value={getDataUser.fullname}
+              value={dataUser.fullname}
               onChange={(e) =>
-                setGetDataUser({ ...getDataUser, fullname: e.target.value })
+                setGetData({ ...dataUser, fullname: e.target.value })
               }
             />
             <Form.Label className="form-label">Họ và Tên</Form.Label>
@@ -84,9 +84,9 @@ const EditProfileUser = (props) => {
               className="form-input-user mw-100"
               type="address"
               placeholder=" "
-              value={getDataUser.address}
+              value={dataUser.address}
               onChange={(e) =>
-                setGetDataUser({ ...getDataUser, address: e.target.value })
+                setGetData({ ...dataUser, address: e.target.value })
               }
             />
             <Form.Label className="form-label">Địa chỉ</Form.Label>
@@ -100,9 +100,9 @@ const EditProfileUser = (props) => {
               className="form-input-user mw-100"
               type="date"
               placeholder=" "
-              value={getDataUser.birthday}
+              value={dataUser.birthday}
               onChange={(e) =>
-                setGetDataUser({ ...getDataUser, birthday: e.target.value })
+                setGetData({ ...dataUser, birthday: e.target.value })
               }
             />
             <Form.Label className="form-label">Sinh nhật</Form.Label>
@@ -116,9 +116,9 @@ const EditProfileUser = (props) => {
               className="form-input-user mw-100"
               type="text"
               placeholder=" "
-              value={getDataUser.sex}
+              value={dataUser.sex}
               onChange={(e) =>
-                setGetDataUser({ ...getDataUser, sex: e.target.value })
+                setGetData({ ...dataUser, sex: e.target.value })
               }
             />
             <Form.Label className="form-label">Giới tính</Form.Label>
@@ -132,9 +132,9 @@ const EditProfileUser = (props) => {
               className="form-input-user mw-100"
               type="phone"
               placeholder=" "
-              value={getDataUser.phone}
+              value={dataUser.phone}
               onChange={(e) =>
-                setGetDataUser({ ...getDataUser, phone: e.target.value })
+                setGetData({ ...dataUser, phone: e.target.value })
               }
             />
             <Form.Label className="form-label">Số điện thoại</Form.Label>
@@ -148,15 +148,13 @@ const EditProfileUser = (props) => {
               className="form-input-user mw-100"
               type="email"
               placeholder=" "
-              value={getDataUser.email}
+              value={dataUser.email}
               onChange={(e) =>
-                setGetDataUser({ ...getDataUser, email: e.target.value })
+                setGetData({ ...dataUser, email: e.target.value })
               }
             />
             <Form.Label className="form-label">Email</Form.Label>
           </Form.Group>
-
-
 
           <Form.Group
             className="mb-3 input-text position-relative"
@@ -166,9 +164,9 @@ const EditProfileUser = (props) => {
               className="form-input-user mw-100"
               type={typePassWord}
               placeholder=" "
-              value={getDataUser.password}
+              value={dataUser.password}
               onChange={(e) =>
-                setGetDataUser({ ...getDataUser, password: e.target.value })
+                setGetData({ ...dataUser, password: e.target.value })
               }
             />
             <Form.Label className="form-label">Mật Khẩu</Form.Label>
@@ -195,7 +193,7 @@ const EditProfileUser = (props) => {
       <Modal.Footer>
         <Button
           className="w-100"
-          onClick={() => onSubmit(getDataUser._id)}
+          onClick={() => onSubmit(dataUser._id)}
         >
           Cập nhật
         </Button>
