@@ -1,14 +1,15 @@
+import axios from 'axios'
 import React, { useState } from 'react'
 import { Button, Modal } from 'react-bootstrap'
 import { FaRegBell } from 'react-icons/fa'
+import { HOST } from '../../domain/host/host'
 
 const ConfirmCancelBill = (props) => {
-    const handleDeleteOrder = props.DeleteOrder
+    const handleCancelOrder = props.cancelOrder
     const [checked, setChecked] = useState(false)
     const [contentChecked, setContentChecked] = useState(null)
-    const handleChecked = (contentChecked) => {
-        setContentChecked(contentChecked)
-        // console.log(contentChecked);
+    const handleChecked = (content) => {
+        setContentChecked(content)
         setChecked(true)
     }
     const dataReasonCancel = [
@@ -17,6 +18,7 @@ const ConfirmCancelBill = (props) => {
         { id: 3, content: "Thay đổi đơn hàng (màu sắc, kích thước, thêm mã giảm giá,...)" },
         { id: 4, content: "Tôi không có nhu cầu mua nữa" }
     ]
+
     return (
         <Modal
             {...props}
@@ -57,7 +59,7 @@ const ConfirmCancelBill = (props) => {
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="light" onClick={props.onHide}>Không phải bây giờ</Button>
-                <Button className='' variant='danger' onClick={() => handleDeleteOrder()}>Hủy đơn hàng</Button>
+                <Button className='' variant='danger' onClick={() => handleCancelOrder(contentChecked)}>Hủy đơn hàng</Button>
             </Modal.Footer>
         </Modal >
     )

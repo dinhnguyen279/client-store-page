@@ -12,11 +12,14 @@ import { AiFillEye, AiFillEyeInvisible, AiOutlineReload } from "react-icons/ai";
 import { FaStore, FaShippingFast, FaStoreAlt } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import ConfirmCancelOrder from "./components/ConfirmCancelOrder";
+import alertify from 'alertifyjs';
 
 const UserProfile = (props) => {
   const URL_GetDetailUser = `${HOST}/user`;
   const URL_BILLBYIDUSER = `${HOST}/getBillByIdUser`;
   const URL_GetBillById = `${HOST}/getBillById`;
+  const URL_CANCELORDER = `${HOST}/cancelOrder`
+
   const [active, setActive] = useState("Overview");
   const [modalShowDetailInvoices, setModalShowDetailInvoices] = useState(false);
   const [modalShowFormCancelOrder, setModalShowFormCancelOrder] = useState(false);
@@ -83,12 +86,47 @@ const UserProfile = (props) => {
     setModalShowFormCancelOrder(true);
   }
 
-  const handleDoneOrder = () => {
-    console.log("Xác nhận đã giao hàng");
+  const handleDoneOrder = async (id) => {
+    const data = {
+      status: "finish"
+    }
+    try {
+      if (data !== null) {
+        await axios.put(`${URL_CANCELORDER}/${id}`, data)
+        setTimeout(function () {
+          setModalShowFormCancelOrder(false)
+          window.location.reload()
+        }, 1200);
+        setActive("History")
+        return
+      }
+      alertify.set("notifier", "position", "bottom-right");
+      alertify.error("Bạn phải chọn lý do hủy");
+    } catch (error) {
+      return error
+    }
   }
 
-  const handleDeleteOrder = () => {
-    console.log(idCancelOrder);
+  const handleCancelOrder = async (reasonCancel) => {
+    const data = {
+      reasonCancel: reasonCancel,
+      status: "cancel"
+    }
+    try {
+      if (data !== null) {
+        await axios.put(`${URL_CANCELORDER}/${idCancelOrder}`, data)
+        setTimeout(function () {
+          setModalShowFormCancelOrder(false)
+          window.location.reload()
+        }, 1200);
+        setActive("History")
+        return
+      }
+      alertify.set("notifier", "position", "bottom-right");
+      alertify.error("Bạn phải chọn lý do hủy");
+    } catch (error) {
+      return error
+    }
   }
 
   return (
@@ -314,10 +352,16 @@ const UserProfile = (props) => {
                               <FaShippingFast /> Đơn hàng đã được giao thành công
                             </span>
                           ) : ""}
+                          {val.status === "cancel" ? (
+                            <span className="text-success">
+                              <FaShippingFast /> Đơn hàng đã hủy
+                            </span>
+                          ) : ""}
                         </span>
                         |
                         <span className="text-uppercase ml-1" style={{ color: "red", fontWeight: "bolder" }}>
                           {val.status === "waiting" ? "Chờ xác nhận" : ""}
+                          {val.status === "cancel" ? "Đã Hủy" : ""}
                           {val.status === "delivery" ? "Đang vận chuyển" : ""}
                           {val.status === "finish" ? "Hoàn thành" : ""}
                         </span>
@@ -338,12 +382,20 @@ const UserProfile = (props) => {
                         <b>Tổng đơn:</b> {(parseInt(val.total)).toLocaleString()}₫
                       </p>
                       <div className="">
-                        <Button onClick={() => handleShowDetailInvoices(val._id)} variant="primary" className="w-100 mb-3">Thông tin đơn hàng</Button>
-                        {val.status !== "waiting" ? (
-                          <Button onClick={() => handleShowFormCancelOrder(val._id)} variant="light" className="btn-outline-dark w-100">Hủy Đơn Hàng</Button>
+                        {val.status === "cancel" ? (
+                          <Button onClick={() => handleShowDetailInvoices(val._id)} variant="primary" className="w-100 btn-info-bill">Chi Tiết Đơn Hủy</Button>
                         ) : (
-                          <Button onClick={() => handleDoneOrder(val._id)} variant="primary" className="w-100">Hoàn Thành</Button>
+                          <Button onClick={() => handleShowDetailInvoices(val._id)} variant="primary" className="w-100 btn-info-bill">Thông Tin Đơn Hàng</Button>
                         )}
+
+                        {val.status === "waiting" ? (
+                          <Button onClick={() => handleShowFormCancelOrder(val._id)} variant="light" className="btn-outline-dark w-100">Hủy Đơn Hàng</Button>
+                        ) : ""}
+
+                        {val.status === "delivery" ? (
+                          <Button onClick={() => handleDoneOrder(val._id)} variant="primary" className="w-100">Đã Nhận Hàng</Button>
+                        ) : ""}
+
                         <Link to={`/contact`} className="btn btn-outline-danger mt-3 w-100">Liên Hệ Shop</Link>
                         {/* Modal cancel đơn hàng */}
                         {
@@ -351,7 +403,7 @@ const UserProfile = (props) => {
                           <ConfirmCancelOrder
                             show={modalShowFormCancelOrder}
                             onHide={() => setModalShowFormCancelOrder(false)}
-                            DeleteOrder={handleDeleteOrder}
+                            cancelOrder={handleCancelOrder}
                           />
                         }
                         {/* Modal thông tin hóa đơn */}

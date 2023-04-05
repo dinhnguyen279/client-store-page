@@ -195,6 +195,10 @@ html {
   color: black;
 }
 
+.btn-info-bill {
+  margin-bottom: 0;
+}
+
 /* .link-profile:focus {
   color: white;
 } */
@@ -408,6 +412,9 @@ html {
   }
   .footer-order button {
     margin-right: 0px;
+  }
+  .btn-info-bill {
+    margin-bottom: 16px;
   }
 }
 
