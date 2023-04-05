@@ -8,8 +8,9 @@ import { HOST } from "../domain/host/host";
 import axios from "axios";
 
 import Form from "react-bootstrap/Form";
-import { AiFillEye, AiFillEyeInvisible, AiOutlineReload } from "react-icons/ai";
-import { FaStore, FaShippingFast, FaStoreAlt } from "react-icons/fa";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { FaStore, FaShippingFast, FaSyncAlt } from "react-icons/fa";
+import { BsFillCheckCircleFill } from "react-icons/bs"
 import { Link, useNavigate } from "react-router-dom";
 import ConfirmCancelOrder from "./components/ConfirmCancelOrder";
 import alertify from 'alertifyjs';
@@ -20,10 +21,11 @@ const UserProfile = (props) => {
   const URL_GetBillById = `${HOST}/getBillById`;
   const URL_CANCELORDER = `${HOST}/cancelOrder`
 
-  const [active, setActive] = useState("Overview");
+  const [active, setActive] = useState("ProfileUser");
   const [modalShowDetailInvoices, setModalShowDetailInvoices] = useState(false);
   const [modalShowFormCancelOrder, setModalShowFormCancelOrder] = useState(false);
   const [modalShow, setModalShow] = useState(false);
+  const [reloadData, setReloadData] = useState(false);
   const [getDataUser, setGetDataUser] = useState({
     avatar: "",
     fullname: "",
@@ -61,16 +63,19 @@ const UserProfile = (props) => {
       navigate('/signin', { replace: true });
     }
     // hàm này gọi thông tin user
-    axios
-      .get(`${URL_GetDetailUser}/${idUser}`)
-      .then((response) => setGetDataUser(response.data))
-      .catch((error) => console.log(error));
-    // hàm này gọi thông tin hóa đơn
-    axios
-      .get(`${URL_BILLBYIDUSER}/${idUser}`)
-      .then((response) => setHistory(response.data))
-      .catch((error) => console.log(error));
-  }, []);
+    const fetchData = async () => {
+      await axios
+        .get(`${URL_GetDetailUser}/${idUser}`)
+        .then((response) => setGetDataUser(response.data))
+        .catch((error) => console.log(error));
+      // hàm này gọi thông tin hóa đơn
+      await axios
+        .get(`${URL_BILLBYIDUSER}/${idUser}`)
+        .then((response) => setHistory(response.data))
+        .catch((error) => console.log(error));
+    }
+    fetchData()
+  }, [reloadData]);
 
   const handleShowDetailInvoices = (id) => {
     axios.get(`${URL_GetBillById}/${id}`)
@@ -88,16 +93,16 @@ const UserProfile = (props) => {
 
   const handleDoneOrder = async (id) => {
     const data = {
-      status: "finish"
+      status: "hoàn thành"
     }
+    setReloadData(false)
     try {
       if (data !== null) {
         await axios.put(`${URL_CANCELORDER}/${id}`, data)
         setTimeout(function () {
           setModalShowFormCancelOrder(false)
-          window.location.reload()
-        }, 1200);
-        setActive("History")
+          setReloadData(true)
+        }, 500);
         return
       }
       alertify.set("notifier", "position", "bottom-right");
@@ -110,16 +115,16 @@ const UserProfile = (props) => {
   const handleCancelOrder = async (reasonCancel) => {
     const data = {
       reasonCancel: reasonCancel,
-      status: "cancel"
+      status: "đã hủy"
     }
+    setReloadData(false)
     try {
       if (data !== null) {
         await axios.put(`${URL_CANCELORDER}/${idCancelOrder}`, data)
         setTimeout(function () {
           setModalShowFormCancelOrder(false)
-          window.location.reload()
-        }, 1200);
-        setActive("History")
+          setReloadData(true)
+        }, 500);
         return
       }
       alertify.set("notifier", "position", "bottom-right");
@@ -148,15 +153,15 @@ const UserProfile = (props) => {
             <div
               className="m-r-10 btn-detail"
               style={
-                active === "Overview"
+                active === "ProfileUser"
                   ? { background: "#0d6efd" }
                   : { background: "none" }
               }
-              onClick={() => handlerActive("Overview")}
+              onClick={() => handlerActive("ProfileUser")}
             >
               <button
                 style={
-                  active === "Overview"
+                  active === "ProfileUser"
                     ? { color: "white" }
                     : { color: "black" }
                 }
@@ -200,7 +205,7 @@ const UserProfile = (props) => {
       </div>
 
       {/* Thông tin user */}
-      {active === "Overview" ? (
+      {active === "ProfileUser" ? (
         <div className="card-profile m-t-40">
           <div className="card-title d-flex justify-content-between">
             <h3 className="title-text">Thông tin cá nhân</h3>
@@ -337,33 +342,33 @@ const UserProfile = (props) => {
                       </div>
                       <div style={{ fontSize: "13px" }}>
                         <span className="mr-1">
-                          {val.status === "waiting" ? (
+                          {val.status === "chờ xác nhận" ? (
                             <span className="">
-                              <AiOutlineReload /> Đang chờ xác nhận
+                              <FaSyncAlt /> Đang chờ xác nhận
                             </span>
                           ) : ""}
-                          {val.status === "delivery" ? (
-                            <span className="text-success">
+                          {val.status === "đang vận chuyển" ? (
+                            <span className="text-warning">
                               <FaShippingFast /> Đơn hàng đang được vận chuyển
                             </span>
                           ) : ""}
-                          {val.status === "finish" ? (
+                          {val.status === "hoàn thành" ? (
                             <span className="text-success">
-                              <FaShippingFast /> Đơn hàng đã được giao thành công
+                              <BsFillCheckCircleFill /> Đơn hàng đã được giao thành công
                             </span>
                           ) : ""}
-                          {val.status === "cancel" ? (
-                            <span className="text-success">
-                              <FaShippingFast /> Đơn hàng đã hủy
+                          {val.status === "đã hủy" ? (
+                            <span className="text-danger">
+                              <FaShippingFast className="icon-struck" /> Đơn hàng đã hủy
                             </span>
                           ) : ""}
                         </span>
                         |
                         <span className="text-uppercase ml-1" style={{ color: "red", fontWeight: "bolder" }}>
-                          {val.status === "waiting" ? "Chờ xác nhận" : ""}
-                          {val.status === "cancel" ? "Đã Hủy" : ""}
-                          {val.status === "delivery" ? "Đang vận chuyển" : ""}
-                          {val.status === "finish" ? "Hoàn thành" : ""}
+                          {val.status === "chờ xác nhận" ? "Chờ xác nhận" : ""}
+                          {val.status === "đã hủy" ? "Đã Hủy" : ""}
+                          {val.status === "đang vận chuyển" ? "Đang vận chuyển" : ""}
+                          {val.status === "hoàn thành" ? "Hoàn thành" : ""}
                         </span>
                       </div>
                     </div>
@@ -382,18 +387,18 @@ const UserProfile = (props) => {
                         <b>Tổng đơn:</b> {(parseInt(val.total)).toLocaleString()}₫
                       </p>
                       <div className="">
-                        {val.status === "cancel" ? (
-                          <Button onClick={() => handleShowDetailInvoices(val._id)} variant="primary" className="w-100 btn-info-bill">Chi Tiết Đơn Hủy</Button>
+                        {val.status === "đã hủy" ? (
+                          <Button onClick={() => handleShowDetailInvoices(val._id)} variant="primary" className="w-100">Chi Tiết Đơn Hủy</Button>
                         ) : (
-                          <Button onClick={() => handleShowDetailInvoices(val._id)} variant="primary" className="w-100 btn-info-bill">Thông Tin Đơn Hàng</Button>
+                          <Button onClick={() => handleShowDetailInvoices(val._id)} variant="primary" className="w-100">Chi Tiết Đơn Hàng</Button>
                         )}
 
-                        {val.status === "waiting" ? (
-                          <Button onClick={() => handleShowFormCancelOrder(val._id)} variant="light" className="btn-outline-dark w-100">Hủy Đơn Hàng</Button>
+                        {val.status === "chờ xác nhận" ? (
+                          <Button onClick={() => handleShowFormCancelOrder(val._id)} variant="light" className="btn-outline-dark w-100 mt-3">Hủy Đơn Hàng</Button>
                         ) : ""}
 
-                        {val.status === "delivery" ? (
-                          <Button onClick={() => handleDoneOrder(val._id)} variant="primary" className="w-100">Đã Nhận Hàng</Button>
+                        {val.status === "đang vận chuyển" ? (
+                          <Button onClick={() => handleDoneOrder(val._id)} variant="primary" className="mt-3 w-100">Đã Nhận Hàng</Button>
                         ) : ""}
 
                         <Link to={`/contact`} className="btn btn-outline-danger mt-3 w-100">Liên Hệ Shop</Link>

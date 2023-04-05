@@ -11,6 +11,7 @@ function DetailInvoices(props) {
     // hàm này tách sản phẩm trong bill ra
     const listProduct = [];
     const listFullName = dataDetail.fullname;
+    const listReasonCancel = dataDetail.reasonCancel
     const total = dataDetail.total;
     const listNameProduct = dataDetail.nameProduct.split(",");
     const listPrice = dataDetail.price.split(",");
@@ -36,9 +37,9 @@ function DetailInvoices(props) {
         oBill.size = listSize[i];
         oBill.total = total;
         oBill.avt = listImage[i];
+        oBill.reasonCancel = listReasonCancel
         listProduct.push(oBill);
     }
-
 
     return (
         <Modal
@@ -56,6 +57,11 @@ function DetailInvoices(props) {
                 <div className='detail-invoices'>
                     <p>Người nhận:<b> {dataDetail.fullname}</b></p>
                     <p>Số điện thoại:<b> {dataDetail.phone}</b></p>
+                    {dataDetail.reasonCancel !== "" ?
+                        (
+                            <p>Lý do hủy:<b> {dataDetail.reasonCancel}</b></p>
+                        )
+                        : ""}
                 </div>
                 {listProduct && listProduct.map((val, idx) => {
                     return (
@@ -75,7 +81,7 @@ function DetailInvoices(props) {
                     )
                 })}
                 <div className='total-detail-invoice pt-3'>
-                    <p>Tổng: {parseInt(dataDetail.total).toLocaleString()}₫</p>
+                    <p>Thành Tiền: {parseInt(dataDetail.total).toLocaleString()}₫</p>
                 </div>
             </Modal.Body>
             <Modal.Footer>

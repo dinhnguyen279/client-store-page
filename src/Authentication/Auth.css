@@ -112,6 +112,13 @@ html {
   margin-right: 20px;
 }
 /* Confirm Cancel Bill */
+.icon-struck {
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
+  -ms-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
 .content-cancel {
   border: 1px solid #efb93b;
   padding: 10px 20px;
