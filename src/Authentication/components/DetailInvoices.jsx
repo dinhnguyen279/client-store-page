@@ -20,13 +20,15 @@ function DetailInvoices(props) {
     const listIdProduct = dataDetail.idProduct.split(",");
     // Lấy ra hình ảnh của sản phẩm
     useEffect(() => {
-        const requests = listIdProduct.map(id => axios.get(`${URL_GetProduct}/${id}`))
-        Promise.all(requests)
-            .then(res => {
-                const urls = res.map(res => res.data.avt)
-                setListImage(urls);
-            })
-    }, [listIdProduct])
+        if (listIdProduct.length > 0) {
+            const requests = listIdProduct.map(id => axios.get(`${URL_GetProduct}/${id}`))
+            Promise.all(requests)
+                .then(res => {
+                    const urls = res.map(res => res.data.avt)
+                    setListImage(urls);
+                })
+        } return
+    }, [])
 
     for (let i = 0; i < listNameProduct.length; i++) {
         const oBill = {}
