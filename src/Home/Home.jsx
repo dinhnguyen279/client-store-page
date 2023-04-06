@@ -11,9 +11,9 @@ function Home(props) {
 
     const [products, setProducts] = useState([])
     const [categories, setCategories] = useState([])
+
     //Fetch Product
     useEffect(() => {
-
         const fetchData = async () => {
             const response = await ProductAPI.getAPI()
 
@@ -24,9 +24,7 @@ function Home(props) {
                 .then((res) => setCategories(res.data))
                 .catch(err => console.log(err))
         }
-
         fetchData()
-
     }, [])
     const [navContent, setNavContent] = useState("nav1")
     // hàm này dành cho button trong popover product
@@ -63,12 +61,12 @@ function Home(props) {
                                     <div className="modal-body p-0">
                                         <div className="row align-items-stretch">
                                             <div className="col-lg-6 p-lg-0">
-                                                <img className="product-view w-100" src={value.avt} data-lightbox={`product_${value._id}`} />
+                                                <Card.Img className="product-view" src={value.avt} data-lightbox={`product_${value._id}`} />
                                             </div>
                                             <div className="col-lg-6">
                                                 {/* Để tắt modal phải có class="close" và data-dissmiss="modal" và aria-label="Close" */}
                                                 <a className="close p-4" type="button" href="#section_product" data-dismiss="modal" aria-label="Close">×</a>
-                                                <div className="p-5 my-md-4">
+                                                <div className="py-5 pr-4 pl-2">
                                                     <ul className="list-inline mb-2">
                                                         <li className="list-inline-item m-0"><i className="fas fa-star small text-warning"></i></li>
                                                         <li className="list-inline-item m-0"><i className="fas fa-star small text-warning"></i></li>
@@ -227,7 +225,7 @@ function Home(props) {
                                 <div className="images-item">
                                     <Card.Img src={Image.lookbooks_3} />
                                     <div className='p-t-10'>
-                                        <p style={{ fontSize: "18px", paddingBottom: "10px" }}>Quần Áo Đá Banh Trẻ Em Mới Nhất</p>
+                                        <p style={{ fontSize: "18px", paddingBottom: "10px" }}>Quần Áo Đá Banh Trẻ Em</p>
                                         <Link to={"/contact"} className='text-uppercase text-lookbook' style={{ fontFamily: "sans-serif" }}>In ấn miễn phí</Link>
                                     </div>
                                 </div>

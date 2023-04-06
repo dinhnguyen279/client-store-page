@@ -23,13 +23,11 @@ import Image from "../Share/img/Image";
 
 function Detail(props) {
   const URL_AddToCart = `${HOST}/addToCart`;
-  // const URL_GetCartById = `${HOST}/getCartById`;
   const URL_GetVoucher = `${HOST}/coupons`;
   const URL_GetCommentByIdProduct = `${HOST}/comment`
   const URL_CreateComment = `${HOST}/comment/send`
   const URL_GetByIdUser = `${HOST}/user`
 
-  // const [load_comment, set_load_comment] = useState(false);
   const [product, setProduct] = useState([]);
   const [list_comment, set_list_comment] = useState([]);
   const [detail, setDetail] = useState({});
@@ -40,8 +38,8 @@ function Detail(props) {
   const [index, setIndex] = useState(0);
   const [sizeProduct, setSizeProduct] = useState(null);
   const [getVoucher, setGetVoucher] = useState("");
-  const [getCartById, setGetCartById] = useState({})
   const [user, setUser] = useState({})
+
   let { id } = useParams();
   const idUser = sessionStorage.getItem("id_user")
   // Hàm này dùng để lấy ra thông tin từng sản phẩm
@@ -233,13 +231,11 @@ function Detail(props) {
                 ></Card.Img>
                 {arrAlbum.map((val, idx) => {
                   return (
-                    <>
-                      <Card.Img
-                        key={idx + 1}
-                        className="post-img mb-3 mr-4"
-                        src={val}
-                      ></Card.Img>
-                    </>
+                    <Card.Img
+                      className="post-img mb-3 mr-4"
+                      src={val}
+                      key={idx + 1}
+                    ></Card.Img>
                   );
                 })}
               </div>
@@ -258,7 +254,7 @@ function Detail(props) {
                 </Carousel.Item>
                 {arrAlbum.map((val, idx) => {
                   return (
-                    <Carousel.Item key={idx + 1}>
+                    <Carousel.Item key={idx + 1} >
                       <img
                         className="d-block w-100"
                         src={val}

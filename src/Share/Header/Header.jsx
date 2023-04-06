@@ -178,6 +178,7 @@ function Header(props) {
                 <span
                   className={`search-icon d-none d-lg-block ${isActive ? "text-light" : "text-dark"
                     }`}
+                  onClick={() => handleSearch()}
                 >
                   Search
                 </span>
@@ -192,20 +193,18 @@ function Header(props) {
                   // Đóng input khi người dùng click outside
                   closeFocusInput && (
                     <div
-                      className={`product-search-main  ${valueSearch.length > 0
-                        ? "product-search-main-block"
-                        : "product-search-main-none"
-                        } `}
+                      className={`product-search-main  
+                      ${valueSearch.length > 0 ? "product-search-main-block" : "product-search-main-none"} 
+                      `}
                     >
                       <div className={`product-search-submain`}>
                         {!close &&
                           searchProducts &&
                           searchProducts.map((val, idx) => {
                             return (
-                              <a className="product-search bg-light" key={idx + 1} href={`/detail/${val._id}`} >
+                              <a className="product-search bg-light" key={idx + 1} href={`/detail/${val._id}`} onClick={onClickItem}>
                                 <div>
                                   <p
-                                    onClick={onClickItem}
                                     className="text-uppercase"
                                   >
                                     {val.name}
@@ -220,7 +219,6 @@ function Header(props) {
                                   </p>
                                 </div>
                                 <div
-                                  onClick={onClickItem}
                                   className="image-search-product"
                                 >
                                   <Card.Img src={val.avt} />

@@ -346,7 +346,6 @@ button:active {
 *
 */
 .product-view {
-  min-height: 20rem;
   display: block;
   height: 100%;
   width: 100%;
