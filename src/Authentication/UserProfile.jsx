@@ -95,18 +95,15 @@ const UserProfile = (props) => {
     const data = {
       status: "Hoàn thành"
     }
-    setReloadData(false)
     try {
       if (data !== null) {
         await axios.put(`${URL_CANCELORDER}/${id}`, data)
         setTimeout(function () {
           setModalShowFormCancelOrder(false)
-          setReloadData(true)
-        }, 500);
+          setReloadData(!reloadData)
+        }, 1000);
         return
       }
-      alertify.set("notifier", "position", "bottom-right");
-      alertify.error("Bạn phải chọn lý do hủy");
     } catch (error) {
       return error
     }
@@ -117,16 +114,15 @@ const UserProfile = (props) => {
       reasonCancel: reasonCancel,
       status: "Đã hủy"
     }
-    setReloadData(false)
     try {
-      if (data !== null) {
+      if (data.reasonCancel !== null) {
         await axios.put(`${URL_CANCELORDER}/${idCancelOrder}`, data)
         alertify.set("notifier", "position", "top-right");
         alertify.success("Hủy đơn hàng thành công");
         setTimeout(function () {
           setModalShowFormCancelOrder(false)
-          setReloadData(true)
-        }, 500);
+          setReloadData(!reloadData)
+        }, 1000);
         return
       }
       alertify.set("notifier", "position", "bottom-right");
