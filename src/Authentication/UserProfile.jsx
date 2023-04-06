@@ -93,7 +93,7 @@ const UserProfile = (props) => {
 
   const handleDoneOrder = async (id) => {
     const data = {
-      status: "hoàn thành"
+      status: "Hoàn thành"
     }
     setReloadData(false)
     try {
@@ -115,12 +115,14 @@ const UserProfile = (props) => {
   const handleCancelOrder = async (reasonCancel) => {
     const data = {
       reasonCancel: reasonCancel,
-      status: "đã hủy"
+      status: "Đã hủy"
     }
     setReloadData(false)
     try {
       if (data !== null) {
         await axios.put(`${URL_CANCELORDER}/${idCancelOrder}`, data)
+        alertify.set("notifier", "position", "top-right");
+        alertify.success("Hủy đơn hàng thành công");
         setTimeout(function () {
           setModalShowFormCancelOrder(false)
           setReloadData(true)
@@ -342,22 +344,22 @@ const UserProfile = (props) => {
                       </div>
                       <div style={{ fontSize: "13px" }}>
                         <span className="mr-1">
-                          {val.status === "chờ xác nhận" ? (
+                          {val.status === "Chờ xác nhận" ? (
                             <span className="">
                               <FaSyncAlt /> Đang chờ xác nhận
                             </span>
                           ) : ""}
-                          {val.status === "đang vận chuyển" ? (
+                          {val.status === "Đang vận chuyển" ? (
                             <span className="text-warning">
                               <FaShippingFast /> Đơn hàng đang được vận chuyển
                             </span>
                           ) : ""}
-                          {val.status === "hoàn thành" ? (
+                          {val.status === "Hoàn thành" ? (
                             <span className="text-success">
                               <BsFillCheckCircleFill /> Đơn hàng đã được giao thành công
                             </span>
                           ) : ""}
-                          {val.status === "đã hủy" ? (
+                          {val.status === "Đã hủy" ? (
                             <span className="text-danger">
                               <FaShippingFast className="icon-struck" /> Đơn hàng đã hủy
                             </span>
@@ -365,10 +367,10 @@ const UserProfile = (props) => {
                         </span>
                         |
                         <span className="text-uppercase ml-1" style={{ color: "red", fontWeight: "bolder" }}>
-                          {val.status === "chờ xác nhận" ? "Chờ xác nhận" : ""}
-                          {val.status === "đã hủy" ? "Đã Hủy" : ""}
-                          {val.status === "đang vận chuyển" ? "Đang vận chuyển" : ""}
-                          {val.status === "hoàn thành" ? "Hoàn thành" : ""}
+                          {val.status === "Chờ xác nhận" ? "Chờ xác nhận" : ""}
+                          {val.status === "Đã hủy" ? "Đã Hủy" : ""}
+                          {val.status === "Đang vận chuyển" ? "Đang vận chuyển" : ""}
+                          {val.status === "Hoàn thành" ? "Hoàn thành" : ""}
                         </span>
                       </div>
                     </div>
@@ -387,17 +389,17 @@ const UserProfile = (props) => {
                         <b>Tổng đơn:</b> {(parseInt(val.total)).toLocaleString()}₫
                       </p>
                       <div className="">
-                        {val.status === "đã hủy" ? (
+                        {val.status === "Đã hủy" ? (
                           <Button onClick={() => handleShowDetailInvoices(val._id)} variant="primary" className="w-100">Chi Tiết Đơn Hủy</Button>
                         ) : (
                           <Button onClick={() => handleShowDetailInvoices(val._id)} variant="primary" className="w-100">Chi Tiết Đơn Hàng</Button>
                         )}
 
-                        {val.status === "chờ xác nhận" ? (
+                        {val.status === "Chờ xác nhận" ? (
                           <Button onClick={() => handleShowFormCancelOrder(val._id)} variant="light" className="btn-outline-dark w-100 mt-3">Hủy Đơn Hàng</Button>
                         ) : ""}
 
-                        {val.status === "đang vận chuyển" ? (
+                        {val.status === "Đang vận chuyển" ? (
                           <Button onClick={() => handleDoneOrder(val._id)} variant="primary" className="mt-3 w-100">Đã Nhận Hàng</Button>
                         ) : ""}
 
