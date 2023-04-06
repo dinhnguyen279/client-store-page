@@ -213,7 +213,7 @@ function Checkout(props) {
         price: price.toString(),
         size: size.toString(),
         payment: paymentMethod,
-        status: "waiting"
+        status: "Chờ xác nhận"
       };
       if (data.total === 0) {
         alertify.set("notifier", "position", "bottom-left");
