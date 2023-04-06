@@ -160,9 +160,15 @@ function SignUp(props) {
                         </div>
                         {errors.phone && <p className="text-danger">{errors.phone}</p>}
 
-                        <div className="container-login100-form-btn m-t-20">
+                        {/* <div className="container-login100-form-btn m-t-20"> */}
+                        <div className="login-box">
                             {success && <Navigate replace to="/signin" />}
-                            <button className="login100-form-btn" type='submit'>
+                            <button className="" type='submit'>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                {/* <button className="login100-form-btn" type='submit'> */}
                                 Đăng ký
                             </button>
                         </div>

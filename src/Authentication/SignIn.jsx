@@ -124,8 +124,14 @@ function SignIn(props) {
                         </div>
                         {errors.password && <p className="text-danger">{errors.password}</p>}
 
-                        <div className="container-login100-form-btn m-t-20">
-                            <button className="login100-form-btn btn-form" type='submit'>
+                        <div className="login-box">
+                            {/* <div className="container-login100-form-btn m-t-20"> */}
+                            {/* <button className="login100-form-btn btn-form" type='submit'> */}
+                            <button className="" type='submit'>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
                                 Đăng nhập
                             </button>
                         </div>
