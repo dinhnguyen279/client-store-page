@@ -71,7 +71,11 @@ const UserProfile = (props) => {
       // hàm này gọi thông tin hóa đơn
       await axios
         .get(`${URL_BILLBYIDUSER}/${idUser}`)
-        .then((response) => setHistory(response.data))
+        .then((res) => {
+          const response = res.data
+          const sortedBill = response.sort((a, b) => b.created_date.localeCompare(a.created_date))
+          setHistory(sortedBill)
+        })
         .catch((error) => console.log(error));
     }
     fetchData()
