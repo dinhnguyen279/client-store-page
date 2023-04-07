@@ -418,7 +418,7 @@ const UserProfile = (props) => {
                           <DetailInvoices
                             show={modalShowDetailInvoices}
                             onHide={() => setModalShowDetailInvoices(false)}
-                            dataDetail={getDataInvoices}
+                            getDataInvoices={getDataInvoices}
                           />
                         }
                       </div>
