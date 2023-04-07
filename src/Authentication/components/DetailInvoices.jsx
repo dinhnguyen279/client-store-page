@@ -5,11 +5,10 @@ import Modal from 'react-bootstrap/Modal';
 import { HOST } from '../../domain/host/host';
 
 function DetailInvoices(props) {
-    const dataDetail = props.dataDetail
+    const dataDetail = props.getDataInvoices
     const URL_GetProduct = `${HOST}/product`
     const [listImage, setListImage] = useState([])
     // hàm này tách sản phẩm trong bill ra
-    const listProduct = [];
     const listFullName = dataDetail.fullname;
     const listReasonCancel = dataDetail.reasonCancel
     const total = dataDetail.total;
@@ -18,31 +17,30 @@ function DetailInvoices(props) {
     const listQuantity = dataDetail.quantity.split(",");
     const listSize = dataDetail.size.split(",");
     const listIdProduct = dataDetail.idProduct.split(",");
+    const listProduct = [];
+    for (let i = 0; i < listNameProduct.length; i++) {
+        const oBill = {}
+        oBill.name = listNameProduct[i];
+        oBill.price = listPrice[i];
+        oBill.quantity = listQuantity[i];
+        oBill.size = listSize[i];
+        oBill.avt = listImage[i];
+        oBill.fullname = listFullName;
+        oBill.total = total;
+        oBill.reasonCancel = listReasonCancel
+        listProduct.push(oBill);
+    }
     // Lấy ra hình ảnh của sản phẩm
     useEffect(() => {
-        if (listIdProduct.length > 0) {
+        if (listProduct.length > 0 && listProduct) {
             const requests = listIdProduct.map(id => axios.get(`${URL_GetProduct}/${id}`))
             Promise.all(requests)
                 .then(res => {
                     const urls = res.map(res => res.data.avt)
                     setListImage(urls);
                 })
-        } return
-    }, [])
-
-    for (let i = 0; i < listNameProduct.length; i++) {
-        const oBill = {}
-        oBill.name = listNameProduct[i];
-        oBill.fullname = listFullName;
-        oBill.price = listPrice[i];
-        oBill.quantity = listQuantity[i];
-        oBill.size = listSize[i];
-        oBill.total = total;
-        oBill.avt = listImage[i];
-        oBill.reasonCancel = listReasonCancel
-        listProduct.push(oBill);
-    }
-
+        }
+    }, [dataDetail])
     return (
         <Modal
             {...props}
