@@ -85,7 +85,7 @@ function Detail(props) {
       price: detail.price,
       promotionPrice: detail.promotionPrice,
       img: detail.avt,
-      size: sizeProduct ? sizeProduct : "FreeSize",
+      size: sizeProduct ? sizeProduct : arrSize[0],
     };
     await axios.post(URL_AddToCart, data)
     await props.setHandleCount(false);
@@ -108,8 +108,8 @@ function Detail(props) {
     setText(value);
   };
 
-  const selectSize = (selectedIndex) => {
-    setSizeProduct(selectedIndex);
+  const selectSize = (selectSize) => {
+    setSizeProduct(selectSize);
   };
 
   const handlerReview = (value) => {
@@ -354,17 +354,21 @@ function Detail(props) {
                     <a className="ml-2">{detail.category}</a>
                   </li>
                   <li className="py-2 mb-1 size-products">
-                    <strong className="text-uppercase text-dark">Size:</strong>
-                    {arrSize.length === 0 ? <p className="ml-2">FreeSize</p> : arrSize.map((val, idx) => {
+                    <strong className="text-uppercase text-dark mr-2">Size:</strong>
+                    {arrSize.length === 0 ? "" : arrSize.map((val, idx) => {
                       return (
-                        <p
-                          key={idx + 1}
-                          className={`size-product-item ml-2 
-                          ${sizeProduct ? sizeProduct : arrSize[0] === val ? "text-check-size text-light" : "text-uncheck-size"}`}
-                          onClick={() => selectSize(val)}
+                        <div className="size-product-item" key={idx + 1}
                         >
-                          {val}
-                        </p>
+                          <input
+                            className="selector-item_radio"
+                            id={val}
+                            type="radio"
+                            name="size"
+                            defaultChecked
+                          >
+                          </input>
+                          <label className="selector-item_label" htmlFor={val} onClick={() => selectSize(val)}>{val}</label>
+                        </div>
                       );
                     })}
                   </li>
