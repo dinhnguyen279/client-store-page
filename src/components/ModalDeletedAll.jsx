@@ -8,7 +8,9 @@ const ModalDeleteAll = (props) => {
 
     const deleteProduct = () => {
         handlerDeleteAll()
-        window.location.reload()
+        setTimeout(() => {
+            window.location.reload()
+        }, 1200)
     }
     return (
         <>
