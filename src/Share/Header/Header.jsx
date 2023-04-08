@@ -178,7 +178,6 @@ function Header(props) {
                 <span
                   className={`search-icon d-none d-lg-block ${isActive ? "text-light" : "text-dark"
                     }`}
-                  onClick={() => handleSearch()}
                 >
                   Search
                 </span>

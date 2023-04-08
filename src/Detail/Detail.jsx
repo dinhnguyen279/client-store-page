@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import ProductAPI from "../API/ProductAPI";
 import { Link, useParams } from "react-router-dom";
-// import { useDispatch, useSelector } from "react-redux";
 import alertify from "alertifyjs";
-// import CartAPI from "../API/CartAPI";
 import queryString from "query-string";
-// import CommentAPI from "../API/CommentAPI";
 import axios from "axios";
 import { Card, Carousel, Form } from "react-bootstrap";
 import {
@@ -28,9 +25,10 @@ function Detail(props) {
   const URL_CreateComment = `${HOST}/comment/send`
   const URL_GetByIdUser = `${HOST}/user`
 
+  const [detail, setDetail] = useState({});
+
   const [product, setProduct] = useState([]);
   const [list_comment, set_list_comment] = useState([]);
-  const [detail, setDetail] = useState({});
   const [review, setReview] = useState("description");
   const [comment, setComment] = useState("");
   const [star, setStar] = useState(5);
@@ -39,9 +37,9 @@ function Detail(props) {
   const [sizeProduct, setSizeProduct] = useState(null);
   const [getVoucher, setGetVoucher] = useState("");
   const [user, setUser] = useState({})
-
   let { id } = useParams();
   const idUser = sessionStorage.getItem("id_user")
+
   // Hàm này dùng để lấy ra thông tin từng sản phẩm
   useEffect(() => {
     const fetchData = async () => {
@@ -87,7 +85,7 @@ function Detail(props) {
       price: detail.price,
       promotionPrice: detail.promotionPrice,
       img: detail.avt,
-      size: sizeProduct ? sizeProduct : arrSize[0],
+      size: sizeProduct ? sizeProduct : "FreeSize",
     };
     await axios.post(URL_AddToCart, data)
     await props.setHandleCount(false);
@@ -188,11 +186,13 @@ function Detail(props) {
       idProduct, itemSizes[0]
     )
   }
-  // convert string to array
+
+  // Chuyển đổi type string thành array
   const album = detail.album;
   const size = detail.size;
   const arrAlbum = album ? album.split(" ") : [];
   const arrSize = size ? size.split(" ") : [];
+
   // Tính trung bình số sao người dùng đánh giá của từng sản phẩm
   const arr = list_comment.map(val => val.star)
   const intArr = arr.map((str) => parseInt(str))
@@ -355,12 +355,12 @@ function Detail(props) {
                   </li>
                   <li className="py-2 mb-1 size-products">
                     <strong className="text-uppercase text-dark">Size:</strong>
-                    {arrSize.length === 0 ? "FreeSize" : arrSize.map((val, idx) => {
+                    {arrSize.length === 0 ? <p className="ml-2">FreeSize</p> : arrSize.map((val, idx) => {
                       return (
                         <p
                           key={idx + 1}
                           className={`size-product-item ml-2 
-                          ${sizeProduct === val ? "text-check-size text-light" : "text-uncheck-size"}`}
+                          ${sizeProduct ? sizeProduct : arrSize[0] === val ? "text-check-size text-light" : "text-uncheck-size"}`}
                           onClick={() => selectSize(val)}
                         >
                           {val}
