@@ -130,9 +130,9 @@ function Header(props) {
 
   const location = useLocation();
   const handleSubmitSearch = (e) => {
-    window.location.href = `/shop/all?q=${valueSearch}`;
+    window.location.href = `/shop/all?search_query=${valueSearch}`;
     location.search = valueSearch;
-  } 
+  }
   return (
     <>
       <Navbar
@@ -185,16 +185,17 @@ function Header(props) {
                 <button
                   className={`search-icon d-none d-lg-block ${isActive ? "text-light" : "text-dark"
                     }`}
-                  onClick={(e)=>handleSubmitSearch(e)}
+                  onClick={() => handleSubmitSearch()}
                 >
                   Search
                 </button>
-                <span
+                <button
                   className={`search-icon search-icon d-block d-lg-none ${isActive ? "text-light" : "text-dark"
                     }`}
+                  onClick={() => handleSubmitSearch()}
                 >
                   <AiOutlineSearch />
-                </span>
+                </button>
                 {/* Form Search */}
                 {
                   // Đóng input khi người dùng click outside

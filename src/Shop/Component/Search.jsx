@@ -48,7 +48,7 @@ function Search(props) {
             <div className='col-lg-2 mb-3'>
                 <Form>
                     <Form.Select size='md' value={selectValue} onChange={handleSelectValue} >
-                        <option>Danh sách tìm kiếm</option>
+                        <option value="name">Danh sách tìm kiếm</option>
                         <option value="name">Tên sản phẩm</option>
                         <option value="category">Thể loại sản phẩm</option>
                         <option value="brand">Thương hiệu</option>
