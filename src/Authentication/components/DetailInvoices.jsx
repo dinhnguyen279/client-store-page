@@ -5,7 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import { HOST } from '../../domain/host/host';
 
 function DetailInvoices(props) {
-    const dataDetail = props.getDataInvoices
+    const dataDetail = props.datainvoices
     const URL_GetProduct = `${HOST}/product`
     const [listImage, setListImage] = useState([])
     // hàm này tách sản phẩm trong bill ra
@@ -24,7 +24,7 @@ function DetailInvoices(props) {
         oBill.price = listPrice[i];
         oBill.quantity = listQuantity[i];
         oBill.size = listSize[i];
-        oBill.avt = listImage[i];
+        oBill.avt = listImage[i] ?? undefined;
         oBill.fullname = listFullName;
         oBill.total = total;
         oBill.reasonCancel = listReasonCancel
@@ -32,7 +32,7 @@ function DetailInvoices(props) {
     }
     // Lấy ra hình ảnh của sản phẩm
     useEffect(() => {
-        if (listProduct.length > 0 && listProduct) {
+        if (listProduct.length > 0 && listProduct && listIdProduct) {
             const requests = listIdProduct.map(id => axios.get(`${URL_GetProduct}/${id}`))
             Promise.all(requests)
                 .then(res => {
@@ -40,7 +40,7 @@ function DetailInvoices(props) {
                     setListImage(urls);
                 })
         }
-    }, [dataDetail])
+    }, [listProduct, listIdProduct])
     return (
         <Modal
             {...props}
