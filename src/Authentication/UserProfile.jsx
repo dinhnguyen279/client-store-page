@@ -46,6 +46,7 @@ const UserProfile = (props) => {
     fullname: "",
     idProduct: ""
   })
+
   const [idCancelOrder, setIdCancelOrder] = useState("")
   const [history, setHistory] = useState([]);
   // Show/hide password
@@ -414,11 +415,11 @@ const UserProfile = (props) => {
                           />
                         }
                         {/* Modal thông tin hóa đơn */}
-                        {modalShowDetailInvoices &&
+                        {modalShowDetailInvoices && getDataInvoices.imgProduct !== "" &&
                           <DetailInvoices
                             show={modalShowDetailInvoices}
                             onHide={() => setModalShowDetailInvoices(false)}
-                            getDataInvoices={getDataInvoices}
+                            datainvoices={getDataInvoices}
                           />
                         }
                       </div>
