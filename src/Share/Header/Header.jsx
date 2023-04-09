@@ -25,6 +25,8 @@ import { HOST } from "../../domain/host/host";
 import axios from "axios";
 import queryString from "query-string";
 
+import { useLocation } from 'react-router-dom';
+
 function Header(props) {
   // Hàm này lấy số lượng sản phẩm và yêu thích
   const countWishlist = props.countWishlist;
@@ -126,6 +128,11 @@ function Header(props) {
     setIsActive(false);
   };
 
+  const location = useLocation();
+  const handleSubmitSearch = (e) => {
+    window.location.href = `/shop/all?q=${valueSearch}`;
+    location.search = valueSearch;
+  } 
   return (
     <>
       <Navbar
@@ -175,12 +182,13 @@ function Header(props) {
                   onFocus={() => handleFocus()}
                   onBlur={() => handleBlur()}
                 />
-                <span
+                <button
                   className={`search-icon d-none d-lg-block ${isActive ? "text-light" : "text-dark"
                     }`}
+                  onClick={(e)=>handleSubmitSearch(e)}
                 >
                   Search
-                </span>
+                </button>
                 <span
                   className={`search-icon search-icon d-block d-lg-none ${isActive ? "text-light" : "text-dark"
                     }`}

@@ -11,14 +11,17 @@ import alertify from "alertifyjs";
 import CardProduct from "../components/CardProduct";
 import queryString from "query-string";
 import { HOST } from "../domain/host/host";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 
 function Shop(props) {
   const URL_PRODUCT = `${HOST}/products`;
   const URL_SEARCH = `${HOST}/searchProducts`;
   const URL_getProductByCate = `${HOST}/getProductByCate`;
   const { id } = useParams();
-
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const searchQuery = searchParams.get("q");
+  const valueSearch = decodeURIComponent(searchQuery);
   const [products, setProducts] = useState([]);
   //state dùng để sắp xếp sản phẩm
   const [sort, setSort] = useState("");
@@ -62,8 +65,12 @@ function Shop(props) {
 
   //Hàm Sort sản phẩm theo giá
   const sortPrice = (a, b, sort) => {
-    const priceA = parseInt(a.promotionPrice) ? parseInt(a.promotionPrice) : a.price
-    const priceB = parseInt(b.promotionPrice) ? parseInt(b.promotionPrice) : b.price
+    const priceA = parseInt(a.promotionPrice)
+      ? parseInt(a.promotionPrice)
+      : a.price;
+    const priceB = parseInt(b.promotionPrice)
+      ? parseInt(b.promotionPrice)
+      : b.price;
 
     if (sort === "DownToUp") {
       if (priceA < priceB) {
@@ -80,17 +87,15 @@ function Shop(props) {
   useEffect(() => {
     // sort price products
     const handleSortPrice = [...products].sort((a, b) => sortPrice(a, b, sort));
-    setProducts(handleSortPrice)
-  }, [sort])
+    setProducts(handleSortPrice);
+  }, [sort]);
 
   const addWishlist = (idProduct, size) => {
     if (size.length > 0) {
-      const itemSizes = size.split(" ")
-      props.handleAddWishlist(
-        idProduct, itemSizes[0]
-      )
+      const itemSizes = size.split(" ");
+      props.handleAddWishlist(idProduct, itemSizes[0]);
     }
-  }
+  };
 
   //Gọi hàm useEffect tìm tổng số sản phẩm để tính tổng số trang
   //Và nó phụ thuộc và state pagination
@@ -115,6 +120,7 @@ function Shop(props) {
       page: pagination.page,
       count: pagination.count,
       category: pagination.category,
+      search: valueSearch,
     };
     const query = "?" + queryString.stringify(params);
     if (id === "all") {
@@ -128,8 +134,7 @@ function Shop(props) {
       .get(`${URL_getProductByCate}/${id}`)
       .then((response) => setProducts(response.data))
       .catch((err) => console.log(err));
-
-  }, [pagination]);
+  }, [pagination, valueSearch]);
 
   return (
     <div className="container main-shop">
@@ -217,9 +222,7 @@ function Shop(props) {
                           <div className="col-sm-12 pl-sm-0 fix_addwish">
                             <button
                               className="btn btn-dark btn-sm btn-block"
-                              onClick={() =>
-                                addWishlist(value._id, value.size)
-                              }
+                              onClick={() => addWishlist(value._id, value.size)}
                             >
                               <i className="far fa-heart mr-2"></i>Thêm danh
                               sách yêu thích
