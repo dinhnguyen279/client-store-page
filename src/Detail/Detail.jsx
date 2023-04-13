@@ -97,6 +97,10 @@ function Detail(props) {
     setText(e.target.value);
   };
 
+  const onChangeSize = (e) => {
+    setSizeProduct(e.target.value);
+  };
+
   const upText = () => {
     const value = parseInt(text) + 1;
     setText(value);
@@ -364,7 +368,7 @@ function Detail(props) {
                             id={val}
                             type="radio"
                             name="size"
-                            defaultChecked
+                            defaultChecked={arrSize[0] === val ? true : false}
                           >
                           </input>
                           <label className="selector-item_label" htmlFor={val} onClick={() => selectSize(val)}>{val}</label>

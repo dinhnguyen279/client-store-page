@@ -32,6 +32,7 @@ function Checkout(props) {
   const [wards, setWards] = useState([]);
   const [selectedWard, setSelectedWard] = useState("");
 
+  const [addressData, setAddressData] = useState("")
   // Phương thức thanh toán
   const [paymentMethod, setPaymentMethod] = useState('cod');
   // gọi ra API của các thành phố
@@ -52,7 +53,7 @@ function Checkout(props) {
   useEffect(() => {
     if (selectedCity !== "") {
       const districtsInSelectedCity = cities.find(
-        (city) => city.Id === selectedCity
+        (city) => city.Id === selectedCity,
       ).Districts;
       setDistricts(districtsInSelectedCity);
     } else {
@@ -62,7 +63,6 @@ function Checkout(props) {
     setSelectedDistrict("");
     setSelectedWard("");
   }, [selectedCity, cities]);
-
   // hàm này sẽ không cho user chọn phường xã nếu chưa chọn quận huyện
   useEffect(() => {
     if (selectedDistrict !== "") {
@@ -76,6 +76,7 @@ function Checkout(props) {
     setSelectedWard("");
   }, [selectedDistrict, districts]);
 
+
   //Hàm này check User có đăng nhập chưa nếu chưa thì sử dụng id khách
   let idUser = ""
   if (sessionStorage.getItem("id_user")) {
@@ -86,7 +87,6 @@ function Checkout(props) {
     const id_user_clientage = localStorage.getItem("id_user_clientage")
     idUser = id_user_clientage;
   }
-
   useEffect(() => {
     const fetchData = async () => {
       if (idUser) {
@@ -189,6 +189,7 @@ function Checkout(props) {
     setErrors(error);
     return isValid;
   }
+
   const handlerSubmit = (e) => {
     e.preventDefault();
     if (validateFormCheckout()) {
@@ -200,11 +201,25 @@ function Checkout(props) {
       const quantity = getCartById.map((val) => val.quantity);
       const size = getCartById.map((val) => val.size);
       const idProduct = getCartById.map((val) => val.idProduct);
+
+      // Lấy ra địa chỉ 
+      const city = cities.find(city => city.Id === selectedCity);
+      const cityName = city ? city.Name : '';
+
+      const district = districts.find(city => city.Id === selectedDistrict);
+      const districtName = district ? district.Name : '';
+
+      const ward = wards.find(city => city.Id === selectedWard);
+      const wardName = ward ? ward.Name : '';
+
+      const totalAddress = cityName + ", " + districtName + ", " + wardName
+      setAddressData(totalAddress)
+
       const data = {
         idUser: idUser,
         idProduct: idProduct.toString(),
         phone: user.phone,
-        address: user.address,
+        address: user.address + ", " + totalAddress,
         fullname: user.fullname,
         total: total,
         quantity: quantity.toString(),
@@ -353,7 +368,7 @@ function Checkout(props) {
                       >
                         <option value="">Chọn tỉnh thành</option>
                         {cities.map((city) => (
-                          <option key={city.Id} value={city.Id}>
+                          <option key={city.Id} value={city.Id} >
                             {city.Name}
                           </option>
                         ))}

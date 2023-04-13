@@ -57,6 +57,7 @@ function DetailInvoices(props) {
                 <div className='detail-invoices'>
                     <p>Người nhận:<b> {dataDetail.fullname}</b></p>
                     <p>Số điện thoại:<b> {dataDetail.phone}</b></p>
+                    <p>Số điện thoại:<b> {dataDetail.address}</b></p>
                     {dataDetail.reasonCancel !== "" ?
                         (
                             <p>Lý do hủy:<b> {dataDetail.reasonCancel}</b></p>
