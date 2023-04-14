@@ -1,12 +1,8 @@
-import "./App.css";
 import "./css/custom.css";
 import "./css/style.default.css";
 import "bootstrap/dist/css/bootstrap.min.css"
 
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-
-import Header from "./Share/Header/Header";
-import Footer from "./Share/Footer/Footer";
+import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from "react-router-dom";
 
 import Home from "./Home/Home";
 import Detail from "./Detail/Detail";
@@ -20,7 +16,6 @@ import UserProfile from "./Authentication/UserProfile";
 import MainHistory from "./History/MainHistory";
 import DetailHistory from "./History/DetailHistory";
 import ErrorPage from "./Share/404/404";
-import ScrollToTopButton from "./Share/ScrollTop/ScrollTopButton";
 import React, { useEffect, useState } from "react";
 import CartAPI from "./API/CartAPI";
 import Favorites from "./Favorites/Favorites"
@@ -32,6 +27,7 @@ import axios from "axios";
 import FavoriteAPI from "./API/Favorites";
 import { v4 as uuid } from "uuid"
 import { HOST } from "./domain/host/host";
+import RootLayout from "./layouts/RootLayout";
 
 function App() {
   const [countCart, setCountCart] = useState(0)
@@ -66,14 +62,14 @@ function App() {
         const cartResponse = await CartAPI.getCartById(`/${idUser}`)
         getCount(cartResponse.data)
       } catch (error) {
-        console.log(error);
+        console.log("error get api cart", error);
       }
 
       try {
         const favoritesResponse = await FavoriteAPI.getFavoriteById(`/${idUser}`)
         setCountWishlist(favoritesResponse.data)
       } catch (error) {
-        console.log(error);
+        console.log("error get api favorites", error);
       }
     }
     fecthCount()
@@ -113,33 +109,31 @@ function App() {
         }
       })
   }
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path="/" element={<RootLayout countCart={countCart} countWishlist={countWishlist.length} />}>
+        <Route index element={<Home handleAddWishlist={addWishlist} />} />
+        <Route path="/detail/:id" element={<Detail setHandleCount={setReloadCount} handleAddWishlist={addWishlist} />} />
+        <Route path="/cart" element={<Cart setHandleCount={setReloadCount} />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/checkout" element={<Checkout setHandleCount={setReloadCount} />} />
+        <Route path="/shop/:id" element={<Shop handleAddWishlist={addWishlist} />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/detail-user" element={<UserProfile />} />
+        <Route path="/history" element={<MainHistory />} />
+        <Route path='/history/:id' element={<DetailHistory />} />
+        <Route path='/wishlist' element={<Favorites setHandleCount={setReloadCount} />} />
+        <Route path='/gioi-thieu' element={<Introduce />} />
+        <Route path='/chinh-sach-bao-mat' element={<PrivacyPolicy />} />
+        <Route path='/chinh-sach-doi-tra' element={<ReturnPolicy />} />
+        <Route path='/dieu-khoan-dich-vu' element={<TermsOfService />} />
+        <Route path='*' element={<ErrorPage />} />
+      </Route>
+    )
+  )
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Header countCart={countCart} countWishlist={countWishlist.length} />
-        <ScrollToTopButton />
-        <Routes>
-          <Route path="/" element={<Home handleAddWishlist={addWishlist} />} />
-          <Route path="/detail/:id" element={<Detail setHandleCount={setReloadCount} handleAddWishlist={addWishlist} />} />
-          <Route path="/cart" element={<Cart setHandleCount={setReloadCount} />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/checkout" element={<Checkout setHandleCount={setReloadCount} />} />
-          <Route path="/shop/:id" element={<Shop handleAddWishlist={addWishlist} />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/detail-user" element={<UserProfile />} />
-          <Route path="/history" element={<MainHistory />} />
-          <Route path='/history/:id' element={<DetailHistory />} />
-          <Route path='*' element={<ErrorPage />} />
-          <Route path='/wishlist' element={<Favorites setHandleCount={setReloadCount} />} />
-          <Route path='/gioi-thieu' element={<Introduce />} />
-          <Route path='/chinh-sach-bao-mat' element={<PrivacyPolicy />} />
-          <Route path='/chinh-sach-doi-tra' element={<ReturnPolicy />} />
-          <Route path='/dieu-khoan-dich-vu' element={<TermsOfService />} />
-        </Routes>
-        <Footer />
-      </BrowserRouter>
-    </div>
+    <RouterProvider router={router} />
   );
 }
 
