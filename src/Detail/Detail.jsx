@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ProductAPI from "../API/ProductAPI";
 import { Link, useParams } from "react-router-dom";
 import alertify from "alertifyjs";
@@ -17,6 +17,7 @@ import { HOST } from "../domain/host/host";
 import CardProduct from "../components/CardProduct";
 import { v4 as uuid } from "uuid"
 import Image from "../Share/img/Image";
+import { CountContext } from "../Context/CountContext";
 
 function Detail(props) {
   const URL_AddToCart = `${HOST}/addToCart`;
@@ -40,6 +41,8 @@ function Detail(props) {
   let { id } = useParams();
   const idUser = sessionStorage.getItem("id_user")
 
+  // Hàm này dùng useContext để cập nhật số lượng ở header
+  const { setReloadCount } = useContext(CountContext)
   // Hàm này dùng để lấy ra thông tin từng sản phẩm
   useEffect(() => {
     const fetchData = async () => {
@@ -88,17 +91,13 @@ function Detail(props) {
       size: sizeProduct ? sizeProduct : arrSize[0],
     };
     await axios.post(URL_AddToCart, data)
-    await props.setHandleCount(false);
+    await setReloadCount(false);
     alertify.set("notifier", "position", "bottom-left");
     alertify.success("Bạn Đã Thêm Hàng Thành Công!");
   };
 
   const onChangeText = (e) => {
     setText(e.target.value);
-  };
-
-  const onChangeSize = (e) => {
-    setSizeProduct(e.target.value);
   };
 
   const upText = () => {

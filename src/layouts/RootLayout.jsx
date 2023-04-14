@@ -4,10 +4,10 @@ import ScrollToTopButton from '../Share/ScrollTop/ScrollTopButton'
 import { Outlet } from 'react-router-dom'
 import Footer from '../Share/Footer/Footer'
 
-const RootLayout = (props) => {
+const RootLayout = () => {
     return (
         <div className='root-layout'>
-            <Header countCart={props.countCart} countWishlist={props.countWishlist} />
+            <Header />
             <ScrollToTopButton />
 
             <main>

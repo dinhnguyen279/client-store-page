@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button } from 'react-bootstrap'
 import "./Favorites.css"
 import { AiOutlineClose } from "react-icons/ai"
@@ -10,11 +10,15 @@ import ModalDeleted from '../components/ModalDeleted'
 import queryString from 'query-string'
 import alertify from 'alertifyjs'
 import ModalDeletedAll from '../components/ModalDeletedAll'
+import { CountContext } from '../Context/CountContext'
 
 const Favorites = (props) => {
     const URL_GETFAVORITES = `${HOST}/favorite`
     const URL_GETPRODUCTS = `${HOST}/product`
     const URL_AddToCart = `${HOST}/addToCart`;
+
+    // Hàm này dùng useContext để cập nhật số lượng ở header
+    const { setReloadCount } = useContext(CountContext)
 
     const [favorites, setFavorites] = useState([])
     const [getDataFavorites, setGetDataFavorites] = useState([])
@@ -130,7 +134,7 @@ const Favorites = (props) => {
             await axios.delete(`${HOST}/deleteAllFavorite/${getIdUser}`)
             alertify.set("notifier", "position", "bottom-left");
             alertify.success("Bạn Đã Xóa Thành Công!");
-            await props.setHandleCount(false);
+            await setReloadCount(false);
         } catch (error) {
             console.log(error);
             alertify.success("Xóa Không Thành Công!");
@@ -152,7 +156,7 @@ const Favorites = (props) => {
             size: size,
         };
         await axios.post(URL_AddToCart, data)
-        await props.setHandleCount(false);
+        await setReloadCount(false);
         alertify.set("notifier", "position", "bottom-left");
         alertify.success("Bạn Đã Thêm Hàng Thành Công!");
     };

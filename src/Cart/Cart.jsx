@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ListCart from "./Components/ListCart";
 
 import alertify from "alertifyjs";
@@ -10,9 +10,13 @@ import axios from "axios";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 
 import { HOST } from "../domain/host/host";
+import { CountContext } from "../Context/CountContext";
 
 function Cart(props) {
   const URL_CART = `${HOST}/getCartById`;
+
+  // Hàm này dùng useContext để cập nhật số lượng ở header
+  const { setReloadCount } = useContext(CountContext)
 
   const [total, setTotal] = useState();
 
@@ -85,7 +89,7 @@ function Cart(props) {
         const query = "?" + queryString.stringify(params);
 
         await axios.put(`${HOST}/updateCart${query}`)
-        await props.setHandleCount(false);
+        await setReloadCount(false);
       };
 
       fetchPut();

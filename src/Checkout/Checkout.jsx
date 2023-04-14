@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Checkout.css";
 import { HOST } from "../domain/host/host";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import alertify from "alertifyjs";
 import Image from "../Share/img/Image"
+import { CountContext } from "../Context/CountContext";
 function Checkout(props) {
   const URL_CART = `${HOST}/getCartById`;
   const URL_CheckOut = `${HOST}/createBill`;
   const URL_getUserById = `${HOST}/user`;
+
+  // Hàm này dùng useContext để cập nhật số lượng ở header
+  const { setReloadCount } = useContext(CountContext)
 
   const [getCartById, setCartById] = useState([]);
 
@@ -32,7 +36,6 @@ function Checkout(props) {
   const [wards, setWards] = useState([]);
   const [selectedWard, setSelectedWard] = useState("");
 
-  const [addressData, setAddressData] = useState("")
   // Phương thức thanh toán
   const [paymentMethod, setPaymentMethod] = useState('cod');
   // gọi ra API của các thành phố
@@ -213,7 +216,6 @@ function Checkout(props) {
       const wardName = ward ? ward.Name : '';
 
       const totalAddress = cityName + ", " + districtName + ", " + wardName
-      setAddressData(totalAddress)
 
       const data = {
         idUser: idUser,
@@ -237,7 +239,7 @@ function Checkout(props) {
       }
       axios.post(URL_CheckOut, data);
       setTimeout(() => {
-        props.setHandleCount(false)
+        setReloadCount(false)
         setSuccess(!success);
         setLoad(false);
       }, 4000);

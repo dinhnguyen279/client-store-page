@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 
 import { Link } from "react-router-dom";
 import LogoutLink from "../../Authentication/LogoutLink";
@@ -26,11 +26,12 @@ import axios from "axios";
 import queryString from "query-string";
 
 import { useLocation } from 'react-router-dom';
+import { CountContext } from '../../Context/CountContext';
 
 function Header(props) {
-  // Hàm này lấy số lượng sản phẩm và yêu thích
-  const countWishlist = props.countWishlist;
-  const countCart = props.countCart;
+  // Sử dụng useContext lấy số lượng sản phẩm và yêu thích
+  const { countWishlist, countCart } = useContext(CountContext)
+
   // Api search
   const URL_SEARCH = `${HOST}/searchProducts`;
   const [valueSearch, setValueSearch] = useState("")
@@ -133,6 +134,7 @@ function Header(props) {
     window.location.href = `/shop/all?search_query=${valueSearch}`;
     location.search = valueSearch;
   }
+
   return (
     <>
       <Navbar
@@ -258,7 +260,7 @@ function Header(props) {
                   <li className="nav-item d-none d-lg-block">
                     <Link className="nav-link wishlist-header" to="/wishlist">
                       <AiOutlineHeart className="icon-wishlist" />{" "}
-                      <span style={{ color: "#efb93b" }}>{countWishlist}</span>
+                      <span style={{ color: "#efb93b" }}>{countWishlist.length}</span>
                     </Link>
                   </li>
                   <li className="nav-item position-relative d-none d-lg-block">
@@ -363,7 +365,7 @@ function Header(props) {
               <li className="nav-item">
                 <a className="nav-link wishlist-header" href="/wishlist">
                   <AiOutlineHeart className="icon-wishlist" />
-                  <span style={{ color: "#efb93b" }}>{countWishlist}</span>
+                  <span style={{ color: "#efb93b" }}>{countWishlist.length}</span>
                 </a>
               </li>
               <li className="nav-item position-relative">

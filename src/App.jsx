@@ -16,24 +16,22 @@ import UserProfile from "./Authentication/UserProfile";
 import MainHistory from "./History/MainHistory";
 import DetailHistory from "./History/DetailHistory";
 import ErrorPage from "./Share/404/404";
-import React, { useEffect, useState } from "react";
-import CartAPI from "./API/CartAPI";
+import React, { useContext } from "react";
 import Favorites from "./Favorites/Favorites"
 import Introduce from "./pageBranch/introduce/introduce";
 import PrivacyPolicy from "./pageBranch/PrivacyPolicy/PrivacyPolicy";
 import ReturnPolicy from "./pageBranch/returnPolicy/ReturnPolicy";
 import TermsOfService from "./pageBranch/termsOfService/termsOfService";
 import axios from "axios";
-import FavoriteAPI from "./API/Favorites";
 import { v4 as uuid } from "uuid"
 import { HOST } from "./domain/host/host";
 import RootLayout from "./layouts/RootLayout";
+import { CountContext } from "./Context/CountContext";
 
 function App() {
-  const [countCart, setCountCart] = useState(0)
-  const [countWishlist, setCountWishlist] = useState(0)
-  const [reloadCount, setReloadCount] = useState(true)
   const URL_CreateFavorites = `${HOST}/favorite/send`
+  const { setReloadCount } = useContext(CountContext)
+
   let idUser = ""
   if (sessionStorage.getItem("id_user")) {
     const id_user = sessionStorage.getItem("id_user");
@@ -44,38 +42,6 @@ function App() {
     const id_user_clientage = localStorage.getItem("id_user_clientage")
     idUser = id_user_clientage;
   }
-
-  useEffect(() => {
-    const fecthCount = async () => {
-      const getCount = (getCount) => {
-        let count = getCount
-        let totalCount = 0
-        count.map((val) => {
-          return (
-            totalCount += val.quantity
-          )
-        })
-        setCountCart(totalCount)
-      }
-
-      try {
-        const cartResponse = await CartAPI.getCartById(`/${idUser}`)
-        getCount(cartResponse.data)
-      } catch (error) {
-        console.log("error get api cart", error);
-      }
-
-      try {
-        const favoritesResponse = await FavoriteAPI.getFavoriteById(`/${idUser}`)
-        setCountWishlist(favoritesResponse.data)
-      } catch (error) {
-        console.log("error get api favorites", error);
-      }
-    }
-    fecthCount()
-    setReloadCount(true)
-  }, [reloadCount])
-  // hàm này xử lý thêm sản phẩm vào yêu thích
   const addWishlist = async (idProduct, sizeProduct) => {
     let id_user_clientage = "";
     if (!idUser) {
@@ -92,6 +58,8 @@ function App() {
     }
     // idUser khách
     id_user_clientage = localStorage.getItem("id_user_clientage");
+
+
     const data = {
       idUser: idUser ? idUser : id_user_clientage,
       idProduct: idProduct,
@@ -111,19 +79,20 @@ function App() {
   }
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path="/" element={<RootLayout countCart={countCart} countWishlist={countWishlist.length} />}>
+      <Route path="/" element={<RootLayout />}>
         <Route index element={<Home handleAddWishlist={addWishlist} />} />
-        <Route path="/detail/:id" element={<Detail setHandleCount={setReloadCount} handleAddWishlist={addWishlist} />} />
-        <Route path="/cart" element={<Cart setHandleCount={setReloadCount} />} />
+        <Route path="/detail/:id" element={<Detail handleAddWishlist={addWishlist} />} />
+        <Route path="/cart" element={<Cart />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/checkout" element={<Checkout setHandleCount={setReloadCount} />} />
+        <Route path="/checkout" element={<Checkout />} />
         <Route path="/shop/:id" element={<Shop handleAddWishlist={addWishlist} />} />
+        <Route path="/shop/:id" element={<Shop />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/detail-user" element={<UserProfile />} />
         <Route path="/history" element={<MainHistory />} />
         <Route path='/history/:id' element={<DetailHistory />} />
-        <Route path='/wishlist' element={<Favorites setHandleCount={setReloadCount} />} />
+        <Route path='/wishlist' element={<Favorites />} />
         <Route path='/gioi-thieu' element={<Introduce />} />
         <Route path='/chinh-sach-bao-mat' element={<PrivacyPolicy />} />
         <Route path='/chinh-sach-doi-tra' element={<ReturnPolicy />} />
