@@ -97,7 +97,7 @@ const Favorites = (props) => {
         }
         setListFavorites(alistFavorites)
     }, [favorites, getDataFavorites])
-    console.log(favorites);
+
     // Show popup xóa sản phẩm khỏi wishlist
     const handleShow = (id, idUser, idProduct, size) => {
         const data = { idFavorite: id, idUser: idUser, idProduct: idProduct, size: size }
