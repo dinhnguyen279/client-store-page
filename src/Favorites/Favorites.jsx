@@ -91,14 +91,13 @@ const Favorites = (props) => {
                 oFavorites.price = listPrice[i];
                 oFavorites.idProduct = listIdProduct[i]
                 oFavorites.stock = listQuantity[i];
-                oFavorites.stock = listQuantity[i];
                 oFavorites.avt = listImages[i];
                 alistFavorites.push(oFavorites);
             }
         }
         setListFavorites(alistFavorites)
     }, [favorites, getDataFavorites])
-
+    console.log(favorites);
     // Show popup xóa sản phẩm khỏi wishlist
     const handleShow = (id, idUser, idProduct, size) => {
         const data = { idFavorite: id, idUser: idUser, idProduct: idProduct, size: size }
