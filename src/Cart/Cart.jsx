@@ -19,9 +19,10 @@ function Cart(props) {
   const { setReloadCount } = useContext(CountContext)
 
   const [total, setTotal] = useState();
-
+  const [fetched, setFetched] = useState(false)
   // const [loadAPI, setLoadAPI] = useState(false);
-  const [getCartById, setCartById] = useState([]);
+  const [getCartById, setCartById] = useState();
+  // const [getCartById, setCartById] = useState([]);
   const [redirect, setRedirect] = useState(false);
   // Kiểm tra id nếu idUser không có thì lấy id Khách
   let idUser = ""
@@ -36,20 +37,22 @@ function Cart(props) {
 
   // Lấy dữ liệu từ Cart ra
   useEffect(() => {
-    const fetchData = async () => {
-      await axios
-        .get(`${URL_CART}/${idUser}`)
-        .then((response) => {
-          setCartById(response.data);
-          getTotal(response.data);
-        })
-        .catch((error) => console.log(error));
+    if (!fetched) {
+      const fetchData = async () => {
+        await axios
+          .get(`${URL_CART}/${idUser}`)
+          .then((response) => {
+            setCartById(response.data);
+            getTotal(response.data);
+            setFetched(true)
+          })
+          .catch((error) => console.log(error));
+      }
+      fetchData()
     }
-    fetchData()
-  }, [getCartById]);
+  }, [getCartById, fetched]);
 
   //Hàm này dùng để truyền xuống cho component con xử và trả ngược dữ liệu lại component cha
-
   const onDeleteCart = (getUser, getProduct, getSize) => {
 
     if (idUser) {
@@ -85,11 +88,11 @@ function Cart(props) {
           count: updateCount,
           size: getSize
         };
-
         const query = "?" + queryString.stringify(params);
 
         await axios.put(`${HOST}/updateCart${query}`)
         await setReloadCount(false);
+        setFetched(false);
       };
 
       fetchPut();
@@ -99,11 +102,21 @@ function Cart(props) {
     }
   };
 
+  // Hàm này dùng để kiểm tra trong giỏ hàng có sản phẩm hết hạn
+  const validateCheckout = () => {
+    const listError = getCartById.some(val => val.error !== "undefined")
+    return listError
+  }
+
+
   //Hàm này dùng để redirect đến page checkout
-
   const onCheckout = () => {
-
-    if (getCartById.length === 0) {
+    if (validateCheckout()) {
+      alertify.set("notifier", "position", "bottom-left");
+      alertify.error("Vui Lòng Kiểm Tra Lại Giỏ Hàng!");
+      return;
+    }
+    if (getCartById === undefined && getCartById.length === 0) {
       alertify.set("notifier", "position", "bottom-left");
       alertify.error("Vui Lòng Kiểm Tra Lại Giỏ Hàng!");
       return;
@@ -136,7 +149,7 @@ function Cart(props) {
           </ol>
         </div>
       </section>
-      {getCartById.length !== 0 ? (
+      {getCartById !== undefined && getCartById.length !== 0 ? (
         <section className="py-5 container">
           <h4 className="text-uppercase mb-5 text-center">Giỏ hàng của bạn</h4>
           <div className="row">

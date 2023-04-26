@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Card, Modal } from "react-bootstrap";
 import Image from "../../Share/img/Image";
-import { AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai";
+import { AiFillCaretLeft, AiFillCaretRight, AiFillWarning } from "react-icons/ai";
 import axios from "axios";
 import { HOST } from "../../domain/host/host";
 import ModalDelete from "./ModalDelete";
@@ -128,7 +128,9 @@ function ListCart(props) {
                 {(parseInt(val.promotionPrice ? val.promotionPrice : val.price) * parseInt(val.quantity)).toLocaleString()}₫
               </p>
             </div>
-
+            {
+              val.error === "undefined" ? "" : <div className="error-stock"> <AiFillWarning className="mr-2" /> {val.error}</div>
+            }
             <div className="mt-1 col-md-12">
               <hr className="border-bottom" style={{ borderColor: '#1d1d1d' }} />
             </div>

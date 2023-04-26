@@ -180,6 +180,15 @@ button:hover::after {
   text-align: center;
   display: inline-block;
 }
+
+.error-stock {
+  font-size: 20px;
+  color: red;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
 /* 
 .total-listcart {
   position: absolute;
