@@ -1,8 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react'
-import { HOST } from '../domain/host/host'
 import CartAPI from '../API/CartAPI'
 import FavoriteAPI from '../API/Favorites'
-import { v4 as uuid } from "uuid"
 
 const CountContext = createContext()
 const CountProvider = ({ children }) => {

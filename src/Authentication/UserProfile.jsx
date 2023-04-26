@@ -19,7 +19,7 @@ const UserProfile = (props) => {
   const URL_GetDetailUser = `${HOST}/user`;
   const URL_BILLBYIDUSER = `${HOST}/getBillByIdUser`;
   const URL_GetBillById = `${HOST}/getBillById`;
-  const URL_CANCELORDER = `${HOST}/cancelOrder`
+  const URL_CANCELORDER = `${HOST}/updateStatus`
 
   const [active, setActive] = useState("ProfileUser");
   const [modalShowDetailInvoices, setModalShowDetailInvoices] = useState(false);

@@ -76,6 +76,7 @@ function Detail(props) {
         localStorage.setItem("id_user_clientage", create_id_user_fake)
       }
     }
+
     // idUser
     id_user_cart = sessionStorage.getItem("id_user");
     // idUser khách
@@ -374,6 +375,10 @@ function Detail(props) {
                         </div>
                       );
                     })}
+                  </li>
+                  <li className="py-2 mb-1">
+                    <strong className="text-uppercase text-dark mr-2">Kho:</strong>
+                    <span>{detail.quantity}</span>
                   </li>
                 </ul>
               </div>

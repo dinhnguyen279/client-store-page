@@ -5,7 +5,7 @@ import Search from "./Component/Search";
 import Pagination from "./Component/Pagination";
 import SortProduct from "./Component/SortProduct";
 import axios from "axios";
-import { AiOutlineProfile, AiOutlineShoppingCart } from "react-icons/ai";
+import { AiOutlineProfile } from "react-icons/ai";
 import ProductAPI from "../API/ProductAPI";
 import alertify from "alertifyjs";
 import CardProduct from "../components/CardProduct";
@@ -21,7 +21,7 @@ function Shop(props) {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const searchQuery = searchParams.get("search_query");
-  const valueSearch = decodeURIComponent(searchQuery);
+  const valueSearch = searchQuery;
   const [products, setProducts] = useState([]);
   //state dùng để sắp xếp sản phẩm
   const [sort, setSort] = useState("");
