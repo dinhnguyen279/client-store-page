@@ -65,6 +65,15 @@ function Detail(props) {
     }
   }, [detail.coupons]);
 
+  // Validate check sản phẩm còn không và trả kết quả
+  const validateAddToCart = (stock) => {
+    if (stock < 1) {
+      return true
+    } else {
+      return false
+    }
+  }
+
   const addToCart = async () => {
     let id_user_cart = "";
     let id_user_clientage = "";
@@ -77,6 +86,11 @@ function Detail(props) {
       }
     }
 
+    if (validateAddToCart(detail.quantity)) {
+      alertify.set("notifier", "position", "bottom-right");
+      alertify.error("Sản phẩm này đã hết hàng vui lòng chọn sản phẩm khác!");
+      return
+    }
     // idUser
     id_user_cart = sessionStorage.getItem("id_user");
     // idUser khách

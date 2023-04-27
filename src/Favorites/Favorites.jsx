@@ -74,24 +74,19 @@ const Favorites = (props) => {
     useEffect(() => {
         const alistFavorites = []
         if (favorites.length > 0 && getDataFavorites.length > 0) {
-            const listIdFavorites = favorites.map(val => val._id)
-            const listIdUser = favorites.map(val => val.idUser)
-            const listSizeFavorites = favorites.map(val => val.size)
-            const listName = getDataFavorites.map(val => val.name)
-            const listPrice = getDataFavorites.map(val => val.promotionPrice ? val.promotionPrice : val.price)
-            const listIdProduct = getDataFavorites.map(val => val._id)
-            const listQuantity = getDataFavorites.map(val => val.quantity)
-            const listImages = getDataFavorites.map(val => val.avt)
-            for (let i = 0; i < listIdFavorites.length; i++) {
+            const listDataFromFavorites = favorites.map(val => val);
+            const listDataFromProducts = getDataFavorites.map(val => val);
+
+            for (let i = 0; i < listDataFromFavorites.length; i++) {
                 const oFavorites = {}
-                oFavorites.id = listIdFavorites[i];
-                oFavorites.idUser = listIdUser[[i]]
-                oFavorites.size = listSizeFavorites[i];
-                oFavorites.name = listName[i];
-                oFavorites.price = listPrice[i];
-                oFavorites.idProduct = listIdProduct[i]
-                oFavorites.stock = listQuantity[i];
-                oFavorites.avt = listImages[i];
+                oFavorites.id = listDataFromFavorites[i]._id;
+                oFavorites.idUser = listDataFromFavorites[i].idUser;
+                oFavorites.size = listDataFromFavorites[i].size;
+                oFavorites.name = listDataFromProducts[i].name;
+                oFavorites.price = listDataFromProducts[i].promotionPrice ? listDataFromProducts[i].promotionPrice : listDataFromProducts[i].price
+                oFavorites.idProduct = listDataFromProducts[i]._id;
+                oFavorites.stock = listDataFromProducts[i].quantity;
+                oFavorites.avt = listDataFromProducts[i].avt;
                 alistFavorites.push(oFavorites);
             }
         }
@@ -139,12 +134,25 @@ const Favorites = (props) => {
             alertify.success("Xóa Không Thành Công!");
         }
     }
+    // Validate check sản phẩm còn không và trả kết quả
+    const validateAddToCart = (stock) => {
+        if (stock < 1) {
+            return true
+        } else {
+            return false
+        }
+    }
 
-    const addToCart = async (idProduct, name, price, avt, size) => {
+    const addToCart = async (idProduct, name, price, avt, size, stock) => {
         // idUser
         const id_user_cart = sessionStorage.getItem("id_user");
         // idUser khách
         const id_user_clientage = localStorage.getItem("id_user_clientage");
+        if (validateAddToCart(stock)) {
+            alertify.set("notifier", "position", "bottom-right");
+            alertify.error("Sản phẩm này đã hết hàng vui lòng chọn sản phẩm khác!");
+            return
+        }
         const data = {
             idUser: id_user_cart ? id_user_cart : id_user_clientage,
             idProduct: idProduct,
@@ -220,7 +228,7 @@ const Favorites = (props) => {
                                                 <p className='py-3 text-lg'>
                                                     {parseInt(val.price).toLocaleString()}₫
                                                 </p>
-                                                <button className='btnAddToCart bg-warning' onClick={() => addToCart(val.idProduct, val.name, val.price, val.avt, val.size)}>
+                                                <button className='btnAddToCart bg-warning' onClick={() => addToCart(val.idProduct, val.name, val.price, val.avt, val.size, val.stock)}>
                                                     <AiOutlineShoppingCart /> Thêm giỏ hàng
                                                 </button >
                                             </div>
