@@ -24,6 +24,10 @@ const CountProvider = ({ children }) => {
             const getCount = (getCount) => {
                 let count = getCount
                 let totalCount = 0
+                if (getCount.length === 0) {
+                    setCountCart(0)
+                    return
+                }
                 count.map((val) => {
                     return (
                         totalCount += val.quantity

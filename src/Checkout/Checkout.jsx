@@ -237,12 +237,16 @@ function Checkout(props) {
         alertify.error("Vui Lòng Kiểm Tra Lại Giỏ Hàng!");
         return;
       }
-      axios.post(URL_CheckOut, data);
-      setTimeout(() => {
-        setReloadCount(false)
-        setSuccess(!success);
+      axios.post(URL_CheckOut, data).then(res => {
+        setTimeout(() => {
+          setReloadCount(false)
+          setSuccess(!success);
+          setLoad(false);
+        }, 4000);
+      }).catch(err => {
+        alertify.alert("Lỗi", err.response.data).set("label", "Đóng", true);
         setLoad(false);
-      }, 4000);
+      });
     }
   };
 

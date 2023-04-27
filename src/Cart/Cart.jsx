@@ -7,7 +7,7 @@ import alertify from "alertifyjs";
 import { Link, Navigate } from "react-router-dom";
 import queryString from "query-string";
 import axios from "axios";
-import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 
 import { HOST } from "../domain/host/host";
 import { CountContext } from "../Context/CountContext";
@@ -108,7 +108,6 @@ function Cart(props) {
     return listError
   }
 
-
   //Hàm này dùng để redirect đến page checkout
   const onCheckout = () => {
     if (validateCheckout()) {
@@ -129,6 +128,7 @@ function Cart(props) {
   const getTotal = (getCartById) => {
     let total = getCartById;
     let sub_total = 0;
+    if (getCartById.length === 0) return
     total.map((value) => {
       return (sub_total += parseInt(value.promotionPrice ? value.promotionPrice : value.price) * parseInt(value.quantity));
     });
