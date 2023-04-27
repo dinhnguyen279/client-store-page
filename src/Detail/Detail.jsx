@@ -65,15 +65,6 @@ function Detail(props) {
     }
   }, [detail.coupons]);
 
-  // Validate check sản phẩm còn không và trả kết quả
-  const validateAddToCart = (stock) => {
-    if (stock < 1) {
-      return true
-    } else {
-      return false
-    }
-  }
-
   const addToCart = async () => {
     let id_user_cart = "";
     let id_user_clientage = "";
@@ -86,11 +77,6 @@ function Detail(props) {
       }
     }
 
-    if (validateAddToCart(detail.quantity)) {
-      alertify.set("notifier", "position", "bottom-right");
-      alertify.error("Sản phẩm này đã hết hàng vui lòng chọn sản phẩm khác!");
-      return
-    }
     // idUser
     id_user_cart = sessionStorage.getItem("id_user");
     // idUser khách
@@ -325,7 +311,7 @@ function Detail(props) {
               </li>
             </ul>
             {/* end Đánh giá  */}
-            <Card.Title className="title-product mb-3">
+            <Card.Title className="title-product">
               {detail.name}
             </Card.Title>
             <div className="text-gray pb-2">
@@ -369,7 +355,7 @@ function Detail(props) {
                     <strong className="text-uppercase text-dark">
                       Thể loại:
                     </strong>
-                    <a className="ml-2">{detail.category}</a>
+                    <a className="ml-2 text-base">{detail.category}</a>
                   </li>
                   <li className="py-2 mb-1 size-products">
                     <strong className="text-uppercase text-dark mr-2">Size:</strong>
@@ -392,7 +378,9 @@ function Detail(props) {
                   </li>
                   <li className="py-2 mb-1">
                     <strong className="text-uppercase text-dark mr-2">Kho:</strong>
-                    <span>{detail.quantity}</span>
+                    <span className={`${detail.quantity < 1 ? "animation-stock" : ""}`}>
+                      {detail.quantity < 1 ? "Đã hết hàng" : detail.quantity}
+                    </span>
                   </li>
                 </ul>
               </div>
@@ -400,6 +388,7 @@ function Detail(props) {
                 <button
                   className="btn btn-dark btn-base text-white my-2 btn-addToCart-detail"
                   onClick={addToCart}
+                  disabled={detail.quantity < 1 ? true : false}
                 >
                   <AiOutlineShoppingCart /> Thêm vào giỏ hàng
                 </button>

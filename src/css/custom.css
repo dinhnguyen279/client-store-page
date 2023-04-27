@@ -130,6 +130,23 @@ button:hover::after {
   color: black;
 }
 
+.animation-stock {
+  color: #ef5c76;
+  animation: animation 2s infinite;
+  font-weight: 600;
+}
+
+@keyframes animation {
+  0% {
+    color: #ef5c76;
+  }
+  50% {
+    color: #b85985;
+  }
+  100% {
+    color: #5d3b78;
+  }
+}
 /* .profile-checkout {
   position: fixed;
   right: 10%;

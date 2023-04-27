@@ -134,25 +134,13 @@ const Favorites = (props) => {
             alertify.success("Xóa Không Thành Công!");
         }
     }
-    // Validate check sản phẩm còn không và trả kết quả
-    const validateAddToCart = (stock) => {
-        if (stock < 1) {
-            return true
-        } else {
-            return false
-        }
-    }
 
     const addToCart = async (idProduct, name, price, avt, size, stock) => {
         // idUser
         const id_user_cart = sessionStorage.getItem("id_user");
         // idUser khách
         const id_user_clientage = localStorage.getItem("id_user_clientage");
-        if (validateAddToCart(stock)) {
-            alertify.set("notifier", "position", "bottom-right");
-            alertify.error("Sản phẩm này đã hết hàng vui lòng chọn sản phẩm khác!");
-            return
-        }
+
         const data = {
             idUser: id_user_cart ? id_user_cart : id_user_clientage,
             idProduct: idProduct,
@@ -214,7 +202,7 @@ const Favorites = (props) => {
                                                     </h5>
                                                     <div>
                                                         <b>Size:</b> <span className='mr-3'>{val.size}</span>
-                                                        <b>Kho:</b><span> {val.stock}</span>
+                                                        <b>Kho:</b><span> {val.stock < 1 ? <span className='animation-stock'>Đã hết hàng</span> : val.stock}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -228,7 +216,11 @@ const Favorites = (props) => {
                                                 <p className='py-3 text-lg'>
                                                     {parseInt(val.price).toLocaleString()}₫
                                                 </p>
-                                                <button className='btnAddToCart bg-warning' onClick={() => addToCart(val.idProduct, val.name, val.price, val.avt, val.size, val.stock)}>
+                                                <button className={`btnAddToCart btn
+                                                ${val.stock < 1 ? "btn-dark text-gray" : "btn-warning "}`}
+                                                    onClick={() => addToCart(val.idProduct, val.name, val.price, val.avt, val.size)}
+                                                    disabled={val.stock < 1 ? true : false}
+                                                >
                                                     <AiOutlineShoppingCart /> Thêm giỏ hàng
                                                 </button >
                                             </div>
