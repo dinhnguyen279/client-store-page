@@ -170,7 +170,7 @@ function Header(props) {
                 {/* Form Search */}
                 {
                   // Đóng input khi người dùng click outside
-                  isActive && (
+                  closeFocusInput && (
                     <div
                       className={`product-search-main  
                       ${valueSearch.length > 0 ? 'product-search-main-block' : 'product-search-main-none'} 
