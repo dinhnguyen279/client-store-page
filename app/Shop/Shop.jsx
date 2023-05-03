@@ -20,7 +20,7 @@ function Shop() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const searchQuery = searchParams.get('search_query');
-  const valueSearch = decodeURIComponent(searchQuery);
+  const valueSearch = searchQuery;
   const [products, setProducts] = useState([]);
   //state dùng để sắp xếp sản phẩm
   const [sort, setSort] = useState('');

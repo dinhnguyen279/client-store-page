@@ -21,6 +21,7 @@ function Cart(props) {
 
   const [total, setTotal] = useState();
 
+  const [fetched, setFetched] = useState(false)
   // const [loadAPI, setLoadAPI] = useState(false);
   const [getCartById, setCartById] = useState([]);
   const [redirect, setRedirect] = useState(false);
@@ -28,17 +29,19 @@ function Cart(props) {
 
   // Lấy dữ liệu từ Cart ra
   useEffect(() => {
-    const fetchData = async () => {
-      await axios
-        .get(`${URL_CART}/${idUser}`)
-        .then((response) => {
-          setCartById(response.data);
-          getTotal(response.data);
-        })
-        .catch((error) => console.log(error));
-    };
-    fetchData();
-  }, [getCartById]);
+    if (!fetched) {
+      const fetchData = async () => {
+        await axios
+          .get(`${URL_CART}/${idUser}`)
+          .then((response) => {
+            setCartById(response.data);
+            getTotal(response.data);
+          })
+          .catch((error) => console.log(error));
+      };
+      fetchData();
+    }
+  }, [getCartById, fetched]);
 
   //Hàm này dùng để truyền xuống cho component con xử và trả ngược dữ liệu lại component cha
 
@@ -79,6 +82,8 @@ function Cart(props) {
 
         await axios.put(`${HOST}/updateCart${query}`);
         await setReloadCount(false);
+        setFetched(false);
+
       };
 
       fetchPut();
@@ -89,7 +94,7 @@ function Cart(props) {
   //Hàm này dùng để redirect đến page checkout
 
   const onCheckout = () => {
-    if (getCartById.length === 0) {
+    if (getCartById === undefined && getCartById.length === 0) {
       toast('Vui Lòng Kiểm Tra Lại Giỏ Hàng!', { type: 'warning' });
 
       return;
@@ -123,7 +128,7 @@ function Cart(props) {
           </ol>
         </div>
       </section>
-      {getCartById.length !== 0 ? (
+      {getCartById !== undefined && getCartById.length !== 0 ? (
         <section className="py-5 container">
           <h4 className="text-uppercase mb-5 text-center">Giỏ hàng của bạn</h4>
           <div className="row">
