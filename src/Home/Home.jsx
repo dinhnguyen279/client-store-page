@@ -198,7 +198,7 @@ function Home(props) {
 
                     <section>
                         <div className='container m-b-40 m-t-40 zoom-img'>
-                            <Card.Img className='img-banner' src={Image.home_collection_banner} />
+                            <Card.Img src={Image.home_collection_banner} />
                         </div>
                     </section>
 
