@@ -81,6 +81,7 @@ function ListCart(props) {
                   className="dec-btn p-0"
                   style={{ cursor: "pointer" }}
                   onClick={() => handlerDown(val.idUser, val.idProduct, val.quantity, val.size)}
+                  disabled={val.quantity === 1 ? true : false}
                 >
                   <AiFillCaretLeft />
                 </Button>
