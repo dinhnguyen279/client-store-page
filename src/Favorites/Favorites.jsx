@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Button } from 'react-bootstrap'
 import "./Favorites.css"
-import { AiOutlineClose } from "react-icons/ai"
 import { Link } from 'react-router-dom'
 import { HOST } from '../domain/host/host'
 import axios from 'axios'
@@ -187,7 +186,7 @@ const Favorites = (props) => {
                                                     onClick={() => handleShow(val.id, val.idUser, val.idProduct, val.size)}
                                                     className="reset-anchor remove_cart btn-base"
                                                 >
-                                                    <AiOutlineClose className='text-muted text-base' />
+                                                    <i className="fas fa-trash-alt text-muted"></i>
                                                 </button>
                                             </div>
                                             <div className='wishlist-item col-lg-3 col-md-5'>
@@ -211,7 +210,7 @@ const Favorites = (props) => {
                                                     onClick={() => handleShow(val.id, val.idUser, val.idProduct, val.size)}
                                                     className="reset-anchor remove_cart btn-base"
                                                 >
-                                                    <AiOutlineClose className='text-muted text-base' />
+                                                    <i className="fas fa-trash-alt text-muted"></i>
                                                 </button>
                                                 <p className='py-3 text-lg'>
                                                     {parseInt(val.price).toLocaleString()}₫
