@@ -104,7 +104,7 @@ function Cart(props) {
 
   // Hàm này dùng để kiểm tra trong giỏ hàng có sản phẩm hết hạn
   const validateCheckout = () => {
-    const listError = getCartById.some(val => val.error !== "undefined")
+    const listError = getCartById.some(val => val.error !== undefined)
     return listError
   }
 
