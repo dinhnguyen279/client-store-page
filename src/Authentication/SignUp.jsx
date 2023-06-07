@@ -5,6 +5,7 @@ import axios from 'axios';
 import { AiFillEye, AiFillEyeInvisible, AiOutlineLock, AiOutlineMail, AiOutlineUser, AiOutlinePhone } from "react-icons/ai"
 import axiosClient from '../API/axiosClient';
 import alertify from 'alertifyjs';
+import { useEffect } from 'react';
 SignUp.propTypes = {
 
 };
@@ -91,30 +92,32 @@ function SignUp(props) {
         return isValid
     }
 
+    useEffect(() => {
+        if (fullName.length || email.length || password.length || phone.length > 0) {
+            validateForm()
+        }
+    }, [fullName, email, password, phone])
+
 
     const handlerSignUp = async (e) => {
         e.preventDefault()
-        if (validateForm()) {
-            const params = {
-                fullname: fullName,
-                email: email,
-                password: password,
-                phone: phone
-            }
-            await axiosClient.post(REGISTER_URL, params)
-                .then((res) => {
-                    if (res.data !== "") {
-                        console.log(res.data);
-                        alertify.set("notifier", "position", "bottom-left");
-                        alertify.success("Chào mừng người mới");
-                        setSuccess(true)
-                    } else {
-                        console.log(res.data);
-                        alertify.set("notifier", "position", "bottom-right");
-                        alertify.error("Email đã được đăng ký");
-                    }
-                })
+        const params = {
+            fullname: fullName,
+            email: email,
+            password: password,
+            phone: phone
         }
+        await axiosClient.post(REGISTER_URL, params)
+            .then((res) => {
+                if (res.data !== "") {
+                    alertify.set("notifier", "position", "bottom-left");
+                    alertify.success("Chào mừng người mới");
+                    setSuccess(true)
+                } else {
+                    alertify.set("notifier", "position", "bottom-right");
+                    alertify.error("Email đã được đăng ký");
+                }
+            })
     }
     return (
         <form onSubmit={handlerSignUp}>
@@ -144,11 +147,11 @@ function SignUp(props) {
                             <input className="input100" value={password} onChange={onChangePassword} type={typePassWord} placeholder="Mật khẩu" />
                             {typePassWord === "password" ? (
                                 <button type='button' className='show-password' onClick={() => setTypePassWord("text")}>
-                                    <AiFillEye />
+                                    <AiFillEyeInvisible />
                                 </button >
                             ) : (
                                 <button type='button' className='show-password' onClick={() => setTypePassWord("password")}>
-                                    <AiFillEyeInvisible />
+                                    <AiFillEye />
                                 </button>
                             )}
                         </div>
