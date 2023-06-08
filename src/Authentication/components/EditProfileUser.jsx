@@ -73,20 +73,7 @@ const EditProfileUser = (props) => {
               alt="Hình ảnh người dùng"
               className="img-profile"
             />
-            {/* <FileBase64
-              accept="image/*"
-              multiple={false}
-              type="file"
-              className="form-control-file"
-              id="image"
-              value={dataUser.avatar}
-              onDone={({ base64 }) =>
-                setGetData({ ...dataUser, avatar: base64 })
-              }
-            /> */}
-            <input type="file" onChange={onChangeAvatar
-              // setGetData({ ...dataUser, avatar: e.target.files })
-            }
+            <input type="file" onChange={onChangeAvatar}
             />
           </Form.Group>
 
