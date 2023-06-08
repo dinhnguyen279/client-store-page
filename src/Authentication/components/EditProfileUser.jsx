@@ -5,14 +5,39 @@ import FileBase64 from "react-file-base64";
 import { HOST } from "../../domain/host/host";
 import axios from "axios";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { responsivePropType } from "react-bootstrap/esm/createUtilityClasses";
 const EditProfileUser = (props) => {
   const URL_UPDATEUSER = `${HOST}/updateUser`;
 
   const dataUser = props.getDataUser;
   const setGetData = props.setGetDataUser;
   const [typePassWord, setTypePassWord] = useState("password");
+  const [avatarUpload, setAvatarUpload] = useState("")
+
+  const onChangeAvatar = (e) => {
+    setAvatarUpload(e.target.files[0]);
+  }
+  const upLoadImages = async () => {
+    if (avatarUpload) {
+      const formData = new FormData();
+      formData.append("file", avatarUpload)
+
+      try {
+        const response = await axios.post(`${HOST}/upload-cloud`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        })
+        setGetData({ ...dataUser, avatar: response.data.avatar })
+      }
+      catch (err) {
+        console.error("err", err);
+      }
+    }
+  }
 
   const onSubmit = async (id) => {
+    await upLoadImages()
     await axios
       .put(`${URL_UPDATEUSER}/${id}`, dataUser)
       .then((res) => console.log("res", res))
@@ -23,6 +48,7 @@ const EditProfileUser = (props) => {
       window.location.reload();
     }, 1200);
   };
+
 
   return (
     <Modal
@@ -47,7 +73,7 @@ const EditProfileUser = (props) => {
               alt="Hình ảnh người dùng"
               className="img-profile"
             />
-            <FileBase64
+            {/* <FileBase64
               accept="image/*"
               multiple={false}
               type="file"
@@ -57,6 +83,10 @@ const EditProfileUser = (props) => {
               onDone={({ base64 }) =>
                 setGetData({ ...dataUser, avatar: base64 })
               }
+            /> */}
+            <input type="file" onChange={onChangeAvatar
+              // setGetData({ ...dataUser, avatar: e.target.files })
+            }
             />
           </Form.Group>
 

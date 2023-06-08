@@ -91,6 +91,7 @@ function Detail(props) {
       img: detail.avt,
       size: sizeProduct ? sizeProduct : arrSize[0],
     };
+
     await axios.post(URL_AddToCart, data)
     await setReloadCount(false);
     alertify.set("notifier", "position", "bottom-left");

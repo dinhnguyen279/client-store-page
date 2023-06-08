@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
-import { addSession } from '../Redux/Action/ActionSession';
 import './Auth.css'
 import queryString from 'query-string'
 import CartAPI from '../API/CartAPI';
