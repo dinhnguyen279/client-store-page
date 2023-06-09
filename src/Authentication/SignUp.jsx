@@ -109,7 +109,7 @@ function SignUp(props) {
         }
         await axiosClient.post(REGISTER_URL, params)
             .then((res) => {
-                if (res.data !== "") {
+                if (res.data !== undefined) {
                     alertify.set("notifier", "position", "bottom-left");
                     alertify.success("Chào mừng người mới");
                     setSuccess(true)
