@@ -28,16 +28,15 @@ const EditProfileUser = (props) => {
             "Content-Type": "multipart/form-data"
           }
         })
-        setGetData({ ...dataUser, avatar: response.data.avatar })
+        dataUser.avatar = response.data.avatar
       }
       catch (err) {
-        console.error("err", err);
+        console.error("err upload image cloud", err);
       }
     }
   }
-
   const onSubmit = async (id) => {
-    await upLoadImages()
+    await upLoadImages();
     await axios
       .put(`${URL_UPDATEUSER}/${id}`, dataUser)
       .then((res) => console.log("res", res))
