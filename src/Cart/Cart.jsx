@@ -24,6 +24,7 @@ function Cart(props) {
   const [getCartById, setCartById] = useState();
   // const [getCartById, setCartById] = useState([]);
   const [redirect, setRedirect] = useState(false);
+  const [unCheckout, setUnCheckout] = useState(false)
   // Kiểm tra id nếu idUser không có thì lấy id Khách
   let idUser = ""
   if (sessionStorage.getItem("id_user")) {
@@ -111,6 +112,7 @@ function Cart(props) {
   //Hàm này dùng để redirect đến page checkout
   const onCheckout = () => {
     if (validateCheckout()) {
+      setUnCheckout(true)
       alertify.set("notifier", "position", "bottom-left");
       alertify.error("Vui Lòng Kiểm Tra Lại Giỏ Hàng!");
       return;
@@ -198,6 +200,7 @@ function Cart(props) {
                       type="button"
                       className="btn btn-dark btn-sm text-uppercase w-100"
                       onClick={onCheckout}
+                      disabled={unCheckout ? true : false}
                     >
                       Tiến hành thanh toán
                     </button>
