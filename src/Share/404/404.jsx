@@ -4,7 +4,7 @@ import "./style404.css"
 
 const ErrorPage = () => {
     return (
-        <div className='m-t-160'>
+        <div className='main-404'>
             <div className='container py-4'>
                 <h1> <b>404</b> Error Page</h1>
                 <p className="zoom-area"><b>Sports Zone</b> Xin chân thành tài trợ trang 404 này. </p>

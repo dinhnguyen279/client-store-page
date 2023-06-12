@@ -5,6 +5,10 @@
   font-weight: 800;
   margin: 70px 15px;
 }
+.main-404 {
+  margin-top: 30px;
+}
+
 .error-container > span {
   display: inline-block;
   position: relative;
@@ -257,5 +261,11 @@ h1 {
   }
   .zoom-area {
     font-size: 14px;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .main-404 {
+    margin-top: 100px;
   }
 }
