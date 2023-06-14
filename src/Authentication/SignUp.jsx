@@ -109,13 +109,13 @@ function SignUp(props) {
         }
         await axiosClient.post(REGISTER_URL, params)
             .then((res) => {
-                if (res.data !== undefined) {
+                if (res.data.error === undefined) {
                     alertify.set("notifier", "position", "bottom-left");
                     alertify.success("Chào mừng người mới");
                     setSuccess(true)
                 } else {
                     alertify.set("notifier", "position", "bottom-right");
-                    alertify.error("Email đã được đăng ký");
+                    alertify.error(res.data.error);
                 }
             })
     }

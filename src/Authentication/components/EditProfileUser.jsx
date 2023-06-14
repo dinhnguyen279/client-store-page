@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import FileBase64 from "react-file-base64";
@@ -17,6 +17,16 @@ const EditProfileUser = (props) => {
   const onChangeAvatar = (e) => {
     setAvatarUpload(e.target.files[0]);
   }
+
+  // useEffect(() => {
+  //   if (avatarUpload) {
+  //     const formData = new FormData();
+  //     formData.append("file", avatarUpload)
+  //     dataUser.avatar = formData
+  //     // setGetData({ ...dataUser, file: formData })
+  //   }
+  // }, [avatarUpload])
+
   const upLoadImages = async () => {
     if (avatarUpload) {
       const formData = new FormData();
@@ -35,17 +45,26 @@ const EditProfileUser = (props) => {
       }
     }
   }
+
   const onSubmit = async (id) => {
     await upLoadImages();
     await axios
       .put(`${URL_UPDATEUSER}/${id}`, dataUser)
-      .then((res) => console.log("res", res))
-      .catch((err) => console.error("err", err));
-    alertify.set("notifier", "position", "top-right");
-    alertify.success("Bạn Đã cập nhật thông tin Thành Công!");
-    setTimeout(function () {
-      window.location.reload();
-    }, 1200);
+      .then((res) => {
+        console.log("res", res)
+        alertify.set("notifier", "position", "top-right");
+        alertify.success("Bạn Đã Cập Nhật Thông Tin Thành Công!");
+        setTimeout(function () {
+          window.location.reload();
+        }, 1200);
+      }
+      )
+      .catch((err) => {
+        console.error("err", err)
+        alertify.set("notifier", "position", "top-right");
+        alertify.error("Cập Nhật Thông Tin Thất Bại!");
+      }
+      );
   };
 
 
