@@ -14,6 +14,7 @@ import { BsFillCheckCircleFill } from "react-icons/bs"
 import { Link, useNavigate } from "react-router-dom";
 import ConfirmCancelOrder from "./components/ConfirmCancelOrder";
 import alertify from 'alertifyjs';
+import format from "date-fns/format";
 
 const UserProfile = (props) => {
   const URL_GetDetailUser = `${HOST}/user`;
@@ -240,7 +241,9 @@ const UserProfile = (props) => {
             <div className="col-md-6 icon-detail d-flex align-items-center">
               <i className="fa fa-birthday-cake" aria-hidden="true"></i>
               <div>
-                {getDataUser.birthday}
+                {getDataUser?.birthday ?
+                  format(new Date(getDataUser?.birthday) ?? new Date(), "dd-MM-yyyy")
+                  : ""}
                 <p>Ngày sinh</p>
               </div>
             </div>
@@ -319,7 +322,9 @@ const UserProfile = (props) => {
             <div className="col-md-6 icon-detail d-flex align-items-center">
               <i className="fa fa-address-book" aria-hidden="true"></i>
               <div className="title-text">
-                {getDataUser.created_date}
+                {getDataUser?.created_date ?
+                  format(new Date(getDataUser?.created_date) ?? new Date(), "dd-MM-yyyy, HH:mm")
+                  : ""}
                 <p>Ngày tham gia</p>
               </div>
             </div>

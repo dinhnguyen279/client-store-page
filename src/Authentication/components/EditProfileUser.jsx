@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
-import FileBase64 from "react-file-base64";
 import { HOST } from "../../domain/host/host";
 import axios from "axios";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { responsivePropType } from "react-bootstrap/esm/createUtilityClasses";
+import alertify from 'alertifyjs';
+import "alertifyjs/build/css/alertify.css";
+
+
+
 const EditProfileUser = (props) => {
   const URL_UPDATEUSER = `${HOST}/updateUser`;
 
@@ -18,36 +21,28 @@ const EditProfileUser = (props) => {
     setAvatarUpload(e.target.files[0]);
   }
 
-  // useEffect(() => {
-  //   if (avatarUpload) {
-  //     const formData = new FormData();
-  //     formData.append("file", avatarUpload)
-  //     dataUser.avatar = formData
-  //     // setGetData({ ...dataUser, file: formData })
-  //   }
-  // }, [avatarUpload])
-
-  const upLoadImages = async () => {
-    if (avatarUpload) {
-      const formData = new FormData();
-      formData.append("file", avatarUpload)
-
-      try {
-        const response = await axios.post(`${HOST}/upload-cloud`, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data"
-          }
-        })
-        dataUser.avatar = response.data.avatar
-      }
-      catch (err) {
-        console.error("err upload image cloud", err);
+  useEffect(() => {
+    const upLoadImages = async () => {
+      if (avatarUpload) {
+        const formData = new FormData();
+        formData.append("file", avatarUpload)
+        try {
+          const response = await axios.post(`${HOST}/upload-cloud`, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data"
+            }
+          })
+          dataUser.avatar = response.data.avatar
+        }
+        catch (err) {
+          console.error("err upload image cloud", err);
+        }
       }
     }
-  }
+    upLoadImages()
+  }, [avatarUpload])
 
   const onSubmit = async (id) => {
-    await upLoadImages();
     await axios
       .put(`${URL_UPDATEUSER}/${id}`, dataUser)
       .then((res) => {

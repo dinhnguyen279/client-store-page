@@ -61,7 +61,6 @@ function ListCart(props) {
     const updateCount = parseInt(getCount) + 1;
     onUpdateCount(getIdUser, getIdProduct, updateCount, getSize);
   };
-
   return (
     <>
       {listProduct.map((val, key) => (
