@@ -16,6 +16,7 @@ const EditProfileUser = (props) => {
   const setGetData = props.setGetDataUser;
   const [typePassWord, setTypePassWord] = useState("password");
   const [avatarUpload, setAvatarUpload] = useState("")
+  const [loading, setLoading] = useState(false)
 
   const onChangeAvatar = (e) => {
     setAvatarUpload(e.target.files[0]);
@@ -26,6 +27,7 @@ const EditProfileUser = (props) => {
       if (avatarUpload) {
         const formData = new FormData();
         formData.append("file", avatarUpload)
+        setLoading(!loading)
         try {
           const response = await axios.post(`${HOST}/upload-cloud`, formData, {
             headers: {
@@ -33,6 +35,7 @@ const EditProfileUser = (props) => {
             }
           })
           dataUser.avatar = response.data.avatar
+          setLoading(false)
         }
         catch (err) {
           console.error("err upload image cloud", err);
@@ -221,12 +224,20 @@ const EditProfileUser = (props) => {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button
-          className="w-100"
-          onClick={() => onSubmit(dataUser._id)}
-        >
-          Cập nhật
-        </Button>
+        {/* loading */}
+        {
+          !loading ?
+            <Button
+              className="w-100"
+              onClick={() => onSubmit(dataUser._id)}
+            >
+              Cập nhật
+            </Button>
+            :
+            <div className="spinner-border" style={{ margin: "auto" }} role="status">
+              <span className="sr-only">Loading...</span>
+            </div>
+        }
       </Modal.Footer>
     </Modal>
   );
