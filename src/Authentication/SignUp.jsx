@@ -104,7 +104,7 @@ function SignUp(props) {
         const params = {
             fullname: fullName,
             email: email,
-            password: password,
+            password: password.toUpperCase(),
             phone: phone
         }
         await axiosClient.post(REGISTER_URL, params)

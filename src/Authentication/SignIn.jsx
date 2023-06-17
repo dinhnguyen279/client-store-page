@@ -5,29 +5,37 @@ import queryString from 'query-string'
 import CartAPI from '../API/CartAPI';
 import axios from 'axios';
 import UserAPI from '../API/UserAPI';
-import { AiOutlineMail, AiOutlineLock, AiFillEye, AiFillEyeInvisible } from "react-icons/ai"
+import { AiOutlineLock, AiFillEye, AiFillEyeInvisible, AiOutlineUser } from "react-icons/ai"
 import axiosClient from '../API/axiosClient';
 import alertify from 'alertifyjs';
 
 function SignIn(props) {
     const [errors, setErrors] = useState({})
     const [user, setUser] = useState({})
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    const [dataLogin, setDataLogin] = useState({
+        loginValue: "",
+        loginType: "",
+        password: ""
+    })
     // Show/hide password
     const [typePassWord, setTypePassWord] = useState("password")
 
     // const [redirect, setRedirect] = useState(false)
 
-
     const SIGNIN_URL = "/login"
 
-    const onChangeEmail = (e) => {
-        setEmail(e.target.value)
+    const onChangeAccountName = (e) => {
+        const { value } = e.target
+        // isNaN là hàm kiểm tra giá trị nhập vào có phải là số hay không
+        if (!isNaN(value)) {
+            setDataLogin({ ...dataLogin, loginValue: value, loginType: "phone" })
+        } else {
+            setDataLogin({ ...dataLogin, loginValue: value, loginType: "email" })
+        }
     }
 
     const onChangePassword = (e) => {
-        setPassword(e.target.value)
+        setDataLogin({ ...dataLogin, password: e.target.value })
     }
 
     //validate
@@ -36,19 +44,37 @@ function SignIn(props) {
         return validEmail.test(String(email).toLowerCase())
     }
 
+    const validatePhoneNumber = (phone) => {
+        const validPhone = /^(\+84|0)\d{9,10}$/;
+        return validPhone.test(phone);
+    };
+
     const validateFormSignin = () => {
         let isValid = true;
         const error = {};
 
-        if (!email) {
-            isValid = false;
-            error.email = "Email không được để trống!"
-        } else if (!validateEmail(email)) {
-            isValid = false;
-            error.email = "Email không hợp lệ!"
+        if (dataLogin.loginType === "email") {
+            if (!dataLogin.loginValue) {
+                isValid = false;
+                error.email = "Tên đăng không được để trống!"
+            } else if (!validateEmail(dataLogin.loginValue)) {
+                isValid = false;
+                error.email = "Email không hợp lệ!"
+            }
         }
 
-        if (!password) {
+        if (dataLogin.loginType === "phone") {
+            if (!dataLogin.loginValue) {
+                isValid = false;
+                error.phone = "Tên đăng không được để trống!"
+            }
+            else if (!validatePhoneNumber(dataLogin.loginValue)) {
+                isValid = false;
+                error.phone = "Số điện thoại không hợp lệ!";
+            }
+        }
+
+        if (!dataLogin.password) {
             isValid = false;
             error.password = "Mật khẩu không được để trống!"
         }
@@ -57,18 +83,26 @@ function SignIn(props) {
         return isValid
 
     }
-
     const onSubmit = async (e) => {
         e.preventDefault();
         if (validateFormSignin()) {
             const data = {
-                email: email,
-                password: password
+                email: "",
+                phone: "",
+                password: dataLogin.password.toUpperCase()
+            };
+
+            if (dataLogin.loginType === "phone") {
+                data.phone = dataLogin.loginValue;
+            } else if (dataLogin.loginType === "email") {
+                data.email = dataLogin.loginValue;
             }
+
             await axiosClient.post(SIGNIN_URL, data)
                 .then((res) => {
-                    setUser(res.data)
                     if (res.data !== null && typeof res.data === "object") {
+                        setUser(res.data)
+                        console.log("res.data", res.data);
                         alertify.set("notifier", "position", "bottom-left");
                         alertify.success("Bạn Đã Đăng Nhập Thành Công!");
                         setTimeout(() => {
@@ -103,13 +137,15 @@ function SignIn(props) {
                             Đăng nhập
                         </span>
                         <div className="wrap-input100 validate-input" >
-                            <AiOutlineMail className='icon-form' />
-                            <input className="input100" type="text" placeholder="Email" value={email} onChange={onChangeEmail} />
+                            <AiOutlineUser className='icon-form' />
+                            {/* <input className="input100" type="text" placeholder="Email hoặc Số Điện Thoại" value={dataLogin.email || dataLogin.password} onChange={onChangeAccountName} /> */}
+                            <input className="input100" type="text" placeholder="Email hoặc Số Điện Thoại" value={dataLogin.email || dataLogin.phone} onChange={onChangeAccountName} />
                         </div>
                         {errors.email && <p className="text-danger">{errors.email}</p>}
+                        {errors.phone && <p className="text-danger">{errors.phone}</p>}
                         <div className="wrap-input100 validate-input">
                             <AiOutlineLock className='icon-form' />
-                            <input className="input100" type={typePassWord} placeholder="Mật khẩu" value={password} onChange={onChangePassword} />
+                            <input className="input100" type={typePassWord} placeholder="Mật khẩu" value={dataLogin.password} onChange={onChangePassword} />
                             {typePassWord === "password" ? (
                                 <button type='button' className='show-password' onClick={() => setTypePassWord("text")}>
                                     <AiFillEye />

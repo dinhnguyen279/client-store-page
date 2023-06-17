@@ -34,7 +34,10 @@ const EditProfileUser = (props) => {
               "Content-Type": "multipart/form-data"
             }
           })
-          dataUser.avatar = response.data.avatar
+          setGetData({
+            ...dataUser,
+            avatar: response.data.avatar
+          })
           setLoading(false)
         }
         catch (err) {
