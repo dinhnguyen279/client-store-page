@@ -12,7 +12,7 @@ const LoginWithGoogle = () => {
                 const fetchProfileUser = async () => {
                     sessionStorage.setItem("access_token", res.access_token)
                     await axios
-                        .get(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${res.access_token}`, {
+                        .get(`https://www.googleapis.com/oauth2/v3/userinfo`, {
                             headers: {
                                 Authorization: `Bearer ${res.access_token}`,
                                 Accept: 'application/json'
