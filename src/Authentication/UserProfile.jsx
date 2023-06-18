@@ -73,12 +73,17 @@ const UserProfile = (props) => {
               ...getDataUser,
               email: res.data.email,
               fullname: res.data.name,
-              avatar: res.data.picture
+              avatar: res.data.picture,
+              address: res.data.address,
+              phone: res.data.phone,
+              sex: res.data.gender,
+              birthday: res.data.birthday
             })
           }
           )
           .catch((error) => console.log(error));
       }
+      console.log("getDataUser", getDataUser);
       fetchDataUserGoogle()
     } else {
       // hàm này gọi thông tin user
