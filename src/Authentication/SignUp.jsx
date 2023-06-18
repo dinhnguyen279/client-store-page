@@ -120,63 +120,66 @@ function SignUp(props) {
             })
     }
     return (
-        <form onSubmit={handlerSignUp}>
+        <div className="limiter">
+            <div className="container-login100 row">
+                <div className='col-md-12 col-xl-4'>
+                </div>
+                <div className='wrap-login100 col-md-12 col-xl-8'>
+                    <div className='form-signin'>
+                        <form onSubmit={handlerSignUp}>
+                            <div className="signUpForm">
+                                <p className="signup100-form-title">
+                                    Đăng ký
+                                </p>
+                                <div className="wrap-input100 validate-input" >
+                                    <AiOutlineUser className='icon-form' />
+                                    <input className="input100" value={fullName} onChange={onChangeName} type="text" placeholder="Họ và Tên" />
+                                </div>
+                                {errors.fullName && <p className="text-danger">{errors.fullName}</p>}
 
-            <div className="limiter">
-                <div className="container-login100 row">
-                    <div className='col-md-12 col-xl-4'>
-                    </div>
-                    <div className="wrap-login100 signUpForm p-l-55 p-r-55 p-t-65 p-b-50 col-md-12 col-xl-8">
-                        <span className="signup100-form-title">
-                            Đăng ký
-                        </span>
-                        <div className="wrap-input100 validate-input" >
-                            <AiOutlineUser className='icon-form' />
-                            <input className="input100" value={fullName} onChange={onChangeName} type="text" placeholder="Họ và Tên" />
-                        </div>
-                        {errors.fullName && <p className="text-danger">{errors.fullName}</p>}
+                                <div className="wrap-input100 rs1 validate-input" >
+                                    <AiOutlineMail className='icon-form' />
+                                    <input className="input100" value={email} onChange={onChangeEmail} type="text" placeholder="Email" />
+                                </div>
+                                {errors.email && <p className="text-danger">{errors.email}</p>}
 
-                        <div className="wrap-input100 rs1 validate-input" >
-                            <AiOutlineMail className='icon-form' />
-                            <input className="input100" value={email} onChange={onChangeEmail} type="text" placeholder="Email" />
-                        </div>
-                        {errors.email && <p className="text-danger">{errors.email}</p>}
+                                <div className="wrap-input100 rs1 validate-input">
+                                    <AiOutlineLock className='icon-form' />
+                                    <input className="input100" value={password} onChange={onChangePassword} type={typePassWord} placeholder="Mật khẩu" />
+                                    {typePassWord === "password" ? (
+                                        <button type='button' className='show-password' onClick={() => setTypePassWord("text")}>
+                                            <AiFillEyeInvisible />
+                                        </button >
+                                    ) : (
+                                        <button type='button' className='show-password' onClick={() => setTypePassWord("password")}>
+                                            <AiFillEye />
+                                        </button>
+                                    )}
+                                </div>
+                                {errors.password && <p className="text-danger">{errors.password}</p>}
 
-                        <div className="wrap-input100 rs1 validate-input">
-                            <AiOutlineLock className='icon-form' />
-                            <input className="input100" value={password} onChange={onChangePassword} type={typePassWord} placeholder="Mật khẩu" />
-                            {typePassWord === "password" ? (
-                                <button type='button' className='show-password' onClick={() => setTypePassWord("text")}>
-                                    <AiFillEyeInvisible />
-                                </button >
-                            ) : (
-                                <button type='button' className='show-password' onClick={() => setTypePassWord("password")}>
-                                    <AiFillEye />
-                                </button>
-                            )}
-                        </div>
-                        {errors.password && <p className="text-danger">{errors.password}</p>}
+                                <div className="wrap-input100 rs1 validate-input">
+                                    <AiOutlinePhone className='icon-form' />
+                                    <input className="input100" value={phone} onChange={onChangePhone} type="number" placeholder="Số điện thoại" />
+                                </div>
+                                {errors.phone && <p className="text-danger">{errors.phone}</p>}
 
-                        <div className="wrap-input100 rs1 validate-input">
-                            <AiOutlinePhone className='icon-form' />
-                            <input className="input100" value={phone} onChange={onChangePhone} type="number" placeholder="Số điện thoại" />
-                        </div>
-                        {errors.phone && <p className="text-danger">{errors.phone}</p>}
+                                {/* <div className="container-login100-form-btn m-t-20"> */}
+                                <div className="login-box">
+                                    {success && <Navigate replace to="/signin" />}
+                                    <button className="" type='submit'>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        {/* <button className="login100-form-btn" type='submit'> */}
+                                        Đăng ký
+                                    </button>
+                                </div>
 
-                        {/* <div className="container-login100-form-btn m-t-20"> */}
-                        <div className="login-box">
-                            {success && <Navigate replace to="/signin" />}
-                            <button className="" type='submit'>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                {/* <button className="login100-form-btn" type='submit'> */}
-                                Đăng ký
-                            </button>
-                        </div>
-
-                        <div className="text-center p-t-45 p-b-4">
+                            </div>
+                        </form>
+                        <div className="text-center p-t-30 p-b-4">
                             <span className="txt1">Đăng nhập?</span>
                             &nbsp;
                             <Link to="/signin" className="txt2 hov1">
@@ -185,9 +188,9 @@ function SignUp(props) {
                         </div>
                     </div>
                 </div>
-            </div>
-        </form>
 
+            </div>
+        </div>
     );
 }
 

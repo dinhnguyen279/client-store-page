@@ -58,18 +58,39 @@ const UserProfile = (props) => {
   let navigate = useNavigate();
 
   const idUser = sessionStorage.getItem("id_user");
-
+  const access_token = sessionStorage.getItem("access_token")
   useEffect(() => {
     // Hàm này kiểm tra user đăng nhập chưa và hướng tới trang đăng nhập
     if (!idUser) {
       navigate('/signin', { replace: true });
     }
-    // hàm này gọi thông tin user
+    if (access_token) {
+      const fetchDataUserGoogle = async () => {
+        await axios
+          .get(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${access_token}`)
+          .then((res) => {
+            setGetDataUser({
+              ...getDataUser,
+              email: res.data.email,
+              fullname: res.data.name,
+              avatar: res.data.picture
+            })
+          }
+          )
+          .catch((error) => console.log(error));
+      }
+      fetchDataUserGoogle()
+    } else {
+      // hàm này gọi thông tin user
+      const fetchDataUser = async () => {
+        await axios
+          .get(`${URL_GetDetailUser}/${idUser}`)
+          .then((response) => setGetDataUser(response.data))
+          .catch((error) => console.log(error));
+      }
+      fetchDataUser()
+    }
     const fetchData = async () => {
-      await axios
-        .get(`${URL_GetDetailUser}/${idUser}`)
-        .then((response) => setGetDataUser(response.data))
-        .catch((error) => console.log(error));
       // hàm này gọi thông tin hóa đơn
       await axios
         .get(`${URL_BILLBYIDUSER}/${idUser}`)
@@ -214,6 +235,7 @@ const UserProfile = (props) => {
           <div className="card-title d-flex justify-content-between">
             <h3 className="title-text">Thông tin cá nhân</h3>
             <Button
+              disabled={access_token.length > 0 ? true : false}
               type="button"
               variant="primary"
               onClick={() => setModalShow(true)}

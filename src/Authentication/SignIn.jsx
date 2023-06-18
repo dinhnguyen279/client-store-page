@@ -8,6 +8,8 @@ import UserAPI from '../API/UserAPI';
 import { AiOutlineLock, AiFillEye, AiFillEyeInvisible, AiOutlineUser } from "react-icons/ai"
 import axiosClient from '../API/axiosClient';
 import alertify from 'alertifyjs';
+import LoginWithGoogle from './LoginWithGoogle';
+
 
 function SignIn(props) {
     const [errors, setErrors] = useState({})
@@ -127,60 +129,72 @@ function SignIn(props) {
     }
 
     return (
-        <form onSubmit={onSubmit} className="">
+        <>
             <div className="limiter">
                 <div className="container-login100 main-login">
                     <div className='col-md-12 col-xl-4'>
                     </div>
-                    <div className="wrap-login100 signInForm p-l-55 p-r-55 p-t-55 p-b-50 col-md-12 col-xl-8">
-                        <span className="login100-form-title">
-                            Đăng nhập
-                        </span>
-                        <div className="wrap-input100 validate-input" >
-                            <AiOutlineUser className='icon-form' />
-                            {/* <input className="input100" type="text" placeholder="Email hoặc Số Điện Thoại" value={dataLogin.email || dataLogin.password} onChange={onChangeAccountName} /> */}
-                            <input className="input100" type="text" placeholder="Email hoặc Số Điện Thoại" value={dataLogin.email || dataLogin.phone} onChange={onChangeAccountName} />
-                        </div>
-                        {errors.email && <p className="text-danger">{errors.email}</p>}
-                        {errors.phone && <p className="text-danger">{errors.phone}</p>}
-                        <div className="wrap-input100 validate-input">
-                            <AiOutlineLock className='icon-form' />
-                            <input className="input100" type={typePassWord} placeholder="Mật khẩu" value={dataLogin.password} onChange={onChangePassword} />
-                            {typePassWord === "password" ? (
-                                <button type='button' className='show-password' onClick={() => setTypePassWord("text")}>
-                                    <AiFillEye />
-                                </button >
-                            ) : (
-                                <button type='button' className='show-password' onClick={() => setTypePassWord("password")}>
-                                    <AiFillEyeInvisible />
-                                </button>)
-                            }
-                        </div>
-                        {errors.password && <p className="text-danger">{errors.password}</p>}
+                    <div className='wrap-login100 col-md-12 col-xl-8'>
+                        <div className='form-signin'>
+                            <form onSubmit={onSubmit} >
+                                <div className="signInForm">
+                                    <p className="login100-form-title">
+                                        Đăng nhập
+                                    </p>
+                                    <div className="wrap-input100 validate-input" >
+                                        <AiOutlineUser className='icon-form' />
+                                        {/* <input className="input100" type="text" placeholder="Email hoặc Số Điện Thoại" value={dataLogin.email || dataLogin.password} onChange={onChangeAccountName} /> */}
+                                        <input className="input100" type="text" placeholder="Email hoặc Số Điện Thoại" value={dataLogin.email || dataLogin.phone} onChange={onChangeAccountName} />
+                                    </div>
+                                    {errors.email && <p className="text-danger">{errors.email}</p>}
+                                    {errors.phone && <p className="text-danger">{errors.phone}</p>}
+                                    <div className="wrap-input100 validate-input">
+                                        <AiOutlineLock className='icon-form' />
+                                        <input className="input100" type={typePassWord} placeholder="Mật khẩu" value={dataLogin.password} onChange={onChangePassword} />
+                                        {typePassWord === "password" ? (
+                                            <button type='button' className='show-password' onClick={() => setTypePassWord("text")}>
+                                                <AiFillEye />
+                                            </button >
+                                        ) : (
+                                            <button type='button' className='show-password' onClick={() => setTypePassWord("password")}>
+                                                <AiFillEyeInvisible />
+                                            </button>)
+                                        }
+                                    </div>
+                                    {errors.password && <p className="text-danger">{errors.password}</p>}
 
-                        <div className="login-box">
-                            {/* <div className="container-login100-form-btn m-t-20"> */}
-                            {/* <button className="login100-form-btn btn-form" type='submit'> */}
-                            <button className="" type='submit'>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                Đăng nhập
-                            </button>
+                                    <div className="login-box">
+                                        {/* <div className="container-login100-form-btn m-t-20"> */}
+                                        {/* <button className="login100-form-btn btn-form" type='submit'> */}
+                                        <button className="" type='submit'>
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                            Đăng nhập
+                                        </button>
+                                    </div>
+                                    <p className='text-center'>
+                                        Hoặc
+                                    </p>
+                                </div>
+                            </form>
+                            <div className='p-t-30'>
+                                <LoginWithGoogle />
+                                <div className="text-center p-t-30 p-b-4">
+                                    <span className="txt1">Tạo một tài khoản?</span>
+                                    &nbsp;
+                                    <Link to="/signup" className="txt2 hov1">
+                                        Đăng ký
+                                    </Link>
+                                </div>
+                            </div>
                         </div>
 
-                        <div className="text-center p-t-45 p-b-4">
-                            <span className="txt1">Tạo một tài khoản?</span>
-                            &nbsp;
-                            <Link to="/signup" className="txt2 hov1">
-                                Đăng ký
-                            </Link>
-                        </div>
                     </div>
                 </div>
             </div>
-        </form >
+        </>
     );
 }
 

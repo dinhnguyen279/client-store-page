@@ -260,7 +260,7 @@ function Header(props) {
                   <li className="nav-item d-none d-lg-block">
                     <Link className="nav-link wishlist-header" to="/wishlist">
                       <AiOutlineHeart className="icon-wishlist" />{" "}
-                      <span style={{ color: "#efb93b" }}>{countWishlist.length}</span>
+                      <span style={{ color: "#efb93b" }}>{countWishlist.length ? countWishlist.length : 0}</span>
                     </Link>
                   </li>
                   <li className="nav-item position-relative d-none d-lg-block">
@@ -365,7 +365,7 @@ function Header(props) {
               <li className="nav-item">
                 <a className="nav-link wishlist-header" href="/wishlist">
                   <AiOutlineHeart className="icon-wishlist" />
-                  <span style={{ color: "#efb93b" }}>{countWishlist.length}</span>
+                  <span style={{ color: "#efb93b" }}>{countWishlist.length ? countWishlist.length : 0}</span>
                 </a>
               </li>
               <li className="nav-item position-relative">

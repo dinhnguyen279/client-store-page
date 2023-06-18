@@ -170,11 +170,33 @@ function Detail(props) {
     fetchData();
   }, []);
 
+  const access_token = sessionStorage.getItem("access_token")
+
   useEffect(() => {
     const fetchDataComment = async () => {
       // Hàm này gọi thông tin user 
       const idUser = sessionStorage.getItem("id_user")
-      await axios.get(`${URL_GetByIdUser}/${idUser}`).then((res) => setUser(res.data))
+      if (access_token) {
+        const fetchDataUserGoogle = async () => {
+          await axios
+            .get(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${access_token}`)
+            .then((res) => {
+              setUser({
+                ...user,
+                fullname: res.data.name,
+                avatar: res.data.picture
+              })
+            }
+            )
+            .catch((error) => console.log(error));
+        }
+        fetchDataUserGoogle()
+      } else {
+        await axios
+          .get(`${URL_GetByIdUser}/${idUser}`)
+          .then((res) => setUser(res.data))
+          .catch(err => console.log(err))
+      }
       //Hàm này gọi API lấy comment của sản phẩm dựa theo id sản phẩm
       const responseListComment = await axios.get(`${URL_GetCommentByIdProduct}/${id}`)
       const dataComment = responseListComment.data

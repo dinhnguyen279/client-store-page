@@ -1,11 +1,12 @@
 import React from 'react';
-
+import { googleLogout } from '@react-oauth/google';
 function LoginLink(props) {
 
     const onRedirect = () => {
         setTimeout(() => {
-            sessionStorage.clear()
-            window.location.href = "/"
+            googleLogout();
+            sessionStorage.clear();
+            window.location.href = "/";
         }, 1000)
     }
 

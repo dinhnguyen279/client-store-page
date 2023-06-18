@@ -90,6 +90,8 @@ function Checkout(props) {
     const id_user_clientage = localStorage.getItem("id_user_clientage")
     idUser = id_user_clientage;
   }
+  const access_token = sessionStorage.getItem("access_token")
+
   useEffect(() => {
     const fetchData = async () => {
       if (idUser) {
@@ -100,10 +102,30 @@ function Checkout(props) {
             getTotal(response.data);
           })
           .catch((error) => console.log(error));
-        await axios
-          .get(`${URL_getUserById}/${idUser}`)
-          .then((response) => setUser(response.data))
-          .catch((error) => console.log(error));
+
+        if (access_token) {
+          const fetchDataUserGoogle = async () => {
+            await axios
+              .get(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${access_token}`)
+              .then((res) => {
+                setUser({
+                  ...user,
+                  email: res.data.email,
+                  fullname: res.data.name,
+                  avatar: res.data.picture
+                })
+              }
+              )
+              .catch((error) => console.log(error));
+          }
+          fetchDataUserGoogle()
+        } else {
+          await axios
+            .get(`${URL_getUserById}/${idUser}`)
+            .then((response) => setUser(response.data))
+            .catch((error) => console.log(error));
+        }
+
       }
     }
     fetchData()

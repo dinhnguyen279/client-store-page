@@ -10,6 +10,23 @@ html {
   font-family: Roboto, sans-serif;
 }
 
+.form-signin {
+  padding: 55px 50px 55px 55px;
+}
+
+.btn-google {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid gainsboro;
+  padding: 10px 0;
+  background: #fff;
+  border-radius: 4px;
+  color: black;
+}
+
 .show-password {
   position: absolute;
   top: 50%;
@@ -738,7 +755,7 @@ iframe {
 .login100-form-title::before {
   content: "";
   position: absolute;
-  top: 28%;
+  top: 25%;
   left: 50%;
   transform: translateX(-50%);
   right: 0;
@@ -785,7 +802,7 @@ iframe {
   .signup100-form-title::before {
     content: "";
     position: absolute;
-    top: 20%;
+    top: 22%;
     left: 50%;
     transform: translateX(-50%);
     right: 0;
@@ -808,7 +825,7 @@ iframe {
     font-size: 30px;
   }
   .login100-form-title::before {
-    top: 23%;
+    top: 22%;
   }
   .signup100-form-title {
     font-size: 30px;
@@ -822,8 +839,25 @@ iframe {
 }
 
 @media only screen and (max-width: 470px) {
+  .form-signin {
+    padding: 20px 0;
+  }
   .main-profile {
     padding: 40px 10px;
+  }
+  .login100-form-title {
+    padding: 15px 0;
+    font-size: 30px;
+  }
+  .login100-form-title::before {
+    top: 15%;
+  }
+  .signup100-form-title {
+    padding: 15px 0;
+    font-size: 30px;
+  }
+  .signup100-form-title::before {
+    top: 14%;
   }
 }
 
