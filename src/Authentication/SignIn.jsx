@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import './Auth.css'
-import queryString from 'query-string'
-import CartAPI from '../API/CartAPI';
-import axios from 'axios';
-import UserAPI from '../API/UserAPI';
 import { AiOutlineLock, AiFillEye, AiFillEyeInvisible, AiOutlineUser } from "react-icons/ai"
 import axiosClient from '../API/axiosClient';
 import alertify from 'alertifyjs';
-import LoginWithGoogle from './LoginWithGoogle';
+import LoginWithFirebase from './LoginWithFirebase';
+
+import firebase from "../service/firebaseConfig"
 
 
 function SignIn(props) {
@@ -21,6 +19,20 @@ function SignIn(props) {
     })
     // Show/hide password
     const [typePassWord, setTypePassWord] = useState("password")
+
+    // Cấu hình lưu thông tin khách hàng đăng nhập bằng google và facebook
+    useEffect(() => {
+        firebase.auth().onAuthStateChanged(result => {
+            if (result) {
+                const user = result.providerData
+                sessionStorage.setItem("access_token", result.refreshToken)
+                sessionStorage.setItem("fullname", user[0].displayName)
+                sessionStorage.setItem("email", user[0].email)
+                sessionStorage.setItem("avatar", user[0].photoURL)
+                sessionStorage.setItem("id_user", user[0].uid)
+            }
+        })
+    }, [])
 
     // const [redirect, setRedirect] = useState(false)
 
@@ -180,7 +192,8 @@ function SignIn(props) {
                                 </div>
                             </form>
                             <div className='p-t-30'>
-                                <LoginWithGoogle />
+                                {/* <LoginWithGoogle /> */}
+                                <LoginWithFirebase />
                                 <div className="text-center p-t-30 p-b-4">
                                     <span className="txt1">Tạo một tài khoản?</span>
                                     &nbsp;

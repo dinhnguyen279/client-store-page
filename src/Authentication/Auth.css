@@ -784,7 +784,7 @@ iframe {
   .login100-form-title::before {
     content: "";
     position: absolute;
-    top: 25%;
+    top: 22%;
     left: 50%;
     transform: translateX(-50%);
     right: 0;
@@ -825,7 +825,7 @@ iframe {
     font-size: 30px;
   }
   .login100-form-title::before {
-    top: 22%;
+    top: 20%;
   }
   .signup100-form-title {
     font-size: 30px;
@@ -850,7 +850,7 @@ iframe {
     font-size: 30px;
   }
   .login100-form-title::before {
-    top: 15%;
+    top: 14%;
   }
   .signup100-form-title {
     padding: 15px 0;

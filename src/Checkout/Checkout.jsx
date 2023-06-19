@@ -104,20 +104,15 @@ function Checkout(props) {
           .catch((error) => console.log(error));
 
         if (access_token) {
-          const fetchDataUserGoogle = async () => {
-            await axios
-              .get(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${access_token}`)
-              .then((res) => {
-                setUser({
-                  ...user,
-                  email: res.data.email,
-                  fullname: res.data.name,
-                  avatar: res.data.picture
-                })
-              }
-              )
-              .catch((error) => console.log(error));
-          }
+          const fullname = sessionStorage.getItem("fullname")
+          const avatar = sessionStorage.getItem("avatar")
+          const email = sessionStorage.getItem("email")
+          setUser({
+            ...user,
+            fullname: fullname,
+            avatar: avatar,
+            email: email
+          })
           fetchDataUserGoogle()
         } else {
           await axios

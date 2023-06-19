@@ -11,20 +11,10 @@ function Name(props) {
     useEffect(() => {
 
         const fetchData = async () => {
-            const getUserByAccesToken = sessionStorage.getItem("access_token")
-            if (getUserByAccesToken) {
-                await axios
-                    .get(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${getUserByAccesToken}`, {
-                        headers: {
-                            Authorization: `Bearer ${getUserByAccesToken}`,
-                            Accept: 'application/json'
-                        }
-                    })
-                    .then((res) => {
-                        setName(res.data.name)
-                        return
-                    })
-                    .catch((err) => console.log(err))
+            const access_token = sessionStorage.getItem("access_token")
+            if (access_token) {
+                const fullname = sessionStorage.getItem("fullname")
+                setName(fullname)
             } else {
                 const response = await UserAPI.getDetailData(sessionStorage.getItem('id_user'))
                 setName(response.data.fullname)

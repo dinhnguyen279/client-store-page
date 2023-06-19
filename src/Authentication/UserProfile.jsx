@@ -65,26 +65,15 @@ const UserProfile = (props) => {
       navigate('/signin', { replace: true });
     }
     if (access_token) {
-      const fetchDataUserGoogle = async () => {
-        await axios
-          .get(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${access_token}`)
-          .then((res) => {
-            setGetDataUser({
-              ...getDataUser,
-              email: res.data.email,
-              fullname: res.data.name,
-              avatar: res.data.picture,
-              address: res.data.address,
-              phone: res.data.phone,
-              sex: res.data.gender,
-              birthday: res.data.birthday
-            })
-          }
-          )
-          .catch((error) => console.log(error));
-      }
-      console.log("getDataUser", getDataUser);
-      fetchDataUserGoogle()
+      const fullname = sessionStorage.getItem("fullname")
+      const avatar = sessionStorage.getItem("avatar")
+      const email = sessionStorage.getItem("email")
+      setGetDataUser({
+        ...getDataUser,
+        fullname: fullname,
+        avatar: avatar,
+        email: email
+      })
     } else {
       // hàm này gọi thông tin user
       const fetchDataUser = async () => {

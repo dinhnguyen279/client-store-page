@@ -177,20 +177,15 @@ function Detail(props) {
       // Hàm này gọi thông tin user 
       const idUser = sessionStorage.getItem("id_user")
       if (access_token) {
-        const fetchDataUserGoogle = async () => {
-          await axios
-            .get(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${access_token}`)
-            .then((res) => {
-              setUser({
-                ...user,
-                fullname: res.data.name,
-                avatar: res.data.picture
-              })
-            }
-            )
-            .catch((error) => console.log(error));
-        }
-        fetchDataUserGoogle()
+        const fullname = sessionStorage.getItem("fullname")
+        const avatar = sessionStorage.getItem("avatar")
+        const email = sessionStorage.getItem("email")
+        setUser({
+          ...user,
+          fullname: fullname,
+          avatar: avatar,
+          email: email
+        })
       } else {
         await axios
           .get(`${URL_GetByIdUser}/${idUser}`)
