@@ -729,7 +729,7 @@ iframe {
 .signup100-form-title::before {
   content: "";
   position: absolute;
-  top: 22%;
+  top: 18%;
   left: 50%;
   transform: translateX(-50%);
   right: 0;
@@ -802,7 +802,7 @@ iframe {
   .signup100-form-title::before {
     content: "";
     position: absolute;
-    top: 22%;
+    top: 18%;
     left: 50%;
     transform: translateX(-50%);
     right: 0;
@@ -831,7 +831,7 @@ iframe {
     font-size: 30px;
   }
   .signup100-form-title::before {
-    top: 20%;
+    top: 16%;
   }
   .form-edit-user {
     width: 90%;
@@ -857,7 +857,7 @@ iframe {
     font-size: 30px;
   }
   .signup100-form-title::before {
-    top: 14%;
+    top: 11%;
   }
 }
 

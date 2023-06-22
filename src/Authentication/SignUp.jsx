@@ -6,6 +6,7 @@ import { AiFillEye, AiFillEyeInvisible, AiOutlineLock, AiOutlineMail, AiOutlineU
 import axiosClient from '../API/axiosClient';
 import alertify from 'alertifyjs';
 import { useEffect } from 'react';
+import LoginWithFirebase from './LoginWithFirebase';
 SignUp.propTypes = {
 
 };
@@ -148,11 +149,11 @@ function SignUp(props) {
                                     <input className="input100" value={password} onChange={onChangePassword} type={typePassWord} placeholder="Mật khẩu" />
                                     {typePassWord === "password" ? (
                                         <button type='button' className='show-password' onClick={() => setTypePassWord("text")}>
-                                            <AiFillEyeInvisible />
+                                            <AiFillEye />
                                         </button >
                                     ) : (
                                         <button type='button' className='show-password' onClick={() => setTypePassWord("password")}>
-                                            <AiFillEye />
+                                            <AiFillEyeInvisible />
                                         </button>
                                     )}
                                 </div>
@@ -176,15 +177,20 @@ function SignUp(props) {
                                         Đăng ký
                                     </button>
                                 </div>
-
+                                <p className='text-center'>
+                                    Hoặc
+                                </p>
                             </div>
                         </form>
-                        <div className="text-center p-t-30 p-b-4">
-                            <span className="txt1">Đăng nhập?</span>
-                            &nbsp;
-                            <Link to="/signin" className="txt2 hov1">
-                                Click
-                            </Link>
+                        <div className="p-t-30">
+                            <LoginWithFirebase />
+                            <div className="text-center p-t-30">
+                                <span className="txt1">Đăng nhập?</span>
+                                &nbsp;
+                                <Link to="/signin" className="txt2 hov1">
+                                    Click
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </div>
