@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, parsePath } from 'react-router-dom';
 import './Auth.css'
 import { AiOutlineLock, AiFillEye, AiFillEyeInvisible, AiOutlineUser } from "react-icons/ai"
 import axiosClient from '../API/axiosClient';
@@ -23,6 +23,12 @@ function SignIn(props) {
 
     // Cấu hình lưu thông tin khách hàng đăng nhập bằng google và facebook
     useEffect(() => {
+        // Check localStorage nếu có thông tin user thì gọi ra trước
+        if (localStorage.getItem("accountName") && localStorage.getItem("password")) {
+            const accountName = localStorage.getItem("accountName")
+            const password = localStorage.getItem("password")
+            setDataLogin({ ...dataLogin, loginValue: accountName, password: password })
+        }
         firebase.auth().onAuthStateChanged(result => {
             if (result) {
                 const user = result.providerData
@@ -143,6 +149,17 @@ function SignIn(props) {
     const showFormForgotPassword = () => {
         setFormForgotPassword(pre => !pre)
     }
+
+    const handleRemember = (e) => {
+        const checked = e.target.checked
+        if (checked) {
+            localStorage.setItem("accountName", dataLogin.loginValue)
+            localStorage.setItem("password", dataLogin.password)
+        } else {
+            localStorage.removeItem("accountName")
+            localStorage.removeItem("password")
+        }
+    }
     return (
         <>
             <div className="limiter">
@@ -181,7 +198,7 @@ function SignIn(props) {
                                                 {errors.password && <p className="text-danger">{errors.password}</p>}
                                                 <div className='d-flex justify-content-between'>
                                                     <div className='input-remember'>
-                                                        <input type="checkbox" className='mr-1' />
+                                                        <input type="checkbox" className='mr-1' checked={localStorage.getItem("accountName") ? true : false} onChange={handleRemember} />
                                                         <label className='m-0'>Nhớ tài khoản</label>
                                                     </div>
                                                     <button type='button' className='forgot-password' onClick={showFormForgotPassword}>
