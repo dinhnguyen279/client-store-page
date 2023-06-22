@@ -5,7 +5,7 @@ import { AiOutlineLock, AiFillEye, AiFillEyeInvisible, AiOutlineUser } from "rea
 import axiosClient from '../API/axiosClient';
 import alertify from 'alertifyjs';
 import LoginWithFirebase from './LoginWithFirebase';
-
+import FormForgotPassword from './ForgotPassword';
 import firebase from "../service/firebaseConfig"
 
 
@@ -17,6 +17,7 @@ function SignIn(props) {
         loginType: "",
         password: ""
     })
+    const [formForgotPassword, setFormForgotPassword] = useState(false)
     // Show/hide password
     const [typePassWord, setTypePassWord] = useState("password")
 
@@ -139,7 +140,9 @@ function SignIn(props) {
         const idUser = sessionStorage.setItem('id_user', user._id)
         return idUser;
     }
-
+    const showFormForgotPassword = () => {
+        setFormForgotPassword(pre => !pre)
+    }
     return (
         <>
             <div className="limiter">
@@ -148,63 +151,77 @@ function SignIn(props) {
                     </div>
                     <div className='wrap-login100 col-md-12 col-xl-8'>
                         <div className='form-signin'>
-                            <form onSubmit={onSubmit} >
-                                <div className="signInForm">
-                                    <p className="login100-form-title">
-                                        Đăng nhập
-                                    </p>
-                                    <div className="wrap-input100 validate-input" >
-                                        <AiOutlineUser className='icon-form' />
-                                        {/* <input className="input100" type="text" placeholder="Email hoặc Số Điện Thoại" value={dataLogin.email || dataLogin.password} onChange={onChangeAccountName} /> */}
-                                        <input className="input100" type="text" placeholder="Email hoặc Số Điện Thoại" value={dataLogin.email || dataLogin.phone} onChange={onChangeAccountName} />
-                                    </div>
-                                    {errors.email && <p className="text-danger">{errors.email}</p>}
-                                    {errors.phone && <p className="text-danger">{errors.phone}</p>}
-                                    <div className="wrap-input100 validate-input">
-                                        <AiOutlineLock className='icon-form' />
-                                        <input className="input100" type={typePassWord} placeholder="Mật khẩu" value={dataLogin.password} onChange={onChangePassword} />
-                                        {typePassWord === "password" ? (
-                                            <button type='button' className='show-password' onClick={() => setTypePassWord("text")}>
-                                                <AiFillEye />
-                                            </button >
-                                        ) : (
-                                            <button type='button' className='show-password' onClick={() => setTypePassWord("password")}>
-                                                <AiFillEyeInvisible />
-                                            </button>)
-                                        }
-                                    </div>
-                                    {errors.password && <p className="text-danger">{errors.password}</p>}
-
-                                    <div className="login-box">
-                                        {/* <div className="container-login100-form-btn m-t-20"> */}
-                                        {/* <button className="login100-form-btn btn-form" type='submit'> */}
-                                        <button className="" type='submit'>
-                                            <span></span>
-                                            <span></span>
-                                            <span></span>
-                                            <span></span>
-                                            Đăng nhập
-                                        </button>
-                                    </div>
-                                    <p className='text-center'>
-                                        Hoặc
-                                    </p>
-                                </div>
-                            </form>
-                            <div className='p-t-30'>
-                                {/* <LoginWithGoogle /> */}
-                                <LoginWithFirebase />
-                                <div className="text-center p-t-30 p-b-4">
-                                    <span className="txt1">Tạo một tài khoản?</span>
-                                    &nbsp;
-                                    <Link to="/signup" className="txt2 hov1">
-                                        Đăng ký
-                                    </Link>
-                                </div>
-                            </div>
+                            {
+                                !formForgotPassword ? (
+                                    <>
+                                        <form onSubmit={onSubmit} >
+                                            <div className="signInForm">
+                                                <p className="login100-form-title">
+                                                    Đăng nhập
+                                                </p>
+                                                <div className="wrap-input100 validate-input" >
+                                                    <AiOutlineUser className='icon-form' />
+                                                    <input className="input100" type="text" placeholder="Email hoặc Số Điện Thoại" value={dataLogin.loginValue} onChange={onChangeAccountName} />
+                                                </div>
+                                                {errors.email && <p className="text-danger">{errors.email}</p>}
+                                                {errors.phone && <p className="text-danger">{errors.phone}</p>}
+                                                <div className="wrap-input100 validate-input">
+                                                    <AiOutlineLock className='icon-form' />
+                                                    <input className="input100" type={typePassWord} placeholder="Mật khẩu" value={dataLogin.password} onChange={onChangePassword} />
+                                                    {typePassWord === "password" ? (
+                                                        <button type='button' className='show-password' onClick={() => setTypePassWord("text")}>
+                                                            <AiFillEye />
+                                                        </button >
+                                                    ) : (
+                                                        <button type='button' className='show-password' onClick={() => setTypePassWord("password")}>
+                                                            <AiFillEyeInvisible />
+                                                        </button>)
+                                                    }
+                                                </div>
+                                                {errors.password && <p className="text-danger">{errors.password}</p>}
+                                                <div className='d-flex justify-content-between'>
+                                                    <div className='input-remember'>
+                                                        <input type="checkbox" className='mr-1' />
+                                                        <label className='m-0'>Nhớ tài khoản</label>
+                                                    </div>
+                                                    <button type='button' className='forgot-password' onClick={showFormForgotPassword}>
+                                                        Quên mật khẩu?
+                                                    </button>
+                                                </div>
+                                                <div className="login-box">
+                                                    {/* <div className="container-login100-form-btn m-t-20"> */}
+                                                    {/* <button className="login100-form-btn btn-form" type='submit'> */}
+                                                    <button className="" type='submit'>
+                                                        <span></span>
+                                                        <span></span>
+                                                        <span></span>
+                                                        <span></span>
+                                                        Đăng nhập
+                                                    </button>
+                                                </div>
+                                                <p className='text-center'>
+                                                    Hoặc
+                                                </p>
+                                            </div>
+                                        </form>
+                                        <div className='p-t-30'>
+                                            <LoginWithFirebase />
+                                            <div className="text-center p-t-30 p-b-4">
+                                                <span className="txt1">Tạo một tài khoản?</span>
+                                                &nbsp;
+                                                <Link to="/signup" className="txt2 hov1">
+                                                    Đăng ký
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    </>
+                                ) : <FormForgotPassword backFormLogin={setFormForgotPassword} />
+                            }
                         </div>
-
                     </div>
+
+
+
                 </div>
             </div>
         </>

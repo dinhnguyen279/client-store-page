@@ -14,6 +14,27 @@ html {
   padding: 55px 50px 55px 55px;
 }
 
+.forgot-password {
+  font-size: 15px;
+  text-decoration: none;
+}
+
+.btn-resetpassword {
+  background: #000;
+  width: 100%;
+  padding: 10px 0;
+  font-size: larger;
+}
+
+.btn-resetpassword:hover {
+  color: #fff;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+  color: #efb93b;
+}
+
 .btn-google {
   width: 100%;
   display: flex;
@@ -755,7 +776,7 @@ iframe {
 .login100-form-title::before {
   content: "";
   position: absolute;
-  top: 25%;
+  top: 23%;
   left: 50%;
   transform: translateX(-50%);
   right: 0;
@@ -908,6 +929,19 @@ iframe {
   transform: translateY(-50%);
   margin-left: 10px;
   font-size: 18px;
+}
+
+.btn-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.btn-back:hover {
+  color: black;
 }
 
 /*---------------------------------------------*/
