@@ -1,5 +1,5 @@
 import React from 'react'
-import { signInWithFacebook, signInWithGoogle } from "../service/firebaseConfig"
+import { signInWithFacebook, signInWithGoogle } from "../../service/firebaseConfig"
 
 const LoginWithFirebase = () => {
     return (

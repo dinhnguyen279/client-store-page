@@ -5,7 +5,7 @@ import { AiFillEye, AiFillEyeInvisible, AiOutlineLock, AiOutlineMail, AiOutlineU
 import axiosClient from '../API/axiosClient';
 import alertify from 'alertifyjs';
 import { useEffect } from 'react';
-import LoginWithFirebase from './LoginWithFirebase';
+import LoginWithFirebase from './components/LoginWithFirebase';
 SignUp.propTypes = {
 
 };

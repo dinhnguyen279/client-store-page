@@ -4,8 +4,8 @@ import './Auth.css'
 import { AiOutlineLock, AiFillEye, AiFillEyeInvisible, AiOutlineUser } from "react-icons/ai"
 import axiosClient from '../API/axiosClient';
 import alertify from 'alertifyjs';
-import LoginWithFirebase from './LoginWithFirebase';
-import FormForgotPassword from './ForgotPassword';
+import LoginWithFirebase from './components/LoginWithFirebase';
+import FormForgotPassword from './components/ForgotPassword';
 import firebase from "../service/firebaseConfig"
 
 
@@ -19,7 +19,8 @@ function SignIn(props) {
     })
     const [formForgotPassword, setFormForgotPassword] = useState(false)
     // Show/hide password
-    const [typePassWord, setTypePassWord] = useState("password")
+    const [typePassWord, setTypePassWord] = useState("password");
+    const [checked, setChecked] = useState(false)
 
     // Cấu hình lưu thông tin khách hàng đăng nhập bằng google và facebook
     useEffect(() => {
@@ -28,6 +29,7 @@ function SignIn(props) {
             const accountName = localStorage.getItem("accountName")
             const password = localStorage.getItem("password")
             setDataLogin({ ...dataLogin, loginValue: accountName, password: password })
+            setChecked(true)
         }
         firebase.auth().onAuthStateChanged(result => {
             if (result) {
@@ -151,11 +153,13 @@ function SignIn(props) {
     }
 
     const handleRemember = (e) => {
-        const checked = e.target.checked
+        const { checked } = e.target
         if (checked) {
+            setChecked(true)
             localStorage.setItem("accountName", dataLogin.loginValue)
             localStorage.setItem("password", dataLogin.password)
         } else {
+            setChecked(false)
             localStorage.removeItem("accountName")
             localStorage.removeItem("password")
         }
@@ -198,7 +202,7 @@ function SignIn(props) {
                                                 {errors.password && <p className="text-danger">{errors.password}</p>}
                                                 <div className='d-flex justify-content-between'>
                                                     <div className='input-remember'>
-                                                        <input type="checkbox" className='mr-1' checked={localStorage.getItem("accountName") ? true : false} onChange={handleRemember} />
+                                                        <input type="checkbox" className='mr-1' checked={checked} onChange={handleRemember} />
                                                         <label className='m-0'>Nhớ tài khoản</label>
                                                     </div>
                                                     <button type='button' className='forgot-password' onClick={showFormForgotPassword}>
@@ -236,9 +240,6 @@ function SignIn(props) {
                             }
                         </div>
                     </div>
-
-
-
                 </div>
             </div>
         </>
