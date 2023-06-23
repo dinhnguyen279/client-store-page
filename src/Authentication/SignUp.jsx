@@ -92,32 +92,28 @@ function SignUp(props) {
         return isValid
     }
 
-    useEffect(() => {
-        if (fullName.length || email.length || password.length || phone.length > 0) {
-            validateForm()
-        }
-    }, [fullName, email, password, phone])
-
-
     const handlerSignUp = async (e) => {
         e.preventDefault()
-        const params = {
-            fullname: fullName,
-            email: email,
-            password: password.toUpperCase(),
-            phone: phone
+        if (validateForm()) {
+
+            const params = {
+                fullname: fullName,
+                email: email,
+                password: password.toUpperCase(),
+                phone: phone
+            }
+            await axiosClient.post(REGISTER_URL, params)
+                .then((res) => {
+                    if (res.data.error === undefined) {
+                        alertify.set("notifier", "position", "bottom-left");
+                        alertify.success("Chào mừng người mới");
+                        setSuccess(true)
+                    } else {
+                        alertify.set("notifier", "position", "bottom-right");
+                        alertify.error(res.data.error);
+                    }
+                })
         }
-        await axiosClient.post(REGISTER_URL, params)
-            .then((res) => {
-                if (res.data.error === undefined) {
-                    alertify.set("notifier", "position", "bottom-left");
-                    alertify.success("Chào mừng người mới");
-                    setSuccess(true)
-                } else {
-                    alertify.set("notifier", "position", "bottom-right");
-                    alertify.error(res.data.error);
-                }
-            })
     }
     return (
         <div className="limiter">
