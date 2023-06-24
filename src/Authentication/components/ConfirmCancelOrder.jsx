@@ -2,7 +2,6 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import { Button, Modal } from 'react-bootstrap'
 import { FaRegBell } from 'react-icons/fa'
-import { HOST } from '../../domain/host/host'
 
 const ConfirmCancelBill = (props) => {
     const handleCancelOrder = props.cancelOrder

@@ -9,6 +9,7 @@ import Detail from "./Detail/Detail";
 import Cart from "./Cart/Cart";
 import SignIn from "./Authentication/SignIn";
 import SignUp from "./Authentication/SignUp";
+import ResetPassword from "./Authentication/components/ResetPassword";
 import Checkout from "./Checkout/Checkout";
 import Shop from "./Shop/Shop";
 import Contact from "./Contact/Contact";
@@ -85,6 +86,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="reset-password/" element={<ResetPassword />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/shop/:id" element={<Shop handleAddWishlist={addWishlist} />} />
         <Route path="/shop/:id" element={<Shop />} />

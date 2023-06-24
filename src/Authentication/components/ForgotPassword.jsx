@@ -4,7 +4,7 @@ import axiosClient from '../../API/axiosClient'
 import alertify from 'alertifyjs'
 
 const FormForgotPassword = (props) => {
-    const RESETPASSWORD = "/reset-password"
+    const FORGOTPASSWORD = "/forgot-password"
     const [loading, setLoading] = useState(false)
     const [errors, setErrors] = useState({})
     const [value, setValue] = useState({
@@ -75,7 +75,7 @@ const FormForgotPassword = (props) => {
                 data.email = value.inputValue
             }
             await axiosClient
-                .post(RESETPASSWORD, data)
+                .post(FORGOTPASSWORD, data)
                 .then(() => {
                     setLoading(false)
                     alertify
