@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { AiFillCloseCircle, AiFillCloseSquare, AiOutlineArrowLeft, AiOutlineClose, AiOutlineUser } from "react-icons/ai"
+import { AiOutlineArrowLeft, AiOutlineUser } from "react-icons/ai"
 import axiosClient from '../../API/axiosClient'
 import alertify from 'alertifyjs'
 
@@ -11,6 +11,7 @@ const FormForgotPassword = (props) => {
         inputValue: "",
         inputType: ""
     })
+
     const onChangeValue = (e) => {
         if (!isNaN(e.target.value)) {
             setValue({ ...value, inputValue: e.target.value, inputType: "phone" })

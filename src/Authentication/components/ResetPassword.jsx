@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { AiFillEye, AiFillEyeInvisible, AiOutlineLock, AiOutlineUser } from 'react-icons/ai'
 import axiosClient from '../../API/axiosClient';
-import { redirect, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import alertify from 'alertifyjs';
 const ResetPassword = () => {
     const RESETPASSWORD = "/reset-password"
@@ -17,8 +17,8 @@ const ResetPassword = () => {
     // lấy resetCode để gửi về server
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
-    const resetCode = searchParams.get("code");
-    const resetcCodeEncoded = encodeURIComponent(resetCode);
+    const resetCode = searchParams.get("token");
+    const resetCodeEncoded = encodeURIComponent(resetCode);
 
     const onChangeNewPassword = (e) => {
         setPassword({ ...password, newPassword: e.target.value })
@@ -55,7 +55,7 @@ const ResetPassword = () => {
     const onSubmit = async (e) => {
         e.preventDefault();
         if (validateFormSignin()) {
-            const url = `${RESETPASSWORD}/${resetcCodeEncoded}`
+            const url = `${RESETPASSWORD}/${resetCodeEncoded}`
             await axiosClient
                 .patch(url, { newPassword: password.newPassword.toUpperCase() })
                 .then(() => {
@@ -66,6 +66,10 @@ const ResetPassword = () => {
                     }, 500);
                 })
                 .catch(err => {
+                    if (err.response.data.message) {
+                        alertify.set("notifier", "position", "top-right");
+                        alertify.error("Mã xác thực đã hết hạn!");
+                    }
                     alertify.set("notifier", "position", "top-right");
                     alertify.error(err.response.data);
                 })

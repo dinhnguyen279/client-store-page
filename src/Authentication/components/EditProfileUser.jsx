@@ -88,7 +88,7 @@ const EditProfileUser = (props) => {
             controlId="formBasicEmail"
           >
             <img
-              src={dataUser.avatar}
+              src={dataUser.avatar ? dataUser.avatar : "https://vnn-imgs-f.vgcloud.vn/2020/03/23/11/trend-avatar-1.jpg"}
               alt="Hình ảnh người dùng"
               className="img-profile"
             />
@@ -110,6 +110,22 @@ const EditProfileUser = (props) => {
               }
             />
             <Form.Label className="form-label">Họ và Tên</Form.Label>
+          </Form.Group>
+
+          <Form.Group
+            className="mb-3 input-text position-relative"
+            controlId="formBasicEmail"
+          >
+            <Form.Control
+              className="form-input-user mw-100"
+              type="email"
+              placeholder=" "
+              value={dataUser.email}
+              onChange={(e) =>
+                setGetData({ ...dataUser, email: e.target.value })
+              }
+            />
+            <Form.Label className="form-label">Email</Form.Label>
           </Form.Group>
 
           <Form.Group
@@ -176,23 +192,7 @@ const EditProfileUser = (props) => {
             <Form.Label className="form-label">Số điện thoại</Form.Label>
           </Form.Group>
 
-          <Form.Group
-            className="mb-3 input-text position-relative"
-            controlId="formBasicEmail"
-          >
-            <Form.Control
-              className="form-input-user mw-100"
-              type="email"
-              placeholder=" "
-              value={dataUser.email}
-              onChange={(e) =>
-                setGetData({ ...dataUser, email: e.target.value })
-              }
-            />
-            <Form.Label className="form-label">Email</Form.Label>
-          </Form.Group>
-
-          <Form.Group
+          {/* <Form.Group
             className="mb-3 input-text position-relative"
             controlId="formBasicEmail"
           >
@@ -223,7 +223,7 @@ const EditProfileUser = (props) => {
                 <AiFillEyeInvisible />
               </button>
             )}
-          </Form.Group>
+          </Form.Group> */}
         </Form>
       </Modal.Body>
       <Modal.Footer>

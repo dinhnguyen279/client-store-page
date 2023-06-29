@@ -123,9 +123,8 @@ function SignIn(props) {
 
             await axiosClient.post(SIGNIN_URL, data)
                 .then((res) => {
-                    if (res.data !== null && typeof res.data === "object") {
+                    if (res.data.status) {
                         setUser(res.data)
-                        console.log("res.data", res.data);
                         alertify.set("notifier", "position", "bottom-left");
                         alertify.success("Bạn Đã Đăng Nhập Thành Công!");
                         setTimeout(() => {

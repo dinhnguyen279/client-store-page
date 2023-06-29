@@ -30,12 +30,12 @@ const UserProfile = (props) => {
   const [getDataUser, setGetDataUser] = useState({
     avatar: "",
     fullname: "",
-    address: "",
     email: "",
     phone: "",
-    password: "",
-    sex: "",
-    birthday: ""
+    address: "",
+    // password: "",
+    birthday: "",
+    sex: ""
   });
   const [getDataInvoices, setGetDataInvoices] = useState({
     imgProduct: "",
@@ -51,7 +51,7 @@ const UserProfile = (props) => {
   const [idCancelOrder, setIdCancelOrder] = useState("")
   const [history, setHistory] = useState([]);
   // Show/hide password
-  const [typePassWord, setTypePassWord] = useState("password");
+  // const [typePassWord, setTypePassWord] = useState("password");
   const handlerActive = (value) => {
     setActive(value);
   };
@@ -159,7 +159,7 @@ const UserProfile = (props) => {
         <div className="d-block d-md-flex justify-between">
           <div className=" mb-3 main-img-profile d-block d-md-flex align-items-end">
             <img
-              src={getDataUser.avatar}
+              src={getDataUser.avatar ? getDataUser.avatar : "https://vnn-imgs-f.vgcloud.vn/2020/03/23/11/trend-avatar-1.jpg"}
               className="img-profile"
               alt="Profile Picture"
             />
@@ -229,7 +229,7 @@ const UserProfile = (props) => {
           <div className="card-title d-flex justify-content-between">
             <h3 className="title-text">Thông tin cá nhân</h3>
             <Button
-              disabled={access_token.length > 0 ? true : false}
+              disabled={access_token?.length > 0 ? true : false}
               type="button"
               variant="primary"
               onClick={() => setModalShow(true)}
@@ -273,9 +273,8 @@ const UserProfile = (props) => {
               </div>
             </div>
             <div className="col-md-6 icon-detail d-flex align-items-center">
-              <i className="fa fa-lock" aria-hidden="true"></i>
-              <div>
-                {/* <Form.input type="password" value={getDataUser.address} /> */}
+              {/* <i className="fa fa-lock" aria-hidden="true"></i> */}
+              {/* <div>
                 <Form.Group
                   className="wrap-inputInfo validate-input"
                   controlId="formBasicPassword"
@@ -305,7 +304,7 @@ const UserProfile = (props) => {
                     </button>
                   )}
                 </Form.Group>
-              </div>
+              </div> */}
             </div>
           </div>
 
