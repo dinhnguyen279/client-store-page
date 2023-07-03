@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { AiOutlineArrowLeft, AiOutlineUser } from "react-icons/ai"
 import axiosClient from '../../API/axiosClient'
 import alertify from 'alertifyjs'
+import Cookies from "js-cookie"
 
 const FormForgotPassword = (props) => {
     const FORGOTPASSWORD = "/forgot-password"
@@ -77,7 +78,8 @@ const FormForgotPassword = (props) => {
             }
             await axiosClient
                 .post(FORGOTPASSWORD, data)
-                .then(() => {
+                .then((res) => {
+                    Cookies.set("tokenResetCode", `${res.data.token}`, { expires: 1 }) // Token này chỉ được lưu trong 1 ngày
                     setLoading(false)
                     alertify
                         .alert("Thành công", "Vui lòng kiểm tra email!").set("label", "Đóng", true)

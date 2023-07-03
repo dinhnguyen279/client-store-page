@@ -1,9 +1,11 @@
 import axios from 'axios';
 import React, { useState } from 'react'
-import { AiFillEye, AiFillEyeInvisible, AiOutlineLock, AiOutlineUser } from 'react-icons/ai'
+import { AiFillEye, AiFillEyeInvisible, AiOutlineLock } from 'react-icons/ai'
 import axiosClient from '../../API/axiosClient';
 import { useLocation } from 'react-router-dom';
 import alertify from 'alertifyjs';
+import Cookies from "js-cookie"
+
 const ResetPassword = () => {
     const RESETPASSWORD = "/reset-password"
     const [errors, setErrors] = useState({})
@@ -14,11 +16,14 @@ const ResetPassword = () => {
         confirmPassword: ""
     })
 
-    // lấy resetCode để gửi về server
+    // lấy token từ URL 
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const resetCode = searchParams.get("token");
     const resetCodeEncoded = encodeURIComponent(resetCode);
+
+    // Lấy token từ cookies
+    const tokenResetCodeClient = Cookies.get("tokenResetCode")
 
     const onChangeNewPassword = (e) => {
         setPassword({ ...password, newPassword: e.target.value })
@@ -55,12 +60,18 @@ const ResetPassword = () => {
     const onSubmit = async (e) => {
         e.preventDefault();
         if (validateFormSignin()) {
+            if (tokenResetCodeClient !== resetCodeEncoded) {
+                alertify.set("notifier", "position", "top-right");
+                alertify.error("Mã xác thực không hợp lệ hoặc đã hết hạn!");
+                return
+            }
             const url = `${RESETPASSWORD}/${resetCodeEncoded}`
             await axiosClient
                 .patch(url, { newPassword: password.newPassword.toUpperCase() })
                 .then(() => {
                     alertify.set("notifier", "position", "top-right");
                     alertify.success("Bạn Đã Thay Đổi Mật Khẩu Thành Công!");
+                    Cookies.remove("tokenResetCode")
                     setTimeout(() => {
                         window.location.href = "http://localhost:5173/signin"
                     }, 500);
@@ -69,6 +80,7 @@ const ResetPassword = () => {
                     if (err.response.data.message) {
                         alertify.set("notifier", "position", "top-right");
                         alertify.error("Mã xác thực đã hết hạn!");
+                        return
                     }
                     alertify.set("notifier", "position", "top-right");
                     alertify.error(err.response.data);
