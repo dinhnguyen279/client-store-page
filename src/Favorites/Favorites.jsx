@@ -156,92 +156,96 @@ const Favorites = (props) => {
     };
     return (
         <>
-            <section className="py-3 bg-light mb-3 header-contact">
-                <div className="container">
-                    <ol className="breadcrumb justify-content-start">
-                        <li className="breadcrumb-item"><a href={"/"}>Trang chủ</a></li>
-                        <li className="breadcrumb-item active" aria-current="page">Yêu Thích</li>
-                    </ol>
-                </div>
-            </section>
-            {listFavorites.length !== 0 ? (
-                <section className='main-cart p-l-55 p-r-55 p-b-50 bg-light'>
-                    <div className='container main-wishlist'>
-                        <div className=''>
-                            <h3 className="title-header">Sản phẩm yêu thích</h3>
-                            <div className='d-flex justify-content-end'>
-                                <button className='btnAddToCart bg-danger text-light' onClick={() => handleShowAll()}>
-                                    Xóa toàn bộ yêu thích
-                                </button>
-                                {
-                                    showAll && <ModalDeletedAll showAll={showAll} handleCloseAll={handleCloseDeleteAll} handlerDeleteAll={handleDeleteAll} />
-                                }
-                            </div>
-                            {listFavorites && listFavorites.map((val, idx) => {
-                                return (
-                                    <div className='my-4' key={idx + 1}>
-                                        <div className='wishlist-list row'>
-                                            <div className='wishlist-item-first col-lg-12 d-block d-lg-none'>
-                                                <button
-                                                    onClick={() => handleShow(val.id, val.idUser, val.idProduct, val.size)}
-                                                    className="reset-anchor remove_cart btn-base"
-                                                >
-                                                    <i className="fas fa-trash-alt text-muted"></i>
-                                                </button>
-                                            </div>
-                                            <div className='wishlist-item col-lg-3 col-md-5'>
-                                                <Link to={`/detail/${val.idProduct}`}>
-                                                    <img src={val.avt} alt="Name Product" className='img-product' />
-                                                </Link>
-                                            </div>
-                                            <div className='wishlist-item-second col-lg-4 col-md-7'>
-                                                <div className=''>
-                                                    <h5 className='mb-3'>
-                                                        {val.name}
-                                                    </h5>
-                                                    <div>
-                                                        <b>Size:</b> <span className='mr-3'>{val.size}</span>
-                                                        <b>Kho:</b><span> {val.stock < 1 ? <span className='animation-stock'>Đã hết hàng</span> : val.stock}</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className='wishlist-item-third col-lg-5'>
-                                                <button
-                                                    onClick={() => handleShow(val.id, val.idUser, val.idProduct, val.size)}
-                                                    className="reset-anchor remove_cart btn-base"
-                                                >
-                                                    <i className="fas fa-trash-alt text-muted"></i>
-                                                </button>
-                                                <p className='py-3 text-lg'>
-                                                    {parseInt(val.price).toLocaleString()}₫
-                                                </p>
-                                                <button className={`btnAddToCart btn
-                                                ${val.stock < 1 ? "btn-dark text-gray" : "btn-warning "}`}
-                                                    onClick={() => addToCart(val.idProduct, val.name, val.price, val.avt, val.size)}
-                                                    disabled={val.stock < 1 ? true : false}
-                                                >
-                                                    <AiOutlineShoppingCart /> Thêm giỏ hàng
-                                                </button >
-                                            </div>
-                                            {show &&
-                                                <ModalDeleted show={show} handleClose={handleClose} handlerDelete={handlerDelete} />
-                                            }
-                                        </div>
-                                    </div>
-                                )
-                            })}
-                        </div>
+            <div className='main-cart'>
+                <section className="py-3 bg-light mb-1 header-contact">
+                    <div className="container">
+                        <ol className="breadcrumb justify-content-start">
+                            <li className="breadcrumb-item"><a href={"/"}>Trang chủ</a></li>
+                            <li className="breadcrumb-item active" aria-current="page">Yêu Thích</li>
+                        </ol>
                     </div>
                 </section>
-            ) : (
-                <section className="cart-empty">
-                    <p className="text-lg mb-3">Danh sách yêu thích rỗng</p>
-                    <a className='btn-buy btn btn-dark' href="/">
-                        Tiếp tục xem sản phẩm
-                    </a>
-                </section>
+                {
+                    listFavorites.length !== 0 ? (
+                        <section className='p-l-55 p-r-55 p-b-50 bg-light'>
+                            <div className='container main-wishlist'>
+                                <div className=''>
+                                    <h3 className="title-header text-uppercase fw-normal">Sản phẩm yêu thích</h3>
+                                    <div className='d-flex justify-content-end'>
+                                        <button className='btnAddToCart bg-danger text-light' onClick={() => handleShowAll()}>
+                                            Xóa toàn bộ yêu thích
+                                        </button>
+                                        {
+                                            showAll && <ModalDeletedAll showAll={showAll} handleCloseAll={handleCloseDeleteAll} handlerDeleteAll={handleDeleteAll} />
+                                        }
+                                    </div>
+                                    {listFavorites && listFavorites.map((val, idx) => {
+                                        return (
+                                            <div className='my-4' key={idx + 1}>
+                                                <div className='wishlist-list row'>
+                                                    <div className='wishlist-item-first col-lg-12 d-block d-lg-none'>
+                                                        <button
+                                                            onClick={() => handleShow(val.id, val.idUser, val.idProduct, val.size)}
+                                                            className="reset-anchor remove_cart btn-base"
+                                                        >
+                                                            <i className="fas fa-trash-alt text-muted"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div className='wishlist-item col-lg-3 col-md-5'>
+                                                        <Link to={`/detail/${val.idProduct}`}>
+                                                            <img src={val.avt} alt="Name Product" className='img-product' />
+                                                        </Link>
+                                                    </div>
+                                                    <div className='wishlist-item-second col-lg-4 col-md-7'>
+                                                        <div className=''>
+                                                            <h5 className='mb-3 fw-normal'>
+                                                                {val.name}
+                                                            </h5>
+                                                            <div>
+                                                                <b className='fw-bold'>Size:</b> <span className='mr-3'>{val.size}</span>
+                                                                <b className='fw-bold'>Kho:</b><span> {val.stock < 1 ? <span className='animation-stock'>Đã hết hàng</span> : val.stock}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className='wishlist-item-third col-lg-5'>
+                                                        <button
+                                                            onClick={() => handleShow(val.id, val.idUser, val.idProduct, val.size)}
+                                                            className="reset-anchor remove_cart btn-base"
+                                                        >
+                                                            <i className="fas fa-trash-alt text-muted"></i>
+                                                        </button>
+                                                        <p className='py-3 text-lg'>
+                                                            {parseInt(val.price).toLocaleString()}₫
+                                                        </p>
+                                                        <button className={`btnAddToCart btn
+                                                ${val.stock < 1 ? "btn-dark text-gray" : "btn-warning "}`}
+                                                            onClick={() => addToCart(val.idProduct, val.name, val.price, val.avt, val.size)}
+                                                            disabled={val.stock < 1 ? true : false}
+                                                        >
+                                                            <AiOutlineShoppingCart /> Thêm giỏ hàng
+                                                        </button >
+                                                    </div>
+                                                    {show &&
+                                                        <ModalDeleted show={show} handleClose={handleClose} handlerDelete={handlerDelete} />
+                                                    }
+                                                </div>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            </div>
+                        </section >
+                    ) : (
+                        <section className="cart-empty">
+                            <p className="text-lg mb-3">Danh sách yêu thích rỗng</p>
+                            <a className='btn-buy btn btn-dark' href="/">
+                                Tiếp tục xem sản phẩm
+                            </a>
+                        </section>
 
-            )}
+                    )
+                }
+            </div >
         </>
     )
 }

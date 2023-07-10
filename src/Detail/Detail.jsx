@@ -369,7 +369,7 @@ function Detail(props) {
               </div>
               <div className="">
                 <ul className="list-unstyled d-inline-block">
-                  <li className="py-2 mb-1 bg-white text-muted">
+                  <li className="py-2 mb-1 bg-white">
                     <strong className="text-uppercase text-dark">
                       Thể loại:
                     </strong>

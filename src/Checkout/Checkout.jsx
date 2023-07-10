@@ -294,7 +294,7 @@ function Checkout(props) {
 
         {!success && (
           <section className="py-5 container">
-            <h2 className="text-uppercase mb-4">Xác Nhận Đơn Hàng</h2>
+            <h3 className="text-uppercase mb-5 fw-normal text-center">Xác Nhận Đơn Hàng</h3>
             <div className="row">
               <div className="col-lg-8">
                 <form>
@@ -479,13 +479,13 @@ function Checkout(props) {
               <div className="col-lg-4">
                 <div className="card border-0 rounded-0 p-lg-4 bg-light">
                   <div className="card-body">
-                    <h5 className="text-uppercase mb-4">Đơn hàng của bạn</h5>
+                    <h5 className="text-uppercase mb-4 text-center">Đơn hàng của bạn</h5>
                     <ul className="list-unstyled mb-0">
                       {getCartById &&
                         getCartById.map((value) => (
                           <div key={value._id}>
                             <li className="d-flex align-items-center justify-content-between">
-                              <strong className="small font-weight-bold">
+                              <strong className="fw-normal">
                                 {value.nameProduct}
                               </strong>
                               <span className="text-muted small">
@@ -501,7 +501,7 @@ function Checkout(props) {
                           </div>
                         ))}
                       <li className="d-flex align-items-center justify-content-between">
-                        <strong className="font-weight-bold">Tổng cộng</strong>
+                        <strong className="fw-normal">Tổng cộng</strong>
                         <span className="d-flex">
                           <p className="mr-2"> VND </p> {total.toLocaleString()}₫
                         </span>
@@ -519,7 +519,7 @@ function Checkout(props) {
           success && (
             <section className="py-5">
               <div className="p-5 text-center">
-                <h1>Bạn đã đặt hàng thành công!</h1>
+                <h1 className="fst-normal">Bạn đã đặt hàng thành công!</h1>
                 <p style={{ fontSize: "1.2rem" }}>Vui lòng check mail.</p>
 
                 <a className="btn btn-warning mt-2" href={"/"}>

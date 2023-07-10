@@ -72,8 +72,8 @@ function ListCart(props) {
               </Link>
             </div>
             <div className="col-md-6">
-              <Card.Title className="mb-3">{val.nameProduct}</Card.Title>
-              <Card.Subtitle className="mb-3">Size {val.size}</Card.Subtitle>
+              <Card.Title className="mb-3 fw-normal">{val.nameProduct}</Card.Title>
+              <Card.Subtitle className="mb-3 fw-normal">Size {val.size}</Card.Subtitle>
               <div className="quantity">
                 <Button
                   variant="dark"
@@ -85,7 +85,7 @@ function ListCart(props) {
                   <AiFillCaretLeft />
                 </Button>
                 <input
-                  className="form-control form-control-sm border-0 shadow-0 p-0"
+                  className="form-control form-control-sm border-0 shadow-0"
                   type="text"
                   value={val.quantity}
                   readOnly
@@ -121,10 +121,10 @@ function ListCart(props) {
               }
             </div>
             <div className="col-md-12 d-flex justify-content-between">
-              <p style={{ fontWeight: "700" }}>Thành tiền:</p>
+              <p style={{ fontWeight: "600" }}>Thành tiền:</p>
               <p
                 className="mb-0 small"
-                style={{ color: "red", fontWeight: "700" }}
+                style={{ color: "red", fontWeight: "600" }}
               >
                 {(parseInt(val.promotionPrice ? val.promotionPrice : val.price) * parseInt(val.quantity)).toLocaleString()}₫
               </p>

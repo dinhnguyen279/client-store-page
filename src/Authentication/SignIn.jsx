@@ -80,7 +80,7 @@ function SignIn(props) {
         if (dataLogin.loginType === "email") {
             if (!dataLogin.loginValue) {
                 isValid = false;
-                error.email = "Tên đăng không được để trống!"
+                error.email = "Tên đăng nhập không được để trống!"
             } else if (!validateEmail(dataLogin.loginValue)) {
                 isValid = false;
                 error.email = "Email không hợp lệ!"
@@ -90,12 +90,17 @@ function SignIn(props) {
         if (dataLogin.loginType === "phone") {
             if (!dataLogin.loginValue) {
                 isValid = false;
-                error.phone = "Tên đăng không được để trống!"
+                error.phone = "Tên đăng nhập không được để trống!"
             }
             else if (!validatePhoneNumber(dataLogin.loginValue)) {
                 isValid = false;
                 error.phone = "Số điện thoại không hợp lệ!";
             }
+        }
+
+        if (!dataLogin.loginValue) {
+            isValid = false;
+            error.phone = "Tên đăng nhập không được để trống!"
         }
 
         if (!dataLogin.password) {

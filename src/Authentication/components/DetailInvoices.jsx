@@ -41,6 +41,7 @@ function DetailInvoices(props) {
                 })
         }
     }, [listProduct, listIdProduct])
+
     return (
         <Modal
             {...props}
@@ -55,12 +56,12 @@ function DetailInvoices(props) {
             </Modal.Header>
             <Modal.Body>
                 <div className='detail-invoices'>
-                    <p>Người nhận:<b> {dataDetail.fullname}</b></p>
-                    <p>Số điện thoại:<b> {dataDetail.phone}</b></p>
-                    <p>Địa chỉ:<b> {dataDetail.address}</b></p>
-                    {dataDetail.reasonCancel !== "" ?
+                    <p>Người nhận:<b className="fw-bolder">  {dataDetail.fullname}</b></p>
+                    <p>Số điện thoại:<b className="fw-bolder">  {dataDetail.phone}</b></p>
+                    <p>Địa chỉ:<b className="fw-bolder">  {dataDetail.address}</b></p>
+                    {dataDetail.reasonCancel !== null ?
                         (
-                            <p>Lý do hủy:<b> {dataDetail.reasonCancel}</b></p>
+                            <p>Lý do hủy:<b className="fw-bolder"> {dataDetail.reasonCancel}</b></p>
                         )
                         : ""}
                 </div>

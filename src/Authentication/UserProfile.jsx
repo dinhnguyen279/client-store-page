@@ -163,7 +163,7 @@ const UserProfile = (props) => {
               className="img-profile"
               alt="Profile Picture"
             />
-            <h1>{getDataUser.fullname}</h1>
+            <h1 className="fw-normal">{getDataUser.fullname}</h1>
           </div>
         </div>
 
@@ -387,7 +387,7 @@ const UserProfile = (props) => {
                           ) : ""}
                         </span>
                         |
-                        <span className="text-uppercase ml-1" style={{ color: "red", fontWeight: "bolder" }}>
+                        <span className="text-uppercase ml-1 fw-bolder" style={{ color: "red" }}>
                           {val.status === "Chờ xác nhận" ? "Chờ xác nhận" : ""}
                           {val.status === "Đã hủy" ? "Đã Hủy" : ""}
                           {val.status === "Đang vận chuyển" ? "Đang vận chuyển" : ""}
@@ -397,17 +397,17 @@ const UserProfile = (props) => {
                     </div>
                     <div className="content-order">
                       <div>
-                        <p><b>Người nhận: {val.fullname}</b></p>
-                        <p><b>Tổng sản phẩm: {val.nameProduct.split(",").length}</b></p>
-                        <p><b>Phương thức thanh toán: {val.payment}</b></p>
+                        <p>Người nhận:<b className="fw-bolder"> {val.fullname}</b></p>
+                        <p>Tổng sản phẩm:<b className="fw-bolder"> {val.nameProduct.split(",").length}</b></p>
+                        <p>Phương thức thanh toán:<b className="fw-bolder"> {val.payment}</b></p>
                       </div>
                       <div>
-                        <p><b>Ngày mua: {val.created_date}</b></p>
+                        <p>Ngày mua:<b className="fw-bolder"> {val.created_date}</b></p>
                       </div>
                     </div>
                     <div className="footer-order">
                       <p className="text-base">
-                        <b>Tổng đơn:</b> {(parseInt(val.total)).toLocaleString()}₫
+                        Tổng đơn: <b className="fw-bolder">{(parseInt(val.total)).toLocaleString()}₫</b>
                       </p>
                       <div className="">
                         {val.status === "Đã hủy" ? (

@@ -41,7 +41,7 @@ body {
 textarea {
   max-width: 400px;
   background-color: white;
-  color: black;
+  color: black !important;
   letter-spacing: 1px;
 }
 

@@ -153,7 +153,7 @@ function Cart(props) {
       </section>
       {getCartById !== undefined && getCartById.length !== 0 ? (
         <section className="py-5 container">
-          <h4 className="text-uppercase mb-5 text-center">Giỏ hàng của bạn</h4>
+          <h4 className="text-uppercase mb-5 text-center fw-normal">Giỏ hàng của bạn</h4>
           <div className="row">
             <div className="col-lg-8 mb-4 mb-lg-0">
               <ListCart
@@ -178,17 +178,17 @@ function Cart(props) {
             <div className="col-lg-4">
               <div className="card border-0 rounded-0 p-lg-4 bg-light">
                 <div className="card-body">
-                  <h5 className="text-uppercase mb-4">Thông tin đơn hàng</h5>
+                  <h5 className="text-uppercase mb-4 text-center">Thông tin đơn hàng</h5>
                   <ul className="list-unstyled mb-0">
                     <li className="d-flex align-items-center justify-content-between">
-                      <strong className="small font-weight-bold">
+                      <strong className="small fw-normal">
                         Thành tiền
                       </strong>
                       <span className="text-muted small">{total.toLocaleString()}₫</span>
                     </li>
                     <li className="border-bottom my-2"></li>
                     <li className="d-flex align-items-center justify-content-between mb-4">
-                      <strong className="font-weight-bold">
+                      <strong className="fw-normal">
                         Tổng tiền
                       </strong>
                       <span>{total.toLocaleString()}₫</span>

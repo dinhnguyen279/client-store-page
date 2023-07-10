@@ -237,7 +237,7 @@ function Home(props) {
                     {/* Best Seller */}
                     <section className='py-5'>
                         <header className="text-center">
-                            <h2 className="h2 text-uppercase mb-4">Best Seller</h2>
+                            <h2 className="text-uppercase mb-4">Best Seller</h2>
                         </header>
                         <div className='row card-product'>
                             <div className='col-md-12 col-xl-4 col-sm-12'>
@@ -348,7 +348,9 @@ function Home(props) {
                     </section>
 
                     <section className="py-5">
-                        <Card.Title className='text-center'><h2> Ảnh đẹp Sports Zone</h2></Card.Title>
+                        <header className="text-center">
+                            <h2 className='text-uppercase'>Sports Zone</h2>
+                        </header>
                         <div className='post-grid'>
                             <div className="post-item"><Card.Img className='post-img' src={Image.Carouselendpage1} /></div>
                             <div className="post-item"><Card.Img className='post-img' src={Image.Carouselendpage2} /></div>

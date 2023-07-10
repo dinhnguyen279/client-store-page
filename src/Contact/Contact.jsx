@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom';
 import { BsFacebook, BsFillPhoneFill } from "react-icons/bs"
 import { FaEnvelope, FaMapMarkerAlt, FaPhone } from "react-icons/fa"
 import { AiFillGithub, AiFillFacebook, AiFillMail, } from "react-icons/ai"
+import alertify from 'alertifyjs';
 import "./Contact.css"
 const Contact = () => {
     const [fullname, setFullname] = useState("")
     const [email, setEmail] = useState("")
     const [phone, setPhone] = useState("")
     const [content, setContent] = useState("")
-
+    const [errors, setErrors] = useState({})
     const onChangeName = (e) => {
         setFullname(e.target.value)
     }
@@ -41,14 +42,59 @@ const Contact = () => {
         }
     }
 
+    const validateEmail = (email) => {
+        const validEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{3})+$/
+        return validEmail.test(String(email).toLowerCase())
+    }
+    const validateForm = () => {
+        let isValid = true;
+        const error = {};
+
+        if (!fullname) {
+            isValid = false;
+            error.fullname = "Tên không được để trống!"
+        }
+
+        if (!email) {
+            isValid = false;
+            error.email = "Email không được để trống!"
+        } else if (!validateEmail(email)) {
+            isValid = false;
+            error.email = "Địa chỉ email không hợp lệ!"
+        }
+
+        if (!content) {
+            isValid = false;
+            error.content = "Vui lòng nhập nội dung cần tư vấn!"
+        }
+
+        setErrors(error);
+        return isValid
+    }
+
+
     const onSubmitForm = (e) => {
         e.preventDefault()
-        axios.post(saveGoogleSheet.url, saveGoogleSheet.body, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        }).then(res => console.log(res))
+        if (validateForm()) {
+            axios
+                .post(saveGoogleSheet.url, saveGoogleSheet.body, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                .then(res => console.log("res", res))
+                .catch(err => console.log("err send form", err))
+            alertify.set("notifier", "position", "bottom-left");
+            alertify.success("Gửi thành công!");
+            setTimeout(() => {
+                setFullname("");
+                setEmail("");
+                setPhone("");
+                setContent("");
+            }, 1200)
+        }
     }
+
     return (
         <>
             <section className="py-3 bg-light mb-3 header-contact">
@@ -71,10 +117,12 @@ const Contact = () => {
                                     <label>Tên (bắt buộc)*</label>
                                     <input className='input-contact ' type="text" name="fullname" value={fullname} onChange={onChangeName} />
                                 </div>
+                                {errors.fullname && <p className="text-danger">{errors.fullname}</p>}
                                 <div className='form-input-contact'>
                                     <label>Email (bắt buộc)*</label>
                                     <input className='input-contact ' type="text" name="email" value={email} onChange={onChangeEmail} />
                                 </div>
+                                {errors.email && <p className="text-danger">{errors.email}</p>}
                                 <div className='form-input-contact'>
                                     <label>Số Điện Thoại</label>
                                     <input className='input-contact ' type="text" name="phone" value={phone} onChange={onChangePhone} />
@@ -91,6 +139,7 @@ const Contact = () => {
                                         placeholder="NỘI DUNG CẦN TƯ VẤN"
                                     />
                                 </div>
+                                {errors.content && <p className="text-danger">{errors.content}</p>}
                                 <div className='m-t-10'>
                                     <button className="btn btn-warning send-button" id="submit" type="submit" value="SEND">
                                         <div className="alt-send-button">
