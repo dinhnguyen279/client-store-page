@@ -4,7 +4,7 @@ html {
   scroll-behavior: smooth !important;
 }
 body {
-  font-family: "Quicksand", sans-serif !important;
+  font-family: "Poppins", sans-serif !important;
 }
 .modal-content {
   border: none;
@@ -662,7 +662,7 @@ button:hover::after {
 }
 
 .nav-menu {
-  font-weight: 600;
+  font-weight: 500;
   margin-right: 20px;
   cursor: pointer;
 }
@@ -748,6 +748,7 @@ button:hover::after {
 }
 
 .nav-list-respon {
+  font-weight: 400;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -904,7 +905,7 @@ button:hover::after {
 .main-banner:hover .action-banner {
   visibility: visible;
   opacity: 1;
-  margin-top: 30px;
+  margin-top: 40px;
   z-index: 10;
 }
 
@@ -921,7 +922,7 @@ button:hover::after {
   }
 
   .action-banner {
-    margin-top: 30px;
+    margin-top: 40px;
     visibility: visible;
     opacity: 10;
   }
@@ -929,7 +930,7 @@ button:hover::after {
   .content-banner:after {
     content: " ";
     position: absolute;
-    bottom: 80px;
+    bottom: 70px;
     right: 0;
     left: 0;
     width: 50px;
@@ -939,6 +940,14 @@ button:hover::after {
     transition: width 0.5s ease-out 0.5s;
     margin: 0 auto;
     z-index: 1;
+  }
+}
+
+@media only screen and (max-width: 390px) {
+  .action-banner {
+    margin-top: 50px;
+    visibility: visible;
+    opacity: 10;
   }
 }
 
@@ -1039,7 +1048,6 @@ button:hover::after {
 .body-product {
   padding: 30px;
 }
-
 .body-product h1 {
   margin-bottom: 40px;
   letter-spacing: 5px;

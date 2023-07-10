@@ -4,7 +4,6 @@ import './Auth.css'
 import { AiFillEye, AiFillEyeInvisible, AiOutlineLock, AiOutlineMail, AiOutlineUser, AiOutlinePhone } from "react-icons/ai"
 import axiosClient from '../API/axiosClient';
 import alertify from 'alertifyjs';
-import { useEffect } from 'react';
 import LoginWithFirebase from './components/LoginWithFirebase';
 SignUp.propTypes = {
 
@@ -112,6 +111,11 @@ function SignUp(props) {
                         alertify.set("notifier", "position", "bottom-right");
                         alertify.error(res.data.error);
                     }
+                })
+                .catch(err => {
+                    console.log("err", err);
+                    alertify.set("notifier", "position", "bottom-right");
+                    alertify.error("Lỗi hệ thống vui lòng thử lại sau!");
                 })
         }
     }

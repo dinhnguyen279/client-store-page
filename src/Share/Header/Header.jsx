@@ -290,9 +290,8 @@ function Header(props) {
                     onBlur={handleOnBlur}
                     title="All Categories"
                   >
-                    <span>
-                      {" "}
-                      <FaThList /> Bộ Sưu Tập
+                    <span className='d-flex align-items-center'>
+                      <FaThList /> <p> Bộ Sưu Tập</p>
                     </span>
                     <span>
                       <FaAngleDown />
@@ -392,8 +391,8 @@ function Header(props) {
               onClick={handleOpen}
               onBlur={handleOnBlur}
             >
-              <span>
-                <FaThList /> Bộ Sưu Tập
+              <span className='d-flex align-items-center'>
+                <FaThList /> <p> Bộ Sưu Tập</p>
               </span>
               <span>
                 <FaAngleDown />

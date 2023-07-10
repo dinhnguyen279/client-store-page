@@ -121,8 +121,8 @@ function Home(props) {
                                             <img className='img-banner' src={Image.categorybanner1} alt="" />
                                         </div>
                                         <div className='content-banner'>
-                                            <p>Cập nhật mẫu mới nhất</p>
-                                            <h3>Giày Đá Banh Cỏ Nhân Tạo</h3>
+                                            <h6 className='mb-2'>Cập nhật mẫu mới nhất</h6>
+                                            <h5 className='banner-item'><b>Giày Đá Banh</b></h5>
                                             <p className='action-banner'>
                                                 <span className='button'>
                                                     Xem Ngay
@@ -138,8 +138,8 @@ function Home(props) {
                                             <img className='img-banner' src={Image.categorybanner2} alt="" />
                                         </div>
                                         <div className='content-banner'>
-                                            <p>Cập Nhật Mẫu 2023</p>
-                                            <h3>Quần Áo Bóng Đá</h3>
+                                            <h6 className='mb-2'>Cập Nhật Mẫu 2023</h6>
+                                            <h5 className='banner-item'><b>Quần Áo Bóng Đá</b></h5>
                                             <p className='action-banner'>
                                                 <span className='button'>
                                                     Xem Ngay
@@ -155,8 +155,8 @@ function Home(props) {
                                             <img className='img-banner' src={Image.categorybanner3} alt="" />
                                         </div>
                                         <div className='content-banner'>
-                                            <p>New Arrival 2023</p>
-                                            <h3 className='banner-item'>Phụ Kiện Bóng Đá</h3>
+                                            <h6 className='mb-2'>New Arrival 2023</h6>
+                                            <h5 className='banner-item'><b>Phụ Kiện Bóng Đá</b></h5>
                                             <p className='action-banner'>
                                                 <span className='button'>
                                                     Xem Ngay
@@ -212,21 +212,21 @@ function Home(props) {
                                     <Card.Img src={Image.lookbooks_1} />
                                     <div className='p-t-10'>
                                         <p style={{ fontSize: "18px", paddingBottom: "10px" }}>Buibal Falcon</p>
-                                        <Link to={"/contact"} className='text-uppercase text-lookbook' style={{ fontFamily: "sans-serif" }}>In ấn miễn phí</Link>
+                                        <Link to={"/contact"} className='text-uppercase text-lookbook'>In ấn miễn phí</Link>
                                     </div>
                                 </div>
                                 <div className="images-item">
                                     <Card.Img src={Image.lookbooks_2} />
                                     <div className='p-t-10'>
-                                        <p style={{ fontSize: "18px", paddingBottom: "10px" }}>Quần Áo Bóng Đá Thái Lan</p>
-                                        <Link to={"/contact"} className='text-uppercase text-lookbook' style={{ fontFamily: "sans-serif" }}>In ấn font xịn</Link>
+                                        <p style={{ fontSize: "18px", paddingBottom: "10px" }}>Quần Áo Bóng Đá</p>
+                                        <Link to={"/contact"} className='text-uppercase text-lookbook'>In ấn font xịn</Link>
                                     </div>
                                 </div>
                                 <div className="images-item">
                                     <Card.Img src={Image.lookbooks_3} />
                                     <div className='p-t-10'>
                                         <p style={{ fontSize: "18px", paddingBottom: "10px" }}>Quần Áo Đá Banh Trẻ Em</p>
-                                        <Link to={"/contact"} className='text-uppercase text-lookbook' style={{ fontFamily: "sans-serif" }}>In ấn miễn phí</Link>
+                                        <Link to={"/contact"} className='text-uppercase text-lookbook'>In ấn miễn phí</Link>
                                     </div>
                                 </div>
                             </div>
@@ -285,7 +285,7 @@ function Home(props) {
                                         <div>
                                             <p>
                                                 <b> KAMITO TA11 </b> – mẫu giày mang đậm dấu ẩn của tuyển thủ
-                                                <i> <b> Nguyễn Tuấn Anh </b> </i> sẽ mang đến cho bạn một trải nghiệm hoàn
+                                                <i> Nguyễn Tuấn Anh</i> sẽ mang đến cho bạn một trải nghiệm hoàn
                                                 toàn khác biệt.
                                             </p>
                                             <p>
@@ -333,7 +333,7 @@ function Home(props) {
                                 hotdeals ? (
                                     hotdeals.map((value, key) => {
                                         return (
-                                            <div className="col-md-4 col-xl-3 col-sm-6" key={key + 1}>
+                                            <div className="col-md-3 col-xl-2 col-sm-6" key={key + 1}>
                                                 <CardProduct handleAddWishlist={props.handleAddWishlist} itemProduct={value} />
                                             </div>
                                         )

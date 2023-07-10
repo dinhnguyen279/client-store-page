@@ -25,10 +25,11 @@ function SignIn(props) {
     // Cấu hình lưu thông tin khách hàng đăng nhập bằng google và facebook
     useEffect(() => {
         // Check localStorage nếu có thông tin user thì gọi ra trước
-        if (localStorage.getItem("accountName") && localStorage.getItem("password")) {
+        if (localStorage.getItem("accountName") && localStorage.getItem("password") && localStorage.getItem("loginType")) {
             const accountName = localStorage.getItem("accountName")
             const password = localStorage.getItem("password")
-            setDataLogin({ ...dataLogin, loginValue: accountName, password: password })
+            const loginType = localStorage.getItem("loginType")
+            setDataLogin({ ...dataLogin, loginValue: accountName, password: password, loginType: loginType })
             setChecked(true)
         }
         firebase.auth().onAuthStateChanged(result => {
@@ -120,7 +121,6 @@ function SignIn(props) {
             } else if (dataLogin.loginType === "email") {
                 data.email = dataLogin.loginValue;
             }
-
             await axiosClient.post(SIGNIN_URL, data)
                 .then((res) => {
                     if (res.data.status) {
@@ -137,6 +137,8 @@ function SignIn(props) {
                 })
                 .catch((err) => {
                     console.log("error: ", err)
+                    alertify.set("notifier", "position", "bottom-right");
+                    alertify.error("Bạn Đã Đăng Nhập Thất Bại!");
                 }
                 )
         }
@@ -157,10 +159,12 @@ function SignIn(props) {
             setChecked(true)
             localStorage.setItem("accountName", dataLogin.loginValue)
             localStorage.setItem("password", dataLogin.password)
+            localStorage.setItem("loginType", dataLogin.loginType)
         } else {
             setChecked(false)
             localStorage.removeItem("accountName")
             localStorage.removeItem("password")
+            localStorage.removeItem("loginType")
         }
     }
     return (

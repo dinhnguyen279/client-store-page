@@ -166,7 +166,7 @@ function Cart(props) {
                   <div className="col-lg-6 col-md-12 mb-3 mb-md-0 text-md-left">
                     <Link
                       className="btn btn-link text-dark btn-sm"
-                      to={`/shop`}
+                      to={`/shop/all`}
                     >
                       <AiOutlineArrowLeft className="mr-2 text-lg" />
                       Tiếp mua mua sắm
@@ -213,7 +213,7 @@ function Cart(props) {
         : (
           <section className="cart-empty">
             <p className="text-lg mb-3">Giỏ hàng rỗng</p>
-            <a className="btn-buy btn btn-dark" href="/">
+            <a className="btn-buy btn btn-dark" href="/shop/all">
               Tiếp tục mua hàng
             </a>
           </section>

@@ -155,7 +155,7 @@ function Detail(props) {
       setComment("")
     } else {
       alertify.set("notifier", "position", "top-right");
-      alertify.error("Bình luận thất bại bạn phải đăng nhập!");
+      alertify.error("Bình luận bạn phải đăng nhập!");
       return
     }
   };
