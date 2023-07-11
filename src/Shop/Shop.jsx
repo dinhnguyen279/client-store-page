@@ -137,7 +137,7 @@ function Shop(props) {
   }, [pagination, valueSearch]);
 
   return (
-    <div className="container main-shop">
+    <div className="main-shop">
       <section className="py-3 bg-light mb-3">
         <div className="container">
           <ol className="breadcrumb">
@@ -239,7 +239,7 @@ function Shop(props) {
         ))}
       {/* -------------Modal Product----------------- */}
 
-      <section className="py-5">
+      <section className="py-5 container">
         <div className="container p-0">
           <div className="row">
             <div className="col-lg-12 mb-5 mb-lg-0">

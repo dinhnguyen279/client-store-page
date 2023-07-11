@@ -1273,6 +1273,9 @@ button:hover::after {
   grid-gap: 10px;
   padding: 30px 0;
 }
+.images::-webkit-scrollbar {
+  display: none;
+}
 
 @media screen and (max-width: 1080px) {
   .images {
@@ -1286,6 +1289,7 @@ button:hover::after {
     padding: 25px;
     /* scroll-padding: 25px; */
   }
+
   .images-item {
     scroll-snap-align: center;
   }
